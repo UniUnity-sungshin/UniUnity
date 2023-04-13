@@ -5,6 +5,9 @@ const output ={
     home : (req,res)=>{
         res.render('home/mainpage.html');
     },
+    signin : (req,res)=>{
+        res.render('home/signin.html');
+    },
     
 }
 
