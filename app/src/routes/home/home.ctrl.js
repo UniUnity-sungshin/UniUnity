@@ -8,6 +8,9 @@ const output ={
     signin : (req,res)=>{
         res.render('home/signin.html');
     },
+    signup : (req,res)=>{
+        res.render('home/signup.html');
+    },
     
 }
 
