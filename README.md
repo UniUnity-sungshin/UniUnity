@@ -1,5 +1,4 @@
-# UniUnity
-
+# ÜniÜnity
 ## 커밋 유형 지정
 
 FEAT : 새로운 기능의 추가 <br>
