@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const mysql = require('mysql2/promise');
 
-let uniunitydb=async()=>{
+let uniunity_db=async()=>{
     const db=mysql.createPool({
         host:process.env.DB_HOST,
         user:process.env.DB_USER,
@@ -21,4 +21,4 @@ let uniunitydb=async()=>{
 };
 
 
-module.exports=uniunitydb 
+module.exports=uniunity_db 
