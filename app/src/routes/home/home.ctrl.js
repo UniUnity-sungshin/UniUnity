@@ -1,6 +1,8 @@
 "use strict"
 
 const User =require("../../models/User");
+// const Retailer = require("../../models/Retailer");
+
 const output ={
     home : (req,res)=>{
         res.render("home/index");
@@ -11,6 +13,15 @@ const output ={
     },
     register:(req,res)=>{
         res.render("home/register");
+    },
+    retailer:(req,res)=>{
+        res.render("home/retailer");
+    },
+    partner:(req,res)=>{
+        res.render("home/partner");
+    },
+    partnerUni:(req,res)=>{
+        res.render('/partner/:university');
     },
 }
 
