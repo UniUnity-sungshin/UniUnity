@@ -1,0 +1,87 @@
+.headerBox{
+    width: 100%;
+    height: 150px;
+    background-color: #FDF0A5;
+}
+
+.headerContent{
+    width: 80%;
+    height: 30px;
+    list-style: none;
+    margin: 0 auto 0;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* 큰 제목 */
+.retailerTextBox{
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 150px;
+}
+
+#retailerText{
+    width: 400px;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* 검색창 */
+#serchBox{
+    width: 700px;
+    height: 50px;
+    margin: 0 auto 0;
+    display: inline;
+}
+
+#retailerMapSerch{
+    width: 600px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 auto;
+    border: 1px solid #FFD400;
+    border-radius: 5px;
+    outline: none;
+    
+}
+
+#serchBtn{
+    width: 60px;
+    height: 40px;
+    margin-left: 5px;
+    background-color: #FFD400;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+/* 지도 */
+#mapBox{
+    /* width: 1300px; */
+    height: 900px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+
+#map{
+    /* width: 700px; */
+    height: 800px;
+    margin-left: 40px;
+    border-radius: 5px;
+} 
+
+#mapStoreInfo{
+    font-size: 17px;
+}
+
+.storeInfoTextBox{
+    margin-bottom: 20px;
+}
+
+.storeInfoText{
+    color: #979797;
+}
