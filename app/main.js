@@ -6,7 +6,7 @@ const bodyParser =require("body-parser");
 const app = express();
 
 // 라우팅
-const controllers = require("./src/controllers");
+const controllers = require("./src/controllers/index");
 const errorController=require("./src/controllers/errorController");
 //db
 const uniunity_db = require("./config/db");
@@ -26,11 +26,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use("/",controllers); //use -> 미들 웨어를 등록해주는 메서드
 
 //에러처리를 위한 미들웨어 생성
-app.use(errorController.logErrors);
-app.use(errorController.respondNoResourceFound);
-app.use(errorController.respondInternalEroor);
+// app.use(errorController.logErrors);
+// app.use(errorController.respondNoResourceFound);
+// app.use(errorController.respondInternalEroor);
 
-
+app.use(controllers);
 uniunity_db();
 
 module.exports =app;

@@ -3,7 +3,6 @@
 const User =require("../models/User");
 const output ={
     home : (req,res)=>{
-
         res.render('home/mainpage.html');
     },
     signin : (req,res)=>{
