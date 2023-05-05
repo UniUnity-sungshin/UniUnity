@@ -3,15 +3,17 @@
 const User =require("../models/User");
 const output ={
     home : (req,res)=>{
-        res.render("index");
+
+        res.render('home/mainpage.html');
+    },
+    signin : (req,res)=>{
+        res.render('home/signin.html');
+    },
+    signup : (req,res)=>{
+        res.render('home/signup.html');
     },
     
-    login : (req,res)=>{
-        res.render("login");
-    },
-    register:(req,res)=>{
-        res.render("register");
-    },
+
 }
 
 //로그인 인증 process
