@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부트스트랩 JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/home/retailerPage.css">
+    <!-- 카카오 지도 API 사용 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
+    
+    <title>ÜniÜnity | 소상공인</title>
+</head>
+<body>
+    <header>
+        <!-- header 박스 -->
+        <div class="headerBox">
+            <!-- header 목차 -->
+            <ul class="headerContent">
+            
+            </ul>
+        </div>
+    </header>
+    <main>
+        <!-- 소상공인 지도 모아보기 -->
+
+        <!-- "우리대학 인근 소상공인 모아보기" + 검색창-->
+        <div class="retailerTextBox">
+            <div id="retailerText">우리대학 인근 소상공인 상가 모아보기</div>
+        </div>
+
+        <!-- 검색창 -->
+        <form action="" class="retailerTextBox">
+            <div class="input-group mb-3" id="serchBox">
+                <input type="text" class="form-control" id="retailerMapSerch" placeholder="학교 주변 가게 검색하기" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" id="serchBtn" type="button" >검색</button>
+            </div>
+        </form>
+        
+        <!-- 지도 가게 업소 종류 -->
+        <div class="container" id="storeKind">
+            <div class="row text-center storeKindUl">
+              <div class="col-lg-2 storeKindli" id="storeKind_food">
+                식당
+              </div>
+              <div class="col-lg-2 storeKindli" id="storeKind_cafe">
+                카페
+              </div>
+              <div class="col-lg-2 storeKindli" id="storeKind_medical">
+                의료 
+              </div>
+              <div class="col-lg-2 storeKindli" id="storeKind_academy">
+                학원
+              </div>
+              <div class="col-lg-2 storeKindli" id="storeKind_conv">
+                편의시설
+              </div>
+              <div class="col-lg-2 storeKindli" id="storeKind_etc">
+                기타
+              </div>
+            </div>
+        </div>
+        
+        <!-- 지도가 들어가는 박스 -->
+        <div class="container" id="mapBox">
+            <div class="row">
+                <!-- 지도 -->
+                <div class="col" id="map">
+                    
+                </div>
+                <!-- 지도 클릭 시 가게 정보 출력 -->
+                <div class="col text-center" id="mapStoreInfo">
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText">상호명 : </span>
+                        <span class="" id="storeName"></span>
+                    </div>
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText">주소 : </span>
+                        <span class="" id="storeAdr"></span>
+                    </div>
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText">업종명 : </span>
+                        <span class="" id="storeClass"></span>
+                     </div>
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText" id="storeEtc">기타 : </span>
+                        <span class="" id=""></span>
+                    </div>
+                </div>
+            </div>         
+        </div>
+
+
+
+        
+        
+       </script>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요
+    <script src="js/bootstrap.min.js"></script> -->
+    
+    <!-- 지도 사용 JS -->
+    <script src="/js/home/ratailerPage.js"></script>
+</body>
+</html>
