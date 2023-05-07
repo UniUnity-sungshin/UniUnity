@@ -22,7 +22,6 @@ const fillSearch = (suggestArr) => {
         universityNameList.push(el.university_name);
         //console.log(el.university_name);
     })
-    universityNameList.push('ㄱㅓㄴㄱㅜㄱㄷㅐㅎㅏㄱㄱㅛ');
 }
 
 //mainpage 로드 후 loadData()실행
