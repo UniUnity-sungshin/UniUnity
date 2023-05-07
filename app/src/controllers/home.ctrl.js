@@ -1,5 +1,6 @@
 "use strict"
 
+const University = require("../models/University");
 const User =require("../models/User");
 const output ={
     home : (req,res)=>{
@@ -11,7 +12,12 @@ const output ={
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
-    
+    searchUniversityName:async(req,res)=>{
+        const university_name=new University();
+        const response=await university_name.searchUniversity(req.params.keyword);
+        return res.json(response);
+
+    }
 
 }
 
@@ -27,6 +33,7 @@ const process={
         const response=user.register();
         return res.json(response);
     },
+    
 };
 
 module.exports={
