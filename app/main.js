@@ -31,6 +31,5 @@ app.use("/",controllers); //use -> 미들 웨어를 등록해주는 메서드
 // app.use(errorController.respondInternalEroor);
 
 app.use(controllers);
-uniunity_db();
 
 module.exports =app;
