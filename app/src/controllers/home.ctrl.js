@@ -12,9 +12,9 @@ const output ={
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
-    searchUniversityName:async(req,res)=>{
+    showUniversityNameList:async(req,res)=>{
         const university_name=new University();
-        const response=await university_name.searchUniversity(req.params.keyword);
+        const response=await university_name.showUniversityNameList();
         return res.json(response);
 
     }
