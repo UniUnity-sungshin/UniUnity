@@ -3,7 +3,7 @@ const searchInput = document.querySelector(".search_input");
 const relContainer = document.querySelector(".rel_search");
 let cache = `http://localhost:3000/search/universityname/`;
 
-let universityNameList = [];
+let universitySearchList = [];
 
 const loadData = () => {
     const url = `http://localhost:3000/showUniversityNameList`;
@@ -19,7 +19,7 @@ const fillSearch = (suggestArr) => {
     ul.innerHTML = "";
     suggestArr.forEach((el, idx) => {
         // el : {universityname : "성신여자대학교"}
-        universityNameList.push(el.university_name);
+        universitySearchList.push(el);
         //console.log(el.university_name);
     })
 }
@@ -40,11 +40,14 @@ const checkInput = () => {
         return ;
     }
     else{
-        universityNameList.forEach((university_name) => {
-            if (university_name.indexOf(input) >= 0) {
+        universitySearchList.forEach((el) => {
+            if (el.university_name.indexOf(input) >= 0) {
                 const li=document.createElement("li");
-                li.innerHTML=university_name;
+                const a = document.createElement("a");
                 ul.appendChild(li);
+                li.appendChild(a);
+                a.innerHTML=el.university_name;
+                a.href=`/${el.university_url}`;
             }
         })
     }
