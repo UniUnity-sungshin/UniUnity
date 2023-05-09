@@ -6,8 +6,8 @@ const output ={
     home : (req,res)=>{
         res.render('home/mainpage.html');
     },
-    signin : (req,res)=>{
-        res.render('home/signin.html');
+    login : (req,res)=>{
+        res.render('home/login.html');
     },
     signup : (req,res)=>{
         res.render('home/signup.html');
@@ -23,10 +23,17 @@ const output ={
 
 //로그인 인증 process
 const process={
-    login:(req,res)=>{
+    login:async (req,res)=>{
+        console.log(req);
+        console.log(req.body);
         const user= new User(req.body);
-        const response=user.login();
-        return res.json(response);
+        const response=await user.login();
+        const url ={
+            method:"POST",
+            path:"/login",
+            status: response.arr?400:200,
+        };
+        return res.status(url.status).json(response);
     },
     register:(req,res)=>{
         const user= new User(req.body);
