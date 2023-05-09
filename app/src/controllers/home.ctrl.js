@@ -2,6 +2,8 @@
 
 const University = require("../models/University");
 const User =require("../models/User");
+// const Partner = require("../models/Partner");
+
 const output ={
     home : (req,res)=>{
         res.render('home/mainpage.html');
@@ -17,8 +19,13 @@ const output ={
         const response=await university_name.showUniversityNameList();
         return res.json(response);
 
-    }
-
+    },
+    partner:(req,res)=>{
+        res.render("home/partner.html");
+    },
+    // partnerUni:(req,res)=>{
+    //     res.render('/partner/:university.html');
+    // },
 }
 
 //로그인 인증 process
