@@ -12,6 +12,11 @@ const output ={
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
+
+    postAll : (req,res)=>{
+        res.render('home/post.html');
+    },
+    
     partner:(req,res)=>{
             res.render("home/partner.html");
     }
