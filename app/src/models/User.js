@@ -9,13 +9,15 @@ class User{
         this.body=body;
     }
 
-    login(){
+    async login(){
         const client =this.body
         console.log(this.body);
-        const {email,psword}=UserStorage.getUserInfo(client.user_email);
-        console.log(email,psword);
-        if(email){
-            if(email===client.user_email && psword ===  client.psword){
+        const userInfo =await UserStorage.getUserInfo(client.user_email);
+        if(userInfo){
+            let user_email=userInfo.user_email
+            let psword=userInfo.psword
+
+            if(user_email===client.user_email && psword ===  client.psword){
                 return {success : true};
             }
             return {success:false,msg:"비밀번호가 틀렸습니다."};

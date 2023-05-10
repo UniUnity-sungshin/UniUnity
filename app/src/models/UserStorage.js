@@ -6,8 +6,11 @@ class UserStorage{
             const query = "SELECT * FROM User WHERE user_email =?;";
             pool.query(query,[id],(err,data)=>{
                 if(err)reject(`${err}`);
-                //console.log(data[0]);
-                else resolve(data[0]);
+                
+                else {
+                    console.log(data[0]);
+                    resolve(data[0]);
+                }
             });
         });
         
