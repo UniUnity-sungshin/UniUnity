@@ -8,17 +8,17 @@ const output ={
     home : (req,res)=>{
         res.render('home/mainpage.html');
     },
-    signin : (req,res)=>{
-        res.render('home/signin.html');
+    login : (req,res)=>{
+        res.render('home/login.html');
     },
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
-    showUniversityNameList:async(req,res)=>{
-        const university_name=new University();
-        const response=await university_name.showUniversityNameList();
-        return res.json(response);
+
+    postAll : (req,res)=>{
+        res.render('home/post.html');
     },
+    
     partner:(req,res)=>{
         res.render("home/partner.html");
     },
@@ -38,16 +38,24 @@ const output ={
     }
 }
 
-//로그인 인증 process
+
 const process={
-    login:(req,res)=>{
+    //로그인 인증 process
+    login:async (req,res)=>{
+        console.log("1",req.body);
         const user= new User(req.body);
-        const response=user.login();
+        const response=await user.login();
+        console.log("login response:",response);
         return res.json(response);
     },
     register:(req,res)=>{
         const user= new User(req.body);
         const response=user.register();
+        return res.json(response);
+    },
+    showUniversityNameList:async(req,res)=>{
+        const university_name=new University();
+        const response=await university_name.showUniversityNameList();
         return res.json(response);
     },
     
