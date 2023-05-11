@@ -17,7 +17,6 @@ class UniversityStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                console.log(rows);
                 resolve(rows);
             })        
     })

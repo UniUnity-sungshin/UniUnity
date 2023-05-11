@@ -1,7 +1,6 @@
 const ul = document.querySelector(".pop_rel_keywords");
 const searchInput = document.querySelector(".search_input");
 const relContainer = document.querySelector(".rel_search");
-let cache = `http://localhost:3000/search/universityname/`;
 
 let universitySearchList = [];
 
