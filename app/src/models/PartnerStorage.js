@@ -43,7 +43,25 @@ class PartnerStorage{
             })
         })    
     }
-
+    // university_name에 해당하는 배열의 개수 반환 -> partnerPage.js에서 size로 사용
+    static async getPartnerStoreSize(university_id){ 
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    throw err;
+                }
+            });
+            pool.query("SELECT count(*) FROM Partner WHERE university_id=?;",[university_id],function(err,rows){
+                if(err){
+                    console.err('Query 오류',err);
+                    throw err;
+                }
+                console.log(rows);
+                resolve(rows);
+            })
+        })    
+    }
 
 };
 
