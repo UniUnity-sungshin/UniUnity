@@ -8,8 +8,8 @@ const output ={
     home : (req,res)=>{
         res.render('home/mainpage.html');
     },
-    signin : (req,res)=>{
-        res.render('home/signin.html');
+    login : (req,res)=>{
+        res.render('home/login.html');
     },
     signup : (req,res)=>{
         res.render('home/signup.html');
@@ -17,11 +17,13 @@ const output ={
     council : (req,res)=>{
         res.render('council/council.ejs');
     },
-    searchUniversityName:async(req,res)=>{
+    showUniversityNameList:async(req,res)=>{
         const university_name=new University();
-        const response=await university_name.searchUniversity(req.params.keyword);
+        const response=await university_name.showUniversityNameList();
         return res.json(response);
+
     }
+
 }
 
 //로그인 인증 process
