@@ -30,7 +30,7 @@ const pool = mysql.createPool({
         database:process.env.DB_NAME,
         waitForConnections:true,
         insecureAuth:true
-  });
+});
 
 
 module.exports=pool
