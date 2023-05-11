@@ -3,9 +3,9 @@
 // 모듈
 const express = require("express");
 const bodyParser =require("body-parser");
-const passport = require("passport");
+// const passport = require("passport");
 const app = express();
-const pool=require('./config/db')
+const pool=require('./config/db');
 // 라우팅
 const controllers = require("./src/controllers/index");
 const errorController=require("./src/controllers/errorController");
@@ -22,11 +22,11 @@ app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
 //URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제 해결
 
-app.use(require('serve-static')(__dirname + '/src/public'));
-app.use(require('cookie-parser')());
-app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(require('serve-static')(__dirname + '/src/public'));
+// app.use(require('cookie-parser')());
+// app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use("/",controllers); //use -> 미들 웨어를 등록해주는 메서드
