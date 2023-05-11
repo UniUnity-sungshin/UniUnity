@@ -29,7 +29,7 @@ const mysql = require('mysql2/promise');
         database:process.env.DB_NAME,
         waitForConnections:true,
         insecureAuth:true
-  });
+});
 
 const db = {
   getConnection : (callback) => {

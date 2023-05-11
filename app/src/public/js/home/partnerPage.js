@@ -1,5 +1,9 @@
 "use strict";
 
+
+// 중심좌표 -> 선택 대학교의 좌표
+
+
 // 고정 지도 코드
 // ===========================================================================================
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -29,6 +33,29 @@ function panTo() {
 }        
 // ===========================================================================================
 
+
+// ********* 여러개의 마커 제어 ********* //
+// 학교별 제휴 가게 정보 마커로 나타내기
+// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
+// let positions = [
+//     {
+//         latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+//     },
+//     {
+//         content: '<div>생태연못</div>', 
+//         latlng: new kakao.maps.LatLng(33.450936, 126.569477)
+//     },
+//     {
+//         content: '<div>텃밭</div>', 
+//         latlng: new kakao.maps.LatLng(33.450879, 126.569940)
+//     },
+//     {
+//         content: '<div>근린공원</div>',
+//         latlng: new kakao.maps.LatLng(33.451393, 126.570738)
+//     }
+// ];
+
+
 // ********* HTML에 표시될 가게 정보 ********* //
 const storeName = document.getElementById('storeName'),
       storeAdr = document.getElementById('storeAdr'),
@@ -37,29 +64,22 @@ const storeName = document.getElementById('storeName'),
       partnerContent = document.getElementById('partnerContent'),
       eventDate = document.getElementById('eventDate');
 
+let position = [];
 
-// ********* 여러개의 마커 제어 ********* //
-// 학교별 제휴 가게 정보 마커로 나타내기
-// 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-let positions = [
-    {
-        content: '<div>카카오</div>', 
-        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-    },
-    {
-        content: '<div>생태연못</div>', 
-        latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-    },
-    {
-        content: '<div>텃밭</div>', 
-        latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-    },
-    {
-        content: '<div>근린공원</div>',
-        latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-    }
-];
+const loadData = () => {
+    const url = `http://localhost:3000/getPartnerUni`;
+    fetch(url)
+        .then((res) => res.json())
+        .then(res => {
+            console.log(res);
+            fillSearch(res);
+        })
+}
+for (var i = 0; i < size; i++){
+    
+}
 
+// mouseover,mouseout 시에 이벤트 발생
 for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
@@ -92,5 +112,7 @@ function makeOutListener(infowindow) {
         infowindow.close();
     };
 }
+
+
 
 
