@@ -27,15 +27,13 @@ const output ={
         const response = await partner_uni.getUniversityID(req.params.university_name);
         return res.json(response);
     },
-    getPartnerUni: async(req,res)=>{
-        const partner_uni = new Partner();
-        const university_id = await partner_uni.getUniversityID(req.params.university_name);
-        const response = await partner_uni.getPartnerStores(parseInt(university_id));
-        return res.json(response);
-    },
-    partnerUni:async(req,res)=>{
-        res.render("home/partner.html");
-    }
+    // getPartnerUni: async(req,res)=>{
+    //     const partner_uni = new Partner();
+    //     const university_id = await partner_uni.getUniversityID(req.params.university_name);
+    //     const response = await partner_uni.getPartnerStores(parseInt(university_id));
+    //     return res.json(response);
+    // },
+    
 }
 
 
@@ -58,7 +56,12 @@ const process={
         const response=await university_name.showUniversityNameList();
         return res.json(response);
     },
-    
+    getPartnerUni: async(req,res)=>{
+        const partner_uni = new Partner();
+        const university_id = await partner_uni.getUniversityID(req.body.university_name); // req.body = university_name
+        const response = await partner_uni.getPartnerStores(parseInt(university_id));
+        return res.json(response);
+    },
 };
 
 module.exports={
