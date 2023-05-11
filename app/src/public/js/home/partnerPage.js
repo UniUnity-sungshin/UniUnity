@@ -1,4 +1,11 @@
 "use strict";
+const ul = document.querySelector(".pop_rel_keywords");
+const searchInput = document.querySelector(".search_input");
+const relContainer = document.querySelector(".rel_search");
+let cache = `http://localhost:3000/`;
+
+// 중심좌표 -> 선택 대학교의 좌표
+
 
 // 고정 지도 코드
 // ===========================================================================================
@@ -28,14 +35,6 @@ function panTo() {
     map.panTo(moveLatLon);            
 }        
 // ===========================================================================================
-
-// ********* HTML에 표시될 가게 정보 ********* //
-const storeName = document.getElementById('storeName'),
-      storeAdr = document.getElementById('storeAdr'),
-      storeClass = document.getElementById('storeClass'),
-      storePartnerBool = document.getElementById('storePartnerBool'),
-      partnerContent = document.getElementById('partnerContent'),
-      eventDate = document.getElementById('eventDate');
 
 
 // ********* 여러개의 마커 제어 ********* //
@@ -94,3 +93,10 @@ function makeOutListener(infowindow) {
 }
 
 
+// ********* HTML에 표시될 가게 정보 ********* //
+const storeName = document.getElementById('storeName'),
+      storeAdr = document.getElementById('storeAdr'),
+      storeClass = document.getElementById('storeClass'),
+      storePartnerBool = document.getElementById('storePartnerBool'),
+      partnerContent = document.getElementById('partnerContent'),
+      eventDate = document.getElementById('eventDate');
