@@ -27,12 +27,6 @@ const output ={
         const response = await partner_uni.getUniversityID(req.params.university_name);
         return res.json(response);
     },
-    // getPartnerUni: async(req,res)=>{
-    //     const partner_uni = new Partner();
-    //     const university_id = await partner_uni.getUniversityID(req.params.university_name);
-    //     const response = await partner_uni.getPartnerStores(parseInt(university_id));
-    //     return res.json(response);
-    // },
     
 }
 
