@@ -9,7 +9,7 @@ router.get("/",ctrl.output.home);
 router.get("/signin",ctrl.output.signin);
 router.get("/signup",ctrl.output.signup);
 router.get("/:universityname",ctrl.output.council);
-router.get("/council/:universityname",ctrl.result.council);
+router.get("/council/:universityname",ctrl.output.council);
 
 router.get("/search/universityname/:keyword",ctrl.output.searchUniversityName);
 

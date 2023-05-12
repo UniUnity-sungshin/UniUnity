@@ -4,31 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COUNCIL</title>
+    <title>ÜniÜnity | 우리 대학 </title>
     <link rel="stylesheet" src="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-        <!--swiper 라이브러리-->
+    <!--swiper 라이브러리-->
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!--css 연결-->
     <link rel="stylesheet" href="/css/council/council.css">
-
 </head>
 <body>
     <div class="main-container">
+        <!--헤더-->
         <div class="temp-box" id="temp-box1">
+            <!--상단 메뉴바-->
             <div class="menubar">
                 <ul class="menu">
-                    <li>
-                        <a href="http://localhost:3000/sungshin" target="_self">
-                        성신여자대학교
+                    <li id="university_name"> 
+                        <a href="http://localhost:3000/council/" + {university_name} target="_self">
+                            <% response.university_name %>
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/sungshin/storeMap" target="_self">
+                        <a href="http://localhost:3000/sungshin" target="_self">
                         소상공인 가게 지도
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/sungshin/affiliationMap" target="_self">
+                        <a href="http://localhost:3000/partner" target="_self">
                         제휴 지도
                         </a>
                     </li>
@@ -42,6 +44,7 @@
                 </ul>
             </div>
         </div>
+        <!--학교 주요 소식-->
         <div class="temp-box" id="temp-box2">
             <div class="main-news">
                 <ul>
@@ -51,6 +54,7 @@
                     </a>
                 </ul>
             </div>
+            <!--swiper-->
             <div class="swiper">
                 <div class="swiper-wrapper">
                 <!--swiper 요소-->
@@ -70,18 +74,17 @@
                         <img class="news" src="images/img5.JPG" alt="no_image5">
                     </a></div>
                 </div> 
-                <!--pagination-->    
-                <!-- <div class="swiper-pagination"></div>         -->
                 <!--buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
               </div>
         </div>
+        <!--소상공인 상가-->
         <div class="temp-box" id="temp-box3">
             <div class="stores">
                 <ul>
                     <span class="category">우리 대학  인근 소상공인 상가 모아보기</span>
-                        <a href="http://localhost:3000/sungshin/moreStore" target="_self">
+                        <a href="http://localhost:3000/sungshin" target="_self">
                             <span class="more">더보기 ►</span>
                         </a>
                 </ul>
@@ -91,12 +94,13 @@
         </div>
         <div class="temp-box" id="temp-box4">
             <ul class="others">
-                    <a href="http://localhost:3000/sungshin/moreSchool" target="_self">
+                    <a href="http://localhost:3000/" target="_self">
                     <span class="more">다른 학교도 궁금하다면? ►</span>
                     </a>
             </ul>
         </div>
     </div>
+    <!--자바스크립트 연결-->
         <script src="/js/council/council.js"></script>
 </body>
 </html>
