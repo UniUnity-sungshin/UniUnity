@@ -12,6 +12,13 @@ router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversity
 router.get("/:universityname",ctrl.output.council);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/sungshin/postAll",ctrl.output.post);
+router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
+
+// 제휴
+router.get("/partner/:university_name",ctrl.output.partner);
+router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
+router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
+
 
 router.post("/login",ctrl.process.login);
 //council 페이지 라우팅
