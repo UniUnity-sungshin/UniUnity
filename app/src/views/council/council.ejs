@@ -21,21 +21,21 @@
                 <ul class="menu">
                     <li id="university_name"> 
                         <a href="http://localhost:3000/council/" + {university_name} target="_self">
-                            <% response.university_name %>
+                            <%= response.university_name %>
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/sungshin" target="_self">
+                        <a href="http://localhost:3000/store/:university_name" target="_self">
                         소상공인 가게 지도
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/partner" target="_self">
+                        <a href="http://localhost:3000/partner/:university_name" target="_self">
                         제휴 지도
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/sungshin/myPage" target="_self">
+                        <a href="http://localhost:3000/myPage/:university_name" target="_self">
                         마이페이지
                         <br>
                         <span id="name">오영서님 환영합니다.</span>
@@ -59,19 +59,19 @@
                 <div class="swiper-wrapper">
                 <!--swiper 요소-->
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="images/img2.JPG" alt="no_image1">
+                        <img class="news" src="/images/img1.JPG" alt="no_image1">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="images/img1.JPG" alt="no_image2">
+                        <img class="news" src="/images/img1.JPG" alt="no_image2">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="images/img3.JPG" alt="no_image3">
+                        <img class="news" src="/images/img3.JPG" alt="no_image3">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="images/img4.JPG" alt="no_image4">
+                        <img class="news" src="/images/img4.JPG" alt="no_image4">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="images/img5.JPG" alt="no_image5">
+                        <img class="news" src="/images/img5.JPG" alt="no_image5">
                     </a></div>
                 </div> 
                 <!--buttons -->
@@ -84,7 +84,7 @@
             <div class="stores">
                 <ul>
                     <span class="category">우리 대학  인근 소상공인 상가 모아보기</span>
-                        <a href="http://localhost:3000/sungshin" target="_self">
+                        <a href="http://localhost:3000/store/:university_name" target="_self">
                             <span class="more">더보기 ►</span>
                         </a>
                 </ul>
@@ -92,6 +92,7 @@
             <div class="map">
             </div>
         </div>
+        <!--다른 학교 검색-->
         <div class="temp-box" id="temp-box4">
             <ul class="others">
                     <a href="http://localhost:3000/" target="_self">

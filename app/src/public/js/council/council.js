@@ -5,8 +5,6 @@ const sliderElements = document.querySelectorAll('.swiper-slide');
 const arrowLeft = document.querySelector('.swiper-button-prev');
 const arrowRight = document.querySelector('.swiper-button-next');
 
-// const university_name = document.getElementById("university_name");
-
 // swiper 현재 요소 페이지
 let current = 0;
 
