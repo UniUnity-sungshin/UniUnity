@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COUNCIL</title>
+    <link rel="stylesheet" src="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+        <!--swiper 라이브러리-->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/council/council.css">
+
+</head>
+<body>
+    <div class="main-container">
+        <div class="temp-box" id="temp-box1">
+            <div class="menubar">
+                <ul class="menu">
+                    <li>
+                        <a href="http://localhost:3000/sungshin" target="_self">
+                        성신여자대학교
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/sungshin/storeMap" target="_self">
+                        소상공인 가게 지도
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/sungshin/affiliationMap" target="_self">
+                        제휴 지도
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/sungshin/myPage" target="_self">
+                        마이페이지
+                        <br>
+                        <span id="name">오영서님 환영합니다.</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="temp-box" id="temp-box2">
+            <div class="main-news">
+                <ul>
+                    <span class="category">학교 주요 소식</span>
+                    <a href="http://localhost:3000/sungshin/moreNews" target="_self">
+                        <span class="more">더보기 ►</span>
+                    </a>
+                </ul>
+            </div>
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                <!--swiper 요소-->
+                    <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
+                        <img class="news" src="images/img2.JPG" alt="no_image1">
+                    </a></div>
+                    <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
+                        <img class="news" src="images/img1.JPG" alt="no_image2">
+                    </a></div>
+                    <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
+                        <img class="news" src="images/img3.JPG" alt="no_image3">
+                    </a></div>
+                    <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
+                        <img class="news" src="images/img4.JPG" alt="no_image4">
+                    </a></div>
+                    <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
+                        <img class="news" src="images/img5.JPG" alt="no_image5">
+                    </a></div>
+                </div> 
+                <!--pagination-->    
+                <!-- <div class="swiper-pagination"></div>         -->
+                <!--buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+        </div>
+        <div class="temp-box" id="temp-box3">
+            <div class="stores">
+                <ul>
+                    <span class="category">우리 대학  인근 소상공인 상가 모아보기</span>
+                        <a href="http://localhost:3000/sungshin/moreStore" target="_self">
+                            <span class="more">더보기 ►</span>
+                        </a>
+                </ul>
+            </div>
+            <div class="map">
+            </div>
+        </div>
+        <div class="temp-box" id="temp-box4">
+            <ul class="others">
+                    <a href="http://localhost:3000/sungshin/moreSchool" target="_self">
+                    <span class="more">다른 학교도 궁금하다면? ►</span>
+                    </a>
+            </ul>
+        </div>
+    </div>
+        <script src="/js/council/council.js"></script>
+</body>
+</html>

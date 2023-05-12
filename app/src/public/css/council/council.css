@@ -1,0 +1,140 @@
+body {
+    height: 1200px;
+    margin: 0;
+}
+
+.main-container {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 80px 500px 600px 100px;
+    gap: 10px;
+}
+
+.temp-box {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* .swiper-button-next:after, .swiper-button-prev:after {
+    display: none;
+} */
+/* .swiper-slide > a {
+    font-size: 30px;
+} */
+
+a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.swiper {
+    width: 1000px;
+    height: 400px;
+}
+
+.swiper_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-prev {
+  left: 120px;
+  color: #f6db40;
+}
+
+.swiper-button-next {
+  right: 120px;
+  color: #f6db40;
+}
+
+#name {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+#temp-box1 {
+    background-color: #FDF0A5;
+}
+
+.menu {
+    font-size: 20px;
+    list-style: none;
+}
+
+.category {
+    list-style: none;
+    float: left;
+}
+
+.main-news {
+    font-size: 25px;
+    height: 55px;
+}
+
+.stores {
+    font-size: 25px;
+    height: 400px;
+}
+
+.more {
+    font-size: 15px;
+    float: right;
+    margin-right: 90px;
+    margin-top: 5px;
+}
+
+.news {
+    margin-left: 100px;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    margin-top: 40px;
+    margin-right: 60px;
+}
+
+@media (min-width: 1435px) {
+    li {
+        float: left;
+        margin-top: 10px;
+        margin-left: 13%;
+    }
+}
+
+@media (min-width: 1170px) and (max-width: 1435px) {
+    li {
+        float: left;
+        margin-top: 10px;
+        margin-left: 13%;
+    }
+}
+
+@media (min-width: 910px) and (max-width: 1170px) {
+    li {
+        float: left;
+        margin-top: 10px;
+        margin-left: 8%;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 910px) {    
+    li {
+        float: left;
+        margin-top: 10px;
+        margin-left: 7%;
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 640px) {
+    li {
+        float: left;
+        margin-top: 10px;
+        margin-left: 5%;
+        font-size: 15px;
+    }
+}
