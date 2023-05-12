@@ -13,7 +13,7 @@ exports.respondNoResourceFound=(req,res)=>{
     res.sendFile(`./public/${errorCode}.html`,{
         root:"./src"
     })
-}
+};
 
 //요청 처리를 중단시킨 내부 에러에 대한 로깅과 응답(라우트에 매칭되지 않은 모든 요청들을 처리)
 exports.respondInternalEroor=(error,req,res,next)=>{
@@ -21,4 +21,4 @@ exports.respondInternalEroor=(error,req,res,next)=>{
     console.log(`ERROR occured:${error.stack}`);
     res.status(errorCode);
     res.send(`${errorCode} | Sorry, our application is experiencing a problem!`);
-}
+};

@@ -11,16 +11,18 @@ const loadData = () => {
         .then(res => {
             console.log(res);
             fillSearch(res);
-        })
-    // }
+        }
+    )
 }
+
 const fillSearch = (suggestArr) => {
     ul.innerHTML = "";
     suggestArr.forEach((el, idx) => {
         // el : {universityname : "성신여자대학교"}
         universitySearchList.push(el);
         //console.log(el.university_name);
-    })
+        }
+    )
 }
 
 //mainpage 로드 후 loadData()실행
@@ -50,10 +52,5 @@ const checkInput = () => {
             }
         })
     }
-    
 }
-
 searchInput.addEventListener("keyup", checkInput);
-
- 
-

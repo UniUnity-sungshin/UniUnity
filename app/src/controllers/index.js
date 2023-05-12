@@ -5,18 +5,19 @@ const router = express.Router();
 
 const ctrl = require("./home.ctrl");
 
-
 router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
 router.get("/signup",ctrl.output.signup);
-router.get("/partner/:university_name",ctrl.output.partner);
-router.get("/getUniversityID/:university_name",ctrl.output.getUniversityID);
-// router.get("/getPartnerUni/:university_name",ctrl.output.getPartnerUni);
-router.get("/sungshin/postAll",ctrl.output.postAll);
+router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
+router.get("/:universityname",ctrl.output.council);
+router.get("/council/:universityname",ctrl.result.council);
+router.get("/sungshin/postAll",ctrl.output.post);
 
-router.get("/showUniversityNameList",ctrl.process.showUniversityNameList);
-router.post("/getPartnerUni",ctrl.process.getPartnerUni);
 router.post("/login",ctrl.process.login);
-
+//council 페이지 라우팅
+// router.get("/sungshin\", ctrl.result.council);
 
 module.exports=router;
+
+
+
