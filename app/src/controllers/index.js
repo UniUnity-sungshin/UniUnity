@@ -11,7 +11,7 @@ router.get("/signup",ctrl.output.signup);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 router.get("/:universityname",ctrl.output.council);
 router.get("/council/:universityname",ctrl.result.council);
-
+router.get("/sungshin/postAll",ctrl.output.post);
 
 router.post("/login",ctrl.process.login);
 //council 페이지 라우팅

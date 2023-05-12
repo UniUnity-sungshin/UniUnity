@@ -22,6 +22,9 @@ const output ={
         const response=await university_name.showUniversityNameList();
         return res.json(response);
 
+    },
+    post:(req,res)=>{
+        res.render('home/post.html');
     }
 
 }
