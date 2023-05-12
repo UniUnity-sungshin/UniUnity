@@ -18,13 +18,6 @@ body {
     font-weight: 700;
 }
 
-/* .swiper-button-next:after, .swiper-button-prev:after {
-    display: none;
-} */
-/* .swiper-slide > a {
-    font-size: 30px;
-} */
-
 a {
     text-decoration-line: none;
     color: black;
@@ -97,6 +90,8 @@ img {
     margin-right: 60px;
 }
 
+
+/*너비에 따른 헤더 메뉴바*/
 @media (min-width: 1435px) {
     li {
         float: left;

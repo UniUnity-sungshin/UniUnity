@@ -9,6 +9,7 @@ const pool=require('./config/db');
 // 라우팅
 const controllers = require("./src/controllers/index");
 const errorController=require("./src/controllers/errorController");
+const { delimiter } = require("ejs");
 
 // 앱 셋팅
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다.
@@ -16,6 +17,7 @@ app.set("views","./src/views");
 // 서버가 HTML 렌더링을 할 때, EJS엔진을 사용하도록 설정합니다.
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
+app.set('view options', {delimiter: '<% %>'});
 
 // 스타일(CSS) 적용하기
 app.use(express.static(`${__dirname}/src/public`));

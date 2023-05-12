@@ -1,70 +1,41 @@
-// let db = require('../../../../config/db');
 
-// const getUniName = (req, res) => {
-//     var universityName;
-//     var universityURL = document.location.pathname;
-//     var sql = `SELECT university_name FROM University WHERE university_url = ${universityName}`;
-//     db.query(sql, function(err, results, field) {
-//         universityName = results;
-//         console.log(universityName);
-//     })
-// };
-
+// swiper 요소
 const sliderElements = document.querySelectorAll('.swiper-slide');
+// swiper 버튼
 const arrowLeft = document.querySelector('.swiper-button-prev');
 const arrowRight = document.querySelector('.swiper-button-next');
 
-// const loadData = () => {
-//     const url = `http://localhost:3000/council/sungshin`;
-//     fetch(url)
-//         .then((res) => res.json())
-//         .then(res => {
-//             console.log(res);
-//             fillSearch(res);
-//         })
-//     // }
-// }
-// const fillSearch = (suggestArr) => {
-//     ul.innerHTML = "";
-//     suggestArr.forEach((el, idx) => {
-//         // el : {universityname : "성신여자대학교"}
-//         //universitySearchList.push(el);
-//         //console.log(el.university_name);
-//     })
-// }
-
-// //mainpage 로드 후 loadData()실행
-// window.addEventListener('DOMContentLoaded', function()
-// {
-//     loadData();
-// });
-
+// swiper 현재 요소 페이지
 let current = 0;
 
+// swiper 요소 안 보이게
 const reset = () => {
     sliderElements.forEach((el) => el.style.display = 'none');
 };
 
+// 왼쪽 버튼 눌렀을 때 함수
 const slideLeft = () => {
     reset();
     sliderElements[current-1].style.display = 'block';
     current--;
 };
 
+// 오른쪽 버튼 눌렀을 때 함수
 const slideRight = () => {
     reset();
     sliderElements[current+1].style.display = 'block';
     current++;
 };
 
+// 오른쪽 버튼 눌렀을 때
 arrowRight.addEventListener('click', function() {
     if (current === sliderElements.length-1) {
         current = -1;
     }
     slideRight();
-    getUniName();
 })
 
+// 왼쪽 버튼 눌렀을 때
 arrowLeft.addEventListener('click', function() {
     if (current === 0) {
         current = sliderElements.length;
