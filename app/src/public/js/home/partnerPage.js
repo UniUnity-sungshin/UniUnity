@@ -57,14 +57,16 @@ function panTo() {
 
 
 // ********* HTML에 표시될 가게 정보 ********* //
-const storeName = document.getElementById('storeName'),
-      storeAdr = document.getElementById('storeAdr'),
-      storeClass = document.getElementById('storeClass'),
-      storePartnerBool = document.getElementById('storePartnerBool'),
-      partnerContent = document.getElementById('partnerContent'),
-      eventDate = document.getElementById('eventDate');
+const storeName = document.querySelector('#storeName'),
+      storeAdr = document.querySelector('#storeAdr'),
+      storeClass = document.querySelector('#storeClass'),
+      storePartnerBool = document.querySelector('#storePartnerBool'),
+      partnerContent = document.querySelector('#partnerContent'),
+      eventDate = document.querySelector('#eventDate');
+const searchBtn = document.querySelector('#serchBtn');
 
-let position = [];
+let stores = [];
+let positions = [];
 
 const loadData = () => {
     const url = `http://localhost:3000/getPartnerUni`;
@@ -75,8 +77,13 @@ const loadData = () => {
             fillSearch(res);
         })
 }
-for (var i = 0; i < size; i++){
-    
+
+const fillSearch = (suggestArr) => {
+    ul.innerHTML = "";
+    suggestArr.forEach((el, idx) => {
+        stores.push(el);
+        positions.push(new kakao.maps.LatLng(el.latitude,el.longitude));
+    })
 }
 
 // mouseover,mouseout 시에 이벤트 발생
@@ -84,12 +91,12 @@ for (var i = 0; i < positions.length; i ++) {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: positions[i].latlng // 마커의 위치
+        position: positions[i] // 마커의 위치
     });
 
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
-        content: positions[i].content // 인포윈도우에 표시할 내용
+        content: stores[i] // 인포윈도우에 표시할 내용
     });
 
     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
