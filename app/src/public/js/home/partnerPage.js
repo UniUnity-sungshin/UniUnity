@@ -1,5 +1,8 @@
 "use strict";
 
+const { error } = require("console");
+const { reject } = require("underscore");
+
 
 // 중심좌표 -> 선택 대학교의 좌표
 
@@ -63,28 +66,72 @@ const storeName = document.querySelector('#storeName'),
       storePartnerBool = document.querySelector('#storePartnerBool'),
       partnerContent = document.querySelector('#partnerContent'),
       eventDate = document.querySelector('#eventDate');
-const searchBtn = document.querySelector('#serchBtn');
+const partnerMapSerch = document.querySelector('#partnerMapSerch'),
+      searchBtn = document.querySelector('#serchBtn');
+
+// 검색 버튼 클릭 시 해당 대학의 페이지로 넘어가야함
+searchBtn.addEventListener("click", partnerLoad);
 
 let stores = [];
 let positions = [];
 
-const loadData = () => {
-    const url = `http://localhost:3000/getPartnerUni`;
-    fetch(url)
-        .then((res) => res.json())
-        .then(res => {
-            console.log(res);
-            fillSearch(res);
-        })
-}
+function partnerLoad(){
+    // const universityName = partnerMapSerch.value;
+    const req = {
+        university_name: partnerMapSerch.value
+    };
 
-const fillSearch = (suggestArr) => {
-    ul.innerHTML = "";
-    suggestArr.forEach((el, idx) => {
-        stores.push(el);
-        positions.push(new kakao.maps.LatLng(el.latitude,el.longitude));
+    fetch(`http://localhost:3000/getPartnerUni`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    })
+    .then((res) => res.json())
+    .then(res => {
+        // 새로운 객체 생성
+        const obj = {
+            storeID: res.storeID,
+            storeName: res.storeName,
+            store_location: res.store_location,
+            latitude: res.latitude,
+            longitude: res.longitude,
+            university_id: res.university_id,
+            content: res.content,
+            startDate: res.startDate,
+            endDate: res.endDate
+        };
+        // 객체를 stores 배열에 추가
+        stores.push(obj);
+        // 객체의 좌표 부분은 따로 저장
+        positions.push(new kakao.maps.LatLng(obj.latitude,obj.longitude));
+        console.log(res);
+    })
+    .catch(error => {
+        console.error("Error: ", error);
     })
 }
+
+// const loadData = () => {
+//     const url = `http://localhost:3000/getPartnerUni`;
+//     fetch(url)
+//         .then((res) => res.json())
+//         .then(res => {
+//             console.log(res);
+//             fillSearch(res);
+//         }).catch(error => {
+//             console.log("partnerPage.js fetch error.")
+//         })
+// }
+
+// const fillSearch = (suggestArr) => {
+//     ul.innerHTML = "";
+//     suggestArr.forEach((el, idx) => {
+//         stores.push(el);
+//         positions.push(new kakao.maps.LatLng(el.latitude,el.longitude));
+//     })
+// }
 
 // mouseover,mouseout 시에 이벤트 발생
 for (var i = 0; i < positions.length; i ++) {
@@ -96,7 +143,7 @@ for (var i = 0; i < positions.length; i ++) {
 
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
-        content: stores[i] // 인포윈도우에 표시할 내용
+        // content: stores[i] // 인포윈도우에 표시할 내용
     });
 
     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
