@@ -15,22 +15,10 @@ const output ={
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
-<<<<<<< HEAD
-    // council : (req,res)=>{
-    //     console.log("output 함수");
-    //     res.render('council/council.ejs');
-    // },
-    searchUniversityName:async(req,res)=>{
-=======
-    council : (req,res)=>{
-        res.render('council/council.ejs');
-    },
     showUniversityNameList:async(req,res)=>{
->>>>>>> 0e5dfe0e6ac60f80969e3901c0442dd7b3658ac7
         const university_name=new University();
         const response=await university_name.showUniversityNameList();
         return res.json(response);
-
     },
     post:(req,res)=>{
         res.render('home/post.html');
@@ -75,52 +63,11 @@ const result = {
         console.log(req.params.universityname);
         const council = new Council();
         const response=council.showUniversity(req.params.universityname);
-<<<<<<< HEAD
         res.render("council/council.ejs", {data: response});
         //return res.json(response);
     }
-=======
-        console.log("홈 컨트롤러 council.showUniversity 됨");
-        console.log(response);
-        return res.json(response);
-
-        res.render("council/council.ejs");
-    },
-    // council : (req, res) => {
-    //     let uni= req.params.universityName;
-    //     res.render("council/council.ejs");
-    // },
-    storemap : (req, res) => {
-        res.render("council/storeMap.ejs");
-    },
-    
-    affiliationmap : (req, res) => {
-        res.render("council/affiliationMap.ejs");
-    },
-    
-    mypage : (req, res) => {
-        res.render("council//myPage.ejs");
-    },
-    
-    morenews : (req, res) => {
-        res.render("council/moreNews.ejs");
-    },
-    
-    morestore : (req, res) => {
-        res.render("council/moreStore.ejs");
-    },
-    
-    moreschool : (req, res) => {
-        res.render("council/moreSchool.ejs");
-    },
-    
-    mainnews : (req, res) => {
-        res.render("council/mainNews.ejs");
-    },
-    
->>>>>>> 0e5dfe0e6ac60f80969e3901c0442dd7b3658ac7
 }
-
+   
 module.exports={
     output,
     process,
