@@ -38,7 +38,7 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                console.log(rows);
+                // console.log(rows);
                 resolve(rows);
             })
         })    
@@ -57,7 +57,7 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                console.log(rows);
+                // console.log(rows);
                 resolve(rows);
             })
         })    

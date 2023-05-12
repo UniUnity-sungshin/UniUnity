@@ -18,8 +18,8 @@ router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversity
 router.get("/sungshin/postAll",ctrl.output.post);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
-// 제휴
-router.get("/partner/:university_name",ctrl.output.partner);
+// partner 라우터
+router.get("/partner",ctrl.output.partner);
 router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
 
