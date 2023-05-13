@@ -8,6 +8,7 @@ loginBtn.addEventListener("click",login);
 
 function login(event) {
     event.preventDefault(); // 기본 동작 막기
+    event.stopPropagation(); // 이벤트 전파 막기
     const req={
         user_email:user_email.value,
         psword:psword.value
@@ -26,6 +27,8 @@ function login(event) {
         if(res.success){
             location.href="/";
         }else{
+            console.log(res);
+            console.log(res.msg);
             alert(res.msg);
             location.href="/login"
         }
