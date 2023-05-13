@@ -11,7 +11,6 @@ class User{
 
     async login(){
         const client =this.body
-        console.log(this.body);
         const userInfo =await UserStorage.getUserInfo(client.user_email);
         if(userInfo){
             let user_email=userInfo.user_email

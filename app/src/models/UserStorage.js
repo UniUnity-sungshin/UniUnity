@@ -8,7 +8,6 @@ class UserStorage{
                 if(err)reject(`${err}`);
                 
                 else {
-                    console.log(data[0]);
                     resolve(data[0]);
                 }
             });
