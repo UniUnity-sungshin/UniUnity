@@ -48,7 +48,7 @@ const checkInput = () => {
                 ul.appendChild(li);
                 li.appendChild(a);
                 a.innerHTML=el.university_name;
-                a.href=`/${el.university_url}`;
+                a.href=`/council/${el.university_url}`;
             }
         })
     }
