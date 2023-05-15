@@ -1,3 +1,6 @@
+# Local Session
+app/sessions/*.json
+
 # Logs
 logs
 *.log
