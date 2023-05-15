@@ -9,10 +9,9 @@ router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
 router.get("/signup",ctrl.output.signup);
 
-
 //council 페이지 라우트
+router.get("/sungshin",ctrl.result.council); // 나중에 지우기
 router.get("/council/:universityname",ctrl.result.council);
-
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/sungshin/postAll",ctrl.output.post);
