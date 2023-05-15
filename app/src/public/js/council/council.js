@@ -5,6 +5,15 @@ const sliderElements = document.querySelectorAll('.swiper-slide');
 const arrowLeft = document.querySelector('.swiper-button-prev');
 const arrowRight = document.querySelector('.swiper-button-next');
 
+// 지도
+var mapContainer = document.getElementById('map'),
+               mapOption = { 
+                   center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
+                   level: 3 // 지도의 확대 레벨
+               };
+
+           var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+
 // swiper 현재 요소 페이지
 let current = 0;
 
