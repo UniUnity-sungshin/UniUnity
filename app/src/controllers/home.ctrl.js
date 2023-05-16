@@ -4,6 +4,8 @@ const Partner = require("../models/Partner");
 const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
+const Post=require("../models/Post");
+
 
 const output ={
     home : (req,res)=>{
@@ -74,10 +76,23 @@ const result = {
         //return response;
     }
 }
+
+const post={
+    postAll : async (req, res) => {
+        console.log(req.params.university_name);
+        let university_name=req.params.university_name;
+        const post = new Post();
+        const response=await post.showPostListAll(university_name);
+        console.log(response);
+        return res.json(response);
+    }
+}
+
    
 module.exports={
     output,
     process,
     result,
-    partner
+    partner,
+    post
 };
