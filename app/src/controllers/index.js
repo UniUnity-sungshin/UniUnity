@@ -22,7 +22,7 @@ router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 router.get("/partner",ctrl.output.partner);
 router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
-
+router.get("/getUniversityLocation/:university_id",ctrl.partner.getUniversityLocation);
 
 
 router.post("/login",ctrl.process.login);
