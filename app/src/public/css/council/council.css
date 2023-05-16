@@ -34,12 +34,12 @@ a {
 }
 
 .swiper-button-prev {
-  left: 120px;
+  left: 100px;
   color: #f6db40;
 }
 
 .swiper-button-next {
-  right: 120px;
+  right: 100px;
   color: #f6db40;
 }
 
@@ -90,6 +90,13 @@ img {
     margin-right: 60px;
 }
 
+.map {
+    height: 500px;
+    width: 1200px;
+    margin-left: 120px;
+    margin-top: -340px;
+    border-radius: 5px;
+}
 
 /*너비에 따른 헤더 메뉴바*/
 @media (min-width: 1435px) {
