@@ -7,7 +7,7 @@ class CouncilStorage{
             pool.query('SELECT university_name FROM University WHERE university_url =?',[universityName],(err,data)=>{
                 if(err)reject(`${err}`);
                 else {               
-                    console.log(data[0]);
+                    //console.log(data[0]);
                     resolve(data[0]);
                 }
             });
