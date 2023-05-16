@@ -21,13 +21,12 @@
             <!--상단 메뉴바-->
             <div class="menubar">
                 <ul class="menu">
-                    <li id="university_name"> 
-                        <a href="http://localhost:3000/council/" + {university_name} target="_self">
-                            <% university_name %>
+                    <li id="universityName"> 
+                        <a href="#" onclick="window.location.reload();" target="_self">
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/store/:university_name" target="_self">
+                        <a href="http://localhost:3000/retailer" target="_self">
                         소상공인 가게 지도
                         </a>
                     </li>
@@ -56,15 +55,14 @@
                     </a>
                 </ul>
             </div>
-            <!--swiper-->
-            <div class="swiper">
-                <div class="swiper-wrapper">
+            <div class="swiper"> <!--swiper mySwiper-->
+                <div class="swiper-wrapper"> <!--swiper-wrapper-->
                 <!--swiper 요소-->
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
                         <img class="news" src="/images/img1.JPG" alt="no_image1">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
-                        <img class="news" src="/images/img1.JPG" alt="no_image2">
+                        <img class="news" src="/images/img2.JPG" alt="no_image2">
                     </a></div>
                     <div class="swiper-slide"><a href="http://localhost:3000/sungshin/mainNews" target="_self">
                         <img class="news" src="/images/img3.JPG" alt="no_image3">
@@ -79,7 +77,7 @@
                 <!--buttons -->
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
-            </div>
+            </div>  
         </div>
         <!--소상공인 상가-->
         <div class="temp-box" id="temp-box3">
@@ -96,9 +94,9 @@
         <!--다른 학교 검색-->
         <div class="temp-box" id="temp-box4">
             <ul class="others">
-                    <a href="http://localhost:3000/" target="_self">
-                    <span class="more">다른 학교도 궁금하다면? ►</span>
-                    </a>
+                <a href="http://localhost:3000/" target="_self">
+                <span class="more">다른 학교도 궁금하다면? ►</span>
+                </a>
             </ul>
         </div>
     </div>
