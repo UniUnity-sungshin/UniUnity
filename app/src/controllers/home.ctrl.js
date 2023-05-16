@@ -59,14 +59,13 @@ const partner = {
 
 //council 페이지 라우팅
 const result = {
-    council :async (req, res) => {
+    council : async (req, res) => {
         console.log(req.params.universityname);
         const council = new Council();
         const response=await council.showUniversity(req.params.universityname);
         console.log(response);
-        res.render("council/council.ejs", {data: response});
-        
-        //return res.json(response);
+        res.render("council/council.html", {data: response});
+        //return response;
     }
 }
    
