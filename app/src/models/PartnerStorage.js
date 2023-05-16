@@ -62,7 +62,24 @@ class PartnerStorage{
             })
         })    
     }
-
+    // University 중심좌표 받아오기
+    static async getUniversityLocation(university_id){ 
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    throw err;
+                }
+            });
+            pool.query("SELECT latitude, longitude FROM University WHERE university_id=?;",[university_id],function(err,rows){
+                if(err){
+                    console.err('Query 오류',err);
+                    throw err;
+                }
+                resolve(rows);
+            })
+        })    
+    }
 };
 
 module.exports = PartnerStorage;
