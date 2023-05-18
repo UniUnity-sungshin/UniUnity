@@ -1,10 +1,10 @@
 body {
-    height: 1200px;
+    height: 1440px;
     margin: 0;
 }
 
 .main-container {
-    width: 100%;
+    width: 1440px;
     margin: auto;
     display: grid;
     grid-template-rows: 80px 500px 600px 100px;
@@ -12,7 +12,7 @@ body {
 }
 
 .temp-box {
-    width: 100%;
+    width: 1440px;
     height: 100%;
     text-align: center;
     font-weight: 700;
@@ -23,24 +23,44 @@ a {
     color: black;
 }
 
-.swiper {
-    width: 1000px;
+.swiper-container {
+    width: 1440px; 
     height: 400px;
 }
 
-.swiper_wrapper {
-    display: flex;
-    justify-content: center;
+.swiper-slide img {
+    width: 300px;
+    height: 300px;
+    margin-top: 40px;
+    margin-right: 100px;
+    object-fit: cover; 
 }
 
+.swiper-slide {
+    width: calc(100% / 3);
+    align-items: center;
+}
+
+/* .swiper-wrapper {
+    overflow: hidden;
+} */
+
 .swiper-button-prev {
-  left: 100px;
+  left: 650px;
+  top: 550px;
   color: #f6db40;
+  width: 30px;
+  height: 30px;
+  transform: scale(0.7);
 }
 
 .swiper-button-next {
-  right: 100px;
+  right: 650px;
+    top: 550px;
   color: #f6db40;
+  width: 30px;
+  height: 30px;
+  transform: scale(0.7);
 }
 
 #name {
@@ -75,7 +95,7 @@ a {
 .more {
     font-size: 15px;
     float: right;
-    margin-right: 90px;
+    margin-right: 120px;
     margin-top: 5px;
 }
 
@@ -83,60 +103,16 @@ a {
     margin-left: 100px;
 }
 
-img {
-    width: 300px;
-    height: 300px;
-    margin-top: 40px;
-    margin-right: 60px;
-}
-
 .map {
     height: 500px;
-    width: 1200px;
-    margin-left: 120px;
+    width: 1000px;
+    margin-left: 220px;
     margin-top: -340px;
     border-radius: 5px;
 }
 
-/*너비에 따른 헤더 메뉴바*/
-@media (min-width: 1435px) {
     li {
         float: left;
         margin-top: 10px;
         margin-left: 13%;
     }
-}
-
-@media (min-width: 1170px) and (max-width: 1435px) {
-    li {
-        float: left;
-        margin-top: 10px;
-        margin-left: 13%;
-    }
-}
-
-@media (min-width: 910px) and (max-width: 1170px) {
-    li {
-        float: left;
-        margin-top: 10px;
-        margin-left: 8%;
-    }
-}
-
-@media (min-width: 640px) and (max-width: 910px) {    
-    li {
-        float: left;
-        margin-top: 10px;
-        margin-left: 7%;
-        font-size: 17px;
-    }
-}
-
-@media (max-width: 640px) {
-    li {
-        float: left;
-        margin-top: 10px;
-        margin-left: 5%;
-        font-size: 15px;
-    }
-}
