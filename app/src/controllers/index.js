@@ -13,7 +13,6 @@ router.get("/signup",ctrl.output.signup);
 router.get("/council/:universityname",ctrl.result.council);
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
-router.get("/sungshin/postAll",ctrl.output.post);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
 // partner 라우터
@@ -26,6 +25,11 @@ router.get("/getUniversityLocation/:university_id",ctrl.partner.getUniversityLoc
 //council 페이지 라우팅
 // router.get("/sungshin\", ctrl.result.council);
 
+//post 라우터
+router.get("/:university_name/postAll",ctrl.post.postAll);
+
+
+//router.get("/sungshin/postAll",ctrl.output.post);
 
 module.exports=router;
 
