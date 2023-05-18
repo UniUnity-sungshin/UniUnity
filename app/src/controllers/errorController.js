@@ -2,7 +2,7 @@ const httpStatus =require("http-status-codes");
 
 //에러 스택 로깅
 exports.logErrors=(error,req,res,next)=>{
-    console.error(err.stack);
+    console.error(error.stack);
     next(error);
 };
 
