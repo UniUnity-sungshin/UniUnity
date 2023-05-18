@@ -41,19 +41,11 @@ app.use(session({
   store: new FileStore()
 }))
 
-
-
-var authData = {
-  email: 'egoing777@gmail.com',
-  password: '111111',
-  nickname: 'egoing'
-}
-
-
 //passport는 세션으로 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
-const { deserializeUser } = require("passport");
+
+const User = require("./src/models/User");
 
 //passport를 설치한 것이고 express가 호출이 될 때마다 passport.initalize가 호출되면서 우리의 app에 개입됨
 app.use(passport.initialize()); //passport미들웨어 등록
@@ -66,41 +58,50 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/login' //실패했을 때는 다시 로그인 페이지로
 }));
 
-
+let userInfo;
+//passport.js를 이용한 로그인 기능 구현
 passport.use(new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'pwd'
   },
-  function (username, password, done) {
+  async function (username, password, done) {
     console.log('LocalStrategy', username, password);
-    if (username === authData.email) {
-      console.log(1);
-      if (password === authData.password) {
-        console.log(2);
-        //serializeUser콜백함수의 첫번째 인자로 authData를 줌
-        return done(null, authData); //js에서 false가 아닌값을 주면 true라고 생각하기 때문에 성공임
-      } else {
-        console.log(3);
-        return done(null, false, {
-          message: 'Incorrect password.'
+
+    let user=new User();
+    userInfo=await user.getUserInfo(username);
+
+    if(userInfo.sussess==true){
+      if(username ===userInfo.user_email){
+        console.log(1);
+        if(password === userInfo.psword){
+          console.log(2);
+          return done(null,userInfo);
+        }else{
+          return done(null,false,{
+            message:'Incorrect password.'
+          })
+        }
+      }else{
+        console.log(4);
+        return done(null,false,{
+          message:'Incorrect username.'
         })
       }
-
-    } else {
-      console.log(4);
-      return done(null, false, {
-        message: 'Incorret username.'
+    }
+    else{
+      return done(null,false,{
+        message: userInfo.msg
       })
     }
-  }
-));
+  }))
+  
 
 
 //세션을 처리하는 방법
 passport.serializeUser(function (user, done) {
   console.log("serlialize입니다.");
-  done(null, user.email);//두번째 인자에 user의 식별자를 넣어주기로 !약속!되어 있음
+  done(null, user.user_email);//두번째 인자에 user의 식별자를 넣어주기로 !약속!되어 있음
   //세션폴더의 세션 데이터 파일에 user의 식별자가 들어감
 })
 
@@ -108,7 +109,7 @@ passport.serializeUser(function (user, done) {
 //호출될때마다 사용자의 데이터를 저장하고 있는 authData에 들어있는 사용자의 실제데이터를 가져온다.
 passport.deserializeUser(function (id, done) {
   console.log("deserialize입니당");
-  done(null, authData);
+  done(null, userInfo);
   // User.findByID(id,function(err,user){
   //   done(err,user);
   // })
