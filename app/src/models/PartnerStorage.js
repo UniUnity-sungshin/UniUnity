@@ -76,7 +76,8 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                resolve(rows);
+                // console.log(rows[0]);
+                resolve(rows[0]);
             })
         })    
     }

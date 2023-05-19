@@ -51,7 +51,7 @@ const partner = {
     },
     getUniversityLocation: async(req,res)=>{
         const partner_uni = new Partner();
-        const university_id = await partner_uni.getUniversityID(req.params.university_name);
+        const university_id = await partner_uni.getUniversityID(req.body.university_name);
         const response = await partner_uni.getUniversityLocation(university_id);
         return res.json(response);
     },
@@ -59,6 +59,7 @@ const partner = {
         const partner_uni = new Partner();
         const university_id = await partner_uni.getUniversityID(req.body.university_name);
         const response = await partner_uni.getPartnerStores(university_id);
+        // res.render("home/partner.html");
         return res.json(response);
     },
 };
