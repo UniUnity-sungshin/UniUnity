@@ -10,6 +10,13 @@ const pool = require('./config/db');
 const controllers = require("./src/controllers/index");
 const errorController = require("./src/controllers/errorController");
 const { delimiter } = require("ejs");
+const cors = require("cors");
+// CORS 설정
+const corsOptions = {
+  origin: ["http://localhost:3000"], // 허용하려는 도메인 목록
+  // methods: ["GET", "POST", "PUT", "DELETE"], // 허용하려는 HTTP 메서드
+  // allowedHeaders: ["Content-Type", "Authorization"], // 허용하려는 헤더
+};
 
 //세션이용
 var session = require('express-session')
@@ -30,7 +37,14 @@ app.use(bodyParser.json());
 //URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제 해결
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors());
+app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 
 
 //세션 사용
