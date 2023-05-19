@@ -18,6 +18,9 @@ const output ={
     signup : (req,res)=>{
         res.render('home/signup.html');
     },
+    mypage:(req,res)=>{
+        res.render('home/mypage.html');
+    },
     showUniversityNameList:async(req,res)=>{
         const university_name=new University();
         const response=await university_name.showUniversityNameList();
@@ -34,13 +37,26 @@ const output ={
 
 //로그인 인증 process
 const process={
+    //회원가입
     register:(req,res)=>{
         const user= new User(req.body);
         const response=user.register();
         return res.json(response);
     },
+    //로그인 상태
     loginStatus:(req,res)=>{
-        return res.json(req.user);
+        if(req.user){
+            return res.json(req.user);
+        }
+        return res.json({loginStatus:false})
+    },
+    //로그아웃
+    logout:(req,res,next)=>{
+        req.logout(function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+          });
+       
     }
 
 };
