@@ -14,7 +14,7 @@ class User{
         const userInfo =await UserStorage.getUserInfo(user_email);
         if(userInfo){
             console.log(userInfo);
-            return {sussess: true, 
+            return {loginStatus: true, 
                     user_email:userInfo.user_email,
                     psword : userInfo.psword,
                     user_type:userInfo.user_type,
@@ -22,7 +22,7 @@ class User{
                     university_id:userInfo.university_id
             };
         }
-        return {sussess:false,msg:"존재하지 않는 아이디 입니다."}
+        return {loginStatus:false,msg:"존재하지 않는 아이디 입니다."}
         
         
     }

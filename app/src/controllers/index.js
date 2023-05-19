@@ -7,6 +7,7 @@ const ctrl = require("./home.ctrl");
 
 router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
+router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 
 //council 페이지 라우트
