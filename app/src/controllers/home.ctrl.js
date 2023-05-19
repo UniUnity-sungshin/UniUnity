@@ -4,6 +4,9 @@ const Partner = require("../models/Partner");
 const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
+const Post=require("../models/Post");
+const Auth=require("../lib/auth");
+const auth = require("../lib/auth");
 
 const output ={
     home : (req,res)=>{
@@ -26,20 +29,20 @@ const output ={
     partner:(req,res)=>{
         res.render("home/partner.html");
     },
+    
 }
 
 //로그인 인증 process
 const process={
-    login:async (req,res)=>{
-        const user= new User(req.body);
-        const response=await user.login();
-        return res.json(response);
-    },
     register:(req,res)=>{
         const user= new User(req.body);
         const response=user.register();
         return res.json(response);
     },
+    loginStatus:(req,res)=>{
+        return res.json(req.user);
+    }
+
 };
 
 //제휴 파트
@@ -75,10 +78,23 @@ const result = {
         //return response;
     }
 }
+
+const post={
+    postAll : async (req, res) => {
+        console.log(req.params.university_name);
+        let university_name=req.params.university_name;
+        const post = new Post();
+        const response=await post.showPostListAll(university_name);
+        console.log(response);
+        return res.json(response);
+    }
+}
+
    
 module.exports={
     output,
     process,
     result,
-    partner
+    partner,
+    post
 };
