@@ -22,9 +22,6 @@ class Partner{
     async getPartnerStores(university_id){
         try{
             const response = await PartnerStorage.getPartnerStores(university_id);
-            const location = await PartnerStorage.getUniversityLocation(university_id);
-            response = response + location;
-            console.log(response);
             return response;
         }catch(err){
             return{success:false,msg:err};
