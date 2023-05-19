@@ -2,14 +2,18 @@ const ul = document.querySelector(".pop_rel_keywords");
 const searchInput = document.querySelector(".search_input");
 const relContainer = document.querySelector(".rel_search");
 
+//로그인(로그아웃), 회원가입(마이페이지)버튼
+const loginStatusBtn=document.getElementById("loginStatusBtn");
+const signUpBtn=document.getElementById("signUpBtn");
+
 let universitySearchList = [];
+
 
 const loadData = () => {
     const url = `http://localhost:3000/showUniversityNameList`;
     fetch(url)
         .then((res) => res.json())
         .then(res => {
-            console.log(res);
             fillSearch(res);
         }
     )
@@ -25,10 +29,44 @@ const fillSearch = (suggestArr) => {
     )
 }
 
+const loadloginData = () => {
+    const url = `http://localhost:3000/loginStatus`;
+    fetch(url)
+        .then((res) => res.json())
+        .then(res => {
+            console.log(res);
+            setLoginHeader(res);
+        }
+    )
+}
+
+const setLoginHeader=(res)=>{
+    console.log(res.loginStatus);
+    if(res.loginStatus){
+
+        loginStatusBtn.setAttribute("href", "http://localhost:3000/logout");
+        loginStatusBtn.innerText="로그아웃"
+        signUpBtn.setAttribute("href", "http://localhost:3000/mypage");
+        signUpBtn.innerText="마이페이지"
+    }
+    else{
+        loginStatusBtn.setAttribute("href", "http://localhost:3000/login");
+        loginStatusBtn.innerText="로그인"
+        signUpBtn.setAttribute("href", "http://localhost:3000/signup");
+        signUpBtn.innerText="회원가입"
+    }
+    
+}
+
+
+
+
+
 //mainpage 로드 후 loadData()실행
 window.addEventListener('DOMContentLoaded', function()
 {
     loadData();
+    loadloginData();
 });
 
 const checkInput = () => {

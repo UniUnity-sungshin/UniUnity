@@ -7,29 +7,32 @@ const UserStorage=require("./UserStorage");
 class User{
     constructor(body){
         this.body=body;
-    }
+    } 
 
-    async login(){
-        const client =this.body
-        const userInfo =await UserStorage.getUserInfo(client.user_email);
+    async getUserInfo(user_email){
+        console.log("user_email=",user_email);
+        const userInfo =await UserStorage.getUserInfo(user_email);
         if(userInfo){
-            let user_email=userInfo.user_email
-            let psword=userInfo.psword
-
-            if(user_email===client.user_email && psword ===  client.psword){
-                return {success : true};
-            }
-            return {success:false,msg:"비밀번호가 틀렸습니다."};
+            console.log(userInfo);
+            return {loginStatus: true, 
+                    user_email:userInfo.user_email,
+                    psword : userInfo.psword,
+                    user_type:userInfo.user_type,
+                    user_name:userInfo.user_name,
+                    university_id:userInfo.university_id
+            };
         }
-        return {success:false,msg:"존재하지 않는 아이디입니다."};
+        return {loginStatus:false,msg:"존재하지 않는 아이디 입니다."}
+        
+        
     }
 
 
-    register(){
-        const client = this.body;
-        const response = UserStorage.save(client);
-        return response;
-    }
+    // register(){
+    //     const client = this.body;
+    //     const response = UserStorage.save(client);
+    //     return response;
+    // }
 
 
 }

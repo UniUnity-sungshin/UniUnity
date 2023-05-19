@@ -26,7 +26,7 @@ var mapContainer = document.getElementById('map'),
         }  
 
 // 슬라이더 정보
-var mySwiper = new Swiper('.swiper', {
+var mySwiper = new Swiper('.swiper-container', {
     wrapperClass: 'swiper-wrapper',
     slideClass: 'swiper-slide',
     navigation: {
@@ -34,6 +34,9 @@ var mySwiper = new Swiper('.swiper', {
       nextEl: '.swiper-button-next',
     },
     loop: true,
+    slidesPerView: 3.5,
+    centerSlides: true,
+    spaceBetween: 20,
   });
   
   // 슬라이더 버튼
@@ -49,5 +52,4 @@ var mySwiper = new Swiper('.swiper', {
   prevButton.addEventListener('click', function () {
     mySwiper.slideToPrev();
   });
-  
   
