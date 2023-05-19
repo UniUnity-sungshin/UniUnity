@@ -68,8 +68,8 @@ body {
         margin-top: -20px; }
     .content .contents .form-control, .content .bg .form-control {
       border: none;
-      padding: 0;
-      font-size: 20px;
+      padding: 10px;
+      font-size: 15px;
       border-radius: 0; }
       .content .contents .form-control:active, .content .contents .form-control:focus, .content .bg .form-control:active, .content .bg .form-control:focus {
         outline: none;
@@ -85,6 +85,9 @@ body {
     text-decoration: underline; }
   
   .content .btn {
+    color: #fff;
+    background-color: #FFD400;
+    border-color: #FFD400;
     height: 54px;
     padding-left: 30px;
     padding-right: 30px; }
@@ -204,3 +207,9 @@ body {
     background-color: #FFD400;
     border-color: #FFD400;
 }
+.btn-primary.hover{
+  color: #fff;
+    background-color: #FFD400;
+    border-color: #FFD400;
+}
+
