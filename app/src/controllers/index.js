@@ -9,7 +9,8 @@ router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
-
+router.get("/logout",ctrl.process.logout);
+router.get("/mypage",ctrl.output.mypage);
 //council 페이지 라우트
 router.get("/council/:universityname",ctrl.result.council);
 
