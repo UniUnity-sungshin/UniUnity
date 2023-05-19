@@ -71,7 +71,7 @@ passport.use(new LocalStrategy(
     let user=new User();
     userInfo=await user.getUserInfo(username);
 
-    if(userInfo.sussess==true){
+    if(userInfo.loginStatus==true){
       if(username ===userInfo.user_email){
         console.log(1);
         if(password === userInfo.psword){
