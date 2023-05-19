@@ -12,7 +12,8 @@ const mysql = require('mysql2/promise');
         port:process.env.DB_PORT,
         database:process.env.DB_NAME,
         waitForConnections:true,
-        insecureAuth:true
+        insecureAuth:true,
+        dateStrings : "date",
 });
 
 module.exports=pool;

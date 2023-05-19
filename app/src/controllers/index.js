@@ -19,9 +19,10 @@ router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
 // partner 라우터
 router.get("/partner",ctrl.output.partner);
+router.get("/partner/:university_name",ctrl.output.partner);
 router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
-router.get("/getUniversityLocation/:university_id",ctrl.partner.getUniversityLocation);
+router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
 
 // router.post("/login",ctrl.process.login);
 //council 페이지 라우팅
