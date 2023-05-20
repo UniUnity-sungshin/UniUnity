@@ -1,6 +1,7 @@
 "use strict";
 
 const passport =require('passport');
+const University = require('./University');
 const LocalStrategy=require('passport-local').Strategy;
 
 const UserStorage=require("./UserStorage");
@@ -13,16 +14,16 @@ class User{
         console.log("user_email=",user_email);
         const userInfo =await UserStorage.getUserInfo(user_email);
         if(userInfo){
-            console.log(userInfo);
+            const university=new University();
             return {loginStatus: true, 
                     user_email:userInfo.user_email,
                     psword : userInfo.psword,
                     user_type:userInfo.user_type,
                     user_name:userInfo.user_name,
-                    university_id:userInfo.university_id
+                    university_name:await university.getUnversityIdToName(userInfo.university_id)
             };
         }
-        return {loginStatus:false,msg:"존재하지 않는 아이디 입니다."}
+        return {loginStatus:false,msg:"존재하지 않는 이메일입니다."}
         
         
     }
