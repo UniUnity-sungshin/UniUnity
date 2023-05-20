@@ -1,12 +1,14 @@
 "use strict"
 
 const Partner = require("../models/Partner");
+const Retailer = require("../models/Retailer");
 const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
 const Post=require("../models/Post");
-const Auth=require("../lib/auth");
-const auth = require("../lib/auth");
+const request = require('request');
+// const Auth=require("../lib/auth");
+// const auth = require("../lib/auth");
 
 const output ={
     home : (req,res)=>{
@@ -78,10 +80,26 @@ const partner = {
         const partner_uni = new Partner();
         const university_id = await partner_uni.getUniversityID(req.body.university_name);
         const response = await partner_uni.getPartnerStores(university_id);
-        // res.render("home/partner.html");
         return res.json(response);
     },
 };
+
+// 소상공인 파트
+const retailer = {
+    retailer: async(req,res)=>{
+        // const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
+        // var url = `http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRectangle?serviceKey=${serviceKey}&pageNo=1&numOfRows=10&minx=${minx}'&miny=${miny}&maxx=${maxx}&maxy=${maxy}&type=json`
+        // request(test, function(error, response, body){
+        //     if(error){
+        //         console.log(error)
+        //     }
+        //     let obj = JSON.parse(body);
+        //     // 콘솔에 찍어보기
+        //     console.log(obj.body.items[0].trarNo);
+        // })
+        res.render("home/retailer.html")
+    }
+}
 
 //council 페이지 라우팅
 const result = {
@@ -112,5 +130,6 @@ module.exports={
     process,
     result,
     partner,
-    post
+    post,
+    retailer
 };
