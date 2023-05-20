@@ -68,26 +68,25 @@
 }
 
 /* 지도 */
-#mapBox{
-    /* width: 1300px; */
-    height: 900px;
-    margin: 0 auto;
-    padding-top: 50px;
-}
-
-
 #map{
     /* width: 700px; */
-    height: 800px;
+    height: 600px;
     margin-left: 40px;
     border-radius: 5px;
 } 
+
+#mapStoreInfo{
+    margin-top: 50px;
+    margin-left: 80px;
+    font-size: 17px;
+}
 
 #mapStoreInfo{
     font-size: 17px;
 }
 
 .storeInfoTextBox{
+    display: none;
     margin-bottom: 20px;
 }
 
