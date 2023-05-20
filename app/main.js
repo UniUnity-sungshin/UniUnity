@@ -67,10 +67,38 @@ app.use(passport.session()); //passport가 내부적으로 세션 미들웨어�
 
 
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',       //성공했을 때는 home으로
-  failureRedirect: '/login' //실패했을 때는 다시 로그인 페이지로
-}));
+// app.post('/login', passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/login'
+// }));
+
+
+
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if(info) {
+      const errorMessage = info.reason || 'Authentication failed';
+      return res.send(`<script>alert("${errorMessage}"); window.location.href = "/login";</script>`);
+    }
+
+    return req.login(user, loginErr => { // 이 부분 callback 실행
+      //console.log('req.login callback');
+      if (loginErr) {
+        return res.send(`<script>alert("Authentication failed"); window.location.href = "/login";</script>`);
+      }
+      const fillteredUser = { ...user.dataValues };
+      delete fillteredUser.psword;
+      return res.redirect('/');
+    });
+   
+   
+  })(req, res, next);
+});
+
+// app.post('/login', passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/login'
+// }));
 
 let userInfo;
 //passport.js를 이용한 로그인 기능 구현
@@ -82,34 +110,32 @@ passport.use(new LocalStrategy(
   async function (username, password, done) {
     console.log('LocalStrategy', username, password);
 
-    let user=new User();
-    userInfo=await user.getUserInfo(username);
-
-    if(userInfo.loginStatus==true){
-      if(username ===userInfo.user_email){
-        console.log(1);
-        if(password === userInfo.psword){
-          console.log(2);
-          return done(null,userInfo);
-        }else{
-          return done(null,false,{
-            message:'Incorrect password.'
+    let user = new User();
+    userInfo = await user.getUserInfo(username);
+  
+    if (userInfo.loginStatus == true) {
+      if (username === userInfo.user_email) {
+        if (password === userInfo.psword) {
+          return done(null, userInfo);
+        } else {
+          return done(null, false, {
+            reason: '비밀번호가 틀렸습니다.'
           })
         }
-      }else{
+      } else {
         console.log(4);
-        return done(null,false,{
-          message:'Incorrect username.'
+        return done(null, false, {
+          reason: '존재하지 않는 이메일입니다. '
         })
       }
     }
-    else{
-      return done(null,false,{
-        message: userInfo.msg
+
+    else {
+      return done(null, false, {
+        reason: userInfo.msg
       })
     }
   }))
-  
 
 
 //세션을 처리하는 방법
@@ -128,6 +154,7 @@ passport.deserializeUser(function (id, done) {
   //   done(err,user);
   // })
 })
+
 
 
 app.use("/", controllers); //use -> 미들 웨어를 등록해주는 메서드
