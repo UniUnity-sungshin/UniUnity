@@ -24,6 +24,9 @@ router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
 router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
 
+// retailer 라우터
+router.get("/retailer",ctrl.retailer.retailer);
+
 // router.post("/login",ctrl.process.login);
 //council 페이지 라우팅
 // router.get("/sungshin\", ctrl.result.council);

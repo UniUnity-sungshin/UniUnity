@@ -247,7 +247,6 @@ function partnerLoad(){
             };
             stores.push(obj);
             // 객체의 좌표 부분은 따로 저장
-            let idx = 0;
             positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude),parseFloat(res[i].longitude)));
         };
         // console.log(res);
