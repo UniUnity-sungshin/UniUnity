@@ -34,16 +34,15 @@ const loadloginData = () => {
     fetch(url)
         .then((res) => res.json())
         .then(res => {
-            console.log(res);
+
             setLoginHeader(res);
         }
     )
 }
 
 const setLoginHeader=(res)=>{
-    console.log(res.loginStatus);
-    if(res.loginStatus){
-
+    //console.log(res.loginStatus);
+    if(res.loginStatus==true){
         loginStatusBtn.setAttribute("href", "http://localhost:3000/logout");
         loginStatusBtn.innerText="로그아웃"
         signUpBtn.setAttribute("href", "http://localhost:3000/mypage");
