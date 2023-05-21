@@ -31,6 +31,13 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+app.use("/", controllers); //use -> 미들 웨어를 등록해주는 메서드
+//에러처리를 위한 미들웨어 생성
+app.use(errorController.logErrors);
+app.use(errorController.respondNoResourceFound);
+app.use(errorController.respondInternalEroor);
+
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 //   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -39,121 +46,117 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 
-//세션 사용
-app.use(session({
-  secret: 'asadlfkj!@#!@#dfgasdg',
-  resave: false,
-  saveUninitialized: true,
-  store: new FileStore()
-}))
+// //세션 사용
+// app.use(session({
+//   secret: 'asadlfkj!@#!@#dfgasdg',
+//   resave: false,
+//   saveUninitialized: true,
+//   store: new FileStore()
+// }))
 
-//passport는 세션으로 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
-var passport = require('passport');
-var LocalStrategy = require('passport-local');
+// //passport는 세션으로 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
+// var passport = require('passport');
+// var LocalStrategy = require('passport-local');
 
-const User = require("./src/models/User");
+// const User = require("./src/models/User");
 
-//passport를 설치한 것이고 express가 호출이 될 때마다 passport.initalize가 호출되면서 우리의 app에 개입됨
-app.use(passport.initialize()); //passport미들웨어 등록
-app.use(passport.session()); //passport가 내부적으로 세션 미들웨어를 쓰겠다.
-
-
-
-// app.post('/login', passport.authenticate('local', {
-//   successRedirect: '/',
-//   failureRedirect: '/login'
-// }));
+// //passport를 설치한 것이고 express가 호출이 될 때마다 passport.initalize가 호출되면서 우리의 app에 개입됨
+// app.use(passport.initialize()); //passport미들웨어 등록
+// app.use(passport.session()); //passport가 내부적으로 세션 미들웨어를 쓰겠다.
 
 
 
-app.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if(info) {
-      const errorMessage = info.reason || 'Authentication failed';
-      return res.send(`<script>alert("${errorMessage}"); window.location.href = "/login";</script>`);
-    }
+// // app.post('/login', passport.authenticate('local', {
+// //   successRedirect: '/',
+// //   failureRedirect: '/login'
+// // }));
 
-    return req.login(user, loginErr => { // 이 부분 callback 실행
-      //console.log('req.login callback');
-      if (loginErr) {
-        return res.send(`<script>alert("Authentication failed"); window.location.href = "/login";</script>`);
-      }
-      const fillteredUser = { ...user.dataValues };
-      delete fillteredUser.psword;
-      return res.redirect('/');
-    });
+
+
+// app.post('/login', (req, res, next) => {
+//   passport.authenticate('local', (err, user, info) => {
+//     if(info) {
+//       const errorMessage = info.reason || 'Authentication failed';
+//       return res.send(`<script>alert("${errorMessage}"); window.location.href = "/login";</script>`);
+//     }
+
+//     return req.login(user, loginErr => { // 이 부분 callback 실행
+//       //console.log('req.login callback');
+//       if (loginErr) {
+//         return res.send(`<script>alert("Authentication failed"); window.location.href = "/login";</script>`);
+//       }
+//       const fillteredUser = { ...user.dataValues };
+//       delete fillteredUser.psword;
+//       return res.redirect('/');
+//     });
    
    
-  })(req, res, next);
-});
+//   })(req, res, next);
+// });
 
-// app.post('/login', passport.authenticate('local', {
-//   successRedirect: '/',
-//   failureRedirect: '/login'
-// }));
+// // app.post('/login', passport.authenticate('local', {
+// //   successRedirect: '/',
+// //   failureRedirect: '/login'
+// // }));
 
-let userInfo;
-//passport.js를 이용한 로그인 기능 구현
-passport.use(new LocalStrategy(
-  {
-    usernameField: 'email',
-    passwordField: 'pwd'
-  },
-  async function (username, password, done) {
-    console.log('LocalStrategy', username, password);
+// let userInfo;
+// //passport.js를 이용한 로그인 기능 구현
+// passport.use(new LocalStrategy(
+//   {
+//     usernameField: 'email',
+//     passwordField: 'pwd'
+//   },
+//   async function (username, password, done) {
+//     console.log('LocalStrategy', username, password);
 
-    let user = new User();
-    userInfo = await user.getUserInfo(username);
+//     let user = new User();
+//     userInfo = await user.getUserInfo(username);
   
-    if (userInfo.loginStatus == true) {
-      if (username === userInfo.user_email) {
-        if (password === userInfo.psword) {
-          return done(null, userInfo);
-        } else {
-          return done(null, false, {
-            reason: '비밀번호가 틀렸습니다.'
-          })
-        }
-      } else {
-        console.log(4);
-        return done(null, false, {
-          reason: '존재하지 않는 이메일입니다. '
-        })
-      }
-    }
+//     if (userInfo.loginStatus == true) {
+//       if (username === userInfo.user_email) {
+//         if (password === userInfo.psword) {
+//           return done(null, userInfo);
+//         } else {
+//           return done(null, false, {
+//             reason: '비밀번호가 틀렸습니다.'
+//           })
+//         }
+//       } else {
+//         console.log(4);
+//         return done(null, false, {
+//           reason: '존재하지 않는 이메일입니다. '
+//         })
+//       }
+//     }
 
-    else {
-      return done(null, false, {
-        reason: userInfo.msg
-      })
-    }
-  }))
-
-
-//세션을 처리하는 방법
-passport.serializeUser(function (user, done) {
-  console.log("serlialize입니다.");
-  done(null, user.user_email);//두번째 인자에 user의 식별자를 넣어주기로 !약속!되어 있음
-  //세션폴더의 세션 데이터 파일에 user의 식별자가 들어감
-})
-
-//로그인이 되면 페이지를 방문할 때마다 deserializeUser의 콜백이 호출하기로 약속 되어있음
-//호출될때마다 사용자의 데이터를 저장하고 있는 authData에 들어있는 사용자의 실제데이터를 가져온다.
-passport.deserializeUser(function (id, done) {
-  console.log("deserialize입니당");
-  done(null, userInfo);
-  // User.findByID(id,function(err,user){
-  //   done(err,user);
-  // })
-})
+//     else {
+//       return done(null, false, {
+//         reason: userInfo.msg
+//       })
+//     }
+//   }))
 
 
+// //세션을 처리하는 방법
+// passport.serializeUser(function (user, done) {
+//   console.log("serlialize입니다.");
+//   done(null, user.user_email);//두번째 인자에 user의 식별자를 넣어주기로 !약속!되어 있음
+//   //세션폴더의 세션 데이터 파일에 user의 식별자가 들어감
+// })
 
-app.use("/", controllers); //use -> 미들 웨어를 등록해주는 메서드
-//에러처리를 위한 미들웨어 생성
-app.use(errorController.logErrors);
-app.use(errorController.respondNoResourceFound);
-app.use(errorController.respondInternalEroor);
+// //로그인이 되면 페이지를 방문할 때마다 deserializeUser의 콜백이 호출하기로 약속 되어있음
+// //호출될때마다 사용자의 데이터를 저장하고 있는 authData에 들어있는 사용자의 실제데이터를 가져온다.
+// passport.deserializeUser(function (id, done) {
+//   console.log("deserialize입니당");
+//   done(null, userInfo);
+//   // User.findByID(id,function(err,user){
+//   //   done(err,user);
+//   // })
+// })
+
+
+
+
 
 
 
