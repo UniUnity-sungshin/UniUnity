@@ -23,7 +23,8 @@ var positions = [];
 
 const storeName = document.querySelector('#storeName'),
       storeAdr = document.querySelector('#storeAdr'),
-      storeClass = document.querySelector('#storeClass');
+      storeClass = document.querySelector('#storeClass'),
+      storeItem = document.querySelector('#storeItem');
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
@@ -56,12 +57,12 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
                 storeName: res.body.items[i].bizesNm,
                 store_location: res.body.items[i].rdnmAdr,
                 storeClass: res.body.items[i].indsLclsNm,
-                storeItem: res.body.items[i].indsSclsNm
+                storeItem: res.body.items[i].indsSclsNm,
+                ksicNm: res.body.items[i].ksicNm
             };
             stores.push(obj);
             positions.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
         }
-        // console.log(res.body.items.length);
     })
     .catch(error => {
         console.log('Error:', error);
@@ -79,7 +80,8 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
             }
             storeName.innerHTML = stores[i].storeName;
             storeAdr.innerHTML = stores[i].store_location;
-            storeClass.innerHTML = stores[i].storeClass;
+            storeClass.innerHTML = stores[i].storeClass + " " + stores[i].storeItem;
+            storeItem.innerHTML = stores[i].ksicNm;
         });
     }
 });
