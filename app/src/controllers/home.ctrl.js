@@ -6,9 +6,6 @@ const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
 const Post=require("../models/Post");
-const request = require('request');
-// const Auth=require("../lib/auth");
-// const auth = require("../lib/auth");
 
 const output ={
     home : (req,res)=>{
@@ -46,7 +43,7 @@ const process={
         return res.json(response);
     },
     //로그인 상태
-    loginStatus:(req,res)=>{
+    loginStatus:async (req,res)=>{
         if(req.user){
             return res.json(req.user);
         }

@@ -9,9 +9,9 @@ const signUpBtn=document.getElementById("signUpBtn");
 let universitySearchList = [];
 
 
-const loadData = () => {
+const loadData = async() => {
     const url = `http://localhost:3000/showUniversityNameList`;
-    fetch(url)
+    await fetch(url)
         .then((res) => res.json())
         .then(res => {
             fillSearch(res);
@@ -29,9 +29,9 @@ const fillSearch = (suggestArr) => {
     )
 }
 
-const loadloginData = () => {
+const loadloginData = async() => {
     const url = `http://localhost:3000/loginStatus`;
-    fetch(url)
+    await fetch(url)
         .then((res) => res.json())
         .then(res => {
 
@@ -39,6 +39,7 @@ const loadloginData = () => {
         }
     )
 }
+
 
 const setLoginHeader=(res)=>{
     //console.log(res.loginStatus);
