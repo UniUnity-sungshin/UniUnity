@@ -24,6 +24,17 @@ class PartnerStorage{
             })           
         })
     }
+    // university_url로 university_name받아오기
+    static getUniversity(university_url) {
+        return new Promise(async (resolve,reject)=> {
+            pool.query('SELECT university_name FROM University WHERE university_url =?',[university_url],(err,data)=>{
+                if(err)reject(`${err}`);
+                else {               
+                    resolve(data[0]);
+                }
+            });
+        });
+    }
     // university_id로 해당 대학의 제휴 가게 모두 뽑아내기
     static async getPartnerStores(university_id){ 
         return new Promise(async(resolve,reject)=>{
