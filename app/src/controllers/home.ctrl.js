@@ -32,9 +32,9 @@ const output ={
         res.render('home/post.html');
     },
     partner:(req,res)=>{
-        res.render("home/partner.html");
+        const university_url = req.params.university_url;
+        res.render("home/partner.html", {data:university_url});
     },
-    
 }
 
 //로그인 인증 process
@@ -60,43 +60,46 @@ const process={
           });
        
     }
-
 };
 
 //제휴 파트
 const partner = {
     getUniversityID:async(req,res)=>{
-        const partner_uni = new Partner();
-        const response = await partner_uni.getUniversityID(req.params.university_name);
-        return res.json(response);
-    },
-    getUniversityLocation: async(req,res)=>{
-        const partner_uni = new Partner();
-        const university_id = await partner_uni.getUniversityID(req.body.university_name);
-        const response = await partner_uni.getUniversityLocation(university_id);
+        const partner = new Partner();
+        const response = await partner.getUniversityID(req.params.university_name);
         return res.json(response);
     },
     getPartnerUni: async(req,res)=>{
-        const partner_uni = new Partner();
-        const university_id = await partner_uni.getUniversityID(req.body.university_name);
-        const response = await partner_uni.getPartnerStores(university_id);
+        const partner = new Partner();
+        const university_id = await partner.getUniversityID(req.body.university_name);
+        const response = await partner.getPartnerStores(university_id);
         return res.json(response);
+    },
+    getUniversityLocation: async(req,res)=>{
+        const partner = new Partner();
+        const university_id = await partner.getUniversityID(req.body.university_name);
+        const response = await partner.getUniversityLocation(university_id);
+        return res.json(response);
+    },
+    getPartner: async(req,res) => {
+        const partner = new Partner();
+        const response = await partner.showUniversity(req.body.university_url);
+        const university_name = response.university_name;
+        const university_id = await partner.getUniversityID(university_name);
+        const university_location = await partner.getUniversityLocation(university_id);
+        const university_uni = await partner.getPartnerStores(university_id);
+        const obj = [];
+        obj.push({latitudeUni: university_location.latitude, longitudeUni: university_location.longitude});
+        for(let i = 0; i < university_uni.length; i++){
+            obj.push(university_uni[i]);
+        }
+        return res.json(obj);
     },
 };
 
 // 소상공인 파트
 const retailer = {
     retailer: async(req,res)=>{
-        // const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
-        // var url = `http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRectangle?serviceKey=${serviceKey}&pageNo=1&numOfRows=10&minx=${minx}'&miny=${miny}&maxx=${maxx}&maxy=${maxy}&type=json`
-        // request(test, function(error, response, body){
-        //     if(error){
-        //         console.log(error)
-        //     }
-        //     let obj = JSON.parse(body);
-        //     // 콘솔에 찍어보기
-        //     console.log(obj.body.items[0].trarNo);
-        // })
         res.render("home/retailer.html")
     }
 }
