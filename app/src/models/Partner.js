@@ -27,6 +27,14 @@ class Partner{
             return{success:false,msg:err};
         }
     }
+    async showUniversity(university_url){
+        try{
+            const response= await PartnerStorage.getUniversity(university_url);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
 };
 
 module.exports = Partner;
