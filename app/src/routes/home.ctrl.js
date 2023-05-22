@@ -2,10 +2,10 @@
 
 const Partner = require("../models/Partner");
 const Retailer = require("../models/Retailer");
-const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
 const Post=require("../models/Post");
+const University = require("../models/University");
 
 const output ={
     home : (req,res)=>{
@@ -44,8 +44,18 @@ const process={
     },
     //로그인 상태
     loginStatus:async (req,res)=>{
+        console.log(req.user);
+        const user =new User();
+        //const university=new University();
+        let userInfo=await user.getUserInfo(req.user);
+        //let university_name=await university.getUnversityIdToName(userInfo.university_id);
         if(req.user){
-            return res.json(req.user);
+            return res.json({loginStatus:true,
+                user_email:userInfo.user_email,
+                user_name:userInfo.user_name,
+                user_type:userInfo.user_type,
+                university_name:userInfo.university_name
+                });
         }
         return res.json({loginStatus:false})
     },

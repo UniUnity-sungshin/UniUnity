@@ -11,7 +11,11 @@ let universitySearchList = [];
 
 const loadData = async() => {
     const url = `http://localhost:3000/showUniversityNameList`;
-    await fetch(url)
+    await fetch(url,{
+        headers:{
+            'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
+        }
+    })
         .then((res) => res.json())
         .then(res => {
             fillSearch(res);
@@ -31,7 +35,10 @@ const fillSearch = (suggestArr) => {
 
 const loadloginData = async() => {
     const url = `http://localhost:3000/loginStatus`;
-    await fetch(url)
+    await fetch(url,{
+        headers:{
+            'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
+    }})
         .then((res) => res.json())
         .then(res => {
 
