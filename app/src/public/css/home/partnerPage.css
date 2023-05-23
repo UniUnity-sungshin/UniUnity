@@ -13,6 +13,8 @@
     font-weight: bold;
 }
 
+
+
 /* 큰 제목 */
 .retailerTextBox{
     width: 90%;
@@ -23,8 +25,8 @@
 #retailerText{
     width: 400px;
     margin-top: 100px;
-    margin-bottom: 30px;
-    font-size: 20px;
+    margin-bottom: 10px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -61,7 +63,7 @@
 /* 지도 */
 #mapBox{
     width: 1300px;
-    height: 700px;
+    /* height: 950px; */
     margin: 0 auto;
     padding-top: 50px;
 }
@@ -75,9 +77,9 @@
 } 
 
 #mapStoreInfo{
-    margin-top: 50px;
+    margin-top: 40px;
     margin-left: 80px;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 .storeInfoTextBox{
@@ -88,3 +90,16 @@
 .storeInfoText{
     color: #979797;
 }
+
+.storeInfoTextInput{
+    margin-left: 10px;
+}
+
+#storeName{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+/* #storeDate{
+    margin-bottom: 100px;
+} */
