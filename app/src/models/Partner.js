@@ -3,9 +3,9 @@
 const PartnerStorage = require("./PartnerStorage");
 
 class Partner{
-    async getUniversityID(university_name){
+    async getUniversityID(university_url){
         try{
-            const response = await PartnerStorage.getUniversityID(university_name);
+            const response = await PartnerStorage.getUniversityID(university_url);
             return response;
         }catch(err){
             return{success:false,msg:err};
