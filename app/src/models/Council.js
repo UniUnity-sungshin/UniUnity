@@ -12,6 +12,14 @@ class Council{
             return{success:false,msg:err};
         }
     }
+    async getUniversityName(university_url){
+        try{
+            const response = await CouncilStorage.getUniversityName(university_url);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
 }
 
 module.exports=Council;
