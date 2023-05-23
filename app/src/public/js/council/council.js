@@ -1,3 +1,14 @@
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+  // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
+  const path = window.location.pathname;
+
+  // 경로에서 universityUrl 값을 추출
+  const pathParts = path.split('/');
+  const universityUrl = pathParts[pathParts.length - 1];
+  return universityUrl;
+}
+
 // 지도
 var mapContainer = document.getElementById('map'),
                mapOption = { 

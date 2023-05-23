@@ -101,18 +101,23 @@ const retailer = {
     }
 }
 
-//council 페이지 라우팅
+//council 페이지
 const result = {
     council : async (req, res) => {
         console.log(req.params.universityname);
         const council = new Council();
         const response=await council.showUniversity(req.params.universityname);
-        console.log(response);
-        res.render("council/council.html", {data: response});
-        //return response;
+        console.log(response.university_name);
+        res.render("council/council.html");
     }
 }
 
+//myPage 페이지
+const mypage = {
+    mypage: async(req,res) => {
+        res.render("home/myPage.html")
+    }
+}
 const post={
     postAll : async (req, res) => {
         console.log(req.params.university_name);
