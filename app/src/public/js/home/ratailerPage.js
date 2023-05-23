@@ -101,6 +101,16 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
     }
 });
 
+function getFood(){
+
+}
+
+function getCafe(){
+    
+}
+
+
+
 function retailerLoad(){
     const universityUrl = getUniversityUrl();
     const req = {
