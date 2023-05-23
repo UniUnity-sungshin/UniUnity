@@ -21,7 +21,7 @@ router.get("/myPage",ctrl.output.mypage);
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
-router.post("/universityName", ctrl.result.getUniversityName);
+router.post("/getUniversityName", ctrl.result.getUniversityName);
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);
 router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);

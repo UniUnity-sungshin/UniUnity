@@ -106,12 +106,12 @@ const result = {
         console.log(req.params.universityname);
         const council = new Council();
         const response=await council.showUniversity(req.params.universityname);
-        console.log(response.university_name);
+        // console.log(response.university_name);
         res.render("council/council.html");
     },
     getUniversityName:async(req,res)=>{
-        const partner = new Partner();
-        const response = await partner.getUniversityName(req.body.university_url);
+        const council = new Council();
+        const response = await council.getUniversityName(req.body.university_url);
         return res.json(response);
     },
 }
