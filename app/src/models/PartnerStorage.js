@@ -5,7 +5,7 @@ const { pool } = require("../../config/db");
 
 class PartnerStorage{
     // unversity_name 입력받아 university_id 보내기
-    static getUniversityID(university_name){
+    static getUniversityID(university_url){
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
                 if(err){
@@ -13,7 +13,7 @@ class PartnerStorage{
                     throw err;
                 }
             });
-            pool.query("SELECT university_id FROM University WHERE university_name=?;",[university_name],function(err,rows){
+            pool.query("SELECT university_id FROM University WHERE university_url=?;",[university_url],function(err,rows){
                 if(err){
                     console.err('Query 오류',err);
                     throw err;

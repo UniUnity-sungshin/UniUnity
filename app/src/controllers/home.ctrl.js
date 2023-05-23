@@ -63,26 +63,25 @@ const process={
 const partner = {
     getUniversityID:async(req,res)=>{
         const partner = new Partner();
-        const response = await partner.getUniversityID(req.params.university_name);
+        const response = await partner.getUniversityID(req.params.university_url);
         return res.json(response);
     },
     getPartnerUni: async(req,res)=>{
         const partner = new Partner();
-        const university_id = await partner.getUniversityID(req.body.university_name);
+        const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.getPartnerStores(university_id);
         return res.json(response);
     },
     getUniversityLocation: async(req,res)=>{
         const partner = new Partner();
-        const university_id = await partner.getUniversityID(req.body.university_name);
+        const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.getUniversityLocation(university_id);
         return res.json(response);
     },
     getPartner: async(req,res) => {
         const partner = new Partner();
         const response = await partner.showUniversity(req.body.university_url);
-        const university_name = response.university_name;
-        const university_id = await partner.getUniversityID(university_name);
+        const university_id = await partner.getUniversityID(req.body.university_url);
         const university_location = await partner.getUniversityLocation(university_id);
         const university_uni = await partner.getPartnerStores(university_id);
         const obj = [];
@@ -101,18 +100,31 @@ const retailer = {
     }
 }
 
-//council 페이지 라우팅
+//council 페이지
 const result = {
     council : async (req, res) => {
         console.log(req.params.universityname);
         const council = new Council();
         const response=await council.showUniversity(req.params.universityname);
-        console.log(response);
-        res.render("council/council.html", {data: response});
-        //return response;
+        // console.log(response.university_name);
+        res.render("council/council.html");
+    },
+    getUniversityName:async(req,res)=>{
+        const council = new Council();
+        const response = await council.getUniversityName(req.body.university_url);
+        return res.json(response);
+    },
+    post : async(req,res)  => {
+        res.render("home/post.html");
     }
 }
 
+//myPage 페이지
+const mypage = {
+    mypage: async(req,res) => {
+        res.render("home/myPage.html")
+    }
+}
 const post={
     postAll : async (req, res) => {
         console.log(req.params.university_url);
