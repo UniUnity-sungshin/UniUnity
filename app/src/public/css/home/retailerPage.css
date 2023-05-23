@@ -78,7 +78,7 @@
 #mapStoreInfo{
     margin-top: 50px;
     margin-left: 80px;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 #mapStoreInfo{
@@ -92,4 +92,13 @@
 
 .storeInfoText{
     color: #979797;
+}
+
+.storeInfoTextInput{
+    margin-left: 10px;
+}
+
+#storeName{
+    font-size: 23px;
+    font-weight: bold;
 }
