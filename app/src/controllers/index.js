@@ -17,6 +17,7 @@ router.get("/council/:universityname",ctrl.result.council);
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
+router.get("/council/university_url", ctrl.result.getUniversityName);
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);
 router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);

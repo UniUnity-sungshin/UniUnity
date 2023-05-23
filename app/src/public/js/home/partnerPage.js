@@ -102,10 +102,3 @@ function partnerLoad(){
 }
 
 window.addEventListener('DOMContentLoaded', partnerLoad);
-
-
-
-
-
-
-

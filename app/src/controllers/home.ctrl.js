@@ -109,7 +109,12 @@ const result = {
         console.log(response);
         res.render("council/council.html", {data: response});
         //return response;
-    }
+    },
+    getUniversityName:async(req,res)=>{
+        const partner = new Partner();
+        const response = await partner.getUniversityName(req.params.university_url);
+        return res.json(response);
+    },
 }
 
 const post={
