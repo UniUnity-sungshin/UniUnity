@@ -111,7 +111,7 @@ const result = {
     },
     getUniversityName:async(req,res)=>{
         const partner = new Partner();
-        const response = await partner.getUniversityName(req.params.university_url);
+        const response = await partner.getUniversityName(req.body.university_url);
         return res.json(response);
     },
 }
