@@ -1,10 +1,5 @@
 "use strict";
 
-// const { error } = require('console');
-// 공공데이터 소상공인 상가 정보 OPEN API 사용
-// const { resolve } = require('path');
-// const request = require('request');
-// const { reject } = require('underscore');
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
@@ -17,6 +12,26 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+// ===========================================================================================
+
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+    // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
+    const path = window.location.pathname;
+  
+    // 경로에서 universityUrl 값을 추출
+    const pathParts = path.split('/');
+    const universityUrl = pathParts[pathParts.length - 1];
+    return universityUrl;
+}
+
+function setCenter(map,latitude,longitude) {            
+    // 이동할 위도 경도 위치를 생성합니다 
+    var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
+                    
+    // 지도 중심을 이동 시킵니다
+    map.setCenter(moveLatLon);
+}
 
 var stores = [];
 var positions = [];
@@ -29,7 +44,7 @@ const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'bounds_changed', function() {             
-    
+            
     // 지도 영역정보를 얻어옵니다 
     var bounds = map.getBounds();
     
@@ -86,52 +101,32 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
     }
 });
 
-// ===========================================================================================
+function getFood(){
+
+}
+
+function getCafe(){
+    
+}
 
 
 
+function retailerLoad(){
+    const universityUrl = getUniversityUrl();
+    const req = {
+        university_url:universityUrl
+    };
 
-// window.addEventListener('DOMContentLoaded', retailerLoad);
+    fetch(`http://localhost:3000/getUniversityLocation`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    }).then((res) => res.json())
+    .then(res => {
+        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+    })
+}
 
-// app.get('/retailer', function(req, res){
-//     request(test, function(error, response, body){
-//       if(error){
-//         console.log(error)
-//       }
-//       let obj = JSON.parse(body);
-//       // 콘솔에 찍어보기
-//       console.log(obj.body.items[0].trarNo);
-//     })
-//   })
-
-// function retailerLoad(){
-//     // 행정구역단위 상권조회
-//     let apiAdr = endPoint + 'storeZoneInAdmi?' + serviceKey + 'divId=' + 'signguCd'+ '&key=' + '11290' + '&type=json';
-//     fetch(apiAdr)
-//     .then((res)=>res.json())
-//     .then((res)=>{
-//         let obj = JSON.parse(res);
-//         console.log(obj.body.items[0]);
-//     })
-//     .catch((err)=>{
-//         console.log(err);
-//     });
-// }
-
-// const loadData = useCallback(async () => {
-//     try {
-//       await axios
-//         .get(
-//           `http://apis.data.go.kr/B553077/api/open/sdsc2/storeListInRectangle?serviceKey=${serviceKey}&pageNo=1&numOfRows=10&minx=${minx}'&miny=${miny}&maxx=${maxx}`,
-//         )
-//         .then((res) => {
-//           const jsonRes = res.data.data;
-//         });
-//     } catch (error) {
-//       console.log(error);
-//     }
-// });
-
-// useEffect(() => {
-//     loadData();
-//   }, [loadData]);
+window.addEventListener('DOMContentLoaded', retailerLoad);

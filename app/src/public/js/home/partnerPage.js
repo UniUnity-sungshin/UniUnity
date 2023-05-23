@@ -48,13 +48,6 @@ function setCenter(map,latitude,longitude) {
 
 function partnerLoad(){
     const universityUrl = getUniversityUrl();
-    // req의 university_url을 검색창 input을 통해 받아오는 경우 -> 작동 O
-    // req의 university_url를 getUniversityUrl()를 통해 /partner/:sungshin_url을 통해 sungshin_url을 받아오는 경우 -> 작동 X
-    // 1. 작동 되는 코드
-    // const req = {
-    //     university_url: partnerMapSerch.value
-    // };
-    // 2. 작동 안되는 코드
     const req = {
         university_url:universityUrl
     };
@@ -108,17 +101,4 @@ function partnerLoad(){
     })
 }
 
-// 1. 작동 되는 코드
-// 검색 버튼을 클릭 시 실행 -> partnerLoad 잘 실행 됨
-searchBtn.addEventListener("click", partnerLoad); 
-
-// 2. 작동 안되는 코드
-// 페이지 로드 시 partnerLoad 실행 되도록 함 -> "Failed to fetch" 에러 발생
 window.addEventListener('DOMContentLoaded', partnerLoad);
-
-
-
-
-
-
-

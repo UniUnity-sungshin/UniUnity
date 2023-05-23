@@ -21,15 +21,16 @@ router.get("/myPage",ctrl.output.mypage);
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
+router.get("/council/university_url", ctrl.result.getUniversityName);
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);
-router.get("/getUniversityID/:university_name",ctrl.partner.getUniversityID);
+router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);
 router.post("/getPartner",ctrl.partner.getPartner);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
 router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
 
 // retailer 라우터
-router.get("/retailer",ctrl.retailer.retailer);
+router.get("/retailer/:university_url",ctrl.retailer.retailer);
 
 // router.post("/login",ctrl.process.login);
 //council 페이지 라우팅
