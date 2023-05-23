@@ -11,8 +11,12 @@ router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
-//council 페이지 라우트
+
+// council 라우터
 router.get("/council/:universityname",ctrl.result.council);
+
+// myPage 라우터
+router.get("/myPage",ctrl.output.mypage);
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
