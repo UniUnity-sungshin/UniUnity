@@ -1,11 +1,65 @@
+const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
+const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
+
 // 지도
 var mapContainer = document.getElementById('map'),
 mapOption = { 
-    center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+  center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
+  level: 3 // 지도의 확대 레벨
 };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+
+kakao.maps.event.addListener(map, 'bounds_changed', function() {
+  // 지도 영역정보를 얻어옵니다 
+  var bounds = map.getBounds();
+    
+  // 영역정보의 남서쪽 정보를 얻어옵니다 
+  // swLatlng.La = 서쪽 경도좌표값 = minx
+  // swLatlng.Ma = 남쪽 경도좌표값 = miny
+  var swLatlng = bounds.getSouthWest();
+  var minx = swLatlng.La.toString(),
+      miny = swLatlng.Ma.toString();
+
+  // 영역정보의 북동쪽 정보를 얻어옵니다 
+  // neLatlng.La = 동쪽 경도좌표값 = maxx
+  // neLatlng.Ma = 북쪽 경도좌표값 = maxy
+  var neLatlng = bounds.getNorthEast();
+  var maxx = neLatlng.La.toString(),
+      maxy = neLatlng.Ma.toString();
+    
+
+  var url = endPoint + 'storeListInRectangle' + '?serviceKey=' + serviceKey + '&pageNo=1' + '&numOfRows=10' + 
+  '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '&type=json';
+
+  fetch(url)
+  .then((res) => res.json())
+  .then(res => {
+    var positions = [];
+  for(let i = 0; i < res.body.items.length; i++) {
+      
+      positions.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
+  }
+
+  for (let i = 0; i < positions.length; i ++) {
+    // 마커를 생성합니다
+    let marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i] // 마커의 위치
+    });
+  }
+})
+.catch(error => {
+ console.log('Error:', error);
+});
+})
+var swiperContainer = document.querySelector('.swiper-container');
+
+swiperContainer.addEventListener('click', function(event) {
+  if (!event.target.classList.contains('swiper-button-prev') && !event.target.classList.contains('swiper-button-next')) {
+    event.stopPropagation();
+  }
+});
 
 // 슬라이더 버튼
 var prevButton = document.querySelector('.swiper-button-prev');
@@ -30,7 +84,7 @@ var mySwiper = new Swiper('.swiper-container', {
   nextEl: '.swiper-button-next',
   },
   loop: true,
-  slidesPerView: 3.5,
+  slidesPerView: 3,
   centerSlides: true,
   spaceBetween: 20,
 });
@@ -127,10 +181,10 @@ function updateDynamicLinks() {
   link3.textContent = "마이페이지";
 
   link4.href = generateDynamicURL("news",userschool);
-  link4.textContent = "더보기";
+  link4.textContent = "더보기 ►";
 
   link5.href = generateDynamicURL("retailer",userschool);
-  link5.textContent = "더보기";
+  link5.textContent = "더보기 ►";
 }
 
 // 동적 링크 업데이트 함수를 호출합니다.
