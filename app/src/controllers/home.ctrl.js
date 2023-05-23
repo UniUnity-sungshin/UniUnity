@@ -114,6 +114,9 @@ const result = {
         const response = await partner.getUniversityName(req.body.university_url);
         return res.json(response);
     },
+    post : async(req,res)  => {
+        res.render("home/post.html");
+    }
 }
 
 //myPage 페이지

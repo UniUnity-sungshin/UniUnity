@@ -14,9 +14,7 @@ router.get("/mypage",ctrl.output.mypage);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
-
-// myPage 라우터
-router.get("/myPage",ctrl.output.mypage);
+router.get("/post",ctrl.result.post);
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
