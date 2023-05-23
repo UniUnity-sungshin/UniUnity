@@ -9,58 +9,79 @@ function getUniversityUrl() {
   return universityUrl;
 }
 
-// 지도
+const universityName = document.querySelector("#universityName");
+
+function councilLoad(){
+  const universityUrl = getUniversityUrl();
+  const req = {
+    university_url:universityUrl
+  };
+  fetch(`http://localhost:3000/universityName`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+  .then((res) => res.json())
+  .then(res => {
+    universityName = res;
+    console.log(res);
+  })
+  // 지도
 var mapContainer = document.getElementById('map'),
-               mapOption = { 
-                   center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
-                   level: 3 // 지도의 확대 레벨
-               };
+mapOption = { 
+    center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
 
-           var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
 
-           //********* 지도 이동 이벤트 *********//
-           function setCenter() {            
-            // 이동할 위도 경도 위치를 생성합니다 
-            var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
-            
-            // 지도 중심을 이동 시킵니다
-            map.setCenter(moveLatLon);
-        }
+//********* 지도 이동 이벤트 *********//
+function setCenter() {            
+// 이동할 위도 경도 위치를 생성합니다 
+var moveLatLon = new kakao.maps.LatLng(33.452613, 126.570888);
 
-         function panTo() {
-            // 이동할 위도 경도 위치를 생성합니다 
-            var moveLatLon = new kakao.maps.LatLng(33.450580, 126.574942);
-            
-            // 지도 중심을 부드럽게 이동시킵니다
-            // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-            map.panTo(moveLatLon);            
-        }  
+// 지도 중심을 이동 시킵니다
+map.setCenter(moveLatLon);
+}
+
+function panTo() {
+// 이동할 위도 경도 위치를 생성합니다 
+var moveLatLon = new kakao.maps.LatLng(33.450580, 126.574942);
+
+// 지도 중심을 부드럽게 이동시킵니다
+// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+map.panTo(moveLatLon);            
+}  
 
 // 슬라이더 정보
 var mySwiper = new Swiper('.swiper-container', {
-    wrapperClass: 'swiper-wrapper',
-    slideClass: 'swiper-slide',
-    navigation: {
-      prevEl: '.swiper-button-prev',
-      nextEl: '.swiper-button-next',
-    },
-    loop: true,
-    slidesPerView: 3.5,
-    centerSlides: true,
-    spaceBetween: 20,
-  });
-  
-  // 슬라이더 버튼
-  var prevButton = document.querySelector('.swiper-button-prev');
-  var nextButton = document.querySelector('.swiper-button-next');
-  
-  // 다음 버튼 클릭시
-  nextButton.addEventListener('click', function () {
-    mySwiper.slideToNext();
-  });
-  
-  // 이전 버튼 클릭시
-  prevButton.addEventListener('click', function () {
-    mySwiper.slideToPrev();
-  });
-  
+wrapperClass: 'swiper-wrapper',
+slideClass: 'swiper-slide',
+navigation: {
+prevEl: '.swiper-button-prev',
+nextEl: '.swiper-button-next',
+},
+loop: true,
+slidesPerView: 3.5,
+centerSlides: true,
+spaceBetween: 20,
+});
+
+// 슬라이더 버튼
+var prevButton = document.querySelector('.swiper-button-prev');
+var nextButton = document.querySelector('.swiper-button-next');
+
+// 다음 버튼 클릭시
+nextButton.addEventListener('click', function () {
+mySwiper.slideToNext();
+});
+
+// 이전 버튼 클릭시
+prevButton.addEventListener('click', function () {
+mySwiper.slideToPrev();
+});
+}
+
+window.addEventListener('DOMContentLoaded', councilLoad);
