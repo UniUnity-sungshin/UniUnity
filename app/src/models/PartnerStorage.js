@@ -23,25 +23,6 @@ class PartnerStorage{
             })           
         })
     }
-    // unversity_url 입력받아 university_name 보내기
-    static getUniversityName(university_url){
-        return new Promise(async(resolve,reject)=>{
-            pool.getConnection((err,connection)=>{
-                if(err){
-                    console.error('MySQL 연결 오류: ',err);
-                    throw err;
-                }
-            });
-            pool.query("SELECT university_name FROM University WHERE university_url=?;",[university_url],function(err,rows){
-                if(err){
-                    console.err('Query 오류',err);
-                    throw err;
-                }
-                // console.log(rows[0].university_id);
-                resolve(rows[0].university_id);
-            })           
-        })
-    }
     // university_url로 university_name받아오기
     static getUniversity(university_url) {
         return new Promise(async (resolve,reject)=> {
