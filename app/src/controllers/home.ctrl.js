@@ -119,12 +119,6 @@ const result = {
     }
 }
 
-//myPage 페이지
-const mypage = {
-    mypage: async(req,res) => {
-        res.render("home/myPage.html")
-    }
-}
 const post={
     postAll : async (req, res) => {
         console.log(req.params.university_name);
