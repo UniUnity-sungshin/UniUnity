@@ -2,8 +2,8 @@
 const { pool } = require("../../config/db");
 class PostStorage{
 
-// unversity_name 입력받아 university_id 보내기
-static getUniversityID(university_name){
+// unversity_url 입력받아 university_id 보내기
+static getUniversityUrlToID(university_url){
     return new Promise(async(resolve,reject)=>{
         pool.getConnection((err,connection)=>{
             if(err){
@@ -11,7 +11,7 @@ static getUniversityID(university_name){
                 throw err;
             }
         });
-        pool.query("SELECT university_id FROM University WHERE university_name=?;",[university_name],function(err,rows){
+        pool.query("SELECT university_id FROM University WHERE university_url=?;",[university_url],function(err,rows){
             if(err){
                 console.err('Query 오류',err);
                 throw err;
@@ -23,7 +23,7 @@ static getUniversityID(university_name){
 }
 
     //최신순 포스트 리스트 불러오기
-    static getPostListAll(){
+    static getPostListAll(university_id){
         return new Promise(async(resolve,reject)=>{
            
             pool.getConnection((err,connection)=>{
