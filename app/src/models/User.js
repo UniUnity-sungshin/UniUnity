@@ -9,10 +9,10 @@ class User{
     constructor(body){
         this.body=body;
     } 
-    //user_email을 통해 user정보 갖고오기 
-    async getUserInfo(user_email){
-        console.log("user_email=",user_email);
-        const userInfo =await UserStorage.getUserInfo(user_email);
+    //client_email 통해 user정보 갖고오기 
+    async getUserInfo(client_email){
+    
+        const userInfo =await UserStorage.getUserInfo(client_email);
         if(userInfo){
             const university=new University();
             return {loginStatus: true, 
@@ -25,7 +25,7 @@ class User{
                     university_name:await university.getUnversityIdToName(userInfo.university_id)
             };
         }
-        return {loginStatus:false,msg:"존재하지 않는 이메일입니다."}
+        return {loginStatus:false}
         
         
     }
