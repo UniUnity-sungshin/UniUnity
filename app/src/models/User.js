@@ -20,7 +20,7 @@ class User{
                     psword : userInfo.psword,
                     user_type:userInfo.user_type,
                     user_name:userInfo.user_name,
-                    user_nicknmae:userInfo.user_nickname,
+                    user_nickname:userInfo.user_nickname,
                     //university_id가 아닌 university_name으로 반환해줌
                     university_name:await university.getUnversityIdToName(userInfo.university_id)
             };
