@@ -125,10 +125,10 @@ const result = {
 
 const post={
     postAll : async (req, res) => {
-        console.log(req.params.university_name);
-        let university_name=req.params.university_name;
+        console.log(req.params.university_url);
+        let university_url=req.params.university_url;
         const post = new Post();
-        const response=await post.showPostListAll(university_name);
+        const response=await post.showPostListAll(university_url);
         console.log(response);
         return res.json(response);
     }
