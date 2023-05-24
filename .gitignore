@@ -108,3 +108,7 @@ dist
 
 #
 .DS_Store
+
+#email auth
+.credentials.json
+.token.json
