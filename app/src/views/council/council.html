@@ -27,21 +27,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/retailer" target="_self">
+                        <a id="main_retailer" href="#" target="_self">
                         소상공인 가게 지도
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/partner" target="_self">
+                        <a id="partner" href="#" target="_self">
                         제휴 지도
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost:3000/myPage" target="_self">
+                        <a id="mypage" href="#" target="_self">
                         마이페이지
+                        
+                        </a>
                         <br>
                         <span id="name">오영서님 환영합니다.</span>
-                        </a>
                     </li>
                 </ul>
             </div>
@@ -51,7 +52,7 @@
             <div class="main-news">
                 <ul>
                     <span class="category">학교 주요 소식</span>
-                    <a href="http://localhost:3000/sungshin/moreNews" target="_self">
+                    <a id="news" href="#" target="_self">
                         <span class="more">더보기 ►</span>
                     </a>
                 </ul>
@@ -85,23 +86,24 @@
             <div class="stores">
                 <ul>
                     <span class="category">우리 대학  인근 소상공인 상가 모아보기</span>
-                        <a href="http://localhost:3000/store/:university_name" target="_self">
+                        <a id="more_retailer" href="#" target="_self">                           
                             <span class="more">더보기 ►</span>
                         </a>
                 </ul>
             </div>
             <div class="map" id="map"></div>
+            
         </div>
         <!--다른 학교 검색-->
         <div class="temp-box" id="temp-box4">
             <ul class="others">
                 <a href="http://localhost:3000/" target="_self">
-                <span class="more">다른 학교도 궁금하다면? ►</span>
+                <span id="more_university" class="more">다른 학교도 궁금하다면? ►</span>
                 </a>
             </ul>
         </div>
     </div>
     <!--자바스크립트 연결-->
-        <script src="/js/council/council.js"></script>
+    <script src="/js/council/council.js"></script>
 </body>
 </html>
