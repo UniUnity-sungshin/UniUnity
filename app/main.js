@@ -80,7 +80,7 @@ passport.use(new LocalStrategy(
     }
 
     if (username === userInfo.user_email) {
-      if (password === userInfo.psword) {
+      if (await bcrypt.compare(password,userInfo.psword)) {
         return done(null, userInfo);
       } else {
         return done(null, false, {
