@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 //에러 라우팅
-const errorController = require("./src/routes/errorController");
+const errorController = require("./src/controllers/errorController");
 const { delimiter } = require("ejs");
 
 //세션이용
@@ -134,7 +134,7 @@ app.post('/register',async(req,res)=>{
   }
 })
 
-app.use("/", require("./src/routes/index")); //use -> 미들 웨어를 등록해주는 메서드
+app.use("/", require("./src/controllers/index")); //use -> 미들 웨어를 등록해주는 메서드
 
 //에러처리를 위한 미들웨어 생성
 app.use(errorController.logErrors);
