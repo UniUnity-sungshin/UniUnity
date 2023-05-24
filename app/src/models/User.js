@@ -9,7 +9,7 @@ class User{
     constructor(body){
         this.body=body;
     } 
-
+    //user_email을 통해 user정보 갖고오기 
     async getUserInfo(user_email){
         console.log("user_email=",user_email);
         const userInfo =await UserStorage.getUserInfo(user_email);
@@ -20,6 +20,8 @@ class User{
                     psword : userInfo.psword,
                     user_type:userInfo.user_type,
                     user_name:userInfo.user_name,
+                    user_nicknmae:userInfo.user_nickname,
+                    //university_id가 아닌 university_name으로 반환해줌
                     university_name:await university.getUnversityIdToName(userInfo.university_id)
             };
         }
@@ -28,12 +30,12 @@ class User{
         
     }
 
-
-    // register(){
-    //     const client = this.body;
-    //     const response = UserStorage.save(client);
-    //     return response;
-    // }
+    //회원가입 
+    async register(){
+        const client = this.body;
+        const response = await UserStorage.save(client);
+        return response;
+    }
 
 
 }

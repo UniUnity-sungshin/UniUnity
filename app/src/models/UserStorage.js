@@ -15,17 +15,25 @@ class UserStorage{
         
     }
 
-    // static async save(userInfo) {
-    //     return new Promise((resolve,reject)=>{
-    //         const query = "INSERT INTO users(id,name,psword) VALUES(?,?,?);" ;
-    //         pool.query(query,
-    //             [userInfo.id,userInfo.name,userInfo.psword],
-    //             (err)=>{
-    //             if(err)reject(`${err}`);
-    //             else resolve ({success:true});
-    //         });
-    //     });
-    // }
+    static save(userInfo) {
+        console.log(userInfo)
+        return new Promise(async (resolve,reject)=>{
+            console.log(userInfo.psword.length);
+            const query = "INSERT INTO User(user_email,user_name,psword,user_type,user_nickname,university_id) VALUES (?,?,?,?,?,?);" ;
+            pool.query(query,
+                [userInfo.user_email,
+                    userInfo.user_name,
+                    userInfo.psword,
+                    userInfo.user_type,
+                    userInfo.user_nickname,
+                    userInfo.university_id],
+                (err)=>{
+                if(err)reject(`${err}`);
+                else resolve ({success:true});
+            });
+        
+        });
+    }
     
 
 }
