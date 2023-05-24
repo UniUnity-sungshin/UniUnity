@@ -14,6 +14,10 @@ const { delimiter } = require("ejs");
 var session = require('express-session')
 //세션을 파일에 저장
 var FileStore = require('session-file-store')(session)
+//로그인 기능 
+const User = require("./src/models/User");
+
+const bcrypt = require('bcrypt');
 
 // 앱 셋팅
 // 서버가 읽을 수 있도록 HTML 의 위치를 정의해줍니다.
@@ -29,6 +33,8 @@ app.use(bodyParser.json());
 //URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제 해결
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 //세션 사용
 app.use(session({
   secret: 'asadlfkj!@#!@#dfgasdg',
@@ -38,12 +44,8 @@ app.use(session({
 }))
 
 
-//로그인 기능 
-const User = require("./src/models/User");
-const bcrypt = require('bcrypt');//비밀번호 해싱
-const UserStorage = require("./src/models/UserStorage");
 
-//passport는 세션으로 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
+//passport는 세션을 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
 
 var passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy;
@@ -75,7 +77,7 @@ passport.use(new LocalStrategy(
     userInfo = await user.getUserInfo(username);
     if (!userInfo) {
       return done(null, false, {
-        reason: 'Incorrect username.'
+        reason: '등록된 이메일이 없습니다.'
       });
     }
 
@@ -84,12 +86,12 @@ passport.use(new LocalStrategy(
         return done(null, userInfo);
       } else {
         return done(null, false, {
-          reason: 'Incorrect password.'
+          reason: '비밀번호가 틀렸습니다.'
         });
       }
     } else {
       return done(null, false, {
-        reason: 'Incorrect username.'
+        reason: '등록된 이메일이 없습니다.'
       });
     }
   }

@@ -44,12 +44,10 @@ const process={
     },
     //로그인 상태
     loginStatus:async (req,res)=>{
-        console.log(req.user);
+       
         const user =new User();
-        //const university=new University();
         let userInfo=await user.getUserInfo(req.user);
         console.log(userInfo);
-        //let university_name=await university.getUnversityIdToName(userInfo.university_id);
         if(req.user){
             return res.json({loginStatus:true,
                 user_email:userInfo.user_email,
@@ -60,7 +58,7 @@ const process={
 
                 });
         }
-        return res.json({loginStatus:false})
+        return res.json(userInfo)
     },
     //로그아웃
     logout:(req,res,next)=>{
