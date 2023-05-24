@@ -48,13 +48,16 @@ const process={
         const user =new User();
         //const university=new University();
         let userInfo=await user.getUserInfo(req.user);
+        console.log(userInfo);
         //let university_name=await university.getUnversityIdToName(userInfo.university_id);
         if(req.user){
             return res.json({loginStatus:true,
                 user_email:userInfo.user_email,
                 user_name:userInfo.user_name,
                 user_type:userInfo.user_type,
+                user_nickname:userInfo.user_nickname,
                 university_name:userInfo.university_name
+
                 });
         }
         return res.json({loginStatus:false})
