@@ -91,6 +91,25 @@ class PartnerStorage{
             })
         })    
     }
+    // 제휴가게 등록하기
+    static async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    throw err;
+                }
+            });
+            pool.query("INSERT into Partner (storeName, store_location, latitude, longitude, university_id, content, startDate, endDate) values (?,?,?,?,?,?,?,?);",[storeName, store_location, latitude, longitude, university_id, content, startDate, endDate],function(err,rows){
+                if(err){
+                    console.err('Query 오류',err);
+                    throw err;
+                }
+                // console.log(rows[0]);
+                resolve(rows[0]);
+            })
+        })    
+    }
 };
 
 module.exports = PartnerStorage;

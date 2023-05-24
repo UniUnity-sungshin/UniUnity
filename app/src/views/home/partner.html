@@ -29,92 +29,101 @@
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container">
             <a class="navbar-brand" href="http://localhost:3000/"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
-
             <div class="d-grid gap-2 d-md-block">
                 <a class="btn btn-primary" href="http://localhost:3000/login" id="loginStatusBtn">로그인</a>
                 <a class="btn btn-primary" href="http://localhost:3000/signup" id="signUpBtn">회원가입</a>
             </div>
-
         </div>
     </nav>
-
-
-
-    <div id="partnerContainer">
-        <header>
-            <!-- header 박스 -->
-            <div class="headerBox">
-                <!-- header 목차 -->
-                <ul class="headerContent">
-
-                </ul>
-            </div>
-        </header>
-        <main>
-            <!-- 소상공인 지도 모아보기 -->
-
-            <!-- "우리대학 인근 소상공인 모아보기" + 검색창-->
-            <div class="retailerTextBox">
-                <div id="retailerText">우리대학 제휴 가게 모아보기</div>
-            </div>
-
-            <!-- 학교 검색창 -->
-            <!-- <form action="" class="retailerTextBox">
-                <div class="input-group mb-3" id="serchBox">
-                    <input type="text" class="form-control" id="partnerMapSerch" placeholder="학교 검색하기"
-                        aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" id="serchBtn" type="button">검색</button>
-                </div>
-            </form> -->
-            <!-- 지도가 들어가는 박스 -->
-            <div class="container" id="mapBox">
-                <div>
-                    <!-- 지도 -->
-                    <div id="map">
-
+    <header>
+        <!-- header 박스 -->
+        <div class="headerBox">
+            <div class="container headerMenu">
+                <div class="row text-center headerContent">
+                    <div class="col-lg-3 " id="headerMenu_university">
+                        <a href="#" target="_self">
+                        
+                        </a>
                     </div>
-                    <!-- 지도 클릭 시 가게 정보 출력 -->
-                    <div class="text-left" id="mapStoreInfo">
-                        <div class="storeInfoTextBox" id="">
-                            <span class="" id="storeName"></span>
-                        </div>
-                        <div class="storeInfoTextBox" id="">
-                            <span class="storeInfoText">주소  </span>
-                            <span class="storeInfoTextInput" id="storeAdr"></span>
-                        </div>
-                        <div class="storeInfoTextBox" id="">
-                            <span class="storeInfoText" id="storeEtc">제휴혜택  </span>
-                            <span class="storeInfoTextInput" id="partnerContent"></span>
-                        </div>
-                        <div class="storeInfoTextBox" id="storeInfoTextBox_date">
-                            <span class="storeInfoText" id="storeDate">기간  </span>
-                            <span class="storeInfoTextInput" id="eventDate"></span>
-                        </div>
+                    <div class="col-lg-3 storeKindli" id="headerMenu_reatiler">
+                        <a href="http://localhost:3000/retailer" target="_self">
+                            소상공인 가게 지도
+                        </a>
+                    </div>
+                    <div class="col-lg-3 storeKindli" id="headerMenu_partner">
+                        <a href="#" target="_self">
+                            제휴 지도
+                        </a>
+                    </div>
+                    <div class="col-lg-3 storeKindli" id="headerMenu_mypage">
+                        <a href="http://localhost:3000/myPage" target="_self">
+                            마이페이지
+                            <br>
+                            <span id="headerMenu_name">오영서님 환영합니다.</span>
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
+    </header>
+    <main>
+        <!-- 소상공인 지도 모아보기 -->
 
+        <!-- "우리대학 인근 소상공인 모아보기" + 검색창-->
+        <div class="retailerTextBox">
+            <div id="retailerText">우리대학 제휴 가게 모아보기</div>
+        </div>
 
+        <!-- 학교 검색창 -->
+        <!-- <form action="" class="retailerTextBox">
+            <div class="input-group mb-3" id="serchBox">
+                <input type="text" class="form-control" id="partnerMapSerch" placeholder="학교 검색하기"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" id="serchBtn" type="button">검색</button>
+            </div>
+        </form> -->
+        <!-- 지도가 들어가는 박스 -->
+        <div class="container" id="mapBox">
+            <div>
+                <!-- 지도 -->
+                <div id="map">
 
+                </div>
+                <!-- 지도 클릭 시 가게 정보 출력 -->
+                <div class="text-left" id="mapStoreInfo">
+                    <div class="storeInfoTextBox" id="">
+                        <span class="" id="storeName"></span>
+                    </div>
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText">주소  </span>
+                        <span class="storeInfoTextInput" id="storeAdr"></span>
+                    </div>
+                    <div class="storeInfoTextBox" id="">
+                        <span class="storeInfoText" id="storeEtc">제휴혜택  </span>
+                        <span class="storeInfoTextInput" id="partnerContent"></span>
+                    </div>
+                    <div class="storeInfoTextBox" id="storeInfoTextBox_date">
+                        <span class="storeInfoText" id="storeDate">기간  </span>
+                        <span class="storeInfoTextInput" id="eventDate"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
 
+    </footer>
 
-            </script>
-        </main>
-        <footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요
+    <script src="js/bootstrap.min.js"></script> -->
 
-        </footer>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-        <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다)
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요
-        <script src="js/bootstrap.min.js"></script> -->
-
-        <!-- 지도 사용 JS -->
-        <script src="/js/home/partnerPage.js"></script>
-    </div>
+    <!-- 지도 사용 JS -->
+    <script src="/js/home/partnerPage.js"></script>
 </body>
 
 </html>
