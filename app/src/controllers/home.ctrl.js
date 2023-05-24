@@ -126,20 +126,17 @@ const result = {
         const response = await council.getUniversityName(req.body.university_url);
         return res.json(response);
     },
-}
-
-//myPage 페이지
-const mypage = {
-    mypage: async(req,res) => {
-        res.render("home/myPage.html")
+    post : async(req,res)  => {
+        res.render("home/post.html");
     }
 }
+
 const post={
     postAll : async (req, res) => {
-        console.log(req.params.university_name);
-        let university_name=req.params.university_name;
+        console.log(req.params.university_url);
+        let university_url=req.params.university_name;
         const post = new Post();
-        const response=await post.showPostListAll(university_name);
+        const response=await post.showPostListAll(university_url);
         console.log(response);
         return res.json(response);
     }

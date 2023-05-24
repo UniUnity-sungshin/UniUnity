@@ -14,9 +14,7 @@ router.get("/mypage",ctrl.output.mypage);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
-
-// myPage 라우터
-router.get("/myPage",ctrl.output.mypage);
+router.get("/post",ctrl.result.post);
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
@@ -37,7 +35,7 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 // router.get("/sungshin\", ctrl.result.council);
 
 //post 라우터
-router.get("/:university_name/postAll",ctrl.post.postAll);
+router.get("/:university_url/postAll",ctrl.post.postAll);
 
 
 //router.get("/sungshin/postAll",ctrl.output.post);
