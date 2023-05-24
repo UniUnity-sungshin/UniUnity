@@ -97,6 +97,18 @@ const partner = {
 const retailer = {
     retailer: async(req,res)=>{
         res.render("home/retailer.html")
+    },
+    retailerFood: async(req,res)=>{
+
+    },
+    retailerCafe: async(req,res)=>{
+
+    },
+    retailerAmenities: async(req,res)=>{
+
+    },
+    retailerEct: async(req,res)=>{
+        
     }
 }
 
