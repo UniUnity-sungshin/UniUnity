@@ -1,4 +1,6 @@
 
+console.log("signup.js");
+
 // select 요소를 가져옵니다.
 var selectElement = document.getElementById('univ_select');
 
@@ -9,6 +11,8 @@ optionElement.textContent = "서강대학교"; // option에 표시할 텍스트�
 
 // option을 select 요소에 추가합니다.
 selectElement.appendChild(optionElement);
+
+
 let universitySearchList = [];
 const loadData = async() => {
     const url = `http://localhost:3000/showUniversityNameList`;
