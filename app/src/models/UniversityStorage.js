@@ -5,13 +5,11 @@ class UniversityStorage{
     // university_id받아 university_name반환하기
     static getUnversityName(university_id){
         return new Promise(async(resolve,reject)=>{
-           console.log(university_id);
             const query = "SELECT university_name FROM University WHERE university_id =?;";
             pool.query(query,[university_id],(err,data)=>{
                 if(err)reject(`${err}`);
                 
                 else {
-                    console.log("getUniversityName",data[0].university_name);
                     resolve(data[0].university_name);
                 }
             });

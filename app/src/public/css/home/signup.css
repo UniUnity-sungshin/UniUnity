@@ -353,3 +353,11 @@ display-flex, .signup-content, .form-row, .form-radio, .select-icon, .select-ico
     --bs-btn-disabled-bg: #ffd400;
     --bs-btn-disabled-border-color: #ffd400;
 }
+ #email_url_select {
+  display: inline-block;
+  width:200px;
+}
+#email{
+  display: inline-block;
+  width: 180px;
+}
