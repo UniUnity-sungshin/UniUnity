@@ -24,12 +24,12 @@
     width: 400px;
     margin-top: 100px;
     margin-bottom: 30px;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 /* 검색창 */
-#serchBox{
+/* #serchBox{
     width: 700px;
     height: 50px;
     margin: 0 auto 0;
@@ -55,7 +55,23 @@
     border: none;
     border-radius: 5px;
     outline: none;
+} */
+
+/* 지도 안내문 */
+.guideTextBox{
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 150px;
 }
+
+#guideText{
+    width: 400px;
+    /* margin-top: 100px; */
+    margin-bottom: 30px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
 
 /* 업소 종류 */
 #storeKind{
@@ -78,9 +94,10 @@
 #mapStoreInfo{
     margin-top: 50px;
     margin-left: 80px;
-    font-size: 17px;
+    font-size: 20px;
 }
 
+/* 가게 정보 출력 */
 #mapStoreInfo{
     font-size: 17px;
 }
@@ -92,4 +109,13 @@
 
 .storeInfoText{
     color: #979797;
+}
+
+.storeInfoTextInput{
+    margin-left: 10px;
+}
+
+#storeName{
+    font-size: 23px;
+    font-weight: bold;
 }
