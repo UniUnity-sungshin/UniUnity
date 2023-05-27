@@ -2,10 +2,10 @@
 
 const Partner = require("../models/Partner");
 const Retailer = require("../models/Retailer");
-const University = require("../models/University");
 const User =require("../models/User");
 const Council=require("../models/Council");
 const Post=require("../models/Post");
+const University = require("../models/University");
 
 const output ={
     home : (req,res)=>{
@@ -44,10 +44,21 @@ const process={
     },
     //로그인 상태
     loginStatus:async (req,res)=>{
+       
+        const user =new User();
+        let userInfo=await user.getUserInfo(req.user);
+        console.log(userInfo);
         if(req.user){
-            return res.json(req.user);
+            return res.json({loginStatus:true,
+                user_email:userInfo.user_email,
+                user_name:userInfo.user_name,
+                user_type:userInfo.user_type,
+                user_nickname:userInfo.user_nickname,
+                university_name:userInfo.university_name
+
+                });
         }
-        return res.json({loginStatus:false})
+        return res.json(userInfo)
     },
     //로그아웃
     logout:(req,res,next)=>{
@@ -134,7 +145,8 @@ const result = {
 const post={
     postAll : async (req, res) => {
         console.log(req.params.university_url);
-        let university_url=req.params.university_name;
+
+        let university_url=req.params.university_url;
         const post = new Post();
         const response=await post.showPostListAll(university_url);
         console.log(response);
