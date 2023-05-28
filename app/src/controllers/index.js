@@ -26,6 +26,7 @@ router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);
 router.post("/getPartner",ctrl.partner.getPartner);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
 router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
+router.post("/uploadPartner",ctrl.partner.uploadPartnerStore);
 
 // retailer 라우터
 router.get("/retailer/:university_url",ctrl.retailer.retailer);
