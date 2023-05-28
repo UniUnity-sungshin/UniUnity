@@ -30,6 +30,10 @@ const output = {
     post: (req, res) => {
         res.render('home/post.html');
     },
+    postform: (req, res) => {
+        res.render('post/postform.html');
+    },
+
     partner: (req, res) => {
         const university_url = req.params.university_url;
         res.render("home/partner.html", { data: university_url });
