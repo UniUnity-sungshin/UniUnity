@@ -10,16 +10,18 @@ router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
-router.get("/mypage",ctrl.output.mypage);
+router.get("/mypage/:universityname",ctrl.output.mypage);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
-router.get("/post",ctrl.result.post);
+router.get("/post/:universityname",ctrl.result.post);
 
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
 router.post("/getUniversityName", ctrl.result.getUniversityName);
+router.post("/getUserName", ctrl.result.getUserName);
+
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);
 router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);
