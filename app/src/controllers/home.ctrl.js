@@ -91,6 +91,24 @@ const partner = {
         }
         return res.json(obj);
     },
+    getUniversityID_name:async(req,res)=>{
+        const partner = new Partner();
+        const response = await partner.getUniversityID(req.params.university_url);
+        return res.json(response);
+    },
+    uploadPartnerStore: async(req,res) => {
+        const storeName = req.body.storeName,
+              store_location = req.body.store_location,
+              latitude = req.body.latitude,
+              longitude = req.body.longitude,
+              content = req.body.content,
+              startDate = req.body.startDate,
+              endDate = req.body.endDate;
+        const university_id = getUniversityID_name(req.body.university_url);
+        const partner = new Partner();
+        const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
+        return res.json();
+    }
 };
 
 // 소상공인 파트
@@ -107,8 +125,8 @@ const retailer = {
     retailerAmenities: async(req,res)=>{
 
     },
-    retailerEct: async(req,res)=>{
-        
+    retailerEtc: async(req,res)=>{
+
     }
 }
 

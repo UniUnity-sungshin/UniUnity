@@ -4,7 +4,7 @@ const { resolve } = require("path");
 const { pool } = require("../../config/db");
 
 class PartnerStorage{
-    // unversity_name 입력받아 university_id 보내기
+    // unversity_url 입력받아 university_id 보내기
     static getUniversityID(university_url){
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
@@ -18,7 +18,6 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                // console.log(rows[0].university_id);
                 resolve(rows[0].university_id);
             })           
         })
@@ -48,12 +47,11 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                // console.log(rows);
                 resolve(rows);
             })
         })    
     }
-    // university_name에 해당하는 배열의 개수 반환 -> partnerPage.js에서 size로 사용
+    // university_id에 해당하는 배열의 개수 반환 -> partnerPage.js에서 size로 사용
     static async getPartnerStoreSize(university_id){ 
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
@@ -67,7 +65,6 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                // console.log(rows);
                 resolve(rows);
             })
         })    
@@ -86,10 +83,27 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                // console.log(rows[0]);
                 resolve(rows[0]);
             })
         })    
+    }
+    // unversity_url 입력받아 university_id 보내기
+    static getUniversityID_name(university_name){
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    throw err;
+                }
+            });
+            pool.query("SELECT university_id FROM University WHERE university_name=?;",[university_name],function(err,rows){
+                if(err){
+                    console.err('Query 오류',err);
+                    throw err;
+                }
+                resolve(rows[0].university_id);
+            })           
+        })
     }
     // 제휴가게 등록하기
     static async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
@@ -105,7 +119,6 @@ class PartnerStorage{
                     console.err('Query 오류',err);
                     throw err;
                 }
-                // console.log(rows[0]);
                 resolve(rows[0]);
             })
         })    

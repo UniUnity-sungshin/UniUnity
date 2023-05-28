@@ -37,7 +37,23 @@ class Partner{
     }
     async showUniversity(university_url){
         try{
-            const response= await PartnerStorage.getUniversity(university_url);
+            const response = await PartnerStorage.getUniversity(university_url);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
+    async getUniversityID_name(university_name){
+        try{
+            const response = await PartnerStorage.getUniversityID_name(university_name);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
+    async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
+        try{
+            const response = await PartnerStorage.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
             return response;
         }catch(err){
             return{success:false,msg:err};
