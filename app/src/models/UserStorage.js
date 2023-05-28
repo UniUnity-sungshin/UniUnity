@@ -28,8 +28,9 @@ class UserStorage{
                     userInfo.user_nickname,
                     userInfo.university_id],
                 (err)=>{
-                if(err)reject(`${err}`);
-                else resolve ({success:true});
+                if(err)reject({status:500,
+                            err:`${err}`});
+                else resolve ({status:201});
             });
         
         });
