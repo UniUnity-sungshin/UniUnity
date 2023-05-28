@@ -101,14 +101,24 @@ function getUniversityUrl() {
 }
 
 const universityName = document.querySelector("#universityName");
+const userName = document.querySelector("#userName");
 
 var Uniname = [];
+var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
   const req = {
     university_url: universityUrl
   };
+
+  // 여기 email 받아오는 함수 작성해야 함!!!!!!!!!!!!
+
+  const userEmail = '20211138@sungshin.ac.kr';
+  const req2 = {
+    user_email: userEmail
+  };
+
   fetch(`http://localhost:3000/getUniversityName`, {
     method: "POST",
     headers: {
@@ -120,6 +130,19 @@ function councilLoad(){
   .then(res => {
     Uniname.push(res.university_name);
     universityName.innerHTML = Uniname[0];
+  })
+  fetch(`http://localhost:3000/getUserName`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req2),
+  })
+  .then((res) => res.json())
+  .then(res => {
+    Username.push(res.user_name);
+    console.log("council.js fetch 함수 안 " + Username[0]);
+    userName.innerHTML = Username[0];
   })
 }
 
