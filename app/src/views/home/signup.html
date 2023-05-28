@@ -30,7 +30,7 @@
                           <label for="univ_info" class="form-label">유저 타입</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  disabled="true">
-                            <label class="form-check-label" for="inlineCheckbox1">대학생</label>
+                            <label class="form-check-label" for="inlineCheckbox1">학생</label>
                           </div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" disabled="true">
@@ -51,13 +51,13 @@
 
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">인증코드</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput"
-                                placeholder="">
+                            <input type="text" class="form-control" 
+                                placeholder="" id="authenticationInputText">
                         </div>
                         
                         <div class="form-submit">
-                            <button type="button" class="btn btn-primary btn">인증번호 받기</button>
-                            <button type="button" class="btn btn-primary btn">인증 확인</button>
+                            <button type="button" class="btn btn-primary btn" id="sendAuthEmailBtn">인증번호 받기</button>
+                            <button type="button" class="btn btn-primary btn" id="confirmAuthEmailBtn">인증 확인</button>
                         </div>
 
                         <label for="inputPassword5" class="form-label">비밀번호</label>
@@ -89,8 +89,8 @@
                         
 
                         <div class="form-submit">
-                            <button type="button" class="btn btn-primary btn">처음으로</button>
-                            <button type="button" class="btn btn-primary btn">회원가입</button>
+                            <button type="button" class="btn btn-primary btn" id="backBtn" >처음으로</button>
+                            <button type="button" class="btn btn-primary btn" id="registerBtn">회원가입</button>
                         </div>
                     </form>
                 </div>
