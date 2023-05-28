@@ -118,23 +118,6 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-app.post('/register',async(req,res)=>{
-  try{
-    const hashedPassword=await bcrypt.hash(req.body.psword,10)
-    const user=new User({
-        user_email:req.body.user_email,
-        psword:hashedPassword,
-        user_name:req.body.user_name,
-        user_type:req.body.user_type,
-        user_nickname:req.body.user_nickname,
-        university_id:req.body.university_id
-    });
-    user.register();
-    res.redirect('/login')
-  }catch{
-    res.redirect('/register')
-  }
-})
 
 app.use("/", require("./src/controllers/index")); //use -> 미들 웨어를 등록해주는 메서드
 

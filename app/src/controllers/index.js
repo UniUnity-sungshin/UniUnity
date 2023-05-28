@@ -10,7 +10,11 @@ router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
-router.get("/mypage/:universityname",ctrl.output.mypage);
+router.get("/mypage",ctrl.output.mypage);
+
+//메일 인증
+router.post("/auth/email",ctrl.process.emailAuth);
+router.post("/register",ctrl.process.register);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
@@ -20,7 +24,9 @@ router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversity
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
 router.post("/getUniversityName", ctrl.result.getUniversityName);
+
 router.post("/getUserName", ctrl.result.getUserName);
+
 
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);

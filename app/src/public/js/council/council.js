@@ -101,10 +101,10 @@ function getUniversityUrl() {
 }
 
 const universityName = document.querySelector("#universityName");
-const userName = document.querySelector("#userName");
+const userName = document.getElementById("userName");
 
-var Uniname = [];
-var Username = [];
+// var Uniname = [];
+// var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
@@ -112,12 +112,13 @@ function councilLoad(){
     university_url: universityUrl
   };
 
+
   // 여기 email 받아오는 함수 작성해야 함!!!!!!!!!!!!
 
-  const userEmail = '20211138@sungshin.ac.kr';
-  const req2 = {
-    user_email: userEmail
-  };
+  // const userEmail = '20211138@sungshin.ac.kr';
+  // const req2 = {
+  //   user_email: userEmail
+  // };
 
   fetch(`http://localhost:3000/getUniversityName`, {
     method: "POST",
@@ -128,22 +129,22 @@ function councilLoad(){
   })
   .then((res) => res.json())
   .then(res => {
-    Uniname.push(res.university_name);
-    universityName.innerHTML = Uniname[0];
+    // Uniname.push(res.university_name);
+    universityName.innerHTML = res.university_name;
   })
-  fetch(`http://localhost:3000/getUserName`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req2),
-  })
-  .then((res) => res.json())
-  .then(res => {
-    Username.push(res.user_name);
-    console.log("council.js fetch 함수 안 " + Username[0]);
-    userName.innerHTML = Username[0];
-  })
+  // fetch(`http://localhost:3000/getUserName`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(req2),
+  // })
+  // .then((res) => res.json())
+  // .then(res => {
+  //   Username.push(res.user_name);
+  //   console.log("council.js fetch 함수 안 " + Username[0]);
+  //   userName.innerHTML = Username[0];
+  // })
 }
 
 window.addEventListener('DOMContentLoaded', councilLoad);
@@ -172,7 +173,7 @@ function generateDynamicURL(linkId, userschool) {
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
-    dynamicValue = "mypage/" + userschool;
+    dynamicValue = "mypage";
   } else if (linkId === "news") {
     dynamicValue = "post/" + userschool;
   }
@@ -212,3 +213,24 @@ function updateDynamicLinks() {
 
 // 동적 링크 업데이트 함수를 호출합니다.
 updateDynamicLinks();
+
+//로그인 상태
+const loadloginData = async() => {
+  const url = `http://localhost:3000/loginStatus`;
+  await fetch(url,{
+      headers:{
+          'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
+  }})
+      .then((res) => res.json())
+      .then(res => {
+        userName.innerHTML=res.user_name
+      }
+  )
+}
+
+
+// 로드 후 loadData()실행
+window.addEventListener('DOMContentLoaded', function()
+{
+    loadloginData();
+});
