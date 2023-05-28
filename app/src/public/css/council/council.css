@@ -65,7 +65,12 @@ a {
   transform: scale(0.7);
 }
 
-#name {
+#userName {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.name {
     font-size: 10px;
     font-weight: 600;
 }

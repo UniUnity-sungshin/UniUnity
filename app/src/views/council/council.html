@@ -10,22 +10,22 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <!--css 연결-->
+    <link rel="stylesheet" href="/css/home/mainpage.css">
     <link rel="stylesheet" href="/css/council/council.css">
     <!-- 카카오 지도 API 사용 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
 </head>
 <body>
+
     <div class="main-container">
         <!--헤더-->
         <div class="temp-box" id="temp-box1">
             <!--상단 메뉴바-->
             <div class="menubar">
                 <ul class="menu">
-                    <li id="universityName"> 
                         <a href="#" onclick="window.location.reload();" target="_self">
-                        
+                            <li id="universityName"></li>
                         </a>
-                    </li>
                     <li>
                         <a id="main_retailer" href="#" target="_self">
                         소상공인 가게 지도
@@ -39,10 +39,10 @@
                     <li>
                         <a id="mypage" href="#" target="_self">
                         마이페이지
-                        
                         </a>
                         <br>
-                        <span id="name">오영서님 환영합니다.</span>
+                        <span id="userName"></span>
+                        <span class="name">님, 환영합니다</span>
                     </li>
                 </ul>
             </div>

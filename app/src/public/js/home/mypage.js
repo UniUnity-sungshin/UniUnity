@@ -20,7 +20,6 @@ const loadloginData = () => {
 }
 
 const setLoginHeader=(res)=>{
-    console.log(res.loginStatus);
     if(res.loginStatus){
         user_email.innerText=res.user_email
         user_type.innerText=res.user_type
