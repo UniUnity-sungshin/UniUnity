@@ -46,7 +46,26 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
+function centerChange(){
+    const universityUrl = getUniversityUrl();
+    const req = {
+        university_url:universityUrl
+    };
+
+    fetch(`http://localhost:3000/getUniversityLocation`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    }).then((res) => res.json())
+    .then(res => {
+        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+    })
+}
+
 function partnerLoad(){
+    centerChange();
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl

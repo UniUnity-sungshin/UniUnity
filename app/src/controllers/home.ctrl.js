@@ -35,8 +35,10 @@ const output = {
     },
 
     partner: (req, res) => {
-        const university_url = req.params.university_url;
-        res.render("home/partner.html", { data: university_url });
+        res.render("store/partner.html");
+    },
+    partnerForm: (req, res) => {
+        res.render("store/uploadTest.html");
     },
 }
 
@@ -148,6 +150,7 @@ const partner = {
         return res.json(response);
     },
     uploadPartnerStore: async(req,res) => {
+        const partner = new Partner();
         const storeName = req.body.storeName,
               store_location = req.body.store_location,
               latitude = req.body.latitude,
@@ -155,30 +158,17 @@ const partner = {
               content = req.body.content,
               startDate = req.body.startDate,
               endDate = req.body.endDate;
-        const university_id = getUniversityID_name(req.body.university_url);
-        const partner = new Partner();
+        const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
-        return res.json();
+        return res.json(response);
     }
 };
 
 // 소상공인 파트
 const retailer = {
     retailer: async (req, res) => {
-        res.render("home/retailer.html")
+        res.render("store/retailer.html")
     },
-    retailerFood: async (req, res) => {
-
-    },
-    retailerCafe: async (req, res) => {
-
-    },
-    retailerAmenities: async (req, res) => {
-
-    },
-    retailerEtc: async(req,res)=>{
-
-    }
 }
 
 //council 페이지
