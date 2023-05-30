@@ -87,7 +87,6 @@ BtnAddr.addEventListener('click',function(){
 })
 
 
-
 function updateStore(){
     const universityUrl = getUniversityUrl();
     const req = {

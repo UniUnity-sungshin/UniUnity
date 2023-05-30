@@ -14,9 +14,9 @@
 
 
 /* 제휴 가게 등록 파트 */
-.sotreUpload{
+/* .sotreUpload{
     display: none;
-}
+} */
 
 .inputForm{
     border-radius: 5px;
@@ -24,14 +24,14 @@
 }
 
 .inputBox{
-    width: 100px;
+    width: 80px;
     height: 50px;
     margin: 0 auto 0;
     display: inline;
 }
 
 .inputBoxS{
-    width: 100px;
+    width: 80px;
     height: 40px;
     display: inline-block;
     margin: 0 auto;
@@ -58,4 +58,8 @@
     border: none;
     border-radius: 5px;
     outline: none;
+}
+
+#addrInfo{
+    font-size: 15px;
 }

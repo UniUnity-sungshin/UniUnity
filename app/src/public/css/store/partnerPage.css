@@ -82,11 +82,15 @@ a {
 
 
 #map{
-    /* width: 700px; */
+    width: 700px;
     height: 600px;
     margin-left: 40px;
     border-radius: 5px;
 } 
+
+#storeList{
+    font-size: 15px;
+}
 
 #mapStoreInfo{
     margin-top: 40px;
@@ -115,3 +119,20 @@ a {
 /* #storeDate{
     margin-bottom: 100px;
 } */
+
+#storeList{
+    cursor: pointer;
+    list-style: none;
+    padding-left: 40px;
+}
+
+#storeListTitle{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#storeList li{
+    font-size: 17px;
+    margin-bottom: 10px;
+}
