@@ -1,0 +1,8 @@
+#post_title:focus { 
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border-color:#ced4da;
+}

@@ -10,12 +10,17 @@ router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
-router.get("/mypage/:universityname",ctrl.output.mypage);
+router.get("/mypage",ctrl.output.mypage);
+
+//메일 인증
+router.post("/auth/email",ctrl.process.emailAuth);
+router.post("/register",ctrl.process.register);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname",ctrl.result.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
+
 router.post("/getUserName", ctrl.result.getUserName);
 router.post("/getImages", ctrl.result.getImages);
 
@@ -23,12 +28,16 @@ router.post("/getImages", ctrl.result.getImages);
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
+
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);
 router.get("/getUniversityID/:university_url",ctrl.partner.getUniversityID);
 router.post("/getPartner",ctrl.partner.getPartner);
 router.post("/getPartnerUni",ctrl.partner.getPartnerUni);
 router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
+router.post("/uploadPartner",ctrl.partner.uploadPartnerStore);
+
+router.get("/partnerUpdate/:university_url",ctrl.output.partnerForm);
 
 // retailer 라우터
 router.get("/retailer/:university_url",ctrl.retailer.retailer);
@@ -39,7 +48,7 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 
 //post 라우터
 router.get("/:university_url/postAll",ctrl.post.postAll);
-
+router.get("/:university_url/postform",ctrl.output.postform);
 
 //router.get("/sungshin/postAll",ctrl.output.post);
 
