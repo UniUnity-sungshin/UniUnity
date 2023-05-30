@@ -244,7 +244,6 @@ function getClinic(){
     }
 }
 
-
 function retailerLoad(){
     const universityUrl = getUniversityUrl();
     const req = {
