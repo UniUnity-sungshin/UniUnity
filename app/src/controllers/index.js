@@ -15,12 +15,13 @@ router.get("/mypage/:universityname",ctrl.output.mypage);
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname",ctrl.result.post);
-
-router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
-router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
-
 router.post("/getUniversityName", ctrl.result.getUniversityName);
 router.post("/getUserName", ctrl.result.getUserName);
+router.post("/getImages", ctrl.result.getImages);
+
+//
+router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
+router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
 // partner 라우터
 router.get("/partner/:university_url",ctrl.output.partner);

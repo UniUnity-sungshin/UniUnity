@@ -102,6 +102,12 @@ function getUniversityUrl() {
 
 const universityName = document.querySelector("#universityName");
 const userName = document.querySelector("#userName");
+const slide1 = document.querySelector("#img1");
+const slide2 = document.querySelector("#img2");
+const slide3 = document.querySelector("#img3");
+const slide4 = document.querySelector("#img4");
+const slide5 = document.querySelector("#img5");
+
 
 var Uniname = [];
 var Username = [];
@@ -141,12 +147,33 @@ function councilLoad(){
   .then((res) => res.json())
   .then(res => {
     Username.push(res.user_name);
-    console.log("council.js fetch 함수 안 " + Username[0]);
+    // console.log("council.js fetch 함수 안 " + Username[0]);
     userName.innerHTML = Username[0];
+  })
+  fetch(`http://localhost:3000/getImages`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+  .then((res) => res.json())
+  .then(res => {
+    const imageUrls = res.map(obj => obj.image_url); // 이미지 URL 배열
+    // 이미지 URL을 각각의 swiper-slide에 할당
+    slide1.src = imageUrls[0];
+    slide2.src = imageUrls[1];
+    slide3.src = imageUrls[2];
+    slide4.src = imageUrls[3];
+    slide5.src = imageUrls[4];
   })
 }
 
-window.addEventListener('DOMContentLoaded', councilLoad);
+//window.addEventListener('DOMContentLoaded', councilLoad);
+councilLoad();
+
+
+ 
 
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
