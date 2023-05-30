@@ -1,3 +1,4 @@
+//글 에디터
 const Editor = toastui.Editor;
 
 
@@ -10,6 +11,17 @@ const editor = new Editor({
   });
   
   editor.getMarkdown();
+
+
+  
+//카테고리 선택
+var selectedValue = "";
+  var selectPostCategoryElement = document.getElementById('select_post_category');
+  selectPostCategoryElement.addEventListener('change', function () {
+    selectedValue = this.value;
+    console.log(selectedValue); //제휴 소식은 선택시 콘솔에 1로 나옴
+
+});
 
 
 // 제휴가게 등록하기 폼
@@ -25,3 +37,4 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 // ===========================================================================================
+
