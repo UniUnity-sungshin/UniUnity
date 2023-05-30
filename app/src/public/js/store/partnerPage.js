@@ -96,24 +96,40 @@ function partnerLoad(){
             stores.push(obj);
             // 객체의 좌표 부분은 따로 저장
             positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude),parseFloat(res[i].longitude)));
-            for (let i = 0; i < positions.length; i ++) {
-                // 마커를 생성합니다
-                let marker = new kakao.maps.Marker({
-                    map: map, // 마커를 표시할 지도
-                    position: positions[i] // 마커의 위치
-                });
-                // 마커 click, mouseover, mouseout 시에 이벤트 발생
-                kakao.maps.event.addListener(marker, 'click', function(){
-                    for(let i = 0; i < storeInfoTextBox.length; i++){
-                        storeInfoTextBox[i].style.display = "block";
-                    }
-                    storeName.innerHTML = stores[i].storeName;
-                    storeAdr.innerHTML = stores[i].store_location;
-                    partnerContent.innerHTML = stores[i].content;
-                    eventDate.innerHTML = stores[i].startDate + " ~ " + stores[i].endDate;
-                });
-            }
         };
+        for (let i = 0; i < positions.length; i ++) {
+            // 마커를 생성합니다
+            let marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i] // 마커의 위치
+            });
+            console.log();
+            // 목록에 동적으로 추가
+            const li = document.createElement("li");
+            li.setAttribute('id',stores[i].storeName);
+            const textNode = document.createTextNode(stores[i].storeName);
+            li.appendChild(textNode);
+            document.getElementById('storeList').appendChild(li);
+            // 마커 click, mouseover, mouseout 시에 이벤트 발생
+            kakao.maps.event.addListener(marker, 'click', function(){
+                for(let j = 0; j < storeInfoTextBox.length; j++){
+                    storeInfoTextBox[j].style.display = "block";
+                }
+                storeName.innerHTML = stores[i].storeName;
+                storeAdr.innerHTML = stores[i].store_location;
+                partnerContent.innerHTML = stores[i].content;
+                eventDate.innerHTML = stores[i].startDate + " ~ " + stores[i].endDate;
+            });
+            li.addEventListener('click',function(){
+                for(let j = 0; j < storeInfoTextBox.length; j++){
+                    storeInfoTextBox[j].style.display = "block";
+                }
+                storeName.innerHTML = stores[i].storeName;
+                storeAdr.innerHTML = stores[i].store_location;
+                partnerContent.innerHTML = stores[i].content;
+                eventDate.innerHTML = stores[i].startDate + " ~ " + stores[i].endDate;
+            })
+        }
     })
     .catch(error => {
         console.error("Error: ", error);
