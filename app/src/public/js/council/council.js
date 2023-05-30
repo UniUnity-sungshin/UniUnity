@@ -103,8 +103,6 @@ function getUniversityUrl() {
 const universityName = document.querySelector("#universityName");
 const userName = document.getElementById("userName");
 
-// var Uniname = [];
-// var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
@@ -112,13 +110,6 @@ function councilLoad(){
     university_url: universityUrl
   };
 
-
-  // 여기 email 받아오는 함수 작성해야 함!!!!!!!!!!!!
-
-  // const userEmail = '20211138@sungshin.ac.kr';
-  // const req2 = {
-  //   user_email: userEmail
-  // };
 
   fetch(`http://localhost:3000/getUniversityName`, {
     method: "POST",
@@ -129,22 +120,8 @@ function councilLoad(){
   })
   .then((res) => res.json())
   .then(res => {
-    // Uniname.push(res.university_name);
     universityName.innerHTML = res.university_name;
   })
-  // fetch(`http://localhost:3000/getUserName`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(req2),
-  // })
-  // .then((res) => res.json())
-  // .then(res => {
-  //   Username.push(res.user_name);
-  //   console.log("council.js fetch 함수 안 " + Username[0]);
-  //   userName.innerHTML = Username[0];
-  // })
 }
 
 window.addEventListener('DOMContentLoaded', councilLoad);
@@ -223,7 +200,11 @@ const loadloginData = async() => {
   }})
       .then((res) => res.json())
       .then(res => {
-        userName.innerHTML=res.user_name
+        
+        if(res.loginStatus===false){userName.innerHTML=""}
+        else{
+          userName.innerHTML=res.user_name +"님, 환영합니다"
+        }
       }
   )
 }
