@@ -101,16 +101,8 @@ function getUniversityUrl() {
 }
 
 const universityName = document.querySelector("#universityName");
-const userName = document.querySelector("#userName");
-const slide1 = document.querySelector("#img1");
-const slide2 = document.querySelector("#img2");
-const slide3 = document.querySelector("#img3");
-const slide4 = document.querySelector("#img4");
-const slide5 = document.querySelector("#img5");
+const userName = document.getElementById("userName");
 
-
-var Uniname = [];
-var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
@@ -118,12 +110,6 @@ function councilLoad(){
     university_url: universityUrl
   };
 
-  // 여기 email 받아오는 함수 작성해야 함!!!!!!!!!!!!
-
-  const userEmail = '20211138@sungshin.ac.kr';
-  const req2 = {
-    user_email: userEmail
-  };
 
   fetch(`http://localhost:3000/getUniversityName`, {
     method: "POST",
@@ -134,46 +120,11 @@ function councilLoad(){
   })
   .then((res) => res.json())
   .then(res => {
-    Uniname.push(res.university_name);
-    universityName.innerHTML = Uniname[0];
-  })
-  fetch(`http://localhost:3000/getUserName`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req2),
-  })
-  .then((res) => res.json())
-  .then(res => {
-    Username.push(res.user_name);
-    // console.log("council.js fetch 함수 안 " + Username[0]);
-    userName.innerHTML = Username[0];
-  })
-  fetch(`http://localhost:3000/getImages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req),
-  })
-  .then((res) => res.json())
-  .then(res => {
-    const imageUrls = res.map(obj => obj.image_url); // 이미지 URL 배열
-    // 이미지 URL을 각각의 swiper-slide에 할당
-    slide1.src = imageUrls[0];
-    slide2.src = imageUrls[1];
-    slide3.src = imageUrls[2];
-    slide4.src = imageUrls[3];
-    slide5.src = imageUrls[4];
+    universityName.innerHTML = res.university_name;
   })
 }
 
-//window.addEventListener('DOMContentLoaded', councilLoad);
-councilLoad();
-
-
- 
+window.addEventListener('DOMContentLoaded', councilLoad);
 
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
@@ -199,7 +150,7 @@ function generateDynamicURL(linkId, userschool) {
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
-    dynamicValue = "mypage/" + userschool;
+    dynamicValue = "mypage";
   } else if (linkId === "news") {
     dynamicValue = "post/" + userschool;
   }
@@ -239,3 +190,28 @@ function updateDynamicLinks() {
 
 // 동적 링크 업데이트 함수를 호출합니다.
 updateDynamicLinks();
+
+//로그인 상태
+const loadloginData = async() => {
+  const url = `http://localhost:3000/loginStatus`;
+  await fetch(url,{
+      headers:{
+          'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
+  }})
+      .then((res) => res.json())
+      .then(res => {
+        
+        if(res.loginStatus===false){userName.innerHTML=""}
+        else{
+          userName.innerHTML=res.user_name +"님, 환영합니다"
+        }
+      }
+  )
+}
+
+
+// 로드 후 loadData()실행
+window.addEventListener('DOMContentLoaded', function()
+{
+    loadloginData();
+});
