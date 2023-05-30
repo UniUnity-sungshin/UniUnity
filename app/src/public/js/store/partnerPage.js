@@ -38,15 +38,34 @@ let stores = [];
 let positions = [];
 
 
-function setCenter(map,latitude,longitude) {            
-    // 이동할 위도 경도 위치를 생성합니다 
+function setCenter(map,latitude,longitude) {
+    // 이동할 위도 경도 위치를 생성합니다
     var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
-                    
+
     // 지도 중심을 이동 시킵니다
     map.setCenter(moveLatLon);
 }
 
+function centerChange(){
+    const universityUrl = getUniversityUrl();
+    const req = {
+        university_url:universityUrl
+    };
+
+    fetch(`http://localhost:3000/getUniversityLocation`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    }).then((res) => res.json())
+    .then(res => {
+        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+    })
+}
+
 function partnerLoad(){
+    centerChange();
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl

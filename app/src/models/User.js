@@ -34,6 +34,7 @@ class User{
     async register(){
         const client = this.body;
         const response = await UserStorage.save(client);
+        console.log(response);
         return response;
     }
 
