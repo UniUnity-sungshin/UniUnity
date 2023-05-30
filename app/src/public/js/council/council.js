@@ -101,14 +101,23 @@ function getUniversityUrl() {
 }
 
 const universityName = document.querySelector("#universityName");
-const userName = document.getElementById("userName");
+const userName = document.querySelector("#userName");
+const slide1 = document.querySelector("#img1");
+const slide2 = document.querySelector("#img2");
+const slide3 = document.querySelector("#img3");
+const slide4 = document.querySelector("#img4");
+const slide5 = document.querySelector("#img5");
 
+
+// var Uniname = [];
+// var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
   const req = {
     university_url: universityUrl
   };
+
 
 
   fetch(`http://localhost:3000/getUniversityName`, {
@@ -120,11 +129,16 @@ function councilLoad(){
   })
   .then((res) => res.json())
   .then(res => {
+    // Uniname.push(res.university_name);
     universityName.innerHTML = res.university_name;
   })
 }
 
-window.addEventListener('DOMContentLoaded', councilLoad);
+//window.addEventListener('DOMContentLoaded', councilLoad);
+councilLoad();
+
+
+ 
 
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
@@ -150,7 +164,7 @@ function generateDynamicURL(linkId, userschool) {
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
-    dynamicValue = "mypage";
+    dynamicValue = "mypage/" + userschool;
   } else if (linkId === "news") {
     dynamicValue = "post/" + userschool;
   }
@@ -200,11 +214,7 @@ const loadloginData = async() => {
   }})
       .then((res) => res.json())
       .then(res => {
-        
-        if(res.loginStatus===false){userName.innerHTML=""}
-        else{
-          userName.innerHTML=res.user_name +"님, 환영합니다"
-        }
+        userName.innerHTML=res.user_name
       }
   )
 }
