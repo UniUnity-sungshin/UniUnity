@@ -65,8 +65,7 @@ function centerChange(){
     })
 }
 
-function partnerLoad(){
-    centerChange();
+function getUniversityName(){
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl
@@ -82,7 +81,15 @@ function partnerLoad(){
       .then(res => {
         Uniname.push(res.university_name);
         universityName.innerHTML = Uniname[0];
-      })
+    })
+}
+
+function partnerLoad(){
+    centerChange();
+    const universityUrl = getUniversityUrl();
+    const req = {
+        university_url:universityUrl
+    };
     fetch(`http://localhost:3000/getPartner`, {
         method: "POST",
         headers: {
@@ -148,7 +155,7 @@ function partnerLoad(){
     })
 }
 
-window.addEventListener('DOMContentLoaded', partnerLoad);
+window.addEventListener('DOMContentLoaded', partnerLoad, getUniversityName);
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
@@ -202,4 +209,3 @@ function getDynamicValueFromURL() {
     
     // 동적 링크 업데이트 함수를 호출합니다.
     updateDynamicLinks();
-    
