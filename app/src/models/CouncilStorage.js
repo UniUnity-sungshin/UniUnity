@@ -31,25 +31,7 @@ class CouncilStorage{
             });           
         });
     }
-    static getUserName(user_email){
-        return new Promise(async(resolve,reject)=>{
-            pool.getConnection((err,connection)=>{
-                if(err){
-                    console.error('MySQL 연결 오류: ',err);
-                    throw err;
-                }
-            });
-            pool.query("SELECT user_name FROM User WHERE user_email = ?;",[user_email],function(err,rows){
-                if(err){
-                    console.err('Query 오류',err);
-                    throw err;
-                }
-                // console.log("fetch함수 CouncilStorage.js getUserName");
-                // console.log(rows[0]);
-                resolve(rows[0]);
-            });           
-        });
-    }
+    
     static getImages(university_url) {
         return new Promise((resolve, reject) => {
             pool.getConnection((err,connection)=>{

@@ -20,16 +20,7 @@ class Council{
             return{success:false,msg:err};
         }
     }
-    async getUserName(user_email){
-        try{
-            const response = await CouncilStorage.getUserName(user_email);
-            // console.log("fetch함수 Council.js getUserName");
-            // console.log("Council.js " + response);
-            return response;
-        }catch(err){
-            return{success:false,msg:err};
-        }
-    }
+    
     async getImages(university_url){
         try{
             const response = await CouncilStorage.getImages(university_url);
