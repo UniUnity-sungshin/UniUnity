@@ -20,8 +20,6 @@ router.post("/register",ctrl.process.register);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname",ctrl.result.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
-
-router.post("/getUserName", ctrl.result.getUserName);
 router.post("/getImages", ctrl.result.getImages);
 
 //

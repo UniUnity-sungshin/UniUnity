@@ -192,11 +192,7 @@ const result = {
     post : async(req, res)  => {
         res.render("home/post.html");
     },
-    getUserName : async (req, res) => {
-        const council = new Council();
-        const response = await council.getUserName(req.body.user_email);
-        return res.json(response);
-    },
+    
     getImages : async (req, res) => {
         const council = new Council();
         const response = await council.getImages(req.body.university_id);
