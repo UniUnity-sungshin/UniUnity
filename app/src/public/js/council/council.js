@@ -110,7 +110,6 @@ const slide5 = document.querySelector("#img5");
 
 
 var Uniname = [];
-var Username = [];
 
 function councilLoad(){
   const universityUrl = getUniversityUrl();
@@ -149,8 +148,7 @@ function councilLoad(){
   })
 }
 
-//window.addEventListener('DOMContentLoaded', councilLoad);
-councilLoad();
+window.addEventListener('DOMContentLoaded', councilLoad);
 
 
  
@@ -175,7 +173,6 @@ function generateDynamicURL(linkId, userschool) {
   // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
   if (linkId === "retailer") {
     dynamicValue = "retailer/" + userschool;
-    console.log("소상공인 url:" + dynamicValue);
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
