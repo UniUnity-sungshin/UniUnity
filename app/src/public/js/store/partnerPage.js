@@ -32,10 +32,11 @@ const storeName = document.querySelector('#storeName'),
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox"),
     searchBtn = document.querySelector('#serchBtn'),
     partnerMapSerch = document.querySelector("#partnerMapSerch");
-    
+    const universityName = document.querySelector("#headerMenu_university");
 let center = [];
 let stores = [];
 let positions = [];
+var Uniname = [];
 
 
 function setCenter(map,latitude,longitude) {
@@ -70,7 +71,18 @@ function partnerLoad(){
     const req = {
         university_url:universityUrl
     };
-
+    fetch(`http://localhost:3000/getUniversityName`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+      })
+      .then((res) => res.json())
+      .then(res => {
+        Uniname.push(res.university_name);
+        universityName.innerHTML = Uniname[0];
+      })
     fetch(`http://localhost:3000/getPartner`, {
         method: "POST",
         headers: {
@@ -137,3 +149,57 @@ function partnerLoad(){
 }
 
 window.addEventListener('DOMContentLoaded', partnerLoad);
+
+// 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
+function getDynamicValueFromURL() {
+    var path = window.location.pathname;
+    var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+    var matches = path.match(regex);
+    if (matches && matches.length > 1) {
+      return matches[1];
+    } else {
+      return null;
+    }
+    }
+    
+    // 새로운 url 만들기
+    function generateDynamicURL(linkId, userschool) {
+      var dynamicValue;
+    
+      // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+      if (linkId === "retailer") {
+        dynamicValue = "retailer/" + userschool;
+      } else if (linkId === "partner") {
+        dynamicValue = "partner/" + userschool;
+      } else if (linkId === "mypage") {
+        dynamicValue = "mypage/" + userschool;
+      }
+    
+      return "http://localhost:3000/" + dynamicValue;
+    }
+    
+    // 새로운 url로 업데이트
+    function updateDynamicLinks() {
+      var userschool = getDynamicValueFromURL();
+          if (!userschool) {
+            console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+            return;
+          }
+    
+      var link1 = document.getElementById("headerMenu_reatiler");
+      var link2 = document.getElementById("headerMenu_partner");
+      var link3 = document.getElementById("headerMenu_mypage");
+    
+      link1.href = generateDynamicURL("retailer",userschool);
+      link1.textContent = "소상공인 가게 지도";
+    
+      link2.href = generateDynamicURL("partner",userschool);
+      link2.textContent = "제휴 지도";
+    
+      link3.href = generateDynamicURL("mypage",userschool);
+      link3.textContent = "마이페이지";
+    }
+    
+    // 동적 링크 업데이트 함수를 호출합니다.
+    updateDynamicLinks();
+    
