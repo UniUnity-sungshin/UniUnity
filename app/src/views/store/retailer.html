@@ -13,17 +13,36 @@
     <link rel="stylesheet" href="/css/store/retailerPage.css">
     <!-- 카카오 지도 API 사용 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
-    
     <title>ÜniÜnity | 소상공인</title>
 </head>
 <body>
     <header>
         <!-- header 박스 -->
         <div class="headerBox">
-            <!-- header 목차 -->
-            <ul class="headerContent">
-                
-            </ul>
+            <div class="container headerMenu">
+                <div class="row text-center headerContent">
+                    <div class="col-lg-3 " id="headerMenu_university">
+                        
+                    </div>
+                    <div class="col-lg-3 storeKindli">
+                        <a id="headerMenu_reatiler" href="#" target="_self">
+                            소상공인 가게 지도
+                        </a>
+                    </div>
+                    <div class="col-lg-3 storeKindli">
+                        <a id="headerMenu_partner" href="#" target="_self">
+                            제휴 지도
+                        </a>
+                    </div>
+                    <div class="col-lg-3 storeKindli">
+                        <a id="headerMenu_mypage" href="#" target="_self">
+                            마이페이지
+                            <br>
+                            <span id="headerMenu_name"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
     <main>
@@ -45,11 +64,8 @@
             <div id="guideText"> 지도를 움직여주세요! </div>
         </div>
         <!-- 지도 가게 업소 종류 -->
-        <div class="container" id="storeKind">
+        <!-- <div class="container" id="storeKind">
             <div class="row text-center storeKindUl">
-              <!-- <div class="col-lg-3 storeKindli" id="storeKind_all">
-                전체
-              </div> -->
               <div class="col-lg-4 storeKindli" id="storeKind_food">
                 식당
               </div>
@@ -60,7 +76,7 @@
                 병원/진료
               </div>
             </div>
-        </div>
+        </div> -->
         <!-- 지도가 들어가는 박스 -->
         <div class="container" id="mapBox">
             <div>

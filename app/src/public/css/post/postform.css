@@ -14,9 +14,10 @@
 
 
 /* 제휴 가게 등록 파트 */
-/* .sotreUpload{
+#sotreUpload{
     display: none;
-} */
+    margin-top: 10px;
+}
 
 .inputForm{
     border-radius: 5px;

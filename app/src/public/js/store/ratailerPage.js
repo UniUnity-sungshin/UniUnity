@@ -33,6 +33,25 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
+function getUniversityName(){
+    const universityUrl = getUniversityUrl();
+    const req = {
+        university_url:universityUrl
+    };
+    fetch(`http://localhost:3000/getUniversityName`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+      })
+      .then((res) => res.json())
+      .then(res => {
+        Uniname.push(res.university_name);
+        universityName.innerHTML = Uniname[0];
+    })
+}
+
 var storeAll = [],
     positionAll = [];
 var storeFood = [],
@@ -56,10 +75,9 @@ const storeName = document.querySelector('#storeName'),
       storeItem = document.querySelector('#storeItem');
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
 
-// storeKind_all.addEventListener("click", getAll);
-storeKind_cafe.addEventListener("click", getCafe);
-storeKind_food.addEventListener("click", getFood);
-storeKind_clinic.addEventListener("click", getClinic);
+// storeKind_cafe.addEventListener("click", getCafe);
+// storeKind_food.addEventListener("click", getFood);
+// storeKind_clinic.addEventListener("click", getClinic);
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'bounds_changed', function() {             
@@ -120,130 +138,6 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
     }
 });
 
-// function getAll(){
-    
-// }
-
-
-function getFood(){
-    var url = 'https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInUpjong?serviceKey=p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D&pageNo=1&numOfRows=50&divId=indsLclsCd&key=I2&type=json';
-    fetch(url)
-    .then((res) => res.json())
-    .then((res) => {
-        for(let i = 0; i < res.body.items.length; i++){
-            const obj = {
-                storeName: res.body.items[i].bizesNm,
-                store_location: res.body.items[i].rdnmAdr,
-                storeClass: res.body.items[i].indsLclsNm,
-                storeItem: res.body.items[i].indsSclsNm,
-                ksicNm: res.body.items[i].ksicNm
-            };
-            storeFood.push(obj);
-            positionFood.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
-        }
-    })
-    .catch(error => {
-        console.log('Error:', error);
-    });
-    for (let i = 0; i < positionFood.length; i ++) {
-        // 마커를 생성합니다
-        let marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positionFood[i] // 마커의 위치
-        });
-        // 마커 click, mouseover, mouseout 시에 이벤트 발생
-        kakao.maps.event.addListener(marker, 'click', function(){
-            for(let i = 0; i < storeInfoTextBox.length; i++){
-                storeInfoTextBox[i].style.display = "block";
-            }
-            storeName.innerHTML = storeFood[i].storeName;
-            storeAdr.innerHTML = storeFood[i].store_location;
-            storeClass.innerHTML = storeFood[i].storeClass + " " + storeFood[i].storeItem;
-            storeItem.innerHTML = storeFood[i].ksicNm;
-        });
-    }
-}
-
-
-function getCafe(){
-    var url = 'https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInUpjong?serviceKey=p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D&pageNo=1&numOfRows=50&divId=indsMclsCd&key=I212&type=json';
-    fetch(url)
-    .then((res) => res.json())
-    .then((res) => {
-        for(let i = 0; i < res.body.items.length; i++){
-            const obj = {
-                storeName: res.body.items[i].bizesNm,
-                store_location: res.body.items[i].rdnmAdr,
-                storeClass: res.body.items[i].indsLclsNm,
-                storeItem: res.body.items[i].indsSclsNm,
-                ksicNm: res.body.items[i].ksicNm
-            };
-            storeCafe.push(obj);
-            positionCafe.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
-        }
-    })
-    .catch(error => {
-        console.log('Error:', error);
-    });
-    for (let i = 0; i < positionCafe.length; i ++) {
-        // 마커를 생성합니다
-        let marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positionCafe[i] // 마커의 위치
-        });
-        // 마커 click, mouseover, mouseout 시에 이벤트 발생
-        kakao.maps.event.addListener(marker, 'click', function(){
-            for(let i = 0; i < storeInfoTextBox.length; i++){
-                storeInfoTextBox[i].style.display = "block";
-            }
-            storeName.innerHTML = storeCafe[i].storeName;
-            storeAdr.innerHTML = storeCafe[i].store_location;
-            storeClass.innerHTML = storeCafe[i].storeClass + " " + storeCafe[i].storeItem;
-            storeItem.innerHTML = storeCafe[i].ksicNm;
-        });
-    }
-}
-
-
-function getClinic(){
-    var url = 'https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInUpjong?serviceKey=p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D&pageNo=1&numOfRows=50&divId=indsLclsCd&key=Q1&type=json';
-    fetch(url)
-    .then((res) => res.json())
-    .then((res) => {
-        for(let i = 0; i < res.body.items.length; i++){
-            const obj = {
-                storeName: res.body.items[i].bizesNm,
-                store_location: res.body.items[i].rdnmAdr,
-                storeClass: res.body.items[i].indsLclsNm,
-                storeItem: res.body.items[i].indsSclsNm,
-                ksicNm: res.body.items[i].ksicNm
-            };
-            storeClinic.push(obj);
-            positionClinic.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
-        }
-    })
-    .catch(error => {
-        console.log('Error:', error);
-    });
-    for (let i = 0; i < positionClinic.length; i ++) {
-        // 마커를 생성합니다
-        let marker = new kakao.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positions[i] // 마커의 위치
-        });
-        // 마커 click, mouseover, mouseout 시에 이벤트 발생
-        kakao.maps.event.addListener(marker, 'click', function(){
-            for(let i = 0; i < storeInfoTextBox.length; i++){
-                storeInfoTextBox[i].style.display = "block";
-            }
-            storeName.innerHTML = storeClinic[i].storeName;
-            storeAdr.innerHTML = storeClinic[i].store_location;
-            storeClass.innerHTML = storeClinic[i].storeClass + " " + storeClinic[i].storeItem;
-            storeItem.innerHTML = storeClinic[i].ksicNm;
-        });
-    }
-}
-
 function retailerLoad(){
     const universityUrl = getUniversityUrl();
     const req = {
@@ -262,5 +156,98 @@ function retailerLoad(){
     })
 }
 
+window.addEventListener('DOMContentLoaded', retailerLoad, getUniversityName);
 
-window.addEventListener('DOMContentLoaded', retailerLoad);
+// 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
+function getDynamicValueFromURL() {
+    var path = window.location.pathname;
+    var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+    var matches = path.match(regex);
+    if (matches && matches.length > 1) {
+      return matches[1];
+    } else {
+      return null;
+    }
+    }
+    
+    // 새로운 url 만들기
+    function generateDynamicURL(linkId, userschool) {
+      var dynamicValue;
+    
+      // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+      if (linkId === "retailer") {
+        dynamicValue = "retailer/" + userschool;
+      } else if (linkId === "partner") {
+        dynamicValue = "partner/" + userschool;
+      } else if (linkId === "mypage") {
+        dynamicValue = "mypage/" + userschool;
+      }
+    
+      return "http://localhost:3000/" + dynamicValue;
+    }
+    
+    // 새로운 url로 업데이트
+    function updateDynamicLinks() {
+      var userschool = getDynamicValueFromURL();
+          if (!userschool) {
+            console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+            return;
+          }
+    
+      var link1 = document.getElementById("headerMenu_reatiler");
+      var link2 = document.getElementById("headerMenu_partner");
+      var link3 = document.getElementById("headerMenu_mypage");
+    
+      link1.href = generateDynamicURL("retailer",userschool);
+      link1.textContent = "소상공인 가게 지도";
+    
+      link2.href = generateDynamicURL("partner",userschool);
+      link2.textContent = "제휴 지도";
+    
+      link3.href = generateDynamicURL("mypage",userschool);
+      link3.textContent = "마이페이지";
+    }
+    
+    // 동적 링크 업데이트 함수를 호출합니다.
+    updateDynamicLinks();
+
+
+
+// function getFood(){
+//     var url = 'https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInUpjong?serviceKey=p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D&pageNo=1&numOfRows=50&divId=indsLclsCd&key=I2&type=json';
+//     fetch(url)
+//     .then((res) => res.json())
+//     .then((res) => {
+//         for(let i = 0; i < res.body.items.length; i++){
+//             const obj = {
+//                 storeName: res.body.items[i].bizesNm,
+//                 store_location: res.body.items[i].rdnmAdr,
+//                 storeClass: res.body.items[i].indsLclsNm,
+//                 storeItem: res.body.items[i].indsSclsNm,
+//                 ksicNm: res.body.items[i].ksicNm
+//             };
+//             storeFood.push(obj);
+//             positionFood.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
+//         }
+//     })
+//     .catch(error => {
+//         console.log('Error:', error);
+//     });
+//     for (let i = 0; i < positionFood.length; i ++) {
+//         // 마커를 생성합니다
+//         let marker = new kakao.maps.Marker({
+//             map: map, // 마커를 표시할 지도
+//             position: positionFood[i] // 마커의 위치
+//         });
+//         // 마커 click, mouseover, mouseout 시에 이벤트 발생
+//         kakao.maps.event.addListener(marker, 'click', function(){
+//             for(let i = 0; i < storeInfoTextBox.length; i++){
+//                 storeInfoTextBox[i].style.display = "block";
+//             }
+//             storeName.innerHTML = storeFood[i].storeName;
+//             storeAdr.innerHTML = storeFood[i].store_location;
+//             storeClass.innerHTML = storeFood[i].storeClass + " " + storeFood[i].storeItem;
+//             storeItem.innerHTML = storeFood[i].ksicNm;
+//         });
+//     }
+// }
