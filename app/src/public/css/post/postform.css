@@ -6,3 +6,60 @@
     -webkit-box-shadow: none;
     border-color:#ced4da;
 }
+
+#map{
+    width: 500px;
+    height: 500px;
+}
+
+
+/* 제휴 가게 등록 파트 */
+/* .sotreUpload{
+    display: none;
+} */
+
+.inputForm{
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.inputBox{
+    width: 80px;
+    height: 50px;
+    margin: 0 auto 0;
+    display: inline;
+}
+
+.inputBoxS{
+    width: 80px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 auto;
+    /* border: 1px solid #FFD400; */
+    border-radius: 5px;
+    outline: none;
+}
+
+.inputBtn{
+    width: 60px;
+    height: 40px;
+    margin-left: 5px;
+    background-color: #FFD400;
+    border: none;
+    /* border-radius: 5px; */
+    outline: none;
+}
+
+#uploadBtn{
+    width: 100px;
+    height: 40px;
+    margin-left: 5px;
+    background-color: #FFD400;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+#addrInfo{
+    font-size: 15px;
+}
