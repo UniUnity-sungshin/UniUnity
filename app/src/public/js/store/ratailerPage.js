@@ -3,6 +3,31 @@
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
+var storeAll = [],
+    positionAll = [];
+var storeFood = [],
+    positionFood = [];
+var storeCafe = [],
+    positionCafe = [];
+var storeClinic = [],
+    positionClinic = [];
+
+const storeKind_all = document.querySelector('#storeKind_all'),
+      storeKind_food = document.querySelector('#storeKind_food'),
+      storeKind_cafe = document.querySelector('#storeKind_cafe'),
+      storeKind_clinic = document.querySelector('#storeKind_clinic');
+
+var stores = [];
+var positions = [];
+var Uniname = [];
+
+const storeName = document.querySelector('#storeName'),
+      storeAdr = document.querySelector('#storeAdr'),
+      storeClass = document.querySelector('#storeClass'),
+      storeItem = document.querySelector('#storeItem');
+const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
+const universityName = document.querySelector("#headerMenu_university");
+
 // 고정 지도 코드
 // ===========================================================================================
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -52,32 +77,6 @@ function getUniversityName(){
     })
 }
 
-var storeAll = [],
-    positionAll = [];
-var storeFood = [],
-    positionFood = [];
-var storeCafe = [],
-    positionCafe = [];
-var storeClinic = [],
-    positionClinic = [];
-
-const storeKind_all = document.querySelector('#storeKind_all'),
-      storeKind_food = document.querySelector('#storeKind_food'),
-      storeKind_cafe = document.querySelector('#storeKind_cafe'),
-      storeKind_clinic = document.querySelector('#storeKind_clinic');
-
-var stores = [];
-var positions = [];
-
-const storeName = document.querySelector('#storeName'),
-      storeAdr = document.querySelector('#storeAdr'),
-      storeClass = document.querySelector('#storeClass'),
-      storeItem = document.querySelector('#storeItem');
-const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
-
-// storeKind_cafe.addEventListener("click", getCafe);
-// storeKind_food.addEventListener("click", getFood);
-// storeKind_clinic.addEventListener("click", getClinic);
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'bounds_changed', function() {             
@@ -139,6 +138,7 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
 });
 
 function retailerLoad(){
+    getUniversityName();
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl
@@ -156,7 +156,7 @@ function retailerLoad(){
     })
 }
 
-window.addEventListener('DOMContentLoaded', retailerLoad, getUniversityName);
+window.addEventListener('DOMContentLoaded', retailerLoad);
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {

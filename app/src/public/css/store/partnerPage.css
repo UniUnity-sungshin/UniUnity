@@ -1,14 +1,8 @@
-
 .headerBox{
     /* width: 100%; */
     height: 80px;
     background-color: #FDF0A5;
 }
-
-/* .headerMenu{
-    height: 30px;
-    margin-top: 10px;
-} */
 
 .headerContent{
     /* width: 80%; */
@@ -121,10 +115,6 @@ a {
     font-size: 23px;
     font-weight: bold;
 }
-
-/* #storeDate{
-    margin-bottom: 100px;
-} */
 
 #storeList{
     cursor: pointer;

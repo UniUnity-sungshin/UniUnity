@@ -32,7 +32,7 @@ const storeName = document.querySelector('#storeName'),
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox"),
     searchBtn = document.querySelector('#serchBtn'),
     partnerMapSerch = document.querySelector("#partnerMapSerch");
-    const universityName = document.querySelector("#headerMenu_university");
+const universityName = document.querySelector("#headerMenu_university");
 let center = [];
 let stores = [];
 let positions = [];
@@ -85,6 +85,7 @@ function getUniversityName(){
 }
 
 function partnerLoad(){
+    getUniversityName();
     centerChange();
     const universityUrl = getUniversityUrl();
     const req = {
@@ -122,7 +123,6 @@ function partnerLoad(){
                 map: map, // 마커를 표시할 지도
                 position: positions[i] // 마커의 위치
             });
-            console.log();
             // 목록에 동적으로 추가
             const li = document.createElement("li");
             li.setAttribute('id',stores[i].storeName);
@@ -155,7 +155,7 @@ function partnerLoad(){
     })
 }
 
-window.addEventListener('DOMContentLoaded', partnerLoad, getUniversityName);
+window.addEventListener('DOMContentLoaded', partnerLoad);
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {

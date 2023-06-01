@@ -15,8 +15,6 @@
     <!-- 부트스트랩 JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/store/partnerPage.css">
-   
-
     <!-- 카카오 지도 API 사용 -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
@@ -64,37 +62,35 @@
         </div>
 
         <!-- 지도가 들어가는 박스 -->
-        <div class="container" id="mapBox">
-            <div>
-                <div class="container text-left">
-                    <div class="row">
-                        <!-- 지도 -->
-                        <div class="col-8" id="map">
+        <div id="mapBox">
+            <div class="container text-left">
+                <div class="row">
+                    <!-- 지도 -->
+                    <div class="col-8" id="map">
 
-                        </div>
-                        <!-- 가게 목록 나오게 하기 -->
-                        <ul class="col-4" id="storeList">
-                            <div id="storeListTitle">제휴 가게 목록</div>
-                        </ul>
                     </div>
-                  </div>
-                <!-- 지도 클릭 시 가게 정보 출력 -->
-                <div class="text-left" id="mapStoreInfo">
-                    <div class="storeInfoTextBox" id="">
-                        <span class="" id="storeName"></span>
-                    </div>
-                    <div class="storeInfoTextBox" id="">
-                        <span class="storeInfoText">주소  </span>
-                        <span class="storeInfoTextInput" id="storeAdr"></span>
-                    </div>
-                    <div class="storeInfoTextBox" id="">
-                        <span class="storeInfoText" id="storeEtc">제휴혜택  </span>
-                        <span class="storeInfoTextInput" id="partnerContent"></span>
-                    </div>
-                    <div class="storeInfoTextBox" id="storeInfoTextBox_date">
-                        <span class="storeInfoText" id="storeDate">기간  </span>
-                        <span class="storeInfoTextInput" id="eventDate"></span>
-                    </div>
+                    <!-- 가게 목록 나오게 하기 -->
+                    <ul class="col-4" id="storeList">
+                        <div id="storeListTitle">제휴 가게 목록</div>
+                    </ul>
+                </div>
+                </div>
+            <!-- 지도 클릭 시 가게 정보 출력 -->
+            <div class="text-left" id="mapStoreInfo">
+                <div class="storeInfoTextBox" id="">
+                    <span class="" id="storeName"></span>
+                </div>
+                <div class="storeInfoTextBox" id="">
+                    <span class="storeInfoText">주소  </span>
+                    <span class="storeInfoTextInput" id="storeAdr"></span>
+                </div>
+                <div class="storeInfoTextBox" id="">
+                    <span class="storeInfoText" id="storeEtc">제휴혜택  </span>
+                    <span class="storeInfoTextInput" id="partnerContent"></span>
+                </div>
+                <div class="storeInfoTextBox" id="storeInfoTextBox_date">
+                    <span class="storeInfoText" id="storeDate">기간  </span>
+                    <span class="storeInfoTextInput" id="eventDate"></span>
                 </div>
             </div>
         </div>
