@@ -47,7 +47,7 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 //post 라우터
 router.get("/:university_url/postAll",ctrl.post.postAll);
 router.get("/postform/:university_url",ctrl.output.postform);
-
+router.post("/uploadPost",ctrl.post.uploadPost);
 //router.get("/sungshin/postAll",ctrl.output.post);
 
 module.exports=router;
