@@ -53,12 +53,12 @@
         <div class="card">
             <select class="form-select" aria-label="Default select example" id="select_post_category">
                 <option selected>글 카테고리를 선택해주세요</option>
-                <option value="1">제휴 등록</option>
-                <option value="2">제휴 추천</option>
-                <option value="3">제휴 제안</option>
-                <option value="4">총학생회 공지사항</option>
-                <option value="5">잡담</option>
-                <option value="6">가게 홍보</option>
+                <option value="affiliate_registration">제휴 등록</option>
+                <option value="affiliate_referral">제휴 추천</option>
+                <option value="affiliate_offer">제휴 제안</option>
+                <option value="announcement">총학생회 공지사항</option>
+                <option value="chat">잡담</option>
+                <option value="store_promotion">가게 홍보</option>
             </select>
 
             <div id="postWrite">
@@ -68,7 +68,7 @@
                 </div>
                 <div id="editor"></div>
                 <div class="mt-3 mb-3 d-flex justify-content-end" >
-                    <button class="btn btn-primary btn-publish me-4" type="submit">발행하기</button>
+                    <button class="btn btn-primary btn-publish me-4" type="submit" id="post_submit_btn">발행하기</button>
                 </div>
             </div>
         </div>
