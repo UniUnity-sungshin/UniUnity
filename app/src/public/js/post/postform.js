@@ -36,6 +36,11 @@ selectPostCategoryElement.addEventListener('change', function () {
             
         });
     }
+    //게시글 작성에디터
+    else{
+      postWrite.style.display = "block";
+      sotreUpload.style.display = "none";
+    }
 });
 
 // 제휴 등록 폼에 필요한 변수들
