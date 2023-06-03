@@ -76,7 +76,9 @@ const process = {
                 user_name: userInfo.user_name,
                 user_type: userInfo.user_type,
                 user_nickname: userInfo.user_nickname,
-                university_name: userInfo.university_name
+                university_name: userInfo.university_name,
+                university_id:userInfo.university_id,
+                university_url:userInfo.university_url
 
             });
         }
@@ -201,6 +203,13 @@ const result = {
 }
 
 const post = {
+
+    uploadPost:async(req,res)=>{
+        const post =new Post(req.body);
+        const response= await post.createPost();
+        return res.json(response);
+    },
+
     postAll: async (req, res) => {
         console.log(req.params.university_url);
 

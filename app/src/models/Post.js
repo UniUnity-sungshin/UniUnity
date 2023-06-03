@@ -4,6 +4,18 @@ class Post{
     constructor(body){
         this.body=body;
     }
+    //포스트 작성하기
+    async createPost(){
+        const client = this.body;
+        try{
+            const response = await PostStorage.savePost(client);
+
+            return response;
+        }catch(err){
+            return {err}
+        }
+    }
+
     //최신순 포스트 리스트 불러오기
     async showPostListAll(university_url){
         try{
