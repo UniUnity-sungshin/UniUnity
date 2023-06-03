@@ -21,6 +21,8 @@ class User{
                     user_type:userInfo.user_type,
                     user_name:userInfo.user_name,
                     user_nickname:userInfo.user_nickname,
+                    university_id:userInfo.university_id,
+                    university_url:await university.getUnversityIdToUrl(userInfo.university_id),
                     //university_id가 아닌 university_name으로 반환해줌
                     university_name:await university.getUnversityIdToName(userInfo.university_id)
             };
