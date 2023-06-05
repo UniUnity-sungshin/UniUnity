@@ -4,7 +4,7 @@ class Post{
     constructor(body){
         this.body=body;
     }
-    //포스트 작성하기
+    //게시글 작성하기
     async createPost(){
         const client = this.body;
         try{
@@ -15,6 +15,18 @@ class Post{
             return {err}
         }
     }
+
+    //post_id로 게시글 불러오기
+    async showPost(post_id){
+        try{
+            const response = await PostStorage.getPost(post_id);
+            return response;
+        }catch(err){
+            return {err}
+        }
+
+    }
+
 
     //최신순 포스트 리스트 불러오기
     async showPostListAll(university_url){

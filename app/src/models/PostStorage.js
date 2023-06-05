@@ -30,6 +30,25 @@ class PostStorage {
 
 
     }
+    //post_id로 게시글 불러오기
+    static getPost(post_id){
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    throw err;
+                }
+            });
+            pool.query("SELECT * FROM Post WHERE post_id=?;", [post_id], function (err, rows) {
+                if (err) {
+                    console.err('Query 오류', err);
+                    throw err;
+                }
+                resolve(rows[0]);
+            })
+        })
+
+    } 
 
     // unversity_url 입력받아 university_id 보내기
     static getUniversityUrlToID(university_url) {
