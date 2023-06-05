@@ -48,7 +48,9 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 router.get("/:university_url/postAll",ctrl.post.postAll);
 router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
+router.get("/showPost/:post_id",ctrl.post.showPost);
 router.post("/uploadPost",ctrl.post.uploadPost);
+
 //router.get("/sungshin/postAll",ctrl.output.post);
 
 module.exports=router;
