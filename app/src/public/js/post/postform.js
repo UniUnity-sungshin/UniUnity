@@ -1,7 +1,7 @@
 //글 에디터
 const Editor = toastui.Editor;
 
-let userInfo; //유저정보
+var userInfo; //유저정보
 
 //작성자 회원 정보 불러오기
 const loadloginData = () => {
@@ -16,15 +16,80 @@ const loadloginData = () => {
 }
 
 
-
-const editor = new Editor({
+const editor = new toastui.Editor({
   el: document.querySelector('#editor'),
-  height: '500px',
+  previewStyle: 'vertical',
   initialEditType: 'wysiwyg',
-  previewStyle: 'vertical'
+  previewHighlight: false,
+  height: '700px',
+  // 사전입력 항목
+  // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
+  hooks: {
+    addImageBlobHook: (blob, callback) => {
+      // blob : Java Script 파일 객체
+      //console.log(blob);
+      
+      const formData = new FormData();
+        formData.append('image', blob);
+        
+        let url = '/images/';
+       $.ajax({
+             type: 'POST',
+             enctype: 'multipart/form-data',
+             url: '/writeTest.do',
+             data: formData,
+             dataType: 'json',
+             processData: false,
+             contentType: false,
+             cache: false,
+             timeout: 600000,
+             success: function(data) {
+               //console.log('ajax 이미지 업로드 성공');
+               url += data.filename;
+               
+               // callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
+            // 형식 : ![대체 텍스트](주소)
+               callback(url, '사진 대체 텍스트 입력');
+             },
+             error: function(e) {
+               //console.log('ajax 이미지 업로드 실패');
+               //console.log(e.abort([statusText]));
+               
+               callback('image_load_fail', '사진 대체 텍스트 입력');
+             }
+           });
+    }
+  }
 });
+// const editor = new Editor({
+//   el: document.querySelector('#editor'),
+//   height: '500px',
+//   initialEditType: 'wysiwyg',
+//   previewStyle: 'vertical',
+//   hooks: {
+//     addImageBlobHook: (blob, callback) => uploadImages(blob, callback)
+// }
+// });
 
-editor.getMarkdown();
+// const uploadImages = (blob, callback) => {
+//   let formData = new FormData();
+//   formData.append("images", blob);
+
+//   $.ajax({
+//       type: 'POST',
+//       enctype: 'multipart/form-data',
+//       url: '/common/fileUpload',
+//       data: formData,
+//       dataType: 'json',
+//       processData: false,
+//       contentType: false,
+//       cache: false
+//   }).fail(function() {
+//       callback('image_load_fail');
+//   }).done(function(data) {
+//       callback(data);
+//   });
+// }
 
 //카테고리 선택
 var selectedValue;
@@ -34,13 +99,13 @@ const partnerCategory = document.querySelector('#partnerCategory'),
 const selectPostCategoryElement = document.getElementById('select_post_category');
 const postTitle = document.getElementById('post_title');
 const postSubmitBtn = document.getElementById('post_submit_btn');
-const postContent = editor.getHTML();
 
 function uploadPost(postCategory) {
+  console.log(editor.getHTML());
   const req = {
     user_email: userInfo.user_email,
     post_title: postTitle.value,
-    post_content: postContent,
+    post_content: editor.getHTML(),
     category: postCategory,
     university_id: userInfo.university_id
   };
@@ -72,7 +137,7 @@ function uploadPost(postCategory) {
 selectPostCategoryElement.addEventListener('change', function () {
   selectedValue = this.value;
   // 제휴가게 등록하기 로드
-  if (selectedValue == "affiliate_registration") {
+  if (selectedValue == "제휴 소식") {
     postWrite.style.display = "none";
     sotreUpload.style.display = "block";
     loadPartnerUpload();
