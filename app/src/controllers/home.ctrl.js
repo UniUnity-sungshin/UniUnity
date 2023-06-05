@@ -221,6 +221,13 @@ const post = {
         const response = await post.showPostListAll(university_url);
         console.log(response);
         return res.json(response);
+    },
+    showPost: async(req,res)=>{
+        let post_id =req.params.post_id;
+        const post =new Post();
+        const response = await post.showPost(post_id);
+        return res.json(response);
+
     }
 }
 
