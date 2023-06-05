@@ -28,10 +28,13 @@ const output = {
         return res.json(response);
     },
     post: (req, res) => {
-        res.render('home/post.html');
+        res.render('post/post.html');
     },
     postform: (req, res) => {
         res.render('post/postform.html');
+    },
+    postviewer:(req,res)=>{
+        res.render('post/postviewer.html');
     },
 
     partner: (req, res) => {
