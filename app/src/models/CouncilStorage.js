@@ -32,24 +32,24 @@ class CouncilStorage{
         });
     }
     
-    static getImages(university_url) {
-        return new Promise((resolve, reject) => {
-            pool.getConnection((err,connection)=>{
-                if(err){
-                    console.error('MySQL 연결 오류: ',err);
-                    throw err;
-                }
-            });    
-            pool.query("SELECT pi.image_url FROM University u JOIN Post p ON u.university_id = p.university_id JOIN PostImage pi ON p.post_id = pi.post_id WHERE u.university_url = ? ORDER BY p.post_date DESC LIMIT 5;", [university_url], (error, results) => {
-            if (error) {
-                console.error("이미지 가져오기 오류", error);
-                reject(error);
-            } else {
-                resolve(results);
-            }
-            });
-        });
-    }
+    // static getImages(university_url) {
+    //     return new Promise((resolve, reject) => {
+    //         pool.getConnection((err,connection)=>{
+    //             if(err){
+    //                 console.error('MySQL 연결 오류: ',err);
+    //                 throw err;
+    //             }
+    //         });    
+    //         pool.query("SELECT pi.image_url FROM University u JOIN Post p ON u.university_id = p.university_id JOIN PostImage pi ON p.post_id = pi.post_id WHERE u.university_url = ? ORDER BY p.post_date DESC LIMIT 5;", [university_url], (error, results) => {
+    //         if (error) {
+    //             console.error("이미지 가져오기 오류", error);
+    //             reject(error);
+    //         } else {
+    //             resolve(results);
+    //         }
+    //         });
+    //     });
+    // }
 }
 
 module.exports=CouncilStorage;

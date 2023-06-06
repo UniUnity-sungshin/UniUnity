@@ -21,14 +21,14 @@ class Council{
         }
     }
     
-    async getImages(university_url){
-        try{
-            const response = await CouncilStorage.getImages(university_url);
-            return response;
-        }catch(err){
-            return{success:false,msg:err};
-        }
-    }
+    // async getImages(university_url){
+    //     try{
+    //         const response = await CouncilStorage.getImages(university_url);
+    //         return response;
+    //     }catch(err){
+    //         return{success:false,msg:err};
+    //     }
+    // }
 }
 
 module.exports=Council;
