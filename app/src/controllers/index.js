@@ -18,7 +18,7 @@ router.post("/register",ctrl.process.register);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
-router.get("/post/:universityname",ctrl.output.post);
+router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
 router.post("/getImages", ctrl.result.getImages);
 
