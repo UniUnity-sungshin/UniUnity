@@ -40,6 +40,17 @@ class Post{
             return{success:false,msg:err};
         }
     }
+
+    //카테고리별로 불러오기
+    async showPostListbyCategory(university_url,category){
+        try{
+            let university_id= await PostStorage.getUniversityUrlToID(university_url);
+            const response=await PostStorage.getPostListbyCategory(university_id,category);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
     
 
 }
