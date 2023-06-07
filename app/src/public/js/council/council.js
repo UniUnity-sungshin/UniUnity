@@ -129,23 +129,23 @@ function councilLoad(){
     Uniname.push(res.university_name);
     universityName.innerHTML = Uniname[0];
   })
-  fetch(`http://localhost:3000/getImages`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(req),
-  })
-  .then((res) => res.json())
-  .then(res => {
-    const imageUrls = res.map(obj => obj.image_url); // 이미지 URL 배열
-    // 이미지 URL을 각각의 swiper-slide에 할당
-    slide1.src = imageUrls[0];
-    slide2.src = imageUrls[1];
-    slide3.src = imageUrls[2];
-    slide4.src = imageUrls[3];
-    slide5.src = imageUrls[4];
-  })
+  // fetch(`http://localhost:3000/getImages`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(req),
+  // })
+  // .then((res) => res.json())
+  // .then(res => {
+  //   const imageUrls = res.map(obj => obj.image_url); // 이미지 URL 배열
+  //   // 이미지 URL을 각각의 swiper-slide에 할당
+  //   slide1.src = imageUrls[0];
+  //   slide2.src = imageUrls[1];
+  //   slide3.src = imageUrls[2];
+  //   slide4.src = imageUrls[3];
+  //   slide5.src = imageUrls[4];
+  // })
 }
 
 window.addEventListener('DOMContentLoaded', councilLoad);
