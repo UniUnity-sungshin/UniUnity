@@ -1,5 +1,5 @@
 console.log("HI");
-const postSubmitBtn = document.getElementById('wirte_post_btn');
+const writePostBtn = document.getElementById('wirte_post_btn');
 
 
 let userInfo; //유저정보
@@ -17,12 +17,19 @@ const loadloginData = () => {
 }
 
 
-postSubmitBtn.addEventListener('click', function() {
+writePostBtn.addEventListener('click', function() {
+
+  if(userInfo.loginStatus){
     // 경로를 변경하고자 하는 URL로 설정합니다.
     var newLocation = `http://localhost:3000/postform/${userInfo.university_url}`;
     
     // 현재 창의 경로를 변경합니다.
     window.location.href = newLocation;
+  }  
+  else{
+      alert("로그인 후에 게시글을 작성할 수 있습니다.");
+  }
+
   });
 
   //page 로드 후 loadData()실행

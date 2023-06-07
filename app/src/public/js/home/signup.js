@@ -20,6 +20,7 @@ backBtn.addEventListener('click', () => {
 
 var universitySearchList = [];
 const loadData = async () => {
+    
     const url = `http://localhost:3000/showUniversityNameList`;
     await fetch(url, {
         headers: {

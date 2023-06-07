@@ -1,3 +1,18 @@
+.btn-publish {
+    width: 100px;
+    height: 50px;
+    font-size: 1.8rem !important;
+    
+ 
+}
+
+.submitBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #post_title:focus { 
     outline:none !important;
     outline-width: 0 !important;
@@ -63,4 +78,13 @@
 
 #addrInfo{
     font-size: 15px;
+}
+.form-select {
+    font-size: 1.5rem !important;
+    height: 40px;
+}
+
+.form-control {
+    font-size: 1.5rem !important;
+    height: 40px;
 }

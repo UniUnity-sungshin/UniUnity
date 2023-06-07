@@ -15,6 +15,19 @@ class UniversityStorage{
             });
         })
     }
+     // university_id받아 university_url반환하기
+     static getUnversityUrl(university_id){
+        return new Promise(async(resolve,reject)=>{
+            const query = "SELECT university_url FROM University WHERE university_id =?;";
+            pool.query(query,[university_id],(err,data)=>{
+                if(err)reject(`${err}`);
+                
+                else {
+                    resolve(data[0].university_url);
+                }
+            });
+        })
+    }
 
     static getUniversityNameList(){
         return new Promise(async(resolve,reject)=>{
