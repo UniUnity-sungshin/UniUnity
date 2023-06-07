@@ -85,7 +85,7 @@ app.post('/file', multer.single('file'), async (req, res) => {
       // 업로드할 파일 정보
       const file = req.file;
 
-          // Firebase Storage에 파일 업로드
+      // Firebase Storage에 파일 업로드
     const storageRef = ref(storage, file.originalname);
 
     // 파일의 공개적인 액세스 URL 생성

@@ -28,12 +28,9 @@ const editor = new toastui.Editor({
   hooks: { 
     async addImageBlobHook(blob, callback) {
     try {
-      console.log(blob);
       // FormData 생성
       const formData = new FormData();
       formData.append('file', blob);
-      
-
   //   파일 업로드 API 호출
       const response = await fetch('http://localhost:3000/file', {
         method: 'POST',
@@ -189,7 +186,6 @@ const storeName = document.querySelector('#storeName'),
   startDate = document.querySelector('#startDate'),
   endDate = document.querySelector('#endDate');
 var getlatitude, getlongitude;
-
 // 제휴 등록 페이지에 필요한 함수 고정 코드
 // ===========================================================================================
 // university_url 값을 받아오는 함수
@@ -283,11 +279,11 @@ function loadPartnerUpload() {
           position: coords
         });
 
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            }
-        });    
-    })
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
+    });
+  })
 }
 // ===========================================================================================
 //page 로드 후 loadData()실행
