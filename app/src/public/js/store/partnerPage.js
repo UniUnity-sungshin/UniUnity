@@ -15,12 +15,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
-    // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
-    const path = window.location.pathname;
-  
-    // 경로에서 universityUrl 값을 추출
-    const pathParts = path.split('/');
-    const universityUrl = pathParts[pathParts.length - 1];
+    const url = new URL(window.location.href);
+    const universityUrl = url.pathname.split('/').pop();
     return universityUrl;
 }
 
@@ -33,7 +29,7 @@ const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox"),
     searchBtn = document.querySelector('#serchBtn'),
     partnerMapSerch = document.querySelector("#partnerMapSerch");
 const universityName = document.querySelector("#headerMenu_university");
-let center = [];
+let center;
 let stores = [];
 let positions = [];
 var Uniname = [];
@@ -47,24 +43,6 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
-function centerChange(){
-    const universityUrl = getUniversityUrl();
-    const req = {
-        university_url:universityUrl
-    };
-
-    fetch(`http://localhost:3000/getUniversityLocation`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(req),
-    }).then((res) => res.json())
-    .then(res => {
-        setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
-    })
-}
-
 function getUniversityName(){
     const universityUrl = getUniversityUrl();
     const req = {
@@ -74,35 +52,65 @@ function getUniversityName(){
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
       })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
       .then(res => {
         Uniname.push(res.university_name);
         universityName.innerHTML = Uniname[0];
     })
+    .catch((error) => {
+    console.error('There has been a problem with your fetch operation:', error);
+    });
 }
 
 function partnerLoad(){
-    getUniversityName();
-    centerChange();
     const universityUrl = getUniversityUrl();
     const req = {
-        university_url:universityUrl
+        university_url: universityUrl,
     };
     fetch(`http://localhost:3000/getPartner`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
     })
-    .then((res) => res.json())
+    .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
     .then(res => {
+        // console.log("http://localhost:3000/getPartner fetch");
+        center = []; // center 배열 초기화
         center.push(res[0]);
         setCenter(map,parseFloat(center[0].latitudeUni),parseFloat(center[0].longitudeUni));
-        // 새로운 객체 생성
+        var now = new Date();
+        var nowYear = (now.getFullYear()).toString();
+        var nowMonth;
+        if((now.getMonth()+1) < 10){
+          nowMonth = "0"+(now.getMonth()+1).toString();
+        } else{
+          nowMonth = (now.getMonth()+1).toString();
+        }
+        var nowDate;
+        if((now.getDate()) < 10){
+          nowDate = "0"+(now.getDate()).toString();
+        } else{
+          nowDate = (now.getDate()).toString();
+        }
+        const nowString = nowYear + "-" + nowMonth + "-" + nowDate;
+       // 새로운 객체 생성
         for(let i = 1; i < res.length; i++){
             const obj = {
                 storeID: res[i].storeID,
@@ -113,9 +121,15 @@ function partnerLoad(){
                 startDate: res[i].startDate,
                 endDate: res[i].endDate
             };
-            stores.push(obj);
-            // 객체의 좌표 부분은 따로 저장
-            positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude),parseFloat(res[i].longitude)));
+            console.log(obj.endDate);
+            console.log(typeof(obj.endDate));
+            console.log(nowString);
+            console.log(typeof(nowString));
+            if(obj.endDate >= nowString){
+              stores.push(obj);
+              // 객체의 좌표 부분은 따로 저장
+              positions.push(new kakao.maps.LatLng(parseFloat(res[i].latitude),parseFloat(res[i].longitude)));
+            }
         };
         for (let i = 0; i < positions.length; i ++) {
             // 마커를 생성합니다
@@ -150,12 +164,15 @@ function partnerLoad(){
             })
         }
     })
-    .catch(error => {
-        console.error("Error: ", error);
-    })
+    .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
 }
 
-window.addEventListener('DOMContentLoaded', partnerLoad);
+window.addEventListener('load',function(){
+    getUniversityName();
+    partnerLoad();
+});
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {

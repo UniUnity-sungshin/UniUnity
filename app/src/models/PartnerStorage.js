@@ -123,6 +123,24 @@ class PartnerStorage{
             })
         })    
     }
+    // 제휴가게 삭제하기
+    static async DeletePartnerStore(storeID){
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    throw err;
+                }
+            });
+            pool.query("DELETE FROM Partner WHERE storeID=?;",[storeID],function(err,rows){
+                if(err){
+                    console.err('Query 오류',err);
+                    throw err;
+                }
+                resolve(rows);
+            })
+        })    
+    }
 };
 
 module.exports = PartnerStorage;
