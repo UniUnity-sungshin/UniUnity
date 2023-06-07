@@ -32,7 +32,9 @@ class Post{
     async showPostListAll(university_url){
         try{
             let university_id= await PostStorage.getUniversityUrlToID(university_url);
+            console.log(university_id);
             const response=await PostStorage.getPostListAll(university_id);
+            console.log(response);
             return response;
         }catch(err){
             return{success:false,msg:err};
