@@ -94,6 +94,48 @@ class PostStorage {
 
         })
     }
+
+    //카테고리별로 게시글 불러오기
+    static getPostListbyCategory(university_id,category){
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    throw err;
+                }
+            });
+            pool.query("SELECT * FROM Post WHERE category=? AND university_id=?;", [category,university_id], function (err, rows) {
+                if (err) {
+                    console.err('Query 오류', err);
+                    throw err;
+                }
+                resolve(rows);
+            })
+        })
+
+    } 
+
+    //카테고리별 정렬
+    // static getPostListbyCategory(category) {
+    //     return new Promise(async (resolve, reject) => {
+
+    //         pool.getConnection((err, connection) => {
+    //             if (err) {
+    //                 console.error('MySQL 연결 오류: ', err);
+    //                 throw err;
+    //             }
+
+    //         });
+    //         const query = "SELECT post_date, post_title, post_content, view_count, like_count, comment_count, category FROM Post Where university_id =? ;";
+    //         pool.query(query, [university_id], (err, data) => {
+    //             if (err) reject(`${err}`);
+    //             else {
+    //                 resolve(data);
+    //             }
+    //         });
+    //     })
+    // }
 }
+
 
 module.exports = PostStorage;
