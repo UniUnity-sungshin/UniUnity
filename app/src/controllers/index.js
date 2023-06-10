@@ -52,7 +52,7 @@ router.get("/showPost/:post_id",ctrl.post.showPost);
 router.post("/uploadPost",ctrl.post.uploadPost);
 router.get("/showPostListbyCategory/:category/:university_url",ctrl.post.showPostListbyCategory);
 
-//router.get("/sungshin/postAll",ctrl.output.post);
+router.get("/showPostListAll/:university_url",ctrl.output.post);
 
 module.exports=router;
 
