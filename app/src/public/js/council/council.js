@@ -176,9 +176,9 @@ function generateDynamicURL(linkId, userschool) {
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
-    dynamicValue = "mypage/" + userschool;
+    dynamicValue = "mypage";
   } else if (linkId === "news") {
-    dynamicValue = "post/" + userschool;
+    dynamicValue = "showPostListAll/" + userschool;
   }
 
   return "http://localhost:3000/" + dynamicValue;
@@ -208,7 +208,7 @@ function updateDynamicLinks() {
   link3.textContent = "마이페이지";
 
   link4.href = generateDynamicURL("news",userschool);
-  link4.textContent = "더보기 ►";
+  link4.textContent = "게시글 더보기 ►";
 
   link5.href = generateDynamicURL("retailer",userschool);
   link5.textContent = "더보기 ►";

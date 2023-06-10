@@ -191,7 +191,7 @@ function getDynamicValueFromURL() {
       } else if (linkId === "partner") {
         dynamicValue = "partner/" + userschool;
       } else if (linkId === "mypage") {
-        dynamicValue = "mypage/" + userschool;
+        dynamicValue = "mypage";
       }
     
       return "http://localhost:3000/" + dynamicValue;
