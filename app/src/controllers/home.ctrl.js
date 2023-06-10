@@ -249,7 +249,10 @@ const post = {
             category = "총학생회 공지사항";
         else if (category === "store_promotion")
             category = "가게 홍보";
-        else return res.json({success:false ,err:"url 잘못입력"});
+        else {
+            res.status(404).send({ success: false, err: "404 Not Found" });
+        }
+        //else return res.json({success:false ,err:"url 잘못입력"});
         const post = new Post();
         const response = await post.showPostListbyCategory(university_url, category);
         return res.json(response);
