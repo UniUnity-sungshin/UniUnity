@@ -33,7 +33,7 @@ const output = {
     postform: (req, res) => {
         res.render('post/postform.html');
     },
-    postviewer:(req,res)=>{
+    postviewer: (req, res) => {
         res.render('post/postviewer.html');
     },
 
@@ -49,22 +49,22 @@ const output = {
 const process = {
 
     //회원가입
-    register: async(req, res) => {
-        
-            console.log(req.body);
-            const hashedPassword=await bcrypt.hash(req.body.psword,10)
-            const user=new User({
-                user_email:req.body.user_email,
-                psword:hashedPassword,
-                user_name:req.body.user_name,
-                user_type:req.body.user_type,
-                user_nickname:req.body.user_nickname,
-                university_id:req.body.university_id
-            });
-            const response = await user.register();
-            console.log("registerrouter응답:",response);
-            return res.json(response)
-          
+    register: async (req, res) => {
+
+        console.log(req.body);
+        const hashedPassword = await bcrypt.hash(req.body.psword, 10)
+        const user = new User({
+            user_email: req.body.user_email,
+            psword: hashedPassword,
+            user_name: req.body.user_name,
+            user_type: req.body.user_type,
+            user_nickname: req.body.user_nickname,
+            university_id: req.body.university_id
+        });
+        const response = await user.register();
+        console.log("registerrouter응답:", response);
+        return res.json(response)
+
     },
     //로그인 상태
     loginStatus: async (req, res) => {
@@ -80,8 +80,8 @@ const process = {
                 user_type: userInfo.user_type,
                 user_nickname: userInfo.user_nickname,
                 university_name: userInfo.university_name,
-                university_id:userInfo.university_id,
-                university_url:userInfo.university_url
+                university_id: userInfo.university_id,
+                university_url: userInfo.university_url
 
             });
         }
@@ -96,21 +96,23 @@ const process = {
 
     },
     //이메일 인증
-    emailAuth: (req, res)=>{
-        const emailAdderess=req.body.email;
+    emailAuth: (req, res) => {
+        const emailAdderess = req.body.email;
         console.log(emailAdderess)
         sendEmailWithAuthorization(emailAdderess)
             .then((authentication_code) => {
                 console.log('Authentication code:', authentication_code);
                 return res.json({
-                    "status":201,
-                    "authentication_code":authentication_code})
+                    "status": 201,
+                    "authentication_code": authentication_code
+                })
             })
             .catch((err) => {
                 console.error('An error occurred:', err);
                 return res.json({
-                    "status":500,
-                    "err":err}
+                    "status": 500,
+                    "err": err
+                }
                 );
             });
     },
@@ -149,20 +151,20 @@ const partner = {
         }
         return res.json(obj);
     },
-    getUniversityID_name:async(req,res)=>{
+    getUniversityID_name: async (req, res) => {
         const partner = new Partner();
         const response = await partner.getUniversityID(req.params.university_url);
         return res.json(response);
     },
-    uploadPartnerStore: async(req,res) => {
+    uploadPartnerStore: async (req, res) => {
         const partner = new Partner();
         const storeName = req.body.storeName,
-              store_location = req.body.store_location,
-              latitude = req.body.latitude,
-              longitude = req.body.longitude,
-              content = req.body.content,
-              startDate = req.body.startDate,
-              endDate = req.body.endDate;
+            store_location = req.body.store_location,
+            latitude = req.body.latitude,
+            longitude = req.body.longitude,
+            content = req.body.content,
+            startDate = req.body.startDate,
+            endDate = req.body.endDate;
         const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
@@ -183,7 +185,7 @@ const retailer = {
 
 //council 페이지
 const result = {
-    council : async (req, res) => {
+    council: async (req, res) => {
         // console.log(req.params.universityname);
         // const council = new Council();
         // const response=await council.showUniversity(req.params.universityname);
@@ -199,11 +201,11 @@ const result = {
         return res.json(response);
     },
 
-    post : async(req, res)  => {
+    post: async (req, res) => {
         res.render("home/post.html");
     },
-    
-    getImages : async (req, res) => {
+
+    getImages: async (req, res) => {
         const council = new Council();
         const response = await council.getImages(req.body.university_id);
         return res.json(response);
@@ -212,9 +214,9 @@ const result = {
 
 const post = {
 
-    uploadPost:async(req,res)=>{
-        const post =new Post(req.body);
-        const response= await post.createPost();
+    uploadPost: async (req, res) => {
+        const post = new Post(req.body);
+        const response = await post.createPost();
         return res.json(response);
     },
 
@@ -227,10 +229,37 @@ const post = {
         console.log(response);
         return res.json(response);
     },
-    showPost: async(req,res)=>{
-        let post_id =req.params.post_id;
-        const post =new Post();
+    showPost: async (req, res) => {
+        let post_id = req.params.post_id;
+        const post = new Post();
         const response = await post.showPost(post_id);
+        return res.json(response);
+
+    },
+    showPostListbyCategory: async (req, res) => {
+        let university_url = req.params.university_url;
+        let category = req.params.category;
+
+        if (category === "chat")
+            category = "잡담";
+        else if (category === "food")
+            catrgory = "식당";
+        else if (category === "affiliate_registration")
+            category = "제휴 등록";
+        else if (category === "affiliate_referral")
+            category = "제휴 추천";
+        else if (category === "affiliate_offer")
+            category = "제휴 제안";
+        else if (category === "announcement")
+            category = "총학생회 공지사항";
+        else if (category === "store_promotion")
+            category = "가게 홍보";
+        else {
+            res.status(404).send({ success: false, err: "404 Not Found" });
+        }
+        //else return res.json({success:false ,err:"url 잘못입력"});
+        const post = new Post();
+        const response = await post.showPostListbyCategory(university_url, category);
         return res.json(response);
 
     }

@@ -18,7 +18,7 @@ router.post("/register",ctrl.process.register);
 
 // council 라우터
 router.get("/council/:universityname",ctrl.result.council);
-router.get("/post/:universityname",ctrl.output.post);
+router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
 router.post("/getImages", ctrl.result.getImages);
 
@@ -51,10 +51,10 @@ router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
 router.get("/showPost/:post_id",ctrl.post.showPost);
 router.post("/uploadPost",ctrl.post.uploadPost);
+router.get("/showPostListbyCategory/:category/:university_url",ctrl.post.showPostListbyCategory);
 
-//router.get("/sungshin/postAll",ctrl.output.post);
+router.get("/showPostListAll/:university_url",ctrl.output.post);
 
 module.exports=router;
-
 
 

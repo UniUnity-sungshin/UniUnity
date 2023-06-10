@@ -156,7 +156,11 @@ function retailerLoad(){
     })
 }
 
-window.addEventListener('DOMContentLoaded', retailerLoad);
+window.addEventListener('load',function(){
+    getUniversityName();
+    retailerLoad();
+});
+
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
@@ -180,7 +184,7 @@ function getDynamicValueFromURL() {
       } else if (linkId === "partner") {
         dynamicValue = "partner/" + userschool;
       } else if (linkId === "mypage") {
-        dynamicValue = "mypage/" + userschool;
+        dynamicValue = "mypage";
       }
     
       return "http://localhost:3000/" + dynamicValue;

@@ -21,45 +21,37 @@ const editor = new toastui.Editor({
   previewStyle: 'vertical',
   initialEditType: 'wysiwyg',
   previewHighlight: false,
-  height: '700px',
+  initialValue: '',
+  height: '1000px',
   // 사전입력 항목
   // 이미지가 Base64 형식으로 입력되는 것 가로채주는 옵션
-  hooks: {
-    addImageBlobHook: (blob, callback) => {
-      // blob : Java Script 파일 객체
-      //console.log(blob);
-      
+  hooks: { 
+    async addImageBlobHook(blob, callback) {
+    try {
+      // FormData 생성
       const formData = new FormData();
-        formData.append('image', blob);
-        
-        let url = '/images/';
-       $.ajax({
-             type: 'POST',
-             enctype: 'multipart/form-data',
-             url: '/writeTest.do',
-             data: formData,
-             dataType: 'json',
-             processData: false,
-             contentType: false,
-             cache: false,
-             timeout: 600000,
-             success: function(data) {
-               //console.log('ajax 이미지 업로드 성공');
-               url += data.filename;
-               
-               // callback : 에디터(마크다운 편집기)에 표시할 텍스트, 뷰어에는 imageUrl 주소에 저장된 사진으로 나옴
-            // 형식 : ![대체 텍스트](주소)
-               callback(url, '사진 대체 텍스트 입력');
-             },
-             error: function(e) {
-               //console.log('ajax 이미지 업로드 실패');
-               //console.log(e.abort([statusText]));
-               
-               callback('image_load_fail', '사진 대체 텍스트 입력');
-             }
-           });
+      formData.append('file', blob);
+  //   파일 업로드 API 호출
+      const response = await fetch('http://localhost:3000/file', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        // 파일 업로드 성공
+        const { fileUrl } = await response.json();
+
+        // 콜백 함수 호출하여 에디터에 이미지 추가
+        callback(fileUrl, 'alt text');
+      } else {
+        // 파일 업로드 실패
+        console.error('Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
     }
   }
+  },
 });
 // const editor = new Editor({
 //   el: document.querySelector('#editor'),
@@ -67,7 +59,26 @@ const editor = new toastui.Editor({
 //   initialEditType: 'wysiwyg',
 //   previewStyle: 'vertical',
 //   hooks: {
-//     addImageBlobHook: (blob, callback) => uploadImages(blob, callback)
+//     async addImageBlobHook(blob, callback) {
+      
+//       try{
+//         // console.log(blob)
+//       // FormData 생성
+      
+//       const formData = new FormData();
+//       formData.append('file', blob);
+//       // console.log("formData:",formData.get('file'));
+
+//         //   파일 업로드 API 호출
+//       // const response = await fetch('http://localhost:3000/file', {
+//       //   method: 'POST',
+//       //   body: formData,
+//       // });
+//     } catch (error) {
+//       //       console.error('Error uploading image:', error);
+//       //     }
+//     }
+//   }
 // }
 // });
 
@@ -175,7 +186,6 @@ const storeName = document.querySelector('#storeName'),
   startDate = document.querySelector('#startDate'),
   endDate = document.querySelector('#endDate');
 var getlatitude, getlongitude;
-
 // 제휴 등록 페이지에 필요한 함수 고정 코드
 // ===========================================================================================
 // university_url 값을 받아오는 함수
@@ -269,11 +279,11 @@ function loadPartnerUpload() {
           position: coords
         });
 
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            }
-        });    
-    })
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
+    });
+  })
 }
 // ===========================================================================================
 //page 로드 후 loadData()실행
