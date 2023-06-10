@@ -14,6 +14,9 @@ const mysql = require('mysql2/promise');
         waitForConnections:true,
         insecureAuth:true,
         dateStrings : "date",
+        connectionLimit: 30,
+        waitForConnections: false
+        
 });
 
 module.exports=pool;
