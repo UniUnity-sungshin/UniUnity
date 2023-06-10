@@ -43,7 +43,7 @@ function setCenter(map,latitude,longitude) {
     map.setCenter(moveLatLon);
 }
 
-function getUniversityName(){
+async function getUniversityName(){
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl
@@ -52,7 +52,6 @@ function getUniversityName(){
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
       })
@@ -67,11 +66,11 @@ function getUniversityName(){
         universityName.innerHTML = Uniname[0];
     })
     .catch((error) => {
-    console.error('There has been a problem with your fetch operation:', error);
+      console.error('There has been a problem with your fetch operation:', error);
     });
 }
 
-function partnerLoad(){
+async function partnerLoad(){
     const universityUrl = getUniversityUrl();
     const req = {
         university_url: universityUrl,
@@ -80,7 +79,6 @@ function partnerLoad(){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
     })
@@ -88,10 +86,10 @@ function partnerLoad(){
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }
+        console.log("http://localhost:3000/getPartner fetch");
         return res.json();
       })
     .then(res => {
-        // console.log("http://localhost:3000/getPartner fetch");
         center = []; // center 배열 초기화
         center.push(res[0]);
         setCenter(map,parseFloat(center[0].latitudeUni),parseFloat(center[0].longitudeUni));
@@ -121,10 +119,7 @@ function partnerLoad(){
                 startDate: res[i].startDate,
                 endDate: res[i].endDate
             };
-            console.log(obj.endDate);
-            console.log(typeof(obj.endDate));
-            console.log(nowString);
-            console.log(typeof(nowString));
+            // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
             if(obj.endDate >= nowString){
               stores.push(obj);
               // 객체의 좌표 부분은 따로 저장
@@ -169,9 +164,9 @@ function partnerLoad(){
     });
 }
 
-window.addEventListener('load',function(){
-    getUniversityName();
-    partnerLoad();
+window.addEventListener('load',async function(){
+    await getUniversityName();
+    await partnerLoad();
 });
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)

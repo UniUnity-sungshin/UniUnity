@@ -36,6 +36,7 @@ router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
 router.post("/uploadPartner",ctrl.partner.uploadPartnerStore);
 
 router.get("/partnerUpdate/:university_url",ctrl.output.partnerForm);
+router.get("/deleterStore/:storeID",ctrl.partner.DeletePartnerStore);
 
 // retailer 라우터
 router.get("/retailer/:university_url",ctrl.retailer.retailer);
