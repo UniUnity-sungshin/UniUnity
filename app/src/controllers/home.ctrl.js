@@ -166,7 +166,12 @@ const partner = {
         const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
-    }
+    },
+    DeletePartnerStore:async(req,res)=>{
+        const partner = new Partner();
+        const response = await partner.DeletePartnerStore(req.params.storeID);
+        return res.json(response);
+    },
 };
 
 // 소상공인 파트
