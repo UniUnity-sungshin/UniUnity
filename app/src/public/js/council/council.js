@@ -176,7 +176,7 @@ function generateDynamicURL(linkId, userschool) {
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
-    dynamicValue = "mypage/" + userschool;
+    dynamicValue = "mypage";
   } else if (linkId === "news") {
     dynamicValue = "post/" + userschool;
   }
