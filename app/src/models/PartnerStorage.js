@@ -14,6 +14,7 @@ class PartnerStorage{
                 }
             });
             pool.query("SELECT university_id FROM University WHERE university_url=?;",[university_url],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -26,6 +27,7 @@ class PartnerStorage{
     static getUniversity(university_url) {
         return new Promise(async (resolve,reject)=> {
             pool.query('SELECT university_name FROM University WHERE university_url =?',[university_url],(err,data)=>{
+                connection.release();
                 if(err)reject(`${err}`);
                 else {               
                     resolve(data[0]);
@@ -43,6 +45,7 @@ class PartnerStorage{
                 }
             });
             pool.query("SELECT * FROM Partner WHERE university_id=?;",[university_id],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -61,6 +64,7 @@ class PartnerStorage{
                 }
             });
             pool.query("SELECT count(*) FROM Partner WHERE university_id=?;",[university_id],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -79,6 +83,7 @@ class PartnerStorage{
                 }
             });
             pool.query("SELECT latitude, longitude FROM University WHERE university_id=?;",[university_id],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -97,6 +102,7 @@ class PartnerStorage{
                 }
             });
             pool.query("SELECT university_id FROM University WHERE university_name=?;",[university_name],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -115,6 +121,7 @@ class PartnerStorage{
                 }
             });
             pool.query("INSERT into Partner (storeName, store_location, latitude, longitude, university_id, content, startDate, endDate) values (?,?,?,?,?,?,?,?);",[storeName, store_location, latitude, longitude, university_id, content, startDate, endDate],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
@@ -133,6 +140,7 @@ class PartnerStorage{
                 }
             });
             pool.query("DELETE FROM Partner WHERE storeID=?;",[storeID],function(err,rows){
+                connection.release();
                 if(err){
                     console.err('Query 오류',err);
                     throw err;
