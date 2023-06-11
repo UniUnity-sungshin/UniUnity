@@ -27,14 +27,6 @@ class Partner{
             return{success:false,msg:err};
         }
     }
-    async DeletePartnerStore(storeID){
-        try{
-            const response = await PartnerStorage.DeletePartnerStore(storeID);
-            return response;
-        }catch(err){
-            return{success:false,msg:err};
-        }
-    }
     async getPartnerStores(university_id){
         try{
             const response = await PartnerStorage.getPartnerStores(university_id);
@@ -62,6 +54,14 @@ class Partner{
     async uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate){
         try{
             const response = await PartnerStorage.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
+    async DeletePartnerStore(storeID){
+        try{
+            const response = await PartnerStorage.DeletePartnerStore(storeID);
             return response;
         }catch(err){
             return{success:false,msg:err};

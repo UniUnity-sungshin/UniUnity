@@ -15,22 +15,26 @@ class CouncilStorage{
     // }
     // unversity_url 입력받아 university_name 보내기
     static getUniversityName(university_url){
+        console.log("db-getUniversityName()");
         return new Promise(async(resolve,reject)=>{
             pool.getConnection((err,connection)=>{
                 if(err){
                     console.error('MySQL 연결 오류: ',err);
-                    throw err;
+                    reject(err)
                 }
-            });
-            pool.query("SELECT university_name FROM University WHERE university_url=?;",[university_url],function(err,rows){
-                if(err){
-                    console.err('Query 오류',err);
-                    throw err;
-                }
-                resolve(rows[0]);
-            });           
+                pool.query("SELECT university_name FROM University WHERE university_url=?;",[university_url],function(err,rows){
+                    connection.release();
+                    if(err){
+                        console.error('Query 함수 오류',err);
+                        reject(err)
+                    }
+                    resolve(rows[0]);
+                
+            });      
+             
         });
-    }
+    })
+}
     
     // static getImages(university_url) {
     //     return new Promise((resolve, reject) => {

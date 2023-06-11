@@ -3,6 +3,7 @@ const { pool } = require("../../config/db");
 class UserStorage{
     //id를 통해 유저 정보 갖고 오기
     static getUserInfo(client_email) {
+        console.log("db-getUniversityName()");
         return new Promise(async (resolve,reject)=>{
             const query = "SELECT * FROM User WHERE user_email =?;";
             pool.query(query,[client_email],(err,data)=>{
@@ -17,6 +18,7 @@ class UserStorage{
     }
     //회원가입
     static save(userInfo) {
+        console.log("db-getUniversityName()");
         console.log(userInfo)
         return new Promise(async (resolve,reject)=>{
             const query = "INSERT INTO User(user_email,user_name,psword,user_type,user_nickname,university_id) VALUES (?,?,?,?,?,?);" ;
