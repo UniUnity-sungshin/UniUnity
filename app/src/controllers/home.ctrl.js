@@ -241,8 +241,6 @@ const post = {
 
         if (category === "chat")
             category = "잡담";
-        else if (category === "food")
-            catrgory = "식당";
         else if (category === "affiliate_registration")
             category = "제휴 등록";
         else if (category === "affiliate_referral")
