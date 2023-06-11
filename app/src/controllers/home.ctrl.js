@@ -1,7 +1,6 @@
 "use strict"
 
 const Partner = require("../models/Partner");
-const Retailer = require("../models/Retailer");
 const User = require("../models/User");
 const Council = require("../models/Council");
 const Post = require("../models/Post");
