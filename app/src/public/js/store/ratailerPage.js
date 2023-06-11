@@ -157,7 +157,6 @@ function retailerLoad(){
 }
 
 window.addEventListener('load',function(){
-    getUniversityName();
     retailerLoad();
 });
 
