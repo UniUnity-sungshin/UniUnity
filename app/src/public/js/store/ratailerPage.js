@@ -41,12 +41,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 // university_url 값을 받아오는 함수
 function getUniversityUrl() {
-    // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
-    const path = window.location.pathname;
-  
-    // 경로에서 universityUrl 값을 추출
-    const pathParts = path.split('/');
-    const universityUrl = pathParts[pathParts.length - 1];
+    const url = new URL(window.location.href);
+    const universityUrl = url.pathname.split('/').pop();
     return universityUrl;
 }
 
@@ -157,7 +153,6 @@ function retailerLoad(){
 }
 
 window.addEventListener('load',function(){
-    getUniversityName();
     retailerLoad();
 });
 
@@ -174,43 +169,43 @@ function getDynamicValueFromURL() {
     }
     }
     
-    // 새로운 url 만들기
-    function generateDynamicURL(linkId, userschool) {
-      var dynamicValue;
-    
-      // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
-      if (linkId === "retailer") {
-        dynamicValue = "retailer/" + userschool;
-      } else if (linkId === "partner") {
-        dynamicValue = "partner/" + userschool;
-      } else if (linkId === "mypage") {
-        dynamicValue = "mypage";
-      }
-    
-      return "http://localhost:3000/" + dynamicValue;
+// 새로운 url 만들기
+function generateDynamicURL(linkId, userschool) {
+    var dynamicValue;
+
+    // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+    if (linkId === "retailer") {
+    dynamicValue = "retailer/" + userschool;
+    } else if (linkId === "partner") {
+    dynamicValue = "partner/" + userschool;
+    } else if (linkId === "mypage") {
+    dynamicValue = "mypage";
     }
+
+    return "http://localhost:3000/" + dynamicValue;
+}
     
-    // 새로운 url로 업데이트
-    function updateDynamicLinks() {
-      var userschool = getDynamicValueFromURL();
-          if (!userschool) {
-            console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
-            return;
-          }
-    
-      var link1 = document.getElementById("headerMenu_reatiler");
-      var link2 = document.getElementById("headerMenu_partner");
-      var link3 = document.getElementById("headerMenu_mypage");
-    
-      link1.href = generateDynamicURL("retailer",userschool);
-      link1.textContent = "소상공인 가게 지도";
-    
-      link2.href = generateDynamicURL("partner",userschool);
-      link2.textContent = "제휴 지도";
-    
-      link3.href = generateDynamicURL("mypage",userschool);
-      link3.textContent = "마이페이지";
-    }
-    
-    // 동적 링크 업데이트 함수를 호출합니다.
-    updateDynamicLinks();
+// 새로운 url로 업데이트
+function updateDynamicLinks() {
+    var userschool = getDynamicValueFromURL();
+        if (!userschool) {
+        console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+        return;
+        }
+
+    var link1 = document.getElementById("headerMenu_reatiler");
+    var link2 = document.getElementById("headerMenu_partner");
+    var link3 = document.getElementById("headerMenu_mypage");
+
+    link1.href = generateDynamicURL("retailer",userschool);
+    link1.textContent = "소상공인 가게 지도";
+
+    link2.href = generateDynamicURL("partner",userschool);
+    link2.textContent = "제휴 지도";
+
+    link3.href = generateDynamicURL("mypage",userschool);
+    link3.textContent = "마이페이지";
+}
+
+// 동적 링크 업데이트 함수를 호출합니다.
+updateDynamicLinks();
