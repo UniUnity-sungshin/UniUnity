@@ -52,7 +52,6 @@ function getUniversityName(){
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
       })
@@ -67,7 +66,7 @@ function getUniversityName(){
         universityName.innerHTML = Uniname[0];
     })
     .catch((error) => {
-    console.error('There has been a problem with your fetch operation:', error);
+      console.error('There has been a problem with your fetch operation:', error);
     });
 }
 
@@ -80,7 +79,6 @@ function partnerLoad(){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
         },
         body: JSON.stringify(req),
     })
@@ -88,10 +86,10 @@ function partnerLoad(){
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }
+        console.log("http://localhost:3000/getPartner fetch");
         return res.json();
       })
     .then(res => {
-        // console.log("http://localhost:3000/getPartner fetch");
         center = []; // center 배열 초기화
         center.push(res[0]);
         setCenter(map,parseFloat(center[0].latitudeUni),parseFloat(center[0].longitudeUni));
@@ -121,10 +119,7 @@ function partnerLoad(){
                 startDate: res[i].startDate,
                 endDate: res[i].endDate
             };
-            console.log(obj.endDate);
-            console.log(typeof(obj.endDate));
-            console.log(nowString);
-            console.log(typeof(nowString));
+            // 제휴 종료일자가 오늘 보다 이전 날짜인 제휴 가게는 표시가 되지 않도록 함
             if(obj.endDate >= nowString){
               stores.push(obj);
               // 객체의 좌표 부분은 따로 저장
@@ -176,53 +171,53 @@ window.addEventListener('load',function(){
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
-    var path = window.location.pathname;
-    var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
-    var matches = path.match(regex);
-    if (matches && matches.length > 1) {
-      return matches[1];
-    } else {
-      return null;
-    }
-    }
+  var path = window.location.pathname;
+  var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+  var matches = path.match(regex);
+  if (matches && matches.length > 1) {
+    return matches[1];
+  } else {
+    return null;
+  }
+}
     
-    // 새로운 url 만들기
-    function generateDynamicURL(linkId, userschool) {
-      var dynamicValue;
-    
-      // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
-      if (linkId === "retailer") {
-        dynamicValue = "retailer/" + userschool;
-      } else if (linkId === "partner") {
-        dynamicValue = "partner/" + userschool;
-      } else if (linkId === "mypage") {
-        dynamicValue = "mypage/" + userschool;
+// 새로운 url 만들기
+function generateDynamicURL(linkId, userschool) {
+  var dynamicValue;
+
+  // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
+  if (linkId === "retailer") {
+    dynamicValue = "retailer/" + userschool;
+  } else if (linkId === "partner") {
+    dynamicValue = "partner/" + userschool;
+  } else if (linkId === "mypage") {
+    dynamicValue = "mypage";
+  }
+
+  return "http://localhost:3000/" + dynamicValue;
+}
+
+// 새로운 url로 업데이트
+function updateDynamicLinks() {
+  var userschool = getDynamicValueFromURL();
+      if (!userschool) {
+        console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+        return;
       }
-    
-      return "http://localhost:3000/" + dynamicValue;
-    }
-    
-    // 새로운 url로 업데이트
-    function updateDynamicLinks() {
-      var userschool = getDynamicValueFromURL();
-          if (!userschool) {
-            console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
-            return;
-          }
-    
-      var link1 = document.getElementById("headerMenu_reatiler");
-      var link2 = document.getElementById("headerMenu_partner");
-      var link3 = document.getElementById("headerMenu_mypage");
-    
-      link1.href = generateDynamicURL("retailer",userschool);
-      link1.textContent = "소상공인 가게 지도";
-    
-      link2.href = generateDynamicURL("partner",userschool);
-      link2.textContent = "제휴 지도";
-    
-      link3.href = generateDynamicURL("mypage",userschool);
-      link3.textContent = "마이페이지";
-    }
-    
-    // 동적 링크 업데이트 함수를 호출합니다.
-    updateDynamicLinks();
+
+  var link1 = document.getElementById("headerMenu_reatiler");
+  var link2 = document.getElementById("headerMenu_partner");
+  var link3 = document.getElementById("headerMenu_mypage");
+
+  link1.href = generateDynamicURL("retailer",userschool);
+  link1.textContent = "소상공인 가게 지도";
+
+  link2.href = generateDynamicURL("partner",userschool);
+  link2.textContent = "제휴 지도";
+
+  link3.href = generateDynamicURL("mypage",userschool);
+  link3.textContent = "마이페이지";
+}
+
+// 동적 링크 업데이트 함수를 호출합니다.
+updateDynamicLinks();

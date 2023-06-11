@@ -36,6 +36,7 @@ router.post("/getUniversityLocation",ctrl.partner.getUniversityLocation);
 router.post("/uploadPartner",ctrl.partner.uploadPartnerStore);
 
 router.get("/partnerUpdate/:university_url",ctrl.output.partnerForm);
+router.get("/deleterStore/:storeID",ctrl.partner.DeletePartnerStore);
 
 // retailer 라우터
 router.get("/retailer/:university_url",ctrl.retailer.retailer);
@@ -52,7 +53,7 @@ router.get("/showPost/:post_id",ctrl.post.showPost);
 router.post("/uploadPost",ctrl.post.uploadPost);
 router.get("/showPostListbyCategory/:category/:university_url",ctrl.post.showPostListbyCategory);
 
-//router.get("/sungshin/postAll",ctrl.output.post);
+router.get("/showPostListAll/:university_url",ctrl.output.post);
 
 module.exports=router;
 

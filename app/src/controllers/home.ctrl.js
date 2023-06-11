@@ -1,7 +1,6 @@
 "use strict"
 
 const Partner = require("../models/Partner");
-const Retailer = require("../models/Retailer");
 const User = require("../models/User");
 const Council = require("../models/Council");
 const Post = require("../models/Post");
@@ -168,7 +167,12 @@ const partner = {
         const university_id = await partner.getUniversityID(req.body.university_url);
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
-    }
+    },
+    DeletePartnerStore:async(req,res)=>{
+        const partner = new Partner();
+        const response = await partner.DeletePartnerStore(req.params.storeID);
+        return res.json(response);
+    },
 };
 
 // 소상공인 파트
@@ -237,8 +241,6 @@ const post = {
 
         if (category === "chat")
             category = "잡담";
-        else if (category === "food")
-            catrgory = "식당";
         else if (category === "affiliate_registration")
             category = "제휴 등록";
         else if (category === "affiliate_referral")
