@@ -39,7 +39,7 @@
     "login-lecture": "bin/www.js"
   },
   "scripts": {
-    "start": "pm2 start ./bin/www.js",
+    "start": "nodemon ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "mailer": "node mailer.js"
   },

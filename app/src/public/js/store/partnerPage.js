@@ -48,7 +48,7 @@ function getUniversityName(){
     const req = {
         university_url:universityUrl
     };
-    fetch(`http://localhost:3000/getUniversityName`, {
+    fetch(`http://34.64.164.115:8080/getUniversityName`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function partnerLoad(){
     const req = {
         university_url: universityUrl,
     };
-    fetch(`http://localhost:3000/getPartner`, {
+    fetch(`http://34.64.164.115:8080/getPartner`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -86,7 +86,7 @@ function partnerLoad(){
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }
-        console.log("http://localhost:3000/getPartner fetch");
+        console.log("http://34.64.164.115:8080/getPartner fetch");
         return res.json();
       })
     .then(res => {
@@ -194,7 +194,7 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "mypage";
   }
 
-  return "http://localhost:3000/" + dynamicValue;
+  return "http://34.64.164.115:8080/" + dynamicValue;
 }
 
 // 새로운 url로 업데이트
