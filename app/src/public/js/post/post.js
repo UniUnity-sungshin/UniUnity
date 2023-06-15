@@ -9,8 +9,28 @@ const loadloginData = () => {
     .then((res) => {
       console.log(res);
       userInfo = res;
+      setLoginHeader(res)
     })
 };
+//로그인(로그아웃), 회원가입(마이페이지)버튼
+const loginStatusBtn=document.getElementById("loginStatusBtn");
+const signUpBtn=document.getElementById("signUpBtn");
+
+const setLoginHeader=(res)=>{
+  if(res.loginStatus){
+      loginStatusBtn.setAttribute("href", "http://localhost:8080/logout");
+      loginStatusBtn.innerText="로그아웃"
+      signUpBtn.setAttribute("href", "http://localhost:8080/mypage");
+      signUpBtn.innerText="마이페이지"
+  }
+  else{
+      loginStatusBtn.setAttribute("href", "http://localhost:8080/login");
+      loginStatusBtn.innerText="로그인"
+      signUpBtn.setAttribute("href", "http://localhost:8080/signup");
+      signUpBtn.innerText="회원가입"
+  }
+  
+}
 
 // writePostBtn.addEventListener('click', function () {
 //   if (userInfo.loginStatus) {
@@ -143,7 +163,8 @@ const fetchPosts = async (category, university_url) => {
 
       var readMoreBtn = document.createElement('a');
       readMoreBtn.className = 'btn btn-primary';
-      readMoreBtn.href = '#!';
+      readMoreBtn.href = `http://localhost:8080/postviewer/${data[i].post_id}`;
+      readMoreBtn.id = data[i].post_id;
       readMoreBtn.textContent = 'Read more →';
 
       cardBody.appendChild(date);
