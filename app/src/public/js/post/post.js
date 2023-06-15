@@ -59,6 +59,52 @@ storePromotionBtn.addEventListener('click', function () {
   fetchPosts("store_promotion", university_url);
 });
 
+const fetchpostAllData = async () => {
+  const blogEntriesDiv = document.querySelector(".blog-entries");
+
+  if (!blogEntriesDiv) {
+    console.error("blogEntriesDiv is null.");
+    return;
+  }
+
+  // 기존의 게시글 요소들 제거
+  while (blogEntriesDiv.firstChild) {
+    blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
+  }
+
+  const url = `http://localhost:8080/postAll/${university_url}`;
+  const response = await fetch(url);
+
+  const data = await response.json();
+  for (var i = 0; i < data.length; i++) {
+    var card = document.createElement('div');
+    card.className = 'card mb-4';
+
+    var cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
+
+    var date = document.createElement('div');
+    date.className = 'small text-muted';
+    date.textContent = data[i].post_date;
+
+    var title = document.createElement('h2');
+    title.className = 'card-title h4';
+    title.textContent = data[i].post_title;
+
+    var readMoreBtn = document.createElement('a');
+    readMoreBtn.className = 'btn btn-primary';
+    readMoreBtn.href = '#!';
+    readMoreBtn.textContent = 'Read more →';
+
+    cardBody.appendChild(date);
+    cardBody.appendChild(title);
+    cardBody.appendChild(readMoreBtn);
+    card.appendChild(cardBody);
+    blogEntriesDiv.appendChild(card);
+
+  }
+}
+
 // 게시글 불러오기 함수
 const fetchPosts = async (category, university_url) => {
   const blogEntriesDiv = document.querySelector(".blog-entries");
@@ -114,6 +160,7 @@ const fetchPosts = async (category, university_url) => {
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {
   loadloginData();
+  fetchpostAllData();
 });
 
 
