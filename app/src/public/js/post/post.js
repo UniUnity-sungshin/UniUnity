@@ -1,9 +1,8 @@
-const writePostBtn = document.getElementById('write_post_btn');
 let userInfo; // 유저정보
 
 // 작성자 회원 정보 불러오기
 const loadloginData = () => {
-  const url = `http://localhost:8080/loginStatus`;
+  const url = `${apiUrl}/loginStatus`;
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
@@ -18,31 +17,33 @@ const signUpBtn=document.getElementById("signUpBtn");
 
 const setLoginHeader=(res)=>{
   if(res.loginStatus){
-      loginStatusBtn.setAttribute("href", "http://localhost:8080/logout");
+      loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
       loginStatusBtn.innerText="로그아웃"
-      signUpBtn.setAttribute("href", "http://localhost:8080/mypage");
+      signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
       signUpBtn.innerText="마이페이지"
   }
   else{
-      loginStatusBtn.setAttribute("href", "http://localhost:8080/login");
+      loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
       loginStatusBtn.innerText="로그인"
-      signUpBtn.setAttribute("href", "http://localhost:8080/signup");
+      signUpBtn.setAttribute("href", `${apiUrl}/signup`);
       signUpBtn.innerText="회원가입"
   }
   
 }
+const writePostBtn = document.getElementById('write_post_btn');
+const brandNav= document.getElementById('navbar-brand');
 
-// writePostBtn.addEventListener('click', function () {
-//   if (userInfo.loginStatus) {
-//     // 경로를 변경하고자 하는 URL로 설정합니다.
-//     var newLocation = `http://localhost:3000/postform/${userInfo.university_url}`;
+writePostBtn.addEventListener('click', function () {
+  if (userInfo.loginStatus) {
+    // 경로를 변경하고자 하는 URL로 설정합니다.
+    var newLocation = `${apiUrl}/postform/${userInfo.university_url}`;
 
-//     // 현재 창의 경로를 변경합니다.
-//     window.location.href = newLocation;
-//   } else {
-//     alert("로그인 후에 게시글을 작성할 수 있습니다.");
-//   }
-// });
+    // 현재 창의 경로를 변경합니다.
+    window.location.href = newLocation;
+  } else {
+    alert("로그인 후에 게시글을 작성할 수 있습니다.");
+  }
+});
 
 var currentUrl = window.location.href;
 var university_url = currentUrl.split("/").pop();
@@ -92,7 +93,7 @@ const fetchpostAllData = async () => {
     blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
   }
 
-  const url = `http://localhost:8080/postAll/${university_url}`;
+  const url = `${apiUrl}/postAll/${university_url}`;
   const response = await fetch(url);
 
   const data = await response.json();
@@ -113,7 +114,7 @@ const fetchpostAllData = async () => {
 
     var readMoreBtn = document.createElement('a');
     readMoreBtn.className = 'btn btn-primary';
-    readMoreBtn.href = `http://localhost:8080/postviewer/${data[i].post_id}`;
+    readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
     readMoreBtn.id = data[i].post_id;
     readMoreBtn.textContent = 'Read more →';
 
@@ -141,7 +142,7 @@ const fetchPosts = async (category, university_url) => {
   }
 
   try {
-    const url = `http://localhost:8080/showPostListbyCategory/${category}/${university_url}`;
+    const url = `${apiUrl}/showPostListbyCategory/${category}/${university_url}`;
     console.log(url);
     const response = await fetch(url);
     const data = await response.json();
@@ -163,7 +164,7 @@ const fetchPosts = async (category, university_url) => {
 
       var readMoreBtn = document.createElement('a');
       readMoreBtn.className = 'btn btn-primary';
-      readMoreBtn.href = `http://localhost:8080/postviewer/${data[i].post_id}`;
+      readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
       readMoreBtn.id = data[i].post_id;
       readMoreBtn.textContent = 'Read more →';
 
@@ -178,6 +179,10 @@ const fetchPosts = async (category, university_url) => {
     console.error("Error fetching posts:", error);
   }
 };
+//로고 클릭시 postAllData()실행
+brandNav.addEventListener('click',function(){
+  fetchpostAllData();
+});
 
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {
