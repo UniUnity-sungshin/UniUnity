@@ -9,7 +9,7 @@ const university_name=document.getElementById("university_name");
 
 
 const loadloginData = () => {
-    const url = `http://localhost:3000/loginStatus`;
+    const url = `${apiUrl}/loginStatus`;
     fetch(url)
         .then((res) => res.json())
         .then(res => {
@@ -25,15 +25,15 @@ const setLoginHeader=(res)=>{
         user_type.innerText=res.user_type
         user_name.innerText=res.user_name
         university_name.innerText=res.university_name
-        loginStatusBtn.setAttribute("href", "http://localhost:3000/logout");
+        loginStatusBtn.setAttribute("href", `${apiUrl}logout`);
         loginStatusBtn.innerText="로그아웃"
-        signUpBtn.setAttribute("href", "http://localhost:3000/mypage");
+        signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
         signUpBtn.innerText="마이페이지"
     }
     else{
-        loginStatusBtn.setAttribute("href", "http://localhost:3000/login");
+        loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
         loginStatusBtn.innerText="로그인"
-        signUpBtn.setAttribute("href", "http://localhost:3000/signup");
+        signUpBtn.setAttribute("href", `${apiUrl}/signup`);
         signUpBtn.innerText="회원가입"
     }
     

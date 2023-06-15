@@ -21,7 +21,7 @@ backBtn.addEventListener('click', () => {
 var universitySearchList = [];
 const loadData = async () => {
     
-    const url = `http://localhost:3000/showUniversityNameList`;
+    const url = `${apiUrl}/showUniversityNameList`;
     await fetch(url, {
         headers: {
             'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
@@ -176,7 +176,7 @@ function sendAuthEmail() {
         email: `${emailElement.value}${selectedEmailDomain}`
     };
 
-    fetch(`http://localhost:3000/auth/email`, {
+    fetch(`${apiUrl}/auth/email`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -250,7 +250,7 @@ function register() {
         };
         console.log(req);
     
-        fetch(`http://localhost:3000/register`, {
+        fetch(`${apiUrl}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
