@@ -93,7 +93,8 @@ const fetchpostAllData = async () => {
 
     var readMoreBtn = document.createElement('a');
     readMoreBtn.className = 'btn btn-primary';
-    readMoreBtn.href = '#!';
+    readMoreBtn.href = `http://localhost:8080/postviewer/${data[i].post_id}`;
+    readMoreBtn.id = data[i].post_id;
     readMoreBtn.textContent = 'Read more →';
 
     cardBody.appendChild(date);
