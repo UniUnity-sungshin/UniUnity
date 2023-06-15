@@ -117,7 +117,7 @@ function councilLoad(){
     university_url: universityUrl
   };
 
-  fetch(`http://34.64.164.115:8080/getUniversityName`, {
+  fetch(`${apiUrl}/getUniversityName`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -153,7 +153,7 @@ window.addEventListener('DOMContentLoaded', councilLoad);
 
 document.getElementById("moreUni").addEventListener("click", function(event) {
   event.preventDefault(); // 기본 동작인 링크 이동을 막음
-  window.location.href = "http://34.64.164.115:8080/"; // 이동할 링크를 지정
+  window.location.href = `${apiUrl}`; // 이동할 링크를 지정
 });
 
 
@@ -184,7 +184,7 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "showPostListAll/" + userschool;
   }
 
-  return "http://34.64.164.115:8080/" + dynamicValue;
+  return `${apiUrl}/` + dynamicValue;
 }
 
 // 새로운 url로 업데이트

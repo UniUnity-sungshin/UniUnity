@@ -8,7 +8,7 @@ var userInfo; //유저정보
 
 //작성자 회원 정보 불러오기
 const loadloginData = async() => {
-  const url = `http://localhost:8080/loginStatus`;
+  const url = `${apiUrl}/loginStatus`;
     await fetch(url)
     .then((res) => res.json())
     .then(res => {
@@ -20,7 +20,7 @@ const loadloginData = async() => {
 var postInfo; //게시글 정보
 //게시글 정보 불러오기
 const loadPostData = async() => {
-    const url = `http://localhost:8080/showPost/${post_id}`;
+    const url = `${apiUrl}/showPost/${post_id}`;
     await fetch(url)
       .then((res) => res.json())
       .then(res => {
