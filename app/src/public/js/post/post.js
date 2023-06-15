@@ -5,7 +5,7 @@ let userInfo; //유저정보
 
 //작성자 회원 정보 불러오기
 const loadloginData = () => {
-  const url = `http://localhost:3000/loginStatus`;
+  const url = `http://34.64.164.115:8080/loginStatus`;
   fetch(url)
     .then((res) => res.json())
     .then(res => {
@@ -20,7 +20,7 @@ writePostBtn.addEventListener('click', function () {
 
   if (userInfo.loginStatus) {
     // 경로를 변경하고자 하는 URL로 설정합니다.
-    var newLocation = `http://localhost:3000/postform/${userInfo.university_url}`;
+    var newLocation = `http://34.64.164.115:8080/postform/${userInfo.university_url}`;
 
     // 현재 창의 경로를 변경합니다.
     window.location.href = newLocation;
@@ -33,7 +33,7 @@ writePostBtn.addEventListener('click', function () {
 
 
 // // API를 호출하는 URL
-// const url = `http://localhost:3000/showPostListbyCategory/${category}/${university_url}`;
+// const url = `http://34.64.164.115:8080/showPostListbyCategory/${category}/${university_url}`;
 
 // // API 호출 및 데이터 가져오기
 // fetch(url)
@@ -158,7 +158,7 @@ storePromotionBtn.addEventListener('click', function () {
 // // 카테고리 페이지로 이동하는 함수
 // function redirectToCategoryPage(showPostListAll) {
 //   // 경로를 변경하고자 하는 URL로 설정합니다.
-//   const newLocation = `http://localhost:3000/post/${category}/${university_url}`;
+//   const newLocation = `http://34.64.164.115:8080/post/${category}/${university_url}`;
 
 
 // const fetchPostView =async
@@ -166,7 +166,7 @@ storePromotionBtn.addEventListener('click', function () {
 
 const fetchPosts = async (category, university_url) => {
 
-  const url = `http://localhost:3000/showPostListbyCategory/${category}/${university_url}`;
+  const url = `http://34.64.164.115:8080/showPostListbyCategory/${category}/${university_url}`;
   console.log(url);
   await fetch(url)
     .then(res => res.json())
@@ -237,7 +237,7 @@ const fetchPosts = async (category, university_url) => {
       // readMoreBtn.addEventListener('click', function () {
       //   console.log(post_id);
       //   //포스트 불러오기 fetch()
-      // fetch함수->http://localhost:3000/postviewer/{post_id}
+      // fetch함수->http://34.64.164.115:8080/postviewer/{post_id}
 
       // });
 
