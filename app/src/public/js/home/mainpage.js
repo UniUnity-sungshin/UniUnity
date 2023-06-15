@@ -10,7 +10,7 @@ let universitySearchList = [];
 
 
 const loadData = async() => {
-    const url = `http://localhost:3000/showUniversityNameList`;
+    const url = `${apiUrl}/showUniversityNameList`;
     await fetch(url,{
         headers:{
             'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
@@ -34,7 +34,7 @@ const fillSearch = (suggestArr) => {
 }
 
 const loadloginData = async() => {
-    const url = `http://localhost:3000/loginStatus`;
+    const url = `${apiUrl}/loginStatus`;
     await fetch(url,{
         headers:{
             'Cookie': `connect.sid=${document.cookie}` // connect.sid 쿠키를 요청 헤더에 포함
@@ -51,15 +51,15 @@ const loadloginData = async() => {
 const setLoginHeader=(res)=>{
     //console.log(res.loginStatus);
     if(res.loginStatus==true){
-        loginStatusBtn.setAttribute("href", "http://localhost:3000/logout");
+        loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
         loginStatusBtn.innerText="로그아웃"
-        signUpBtn.setAttribute("href", "http://localhost:3000/mypage");
+        signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
         signUpBtn.innerText="마이페이지"
     }
     else{
-        loginStatusBtn.setAttribute("href", "http://localhost:3000/login");
+        loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
         loginStatusBtn.innerText="로그인"
-        signUpBtn.setAttribute("href", "http://localhost:3000/signup");
+        signUpBtn.setAttribute("href", `${apiUrl}/signup`);
         signUpBtn.innerText="회원가입"
     }
     
