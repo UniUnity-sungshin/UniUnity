@@ -88,7 +88,7 @@ class PostStorage {
                 }
 
 
-                const query = "SELECT post_date, post_title, post_content, view_count, like_count, comment_count, category FROM Post Where university_id =? ;";
+                const query = "SELECT * FROM Post Where university_id =? ;";
                 pool.query(query, [university_id], (err, data) => {
                     pool.releaseConnection(connection);
                     if (err) reject(`${err}`);
