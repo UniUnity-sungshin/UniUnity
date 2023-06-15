@@ -151,7 +151,10 @@ function councilLoad(){
 window.addEventListener('DOMContentLoaded', councilLoad);
 
 
- 
+document.getElementById("moreUni").addEventListener("click", function(event) {
+  event.preventDefault(); // 기본 동작인 링크 이동을 막음
+  window.location.href = "http://34.64.164.115:8080/"; // 이동할 링크를 지정
+});
 
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
