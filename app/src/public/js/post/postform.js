@@ -5,7 +5,7 @@ var userInfo; //유저정보
 
 //작성자 회원 정보 불러오기
 const loadloginData = () => {
-  const url = `http://localhost:3000/loginStatus`;
+  const url = `http://34.64.164.115:8080/loginStatus`;
   fetch(url)
     .then((res) => res.json())
     .then(res => {
@@ -32,7 +32,7 @@ const editor = new toastui.Editor({
       const formData = new FormData();
       formData.append('file', blob);
   //   파일 업로드 API 호출
-      const response = await fetch('http://localhost:3000/file', {
+      const response = await fetch('http://34.64.164.115:8080/file', {
         method: 'POST',
         body: formData,
       });
@@ -70,7 +70,7 @@ const editor = new toastui.Editor({
 //       // console.log("formData:",formData.get('file'));
 
 //         //   파일 업로드 API 호출
-//       // const response = await fetch('http://localhost:3000/file', {
+//       // const response = await fetch('http://34.64.164.115:8080/file', {
 //       //   method: 'POST',
 //       //   body: formData,
 //       // });
@@ -122,7 +122,7 @@ function uploadPost(postCategory) {
   };
   console.log(req);
 
-  fetch(`http://localhost:3000/uploadPost`, {
+  fetch(`http://34.64.164.115:8080/uploadPost`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -220,7 +220,7 @@ function updateStore() {
     university_url: universityUrl
   };
 
-  fetch(`http://localhost:3000/uploadPartner`, {
+  fetch(`http://34.64.164.115:8080/uploadPartner`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -248,7 +248,7 @@ function loadPartnerUpload() {
     university_url: universityUrl
   };
 
-  fetch(`http://localhost:3000/getUniversityLocation`, {
+  fetch(`http://34.64.164.115:8080/getUniversityLocation`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

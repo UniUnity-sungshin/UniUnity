@@ -48,7 +48,7 @@ function centerChange(){
         university_url:universityUrl
     };
 
-    fetch(`http://localhost:3000/getUniversityLocation`, {
+    fetch(`http://34.64.164.115:8080/getUniversityLocation`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -100,7 +100,7 @@ function updateStore(){
         university_url: universityUrl
     };
 
-    fetch(`http://localhost:3000/uploadPartner`, {
+    fetch(`http://34.64.164.115:8080/uploadPartner`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
