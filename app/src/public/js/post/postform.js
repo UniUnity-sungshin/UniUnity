@@ -9,11 +9,20 @@ const loadloginData = () => {
   fetch(url)
     .then((res) => res.json())
     .then(res => {
-      console.log(res);
       userInfo = res;
+      //로그인이 되지 않았을 경우 로그인 창으로 리다이렉션 
+      if (!userInfo.loginStatus) {
+        alert("로그인 후에 게시글을 작성할 수 있습니다.");
+        window.location.href = `${apiUrl}/login`; // 로그인 페이지 URL로 리다이렉션
+        return; // 리다이렉션 후 함수 종료
+      }
+      //유저 타입에 맞는 게시글 카테고리들만 나타나게함
+      setSelectCategory(userInfo.user_type);
+      return
     }
     )
 }
+
 
 
 const editor = new toastui.Editor({
@@ -43,6 +52,9 @@ const editor = new toastui.Editor({
 
         // 콜백 함수 호출하여 에디터에 이미지 추가
         callback(fileUrl, 'alt text');
+   
+      
+
       } else {
         // 파일 업로드 실패
         console.error('Failed to upload image');
@@ -110,6 +122,46 @@ const partnerCategory = document.querySelector('#partnerCategory'),
 const selectPostCategoryElement = document.getElementById('select_post_category');
 const postTitle = document.getElementById('post_title');
 const postSubmitBtn = document.getElementById('post_submit_btn');
+
+const setSelectCategory = (user_type) => {
+  const selectElement = document.getElementById("select_post_category");
+  selectElement.innerHTML = ""; // Clear existing options
+
+  const defaultOption = document.createElement("option");
+  defaultOption.text = "글 카테고리를 선택해주세요";
+  defaultOption.selected = true;
+  selectElement.appendChild(defaultOption);
+
+  if (user_type === "학생") {
+      const options = [ "제휴 추천", "잡담"];
+      const values = ["제휴 추천", "잡담"];
+      for (let i = 0; i < options.length; i++) {
+          const option = document.createElement("option");
+          option.value = values[i];
+          option.text = options[i];
+          selectElement.appendChild(option);
+      }
+  } else if (user_type === "학생회") {
+      const options = ["제휴 등록", "총학생회 공지사항"];
+      const values = ["제휴 등록", "총학생회 공지사항"];
+      for (let i = 0; i < options.length; i++) {
+          const option = document.createElement("option");
+          option.value = values[i];
+          option.text = options[i];
+          selectElement.appendChild(option);
+      }
+  } else { // 상인
+      const options = ["제휴 제안", "가게 홍보"];
+      const values = ["제휴 제안", "가게 홍보"];
+      for (let i = 0; i < options.length; i++) {
+          const option = document.createElement("option");
+          option.value = values[i];
+          option.text = options[i];
+          selectElement.appendChild(option);
+      }
+  }
+}
+
 
 function uploadPost(postCategory) {
   console.log(editor.getHTML());
