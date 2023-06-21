@@ -160,7 +160,7 @@ window.addEventListener('load',function(){
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
     var path = window.location.pathname;
-    var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+    var regex = /\/retailer\/([a-zA-Z]+)/; // /retailer/ 다음에 있는 영어 문자열을 추출하는 정규식
     var matches = path.match(regex);
     if (matches && matches.length > 1) {
       return matches[1];
