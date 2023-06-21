@@ -15,6 +15,7 @@
 ## 📑 UniUnity Manual
 
 서비스 매뉴얼 보러가기 : https://drive.google.com/file/d/1e8Ybv5VcfjB6uPWnTLnKHbsUjCe4dRb3/view?usp=sharing
+서비스 사용해보기 : http://34.64.188.63:8080
 
 
 
