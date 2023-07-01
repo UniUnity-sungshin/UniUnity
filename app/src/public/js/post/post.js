@@ -59,6 +59,11 @@ const storePromotionBtn = document.getElementById('store_promotion');
 const row = document.querySelector('.row');
 const col = document.querySelector('.col');
 
+affiliateRegistrationBtn.addEventListener('click',function(){
+    window.location.href = `${apiUrl}/partner/${university_url}`; // 제휴 등록은 제휴가게 페이지로 이동
+        return; // 리다이렉션 후 함수 종료
+})
+
 // 카테고리 버튼 클릭 이벤트 리스너를 추가합니다.
 announcementBtn.addEventListener('click', function () {
   fetchPosts("announcement", university_url);
