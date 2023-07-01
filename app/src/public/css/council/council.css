@@ -23,6 +23,10 @@ a {
     color: black;
 }
 
+a:hover {
+    color: rgb(83, 81, 81); /* 호버 시 텍스트 색상을 원하는 색으로 설정 */
+  }
+  
 .swiper-container {
     width: 1440px; 
     height: 400px;
