@@ -15,7 +15,7 @@ var storeClinic = [],
 const storeKind_all = document.querySelector('#storeKind_all'),
       storeKind_food = document.querySelector('#storeKind_food'),
       storeKind_cafe = document.querySelector('#storeKind_cafe'),
-      storeKind_clinic = document.querySelector('#storeKind_clinic');
+      storeKind_etc = document.querySelector('#storeKind_etc');
 
 var stores = [];
 var positions = [];
@@ -72,7 +72,6 @@ function getUniversityName(){
         universityName.innerHTML = Uniname[0];
     })
 }
-
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'bounds_changed', function() {             
