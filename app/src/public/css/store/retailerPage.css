@@ -72,6 +72,14 @@ a {
     outline: none;
 } */
 
+#storeClass{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
 /* 지도 안내문 */
 .guideTextBox{
     width: 90%;
