@@ -1,5 +1,12 @@
 "use strict";
-
+//회원 로그인 정보 불러오기
+const loadloginData = async() => {
+  const url = `${apiUrl}/loginStatus`;
+  const res = await fetch(url);
+  const userInfo = await res.json();
+  
+  return userInfo;
+}
 // 기본 좌표 저징 지도 코드
 // ===========================================================================================
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -192,13 +199,15 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "partner/" + userschool;
   } else if (linkId === "mypage") {
     dynamicValue = "mypage";
+  }else if (linkId === "login") {
+    dynamicValue = "login";
   }
 
   return `${apiUrl}/` + dynamicValue;
 }
 
 // 새로운 url로 업데이트
-function updateDynamicLinks() {
+async function updateDynamicLinks() {
   var userschool = getDynamicValueFromURL();
       if (!userschool) {
         console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
@@ -215,8 +224,18 @@ function updateDynamicLinks() {
   link2.href = generateDynamicURL("partner",userschool);
   link2.textContent = "제휴 지도";
 
-  link3.href = generateDynamicURL("mypage",userschool);
-  link3.textContent = "마이페이지";
+  let userInfo= await loadloginData();
+
+  if(!userInfo.loginStatus){
+    link3.href = generateDynamicURL("login",userschool);
+    link3.textContent = "로그인";
+  }
+  else{
+    link3.href = generateDynamicURL("mypage",userschool);
+    link3.textContent = "마이페이지";
+  }
+
+
 }
 
 // 동적 링크 업데이트 함수를 호출합니다.
