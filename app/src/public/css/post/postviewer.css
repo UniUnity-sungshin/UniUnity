@@ -1,0 +1,10 @@
+#post_title {
+    padding:20px;
+  }
+
+#user_email,
+#post_category,
+#post_date,
+#view_count {
+  color: #777777; 
+}
