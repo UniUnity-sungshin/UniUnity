@@ -25,10 +25,11 @@ const setLoginHeader=(res)=>{
         user_type.innerText=res.user_type
         user_name.innerText=res.user_name
         university_name.innerText=res.university_name
+        
         loginStatusBtn.setAttribute("href", `${apiUrl}logout`);
         loginStatusBtn.innerText="로그아웃"
-        signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
-        signUpBtn.innerText="마이페이지"
+        signUpBtn.setAttribute("href", `${apiUrl}/council/${res.university_url}`);
+        signUpBtn.innerText="나의학교"
     }
     else{
         loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
