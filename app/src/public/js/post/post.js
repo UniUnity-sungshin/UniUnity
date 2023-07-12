@@ -189,14 +189,10 @@ brandNav.addEventListener('click',function(){
   fetchpostAllData();
 });
 
+// 거ㅁ색
+
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {
   loadloginData();
   fetchpostAllData();
 });
-
-
-
-
-
-
