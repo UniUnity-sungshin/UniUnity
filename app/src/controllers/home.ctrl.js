@@ -21,6 +21,16 @@ const output = {
     mypage: (req, res) => {
         res.render('home/mypage.html');
     },
+    modifyNickname:(req,res)=>{
+        res.render('home/modifyNickname.html');
+    },
+    modifyEmail:(req,res)=>{
+        res.render('home/modifyEmail.html');
+    },
+    modifyPsword:(req,res)=>{
+        res.render('home/modifyPsword.html');
+    },
+
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();

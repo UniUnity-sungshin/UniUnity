@@ -11,6 +11,10 @@ router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
+router.get("/mypage/modifyNickname",ctrl.output.modifyNickname);
+router.get("/mypage/modifyPsword",ctrl.output.modifyPsword);
+router.get("/mypage/modifyEmail",ctrl.output.modifyEmail);
+
 
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);
