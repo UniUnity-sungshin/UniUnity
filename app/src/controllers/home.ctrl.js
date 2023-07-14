@@ -21,6 +21,16 @@ const output = {
     mypage: (req, res) => {
         res.render('home/mypage.html');
     },
+    modifyNickname:(req,res)=>{
+        res.render('home/modifyNickname.html');
+    },
+    withdrawal:(req,res)=>{
+        res.render('home/withdrawal.html');
+    },
+    modifyPsword:(req,res)=>{
+        res.render('home/modifyPsword.html');
+    },
+
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();
@@ -67,7 +77,6 @@ const process = {
     },
     //로그인 상태
     loginStatus: async (req, res) => {
-
         const user = new User();
         let userInfo = await user.getUserInfo(req.user);
         console.log(userInfo);
@@ -93,6 +102,28 @@ const process = {
             res.redirect('/');
         });
 
+    },
+    //닉네임 변경
+    modifyNickname:async (req,res)=>{
+        const user = new User({
+            user_email: req.body.user_email,
+            user_nickname: req.body.user_nickname,
+        });
+        const response = await user.modifyNickname();
+        return res.json(response)
+
+    },
+    //비밀번호 변경
+    modifyPsword:async(req,res)=>{
+        console.log(req.body);
+        const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
+        const user = new User({
+            user_email: req.body.user_email,
+            new_psword: hashedPassword,
+            psword:req.body.psword
+        });
+        const response = await user.modifyPsword();
+        return res.json(response)
     },
     //이메일 인증
     emailAuth: (req, res) => {
