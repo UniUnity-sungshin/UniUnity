@@ -115,7 +115,15 @@ const process = {
     },
     //비밀번호 변경
     modifyPsword:async(req,res)=>{
-        //
+        console.log(req.body);
+        const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
+        const user = new User({
+            user_email: req.body.user_email,
+            new_psword: hashedPassword,
+            psword:req.body.psword
+        });
+        const response = await user.modifyPsword();
+        return res.json(response)
     },
     //이메일 인증
     emailAuth: (req, res) => {

@@ -3,6 +3,7 @@
 const passport =require('passport');
 const University = require('./University');
 const LocalStrategy=require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 const UserStorage=require("./UserStorage");
 class User{
@@ -45,8 +46,23 @@ class User{
     //비밀번호 변경
     async modifyPsword(){
         const client = this.body;
-        const response = await UserStorage.updatePsword(client);
-        return response;
+        let userInfo=await UserStorage.getUserInfo(client.user_email);
+       
+        console.log("입력한 psword:",client.psword);
+        console.log("기존 psword:",userInfo.psword);
+        // if(client.psword===userInfo.psword){
+        if(await bcrypt.compare(client.psword,userInfo.psword)){
+            const response = await UserStorage.updatePsword(client);
+            return response;
+        }else{
+            return {
+                result:false,
+                status: 400,
+                err: `비밀번호가 틀렸습니다.`
+            }
+        }
+
+       
     }
     //회원 탈퇴
     async withdrawalUser(){

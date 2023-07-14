@@ -2,10 +2,10 @@
 const { pool } = require("../../config/db");
 class UserStorage {
     //id를 통해 유저 정보 갖고 오기
-    static getUserInfo(client_email) {
+    static getUserInfo(user_email) {
         return new Promise(async (resolve, reject) => {
             const query = "SELECT * FROM User WHERE user_email =?;";
-            pool.query(query, [client_email], (err, data) => {
+            pool.query(query, [user_email], (err, data) => {
                 if (err) reject(`${err}`);
 
                 else {
@@ -76,8 +76,12 @@ class UserStorage {
                 }
 
                 const query = "UPDATE User SET psword=? WHERE user_email=?;";
+
+                console.log("update:",userInfo.new_psword)
+
+                console.log("update:",userInfo.user_email)
                 pool.query(query, [
-                    userInfo.psword,
+                    userInfo.new_psword,
                     userInfo.user_email
                 ],
                     (err) => {

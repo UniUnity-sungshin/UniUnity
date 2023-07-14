@@ -30,7 +30,7 @@ const setLoginHeader = (res) => {
         university_name.innerText = res.university_name
 
 
-        loginStatusBtn.setAttribute("href", `${apiUrl}logout`);
+        loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
         loginStatusBtn.innerText = "로그아웃"
         signUpBtn.setAttribute("href", `${apiUrl}/council/${res.university_url}`);
         signUpBtn.innerText = "나의학교"
