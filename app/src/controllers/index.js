@@ -11,10 +11,12 @@ router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
-router.get("/mypage/modifyNickname",ctrl.output.modifyNickname);
-router.get("/mypage/modifyPsword",ctrl.output.modifyPsword);
-router.get("/mypage/modifyEmail",ctrl.output.modifyEmail);
+router.get("/mypage/modify-nickname",ctrl.output.modifyNickname);
+router.get("/mypage/modify-psword",ctrl.output.modifyPsword);
+router.get("/mypage/withdrawal",ctrl.output.withdrawal);
 
+//닉네임 변경
+router.post("/modify/1",ctrl.process.modifyNickname)
 
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);

@@ -24,8 +24,8 @@ const output = {
     modifyNickname:(req,res)=>{
         res.render('home/modifyNickname.html');
     },
-    modifyEmail:(req,res)=>{
-        res.render('home/modifyEmail.html');
+    withdrawal:(req,res)=>{
+        res.render('home/withdrawal.html');
     },
     modifyPsword:(req,res)=>{
         res.render('home/modifyPsword.html');
@@ -77,7 +77,6 @@ const process = {
     },
     //로그인 상태
     loginStatus: async (req, res) => {
-
         const user = new User();
         let userInfo = await user.getUserInfo(req.user);
         console.log(userInfo);
@@ -103,6 +102,20 @@ const process = {
             res.redirect('/');
         });
 
+    },
+    //닉네임 변경
+    modifyNickname:async (req,res)=>{
+        const user = new User({
+            user_email: req.body.user_email,
+            user_nickname: req.body.user_nickname,
+        });
+        const response = await user.modifyNickname();
+        return res.json(response)
+
+    },
+    //비밀번호 변경
+    modifyPsword:async(req,res)=>{
+        //
     },
     //이메일 인증
     emailAuth: (req, res) => {
