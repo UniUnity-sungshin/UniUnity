@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 let userInfo; // 유저정보
 
 // 작성자 회원 정보 불러오기
@@ -189,7 +191,57 @@ brandNav.addEventListener('click',function(){
   fetchpostAllData();
 });
 
-// 거ㅁ색
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+  const url = new URL(window.location.href);
+  const universityUrl = url.pathname.split('/').pop();
+  return universityUrl;
+}
+
+// 검색 기능
+const postSearchInput = document.querySelector('#postSearchInput'),
+      postSearchBtn = document.querySelector('#postSearchBtn');
+var university_posts = [];
+
+function searchPost(){
+  const universityUrl = getUniversityUrl();
+  fetch(`${apiUrl}/getUniversityID/${universityUrl}`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(response => {
+    // university_id를 university_posts[0]에 저장
+    university_posts.push(response);
+    // 검색한 게시글 불러오기
+    fetch(`${apiUrl}/searchPost/${postSearchInput}`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
+    .then(res => {
+      for(let i = 0; i < res.length; i++){
+        if(res[i].university_id == university_posts[0]){
+          university_posts.push(res[i]);
+        }
+      }
+      // 기존 게시글 지운 후 검색된 게시글 나열
+      
+    })
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+    })
+  .catch((error) => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });
+}
+
+postSearchBtn.addEventListener('click',searchPost);
 
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {

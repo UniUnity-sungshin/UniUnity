@@ -59,11 +59,14 @@ function getUniversityName(){
         },
         body: JSON.stringify(req),
       })
-      .then((res) => res.json())
-      .then(res => {
+    .then((res) => res.json())
+    .then(res => {
         Uniname.push(res.university_name);
         universityName.innerHTML = Uniname[0];
     })
+    .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
 }
 
 // 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
@@ -350,15 +353,13 @@ function search(){
     var url = endPoint + 'storeZoneInRadius' + '?serviceKey=' + serviceKey + '&radius=' + '2000' + '&cx=' + cx + '&cy=' + cy + '&type=json';
 }
 
-searchBtn.addEventListener('click', search);
+// searchBtn.addEventListener('click', search);
 
 function retailerLoad(){
-    getUniversityName();
     const universityUrl = getUniversityUrl();
     const req = {
         university_url:universityUrl
     };
-
     fetch(`${apiUrl}/getUniversityLocation`, {
         method: "POST",
         headers: {
@@ -372,6 +373,7 @@ function retailerLoad(){
 }
 
 window.addEventListener('load',function(){
+    getUniversityName();
     retailerLoad();
 });
 

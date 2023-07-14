@@ -259,6 +259,12 @@ const post = {
         const response = await post.showPostListbyCategory(university_url, category);
         return res.json(response);
 
+    },
+    searchPost: async (req, res) => {
+        const post = new Post();
+        const response = await post.searchPost(req.params.keyword);
+        return res.json(response);
+
     }
 }
 
