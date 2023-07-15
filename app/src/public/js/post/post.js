@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 let userInfo; // 유저정보
 
 // 작성자 회원 정보 불러오기
