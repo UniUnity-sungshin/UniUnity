@@ -66,10 +66,6 @@ const setLoginHeader=(res)=>{
     
 }
 
-
-
-
-
 //mainpage 로드 후 loadData()실행
 window.addEventListener('DOMContentLoaded', function()
 {

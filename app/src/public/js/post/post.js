@@ -48,6 +48,45 @@ writePostBtn.addEventListener('click', function () {
 var currentUrl = window.location.href;
 var university_url = currentUrl.split("/").pop();
 
+var universityColor=setUniversityColor(university_url) //학교 색상으로 변경
+changeUniversityName(university_url) //학교 이름으로 변경
+
+const buttons = document.querySelectorAll('.btn');
+
+buttons.forEach(button => {
+  button.style.backgroundColor = universityColor;
+  button.style.borderColor= universityColor;
+});
+
+function changeButtonColor(button, color) {
+  button.style.backgroundColor = color;
+  button.style.borderColor= color
+}
+//버튼 학교상징 색으로 바꾸기
+function setUniversityColor(university_url){
+  let universityColor
+  if(university_url==="sungshin"){
+    universityColor="#6a6fb3"
+  }else if(university_url==="konkuk"){
+    universityColor="#004a26"
+  }else{
+    universityColor="#FFD400" //Uniunity색상
+  }
+  return universityColor;
+}
+//학교 이름 바꾸기
+function changeUniversityName(university_url){
+  const universityNameElement = document.getElementById('university_name');
+  if(university_url==="sungshin"){
+    universityNameElement.textContent = '성신여자대학교 Unity'; 
+  }else if(university_url==="konkuk"){
+    universityNameElement.textContent = '건국대학교 Unity'; 
+  }else{
+    universityNameElement.textContent = 'Unity'; 
+  }  
+}
+
+
 // 카테고리 버튼 요소들을 선택합니다.
 const affiliateRegistrationBtn = document.getElementById('affiliate_registration');
 const affiliateReferralBtn = document.getElementById('affiliate_referral');
@@ -120,9 +159,9 @@ const fetchpostAllData = async () => {
     var readMoreBtn = document.createElement('a');
     readMoreBtn.className = 'btn btn-primary';
     readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
-    readMoreBtn.id = data[i].post_id;
+    readMoreBtn.id = `${data[i].post_id}`;
     readMoreBtn.textContent = 'Read more →';
-
+    changeButtonColor(readMoreBtn, universityColor) 
     cardBody.appendChild(date);
     cardBody.appendChild(title);
     cardBody.appendChild(readMoreBtn);
@@ -166,13 +205,13 @@ const fetchPosts = async (category, university_url) => {
       var title = document.createElement('h2');
       title.className = 'card-title h4';
       title.textContent = data[i].post_title;
-
+     
       var readMoreBtn = document.createElement('a');
       readMoreBtn.className = 'btn btn-primary';
       readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
       readMoreBtn.id = data[i].post_id;
       readMoreBtn.textContent = 'Read more →';
-
+      changeButtonColor(readMoreBtn, universityColor) 
       cardBody.appendChild(date);
       cardBody.appendChild(title);
       cardBody.appendChild(readMoreBtn);
@@ -241,8 +280,12 @@ function searchPost(){
 
 postSearchBtn.addEventListener('click',searchPost);
 
+
+
+
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {
   loadloginData();
   fetchpostAllData();
+  
 });

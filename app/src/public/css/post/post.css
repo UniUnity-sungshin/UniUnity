@@ -14,12 +14,14 @@
  #affiliate_registration,
  #affiliate_referral,
  #affiliate_offer,
+ #announcement,
  #chat,
  #store_promotion,
-  {
+ #postSearchBtn,
+ #write_post_btn{
    /* Set your desired width and height values */
-   width: 9rem;
-   height: 3rem;
+   width: 180px;
+   height: 60px;
  
 
  }

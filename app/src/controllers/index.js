@@ -54,7 +54,6 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 // router.get("/sungshin\", ctrl.result.council);
 
 //post 라우터
-router.get("/postAll/:university_url",ctrl.post.postAll);
 router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
 router.get("/showPost/:post_id",ctrl.post.showPost);
