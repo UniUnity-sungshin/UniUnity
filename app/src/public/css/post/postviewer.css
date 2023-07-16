@@ -8,3 +8,22 @@
 #view_count {
   color: #777777; 
 }
+
+/* 댓글 입력 폼 */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form textarea {
+  resize: none;
+  border: 1px solid #dbdbdb;
+  padding: 15px 20px;
+  outline: none;
+}
+.form .submit {/*#8f8f80f;*/
+  border: 1px solid #ffd400;
+  background-color: #ffd40f;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+}

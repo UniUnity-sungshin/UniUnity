@@ -58,7 +58,7 @@
         <p class="fs-4" id="view_count"></p>
 
         <div class="card p-4">
-            <div class="toast-custom-viewer">
+            <div class="toast-custom-viewer" id="post_content">
             </div>
         </div>
        </br>
@@ -67,6 +67,11 @@
 
 
     </div>
+<!-- <댓글> -->
+    <form class="form comment-form">
+        <textarea placeholder="댓글을 입력하세요"></textarea>
+        <button type="button" class="submit">등록하기</button>
+      </form>
 
 </body>
 
@@ -102,8 +107,13 @@
             </div>
         </div>
     </div>
+
+    <!--아래에 댓글 프론트엔드 구현>
+
+
 </footer>
-<!-- Bootstrap core JS-->
+
+<-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- toastUI -->
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
