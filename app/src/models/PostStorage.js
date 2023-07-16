@@ -145,6 +145,27 @@ class PostStorage {
     //         });
     //     })
     // }
+
+    // 게시글 검색
+    static async searchPost(keyword){ 
+        return new Promise(async(resolve,reject)=>{
+            pool.getConnection((err,connection)=>{
+                if(err){
+                    console.error('MySQL 연결 오류: ',err);
+                    reject(err);
+                }
+                var k = '%' + keyword + '%';
+                pool.query("SELECT * FROM Post WHERE post_title LIKE ?;",[k],function(err,rows){
+                    connection.release();
+                    if(err){
+                        console.error('Query 오류',err);
+                        reject(err);
+                    }
+                    resolve(rows);
+                })
+            });
+        })    
+    }
 }
 
 

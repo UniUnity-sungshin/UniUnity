@@ -112,3 +112,6 @@ dist
 #email auth
 .credentials.json
 .token.json
+
+
+apikey.js
