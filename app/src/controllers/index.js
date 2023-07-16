@@ -12,13 +12,13 @@ router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
 router.get("/mypage/modify/1",ctrl.output.modifyNickname);
-router.get("/mypage/modify-psword",ctrl.output.modifyPsword);
+router.get("/mypage/modify/2",ctrl.output.modifyPsword);
 router.get("/mypage/withdrawal",ctrl.output.withdrawal);
 
 //닉네임 변경
 router.post("/mypage/modify/1",ctrl.process.modifyNickname)
 //비밀번호 변경
-router.post("/modify/2",ctrl.process.modifyPsword)
+router.post("/mypage/modify/2",ctrl.process.modifyPsword)
 
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);
