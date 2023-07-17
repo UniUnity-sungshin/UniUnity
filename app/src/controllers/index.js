@@ -66,7 +66,7 @@ router.get('/searchPost/:keyword',ctrl.post.searchPost);
 
 router.get("/showPostListAll/:university_url",ctrl.output.post);
 
-router.get("/mypage/community/post/:category",ctrl.post.myCommunityPost);
+router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 
 module.exports=router;
 

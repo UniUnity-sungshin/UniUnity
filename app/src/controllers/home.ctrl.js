@@ -302,9 +302,15 @@ const post = {
     },
     //마이페이지-커뮤니티
     myCommunityPost: async (req, res) => {
-        const post = new Post(req.body);
-        const response = await post.showMyCommunity();
-        return res.json(response);
+        const category = req.params.category;
+        if(category==='1'){
+            const post = new Post(req.body);
+            const response = await post.myCommunityPost();
+            return res.json(response);
+        }
+
+
+       
     }
 }
 

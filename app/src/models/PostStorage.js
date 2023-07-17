@@ -25,10 +25,13 @@ class PostStorage {
                     (err) => {
                         pool.releaseConnection(connection);
                         if (err) reject({
+                            result: false,
                             status: 500,
                             err: `${err}`
                         });
-                        else resolve({ status: 201 });
+                        else resolve({ 
+                            result : true,
+                            status: 201 });
                     });
             })
         })
@@ -166,6 +169,31 @@ class PostStorage {
             });
         })    
     }
+
+      //마이페이지-내가 작성한 게시글 보기
+      static getMyPost(userInfo) {
+        const user_email=userInfo.user_email;
+        console.log("getMyPost",userInfo);
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+
+                pool.query("SELECT * FROM Post WHERE user_email=?;", [user_email], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류',err);
+                        reject(err)
+                    }
+                    resolve({result:rows,status:200});
+                })
+            })
+        });
+
+    }
+
 }
 
 
