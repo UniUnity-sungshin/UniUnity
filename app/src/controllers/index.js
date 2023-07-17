@@ -11,9 +11,11 @@ router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
-router.get("/mypage/modify/1",ctrl.output.modifyNickname);
-router.get("/mypage/modify/2",ctrl.output.modifyPsword);
-router.get("/mypage/withdrawal",ctrl.output.withdrawal);
+router.get("/mypage/modify/1",ctrl.output.modifyNickname);//닉네임변경
+router.get("/mypage/modify/2",ctrl.output.modifyPsword); //비밀번호변경
+router.get("/mypage/withdrawal",ctrl.output.withdrawal);//회원탈퇴
+router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
+
 
 //닉네임 변경
 router.post("/mypage/modify/1",ctrl.process.modifyNickname)
@@ -63,6 +65,8 @@ router.get("/showPostListbyCategory/:category/:university_url",ctrl.post.showPos
 router.get('/searchPost/:keyword',ctrl.post.searchPost);
 
 router.get("/showPostListAll/:university_url",ctrl.output.post);
+
+router.get("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 
 module.exports=router;
 

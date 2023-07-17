@@ -21,13 +21,13 @@ const output = {
     mypage: (req, res) => {
         res.render('home/mypage.html');
     },
-    modifyNickname:(req,res)=>{
+    modifyNickname: (req, res) => {
         res.render('home/modifyNickname.html');
     },
-    withdrawal:(req,res)=>{
+    withdrawal: (req, res) => {
         res.render('home/withdrawal.html');
     },
-    modifyPsword:(req,res)=>{
+    modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
 
@@ -44,6 +44,9 @@ const output = {
     },
     postviewer: (req, res) => {
         res.render('post/postviewer.html');
+    },
+    myCommunityPost:(req,res)=>{
+        res.render('post/communityPost.html')
     },
 
     partner: (req, res) => {
@@ -104,7 +107,7 @@ const process = {
 
     },
     //닉네임 변경
-    modifyNickname:async (req,res)=>{
+    modifyNickname: async (req, res) => {
         const user = new User({
             user_email: req.body.user_email,
             user_nickname: req.body.user_nickname,
@@ -114,13 +117,13 @@ const process = {
 
     },
     //비밀번호 변경
-    modifyPsword:async(req,res)=>{
+    modifyPsword: async (req, res) => {
         console.log(req.body);
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
             new_psword: hashedPassword,
-            psword:req.body.psword
+            psword: req.body.psword
         });
         const response = await user.modifyPsword();
         return res.json(response)
@@ -199,7 +202,7 @@ const partner = {
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
     },
-    DeletePartnerStore:async(req,res)=>{
+    DeletePartnerStore: async (req, res) => {
         const partner = new Partner();
         const response = await partner.DeletePartnerStore(req.params.storeID);
         return res.json(response);
@@ -296,6 +299,12 @@ const post = {
         const response = await post.searchPost(req.params.keyword);
         return res.json(response);
 
+    },
+    //마이페이지-커뮤니티
+    myCommunityPost: async (req, res) => {
+        const post = new Post(req.body);
+        const response = await post.showMyCommunity();
+        return res.json(response);
     }
 }
 
