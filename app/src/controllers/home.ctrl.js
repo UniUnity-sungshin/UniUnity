@@ -30,7 +30,9 @@ const output = {
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
-
+    agreement:(req,res)=>{
+        res.render('home/agreement.html');
+    },
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();
