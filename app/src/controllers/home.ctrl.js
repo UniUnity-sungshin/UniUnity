@@ -7,6 +7,7 @@ const Post = require("../models/Post");
 const University = require("../models/University");
 const sendEmailWithAuthorization = require("../../mailer");
 const bcrypt = require('bcrypt');
+const Comment = require('../models/Comment');
 
 const output = {
     home: (req, res) => {
@@ -21,13 +22,13 @@ const output = {
     mypage: (req, res) => {
         res.render('home/mypage.html');
     },
-    modifyNickname:(req,res)=>{
+    modifyNickname: (req, res) => {
         res.render('home/modifyNickname.html');
     },
-    withdrawal:(req,res)=>{
+    withdrawal: (req, res) => {
         res.render('home/withdrawal.html');
     },
-    modifyPsword:(req,res)=>{
+    modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
 
@@ -52,6 +53,12 @@ const output = {
     partnerForm: (req, res) => {
         res.render("store/uploadTest.html");
     },
+    uploadComment: (req, res) => {
+        res.render('post/postviewer.html');
+    },
+    showCommentListbyPostID: (req, res) => {
+        res.render('post/postviewer.html');
+    }
 }
 
 //로그인 인증 process
@@ -104,7 +111,7 @@ const process = {
 
     },
     //닉네임 변경
-    modifyNickname:async (req,res)=>{
+    modifyNickname: async (req, res) => {
         const user = new User({
             user_email: req.body.user_email,
             user_nickname: req.body.user_nickname,
@@ -114,13 +121,13 @@ const process = {
 
     },
     //비밀번호 변경
-    modifyPsword:async(req,res)=>{
+    modifyPsword: async (req, res) => {
         console.log(req.body);
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
             new_psword: hashedPassword,
-            psword:req.body.psword
+            psword: req.body.psword
         });
         const response = await user.modifyPsword();
         return res.json(response)
@@ -199,7 +206,7 @@ const partner = {
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
     },
-    DeletePartnerStore:async(req,res)=>{
+    DeletePartnerStore: async (req, res) => {
         const partner = new Partner();
         const response = await partner.DeletePartnerStore(req.params.storeID);
         return res.json(response);
@@ -299,6 +306,51 @@ const post = {
     }
 }
 
+const comment = {
+
+    uploadComment: async (req, res) => {
+        const{post_id} = req.params;
+        const comment = new Comment(req.body);
+        commentInfo.post_id=post_id;
+        const response = await comment.uploadComment();
+        return res.json(response);
+    },
+
+    //이거 필요있나??
+    showComment: async (req, res) => {
+        let post_id = req.params.comment_id;
+        const comment = new Comment();
+        const response = await comment.showComment(post_id);
+        return res.json(response);
+
+    },
+
+    showCommentListbyPostID: async (req, res) => {
+        let post_id = req.params.post_id;
+        let comment_id = req.params.comment_id;
+
+        const comment = new Comment();
+        const response = await comment.showCommentListbyPostID(post_id, comment_id);
+        return res.json(response);
+
+    },
+
+
+    showCommentListAll: async (req, res) => {
+        // let post_id = req.params.post_id;
+        let comment_id = req.params.comment_id;
+        // console.log(req.params.post_id);
+        console.log(req.params.comment_id);
+
+        const comment = new Comment();
+        const response = await comment.showCommentListAll(comment_id); //post_id
+        console.log(response);
+        return res.json(response);
+    }
+
+
+}
+
 
 module.exports = {
     output,
@@ -306,5 +358,6 @@ module.exports = {
     result,
     partner,
     post,
-    retailer
+    retailer,
+    comment
 };

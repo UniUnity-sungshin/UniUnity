@@ -57,6 +57,8 @@ router.get("/retailer/:university_url",ctrl.retailer.retailer);
 router.get("/postAll/:university_url",ctrl.post.postAll); //전체게시글 불러오기 API
 router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
+// router.post("/postviewer/:post_id",ctrl.post.createComment);
+router.get("/postviewer/:post_id",ctrl.output.showCommentListbyPostID);
 router.get("/showPost/:post_id",ctrl.post.showPost);
 router.post("/uploadPost",ctrl.post.uploadPost);
 router.get("/showPostListbyCategory/:category/:university_url",ctrl.post.showPostListbyCategory);
