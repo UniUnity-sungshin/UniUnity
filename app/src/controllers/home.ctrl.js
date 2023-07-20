@@ -324,12 +324,10 @@ const post = {
 }
 
 const comment = {
-
+    //댓글 작성하기
     uploadComment: async (req, res) => {
-        const{post_id} = req.params;
         const comment = new Comment(req.body);
-        commentInfo.post_id=post_id;
-        const response = await comment.uploadComment();
+        const response = await comment.createComment();
         return res.json(response);
     },
 
@@ -344,10 +342,9 @@ const comment = {
 
     showCommentListbyPostID: async (req, res) => {
         let post_id = req.params.post_id;
-        let comment_id = req.params.comment_id;
-
+        // let comment_id = req.params.comment_id;
         const comment = new Comment();
-        const response = await comment.showCommentListbyPostID(post_id, comment_id);
+        const response = await comment.showCommentListbyPostID(post_id);
         return res.json(response);
 
     },

@@ -2,7 +2,10 @@
 // const { reject } = require("underscore");
 const { pool } = require("../../config/db");
 class CommentStorage {
-
+    //commnet_id 랜덤생성 (1)
+    static randomCommentID(){
+        return commentID;
+    }
     
 
     //댓글 등록하기
@@ -14,15 +17,14 @@ class CommentStorage {
                     reject(err)
                 }
 
-
-                const query = 'INSERT INTO Comment(user_email,post_id,comment_content,like_count_comment,comment_date) VALUES (?,?,?,?,?);';
+                const commentID=randomCommentID();//(2)
+                const query = 'INSERT INTO Comment(comment_id,user_email,post_id,comment_content) VALUES (?,?,?,?);';
                 pool.query(query,
                     [
+                        commentID,
                         commentInfo.user_email,
                         commentInfo.post_id,
                         commentInfo.comment_content,
-                        commentInfo.like_count_comment,
-                        commentInfo.comment_date
                     ],
                     (err) => {
                         pool.releaseConnection(connection);
@@ -30,14 +32,14 @@ class CommentStorage {
                             status: 500,
                             err: `${err}`
                         });
-                        else resolve({ status: 201 });
+                        else resolve({ status: 201,comment:this.getComment(commentID) });
                     });
             })
         })
     }
 
         //comment_id로 댓글 불러오기
-        static getComment(comment_id) {
+        static getComment(comment_id) { //(4)
             return new Promise(async (resolve, reject) => {
                 pool.getConnection((err, connection) => {
                     if (err) {
@@ -57,7 +59,7 @@ class CommentStorage {
     
         }
 
-        static getCommentListbyPostID(comment_id, post_id) {
+        static getCommentListbyPostID(post_id) {
             return new Promise(async (resolve, reject) => {
                 pool.getConnection((err, connection) => {
                     if (err) {
@@ -65,7 +67,7 @@ class CommentStorage {
                         reject(err)
                     }
     
-                    pool.query("SELECT * FROM Comment WHERE post_id=? AND comment_id=?;", [post_id, comment_id], function (err, rows) {
+                    pool.query("SELECT * FROM Comment WHERE post_id=?;", [post_id], function (err, rows) {
                         pool.releaseConnection(connection);
                         if (err) {
                             console.error('Query 함수 오류',err);

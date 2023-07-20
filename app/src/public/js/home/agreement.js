@@ -1,5 +1,6 @@
 const agreeToAllCheckbox = document.getElementById("flexCheckDefault");
 const allCheckboxes = document.querySelectorAll(".form-check-input");
+const marketingCheckbox = document.getElementById(".flexCheckDefault4");
 
 agreeToAllCheckbox.addEventListener("change", function () {
     const isChecked = this.checked;
@@ -33,6 +34,12 @@ nextButton.addEventListener("click", function () {
     if (!allChecked) {
         alert("모든 약관에 동의해야 회원가입을 진행할 수 있습니다.");
     } else {
+        if(marketingCheckbox===true){
+
+        }
+        else{
+
+        }
         // 페이지 이동할 URL
         const signupURL = `${apiUrl}/signup`;
         // 페이지 이동

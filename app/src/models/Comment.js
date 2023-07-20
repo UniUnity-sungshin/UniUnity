@@ -7,16 +7,15 @@ class Comment {
     }
     //댓글 작성하기
     async createComment() {
-        const client = this.body;
+        const client = this.body; 
         try {
             const response = await CommentStorage.saveComment(client);
-
             return response;
         } catch (err) {
             return { err }
         }
     }
-    //comment_id로 댓글 불러오기 근데 이거 필요있나?
+    //comment_id로 댓글 불러오기
     async showComment(comment_id) {
         try {
             const response = await CommentStorage.getComment(comment_id);
@@ -26,10 +25,9 @@ class Comment {
         }
     }
     //post_id별로 댓글들 불러오기
-    async showCommentListbyPostID(comment_id, post_id) {
+    async showCommentListbyPostID(post_id) {
         try {
-            let comment_id = await CommentStorage.showComment(comment_id);
-            const response = await CommentStorage.getCommentListbyPostID(comment_id, post_id);
+            const response = await CommentStorage.getCommentListbyPostID(post_id);
             return response;
         } catch (err) {
             return { success: false, msg: err };

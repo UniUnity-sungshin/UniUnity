@@ -32,9 +32,8 @@
 
     <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" /> -->
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/post/postviewer.css" rel="stylesheet" />
     <link href="/css/home/mainpage.css" rel="stylesheet" />
-
+    <link href="/css/post/postviewer.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -74,17 +73,18 @@
         <!-- 댓글보기-->
         <div class="blog-entries" id="commentViewer">
             <div class="row justify-content-center">
-                <div class="col text-center">
-
-                <p class="fs-4" id="user_email_comment"></p>
-                <p class="fs-4" id="comment_date"></p>
-
                 <div class="card p-4">
-                    <div class="toast-custom-viewer" id="comment_content">
+                    <div class="card-body">
+                        <div class="card-text">
+
+                            <p class="fs-4" id="comment_content">
+                            <p class="fs-4" id="user_email_comment"></p>
+                            <p class="fs-4" id="comment_date"></p>
+                            <p class="fs-4" id="like_count_comment"></p>
+                        </div> 
                     </div>
                 </div>
                 </br>
-                <p class="fs-4" id="like_count_comment"></p>
             </div>
         </div>
 
@@ -142,6 +142,7 @@
 <!-- Core theme JS-->
 <script src="/js/apiUrl.js"></script>
 <script src="/js/post/postviewer.js"></script>
+<script src="/js/post/comment.js"></script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
