@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     pswordLink.addEventListener("click", function () {
-        window.location.href = `${apiUrl}/mypage/modify-psword`;
+        window.location.href = `${apiUrl}/mypage/modify/2`;
     });
     withdrawalLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/withdrawal`;

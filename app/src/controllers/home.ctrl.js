@@ -31,7 +31,9 @@ const output = {
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
-
+    agreement:(req,res)=>{
+        res.render('home/agreement.html');
+    },
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();
@@ -45,6 +47,9 @@ const output = {
     },
     postviewer: (req, res) => {
         res.render('post/postviewer.html');
+    },
+    myCommunityPost:(req,res)=>{
+        res.render('post/communityPost.html')
     },
 
     partner: (req, res) => {
@@ -303,6 +308,18 @@ const post = {
         const response = await post.searchPost(req.params.keyword);
         return res.json(response);
 
+    },
+    //마이페이지-커뮤니티
+    myCommunityPost: async (req, res) => {
+        const category = req.params.category;
+        if(category==='1'){
+            const post = new Post(req.body);
+            const response = await post.myCommunityPost();
+            return res.json(response);
+        }
+
+
+       
     }
 }
 

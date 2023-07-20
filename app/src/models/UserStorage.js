@@ -77,9 +77,6 @@ class UserStorage {
 
                 const query = "UPDATE User SET psword=? WHERE user_email=?;";
 
-                console.log("update:",userInfo.new_psword)
-
-                console.log("update:",userInfo.user_email)
                 pool.query(query, [
                     userInfo.new_psword,
                     userInfo.user_email
@@ -99,6 +96,32 @@ class UserStorage {
 
     }
     //회원 탈퇴
+   static deleteUser(userInfo) {
+        return new Promise(async (resolve, reject) => {
 
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                const query = "DELETE FROM User WHERE user_email=?;";
+                
+                pool.query(query, [
+                    userInfo.user_email
+                ],
+                    (err) => {
+                        pool.releaseConnection(connection);
+                        if (err) reject({
+                            result:false,
+                            status: 500,
+                            err: `${err}`
+                        });
+                        else resolve({ result:true, status: 200 });
+                    })
+            });
+
+        });
+
+    }
 }
 module.exports = UserStorage;
