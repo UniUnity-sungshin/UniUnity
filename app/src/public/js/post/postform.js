@@ -133,7 +133,7 @@ const setSelectCategory = (user_type) => {
   selectElement.appendChild(defaultOption);
 
   if (user_type === "학생") {
-      const options = [ "제휴 추천", "잡담"];
+      const options = ["제휴 추천", "잡담"];
       const values = ["제휴 추천", "잡담"];
       for (let i = 0; i < options.length; i++) {
           const option = document.createElement("option");
@@ -200,7 +200,7 @@ function uploadPost(postCategory) {
 selectPostCategoryElement.addEventListener('change', function () {
   selectedValue = this.value;
   // 제휴가게 등록하기 로드
-  if (selectedValue == "제휴 소식") {
+  if (selectedValue == "제휴 등록") {
     postWrite.style.display = "none";
     sotreUpload.style.display = "block";
     loadPartnerUpload();

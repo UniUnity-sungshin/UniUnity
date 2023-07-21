@@ -26,8 +26,6 @@ class Post{
         }
 
     }
-
-
     //최신순 포스트 리스트 불러오기
     async showPostListAll(university_url){
         try{
@@ -40,7 +38,6 @@ class Post{
             return{success:false,msg:err};
         }
     }
-
     //카테고리별로 불러오기
     async showPostListbyCategory(university_url,category){
         try{
@@ -51,7 +48,31 @@ class Post{
             return{success:false,msg:err};
         }
     }
-    
+    // 게시글 검색하기
+    async searchPost(keyword){
+        try{
+            const response = await PostStorage.searchPost(keyword);
+            return response;
+        }catch(err){
+            return{success:false,msg:err};
+        }
+    }
+
+    //마이페이지-내가 작성한 게시글 보기
+    async myCommunityPost(){
+        try{
+            console.log("myCommunityPost");
+            const client = this.body;
+            const response = await PostStorage.getMyPost(client);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
+
 
 }
 

@@ -5,6 +5,7 @@ const relContainer = document.querySelector(".rel_search");
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn=document.getElementById("loginStatusBtn");
 const signUpBtn=document.getElementById("signUpBtn");
+const navBar=document.getElementById("navbar-brand");
 
 let universitySearchList = [];
 
@@ -49,7 +50,7 @@ const loadloginData = async() => {
 
 
 const setLoginHeader=(res)=>{
-    //console.log(res.loginStatus);
+    navBar.setAttribute("href", `${apiUrl}`);
     if(res.loginStatus==true){
         loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
         loginStatusBtn.innerText="로그아웃"
@@ -59,15 +60,11 @@ const setLoginHeader=(res)=>{
     else{
         loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
         loginStatusBtn.innerText="로그인"
-        signUpBtn.setAttribute("href", `${apiUrl}/signup`);
+        signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
         signUpBtn.innerText="회원가입"
     }
     
 }
-
-
-
-
 
 //mainpage 로드 후 loadData()실행
 window.addEventListener('DOMContentLoaded', function()

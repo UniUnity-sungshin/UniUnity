@@ -9,6 +9,23 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+ .scrollable-container {
+  height: 170px; /* Set the height to the desired value for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
+.scrollable-container-small {
+  height: 100px; /* Set the height to the desired value for scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
