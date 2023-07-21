@@ -247,12 +247,6 @@ const retailer = {
 //council 페이지
 const result = {
     council: async (req, res) => {
-        // console.log(req.params.universityname);
-        // const council = new Council();
-        // const response=await council.showUniversity(req.params.universityname);
-        // console.log(response.university_name);
-        // const response = await council.getUserName();
-        //console.log(response);
         res.render("council/council.html");
     },
 
@@ -266,12 +260,13 @@ const result = {
         res.render("home/post.html");
     },
 
-    getImages: async (req, res) => {
-        const council = new Council();
-        const response = await council.getImages(req.body.university_id);
-        return res.json(response);
-    }
+    // getImages: async (req, res) => {
+    //     const council = new Council();
+    //     const response = await council.getImages(req.body.university_id);
+    //     return res.json(response);
+    // }
 }
+
 
 const post = {
 

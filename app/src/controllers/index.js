@@ -35,6 +35,8 @@ router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
 //router.post("/getImages", ctrl.result.getImages);
 
+
+
 //
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
