@@ -4,7 +4,8 @@ body {
 }
 
 .main-container {
-    width: 1440px;
+    /* width: 1440px; */
+    width: 100%;
     margin: auto;
     display: grid;
     grid-template-rows: 80px 500px 600px 100px;
@@ -12,7 +13,8 @@ body {
 }
 
 .temp-box {
-    width: 1440px;
+    /* width: 1440px; */
+    width: 100%;
     height: 100%;
     text-align: center;
     font-weight: 700;
