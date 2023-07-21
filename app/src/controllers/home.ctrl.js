@@ -71,20 +71,24 @@ const process = {
 
     //회원가입
     register: async (req, res) => {
-
-        console.log(req.body);
-        const hashedPassword = await bcrypt.hash(req.body.psword, 10)
-        const user = new User({
-            user_email: req.body.user_email,
-            psword: hashedPassword,
-            user_name: req.body.user_name,
-            user_type: req.body.user_type,
-            user_nickname: req.body.user_nickname,
-            university_id: req.body.university_id
-        });
-        const response = await user.register();
-        console.log("registerrouter응답:", response);
-        return res.json(response)
+        try{
+            console.log(req.body);
+            const hashedPassword = await bcrypt.hash(req.body.psword, 10)
+            const user = new User({
+                user_email: req.body.user_email,
+                psword: hashedPassword,
+                user_name: req.body.user_name,
+                user_type: req.body.user_type,
+                user_nickname: req.body.user_nickname,
+                university_id: req.body.university_id,
+                user_marketing:req.body.user_marketing,
+            });
+            const response = await user.register();
+            return res.json(response)
+        }catch(err){
+            return res.json(err)
+        }
+        
 
     },
     //로그인 상태
@@ -127,7 +131,6 @@ const process = {
     },
     //비밀번호 변경
     modifyPsword: async (req, res) => {
-        console.log(req.body);
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
@@ -137,10 +140,26 @@ const process = {
         const response = await user.modifyPsword();
         return res.json(response)
     },
+    //회원탈퇴 
+    withdrawal: async(req,res)=>{
+       
+        const user = new User({
+            user_email: req.body.user_email,
+            psword: req.body.psword,
+        });
+        const response = await user.withdrawalUser();
+
+        req.logout(function (err) {
+            if (err) { return next(err); }
+            return res.json(response)
+        });
+       
+    },
+
+
     //이메일 인증
     emailAuth: (req, res) => {
         const emailAdderess = req.body.email;
-        console.log(emailAdderess)
         sendEmailWithAuthorization(emailAdderess)
             .then((authentication_code) => {
                 console.log('Authentication code:', authentication_code);

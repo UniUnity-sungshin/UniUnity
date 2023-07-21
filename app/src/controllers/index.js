@@ -22,6 +22,8 @@ router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
 router.post("/mypage/modify/1",ctrl.process.modifyNickname)
 //비밀번호 변경
 router.post("/mypage/modify/2",ctrl.process.modifyPsword)
+//회원 탈퇴
+router.post("/mypage/withdrawal",ctrl.process.withdrawal)
 
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);
