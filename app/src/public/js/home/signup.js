@@ -246,7 +246,8 @@ function register() {
             user_type:usertype,
             psword:confirmPasswordInput.value,
             user_nickname:nicknameElement.value,
-            university_id:parseInt(selectedValue)+1
+            university_id:parseInt(selectedValue)+1,
+            user_marketing:isCheckedMarketing
         };
         console.log(req);
     

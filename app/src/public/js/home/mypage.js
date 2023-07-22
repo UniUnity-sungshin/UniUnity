@@ -44,15 +44,16 @@ const setLoginHeader = (res) => {
 
 }
 
-
-
-// 로드 후 loadData()실행
-window.addEventListener('DOMContentLoaded', function () {
-    loadloginData();
-
+const loadLinkData=()=>{
     const nicknameLink = document.getElementById("nickname_modify_btn");
     const pswordLink = document.getElementById("psword_modify_btn");
     const withdrawalLink = document.getElementById("withdrawal_btn");
+
+    const communityLink1= document.getElementById("community1_btn");
+    const communityLink2= document.getElementById("community2_btn");
+    const communityLink3= document.getElementById("community3_btn");
+    const communityLink4= document.getElementById("community4_btn");
+   
 
     nicknameLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/modify/1`;
@@ -64,8 +65,23 @@ window.addEventListener('DOMContentLoaded', function () {
     withdrawalLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/withdrawal`;
     });
+    communityLink1.addEventListener("click", function () {
+        window.location.href = `${apiUrl}/mypage/community/post/1`;
+    });
+    communityLink2.addEventListener("click", function () {
+        window.location.href = `${apiUrl}/mypage/community/post/2`;
+    });
+    communityLink3.addEventListener("click", function () {
+        window.location.href = `${apiUrl}/mypage/community/post/3`;
+    });
+    communityLink4.addEventListener("click", function () {
+        window.location.href = `${apiUrl}/mypage/community/post/4`;
+    });
 
+}
 
-
-
+// 로드 후 loadData()실행
+window.addEventListener('DOMContentLoaded', function () {
+    loadloginData();
+    loadLinkData();
 });

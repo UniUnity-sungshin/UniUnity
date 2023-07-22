@@ -1,7 +1,12 @@
 const agreeToAllCheckbox = document.getElementById("flexCheckDefault");
 const allCheckboxes = document.querySelectorAll(".form-check-input");
-const marketingCheckbox = document.getElementById(".flexCheckDefault4");
+const marketingCheckbox = document.getElementById("flexCheckDefault4");
 
+var isCheckedMarketing=false;
+marketingCheckbox.addEventListener("change",function(){
+     isCheckedMarketing=this.checked;
+     console.log(isCheckedMarketing);
+})
 agreeToAllCheckbox.addEventListener("change", function () {
     const isChecked = this.checked;
     allCheckboxes.forEach((checkbox) => {

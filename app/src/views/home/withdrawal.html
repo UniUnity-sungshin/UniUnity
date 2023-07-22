@@ -37,23 +37,23 @@
             <div class="col-sm-8 mx-auto">
               <div class="mb-4">
                 <h3>회원 탈퇴</h3>
-                <p class="mb-4">탈퇴 및 가입을 반복할 경우, 서비스 악용 방지를 위해 재가입이 제한됩니다.  <span class="caution">최초 탈퇴 시에는 가입 시점을 기준으로 1일간 제한되며, 2회 이상 탈퇴를 반복할 경우 30일간 제한됩니다.</span></p>
+                <p class="mb-4">탈퇴 및 가입을 반복할 경우, 서비스 악용 방지를 위해 재가입이 제한됩니다.  <span class="caution">최초 탈퇴 시에는 가입 시점을 기준으로 1일간 제한되며, 2회 이상 탈퇴를 반복할 경우 재가입이 불가능 합니다.</span></p>
               </div>
-              <form action="/withdrawal" method="post">
+              <form action="/mypage/withdrawal" method="post" onsubmit="return fetchWithdrawalUser(event);">
                 <div class="form-group first">
                   <input type="password" class="form-control" name="pwd" id="pwd" placeholder="계정 비밀번호">
                 </div>
                 <br>
                 <div class="mb-4 left-align">
                     <p >
-                        ※ 탈퇴 후 개인 정보, 시간표 등의 데이터가 삭제되며, 복구할 수 없습니다.<br>
-                        ※ 다시 가입하여도, 게시판 등 이용 제한 기록은 초기화되지 않습니다.<br>
+                        ※ 탈퇴 후 개인 정보, 게시글 데이터가 삭제되며, 복구할 수 없습니다.<br>
+                        ※ 다시 가입하여도, 게시글 등 이용 제한 기록은 초기화되지 않습니다.<br>
                         ※ 작성한 게시물은 삭제되지 않으며, (알수없음)으로 닉네임이 표시됩니다.<br>
                         ※ 자세한 내용은 개인정보처리방침을 확인해주세요.
                       </p>
                 </div>
                
-                <button value="회원 탈퇴" class="btn btn-block" id="modifyBtn">
+                <button value="회원 탈퇴" class="btn btn-block" id="withdrawalBtn" >
                     <strong>회원 탈퇴</strong></button>
               </form>
             </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
   <script src="/js/apiUrl.js"></script>
-  <script src="/js/home/modifyNickname.js" ></script>
+  <script src="/js/home/withdrawal.js" ></script>
   <script src="/js/home/jquery-3.3.1.min.js"></script>
 
 </body>
