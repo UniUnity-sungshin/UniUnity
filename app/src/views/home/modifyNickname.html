@@ -39,7 +39,7 @@
                 <h3>닉네임 변경</h3>
                 <p class="mb-4">닉네임을 설정하면 <span class="caution">30일간 변경할 수 없습니다.</span></p>
               </div>
-              <form action="/modifyNickname" method="post">
+              <form action="/mypage/modify/1" method="post"  onsubmit="return fetchChangeNickname(event);">
                 <div class="form-group first">
                   <input type="text" class="form-control" name="nickname" id="nickname" placeholder="닉네임">
                 </div>
@@ -56,7 +56,7 @@
       </div>
     </div>
   </div>
-
+  <script src="/js/apiUrl.js"></script>
   <script src="/js/home/modifyNickname.js" ></script>
   <script src="/js/home/jquery-3.3.1.min.js"></script>
 

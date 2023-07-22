@@ -38,7 +38,7 @@
                 <h3>비밀번호 변경</h3>
                 <p class="mb-4">비밀번호는 8-20자 길이로 문자와 숫자를 포함해야 하며, 공백, 특수 문자 또는 그림 이모티콘을 포함하지 않습니다.</p>
               </div>
-              <form action="/modifyNickname" method="post">
+              <form action="/mypage/modify/2" method="post" onsubmit="return fetchChangePsword(event);">
                 <div class="form-group first">
                   <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="새 비밀번호">
                 </div>
@@ -80,7 +80,7 @@
       </div>
     </div>
   </div>
-
+  <script src="/js/apiUrl.js"></script>
   <script src="/js/home/modifyPsword.js" ></script>
   <script src="/js/home/jquery-3.3.1.min.js"></script>
 

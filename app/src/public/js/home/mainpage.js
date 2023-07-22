@@ -60,7 +60,7 @@ const setLoginHeader=(res)=>{
     else{
         loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
         loginStatusBtn.innerText="로그인"
-        signUpBtn.setAttribute("href", `${apiUrl}/signup`);
+        signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
         signUpBtn.innerText="회원가입"
     }
     

@@ -6,6 +6,7 @@ const LocalStrategy=require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
 const UserStorage=require("./UserStorage");
+const { response } = require('express');
 class User{
     constructor(body){
         this.body=body;
@@ -33,9 +34,18 @@ class User{
 
     //회원가입 
     async register(){
-        const client = this.body;
-        const response = await UserStorage.save(client);
-        return response;
+        try{
+            const client = this.body;
+            console.log(client);
+            const response = await UserStorage.save(client);
+            return response;
+        }catch{
+            return {
+                result:false,
+                status: 400,
+                err:err};
+        }
+       
     }
     //닉네임 변경
     async modifyNickname(){
@@ -46,11 +56,9 @@ class User{
     //비밀번호 변경
     async modifyPsword(){
         const client = this.body;
+        console.log(client)
         let userInfo=await UserStorage.getUserInfo(client.user_email);
        
-        console.log("입력한 psword:",client.psword);
-        console.log("기존 psword:",userInfo.psword);
-        // if(client.psword===userInfo.psword){
         if(await bcrypt.compare(client.psword,userInfo.psword)){
             const response = await UserStorage.updatePsword(client);
             return response;
@@ -66,9 +74,29 @@ class User{
     }
     //회원 탈퇴
     async withdrawalUser(){
-        const client = this.body;
-        const response = await UserStorage.deleteUser(client);
-        return response;
+        try{
+            const client = this.body;
+            let userInfo=await UserStorage.getUserInfo(client.user_email);
+       
+            if(await bcrypt.compare(client.psword,userInfo.psword)){
+                const response = await UserStorage.deleteUser(client);
+                return response;
+            }else{
+                return {
+                    result:false,
+                    status: 400,
+                    err: `비밀번호가 틀렸습니다.`
+                }
+            }
+        }catch(err){
+            console.log(err);
+            return {
+                result:false,
+                status: 400,
+                err:`${err}`
+            };
+        }
+       
     }
 
 

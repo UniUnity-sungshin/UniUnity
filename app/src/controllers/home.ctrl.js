@@ -7,6 +7,7 @@ const Post = require("../models/Post");
 const University = require("../models/University");
 const sendEmailWithAuthorization = require("../../mailer");
 const bcrypt = require('bcrypt');
+const Comment = require('../models/Comment');
 
 const output = {
     home: (req, res) => {
@@ -21,16 +22,18 @@ const output = {
     mypage: (req, res) => {
         res.render('home/mypage.html');
     },
-    modifyNickname:(req,res)=>{
+    modifyNickname: (req, res) => {
         res.render('home/modifyNickname.html');
     },
-    withdrawal:(req,res)=>{
+    withdrawal: (req, res) => {
         res.render('home/withdrawal.html');
     },
-    modifyPsword:(req,res)=>{
+    modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
-
+    agreement:(req,res)=>{
+        res.render('home/agreement.html');
+    },
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();
@@ -45,6 +48,9 @@ const output = {
     postviewer: (req, res) => {
         res.render('post/postviewer.html');
     },
+    myCommunityPost:(req,res)=>{
+        res.render('post/communityPost.html')
+    },
 
     partner: (req, res) => {
         res.render("store/partner.html");
@@ -52,6 +58,12 @@ const output = {
     partnerForm: (req, res) => {
         res.render("store/uploadTest.html");
     },
+    uploadComment: (req, res) => {
+        res.render('post/postviewer.html');
+    },
+    showCommentListbyPostID: (req, res) => {
+        res.render('post/postviewer.html');
+    }
 }
 
 //로그인 인증 process
@@ -59,20 +71,24 @@ const process = {
 
     //회원가입
     register: async (req, res) => {
-
-        console.log(req.body);
-        const hashedPassword = await bcrypt.hash(req.body.psword, 10)
-        const user = new User({
-            user_email: req.body.user_email,
-            psword: hashedPassword,
-            user_name: req.body.user_name,
-            user_type: req.body.user_type,
-            user_nickname: req.body.user_nickname,
-            university_id: req.body.university_id
-        });
-        const response = await user.register();
-        console.log("registerrouter응답:", response);
-        return res.json(response)
+        try{
+            console.log(req.body);
+            const hashedPassword = await bcrypt.hash(req.body.psword, 10)
+            const user = new User({
+                user_email: req.body.user_email,
+                psword: hashedPassword,
+                user_name: req.body.user_name,
+                user_type: req.body.user_type,
+                user_nickname: req.body.user_nickname,
+                university_id: req.body.university_id,
+                user_marketing:req.body.user_marketing,
+            });
+            const response = await user.register();
+            return res.json(response)
+        }catch(err){
+            return res.json(err)
+        }
+        
 
     },
     //로그인 상태
@@ -104,7 +120,7 @@ const process = {
 
     },
     //닉네임 변경
-    modifyNickname:async (req,res)=>{
+    modifyNickname: async (req, res) => {
         const user = new User({
             user_email: req.body.user_email,
             user_nickname: req.body.user_nickname,
@@ -114,21 +130,36 @@ const process = {
 
     },
     //비밀번호 변경
-    modifyPsword:async(req,res)=>{
-        console.log(req.body);
+    modifyPsword: async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
             new_psword: hashedPassword,
-            psword:req.body.psword
+            psword: req.body.psword
         });
         const response = await user.modifyPsword();
         return res.json(response)
     },
+    //회원탈퇴 
+    withdrawal: async(req,res)=>{
+       
+        const user = new User({
+            user_email: req.body.user_email,
+            psword: req.body.psword,
+        });
+        const response = await user.withdrawalUser();
+
+        req.logout(function (err) {
+            if (err) { return next(err); }
+            return res.json(response)
+        });
+       
+    },
+
+
     //이메일 인증
     emailAuth: (req, res) => {
         const emailAdderess = req.body.email;
-        console.log(emailAdderess)
         sendEmailWithAuthorization(emailAdderess)
             .then((authentication_code) => {
                 console.log('Authentication code:', authentication_code);
@@ -199,7 +230,7 @@ const partner = {
         const response = await partner.uploadPartnerStore(storeName, store_location, latitude, longitude, university_id, content, startDate, endDate);
         return res.json(response);
     },
-    DeletePartnerStore:async(req,res)=>{
+    DeletePartnerStore: async (req, res) => {
         const partner = new Partner();
         const response = await partner.DeletePartnerStore(req.params.storeID);
         return res.json(response);
@@ -216,12 +247,6 @@ const retailer = {
 //council 페이지
 const result = {
     council: async (req, res) => {
-        // console.log(req.params.universityname);
-        // const council = new Council();
-        // const response=await council.showUniversity(req.params.universityname);
-        // console.log(response.university_name);
-        // const response = await council.getUserName();
-        //console.log(response);
         res.render("council/council.html");
     },
 
@@ -235,12 +260,13 @@ const result = {
         res.render("home/post.html");
     },
 
-    getImages: async (req, res) => {
-        const council = new Council();
-        const response = await council.getImages(req.body.university_id);
-        return res.json(response);
-    }
+    // getImages: async (req, res) => {
+    //     const council = new Council();
+    //     const response = await council.getImages(req.body.university_id);
+    //     return res.json(response);
+    // }
 }
+
 
 const post = {
 
@@ -296,7 +322,61 @@ const post = {
         const response = await post.searchPost(req.params.keyword);
         return res.json(response);
 
+    },
+    //마이페이지-커뮤니티
+    myCommunityPost: async (req, res) => {
+        const category = req.params.category;
+        if(category==='1'){
+            const post = new Post(req.body);
+            const response = await post.myCommunityPost();
+            return res.json(response);
+        }
+
+
+       
     }
+}
+
+const comment = {
+    //댓글 작성하기
+    uploadComment: async (req, res) => {
+        const comment = new Comment(req.body);
+        const response = await comment.createComment();
+        return res.json(response);
+    },
+
+    //이거 필요있나??
+    showComment: async (req, res) => {
+        let post_id = req.params.comment_id;
+        const comment = new Comment();
+        const response = await comment.showComment(post_id);
+        return res.json(response);
+
+    },
+
+    showCommentListbyPostID: async (req, res) => {
+        let post_id = req.params.post_id;
+        // let comment_id = req.params.comment_id;
+        const comment = new Comment();
+        const response = await comment.showCommentListbyPostID(post_id);
+        return res.json(response);
+
+    },
+
+
+    showCommentListAll: async (req, res) => {
+        // let post_id = req.params.post_id;
+        let comment_id = req.params.comment_id;
+        // console.log(req.params.post_id);
+        console.log(req.params.comment_id);
+
+        const comment = new Comment();
+        const response = await comment.showCommentListAll(comment_id); //post_id
+        console.log(response);
+        return res.json(response);
+    }
+
+
 }
 
 
@@ -306,5 +386,6 @@ module.exports = {
     result,
     partner,
     post,
-    retailer
+    retailer,
+    comment
 };

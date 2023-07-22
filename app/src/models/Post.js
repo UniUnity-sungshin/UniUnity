@@ -57,6 +57,23 @@ class Post{
             return{success:false,msg:err};
         }
     }
+
+    //마이페이지-내가 작성한 게시글 보기
+    async myCommunityPost(){
+        try{
+            console.log("myCommunityPost");
+            const client = this.body;
+            const response = await PostStorage.getMyPost(client);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
+
+
 }
 
 module.exports=Post

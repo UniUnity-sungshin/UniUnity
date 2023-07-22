@@ -55,11 +55,11 @@ window.addEventListener('DOMContentLoaded', function () {
     const withdrawalLink = document.getElementById("withdrawal_btn");
 
     nicknameLink.addEventListener("click", function () {
-        window.location.href = `${apiUrl}/mypage/modify-nickname`;
+        window.location.href = `${apiUrl}/mypage/modify/1`;
     });
 
     pswordLink.addEventListener("click", function () {
-        window.location.href = `${apiUrl}/mypage/modify-psword`;
+        window.location.href = `${apiUrl}/mypage/modify/2`;
     });
     withdrawalLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/withdrawal`;

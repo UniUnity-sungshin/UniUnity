@@ -8,3 +8,77 @@
 #view_count {
   color: #777777; 
 }
+
+/*댓글리스트*/
+.blog-entries {
+  margin-top: 20px;
+}
+
+.comment-content {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
+.comment-content div {
+  margin-bottom: 5px;
+  font-size: 15px;
+  color:#121212
+}
+
+.user-email {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.comment-date {
+  font-size: 14px;
+  color: #888;
+}
+
+.like-count {
+  font-size: 14px;
+  color: #888;
+}
+
+
+
+/* 댓글 입력 폼 */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.form textarea {
+  resize: none;
+  border: 1px solid #dbdbdb;
+  padding: 15px 20px;
+  outline: none;
+}
+button {
+  border-radius: 0;
+}
+
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+button:not(:disabled),
+[type=button]:not(:disabled),
+[type=reset]:not(:disabled),
+[type=submit]:not(:disabled) {
+  cursor: pointer;
+}
+
