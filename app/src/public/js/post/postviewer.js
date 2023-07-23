@@ -177,7 +177,7 @@ const loadPostData = async () => {
       el: document.querySelector('.toast-custom-viewer'),
       viewer: true,
       height: '1000px',
-      initialValue: postInfo.post_content,
+      initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
     });
   }
 
