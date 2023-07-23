@@ -69,13 +69,13 @@ const loadPostData = async () => {
     // console.log(postContent.textContent);
     if (postInfo.category === "총학생회 공지사항") {
       toggleCarouselButtons(true);
-      // 게시글 내용에서 이미지 제거
-      const textContent = postInfo.post_content.replace(/<img[^>]+>/gi, '');
-      console.log("이미지 태그 제거된 본문");
-      console.log(textContent);
+      // // 게시글 내용에서 이미지 제거
+      // const textContent = postInfo.post_content.replace(/<img[^>]+>/gi, '');
+      // console.log("이미지 태그 제거된 본문");
+      // console.log(textContent);
 
-      // text-only content
-      postContent.textContent = textContent;
+      // // text-only content
+      // postContent.textContent = textContent;
       
       // 게시글 정보 로드 후, 이미지 URL 추출 및 카루셀 추가
       const htmlContent = postInfo.post_content;
@@ -169,18 +169,23 @@ const loadPostData = async () => {
     //     return { success: false, msg: error };
     //   }
     // }
-    }
-    else {
-      toggleCarouselButtons(false);
-    }
     const viewer = toastui.Editor.factory({
       el: document.querySelector('.toast-custom-viewer'),
       viewer: true,
       height: '1000px',
       initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
     });
+    }
+    else {
+      toggleCarouselButtons(false);
+      const viewer = toastui.Editor.factory({
+        el: document.querySelector('.toast-custom-viewer'),
+        viewer: true,
+        height: '1000px',
+        initialValue: postInfo.post_content,
+      });
   }
-
+  }
   catch (error)  {
   console.error('게시글 정보 불러오기 오류', error);
 }
