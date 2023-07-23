@@ -23,8 +23,27 @@ const loadloginData = () => {
     )
 }
 
+// 파일명을 생성하는 함수
+function generateUniqueFileName(blob) {
+  const timestamp = Date.now(); // 현재 시간을 기반으로 파일명 생성
+  const extension = getExtensionFromBlob(blob); // Blob에서 확장자 추출
+  return `${userInfo.university_url}_${timestamp}_${userInfo.user_nickname}.${extension}`;
+}
 
+// Blob에서 파일 확장자 추출
+function getExtensionFromBlob(blob) {
+  const match = /image\/([a-z]+)/.exec(blob.type); // Blob의 MIME 타입에서 확장자 추출
+  if (match) {
+    return match[1];
+  }
+  throw new Error('Invalid blob type');
+}
+var loading = false;
+const loading_component = document.getElementById("loading");
 
+const setLoading = (loading) => {
+  loading_component.style.display = loading === true ? 'flex' : 'none'; 
+}
 const editor = new toastui.Editor({
   el: document.querySelector('#editor'),
   previewStyle: 'vertical',
@@ -39,28 +58,30 @@ const editor = new toastui.Editor({
     try {
       // FormData 생성
       const formData = new FormData();
-      formData.append('file', blob);
-  //   파일 업로드 API 호출
+      const modified_file = new File([blob], generateUniqueFileName(blob));
+      formData.append('file', modified_file);
+      //   파일 업로드 API 호출
+      loading = true;
+      setLoading(loading);
       const response = await fetch(`${apiUrl}/file`, {
         method: 'POST',
         body: formData,
       });
-
       if (response.ok) {
         // 파일 업로드 성공
         const { fileUrl } = await response.json();
-
+    
         // 콜백 함수 호출하여 에디터에 이미지 추가
         callback(fileUrl, 'alt text');
-   
-      
-
       } else {
         // 파일 업로드 실패
         console.error('Failed to upload image');
       }
     } catch (error) {
       console.error('Error uploading image:', error);
+    }finally{
+      loading = false;
+      setLoading(loading);
     }
   }
   },
