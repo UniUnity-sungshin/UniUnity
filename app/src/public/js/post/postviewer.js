@@ -4,6 +4,9 @@ console.log(post_id);
 // console.log(comment_id);
 
 var userInfo; // 유저정보
+var university_url;
+const writeCommentBtn = document.getElementById('write_comment_btn');
+var universityColor;
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
@@ -11,13 +14,31 @@ const loadloginData = async () => {
   await fetch(url)
     .then((res) => res.json())
     .then((res) => {
+      console.log("유저정보");
       console.log(res);
       userInfo = res;
+      universityColor = setUniversityColor(res.university_url);
+      console.log("학교 색깔");
+      console.log(universityColor);
+      writeCommentBtn.style.backgroundColor = universityColor;
+      writeCommentBtn.style.borderColor = universityColor;
     })
     .catch((error) => {
       console.error('작성자 회원 정보 불러오기 오류', error);
     });
 };
+
+//버튼 학교상징 색으로 바꾸기
+function setUniversityColor(university_url){
+  if(university_url==="sungshin"){
+    universityColor="#6a6fb3"
+  }else if(university_url==="konkuk"){
+    universityColor="#004a26"
+  }else{
+    universityColor="#FFD400" //Uniunity색상
+  }
+  return universityColor;
+}
 
 var postInfo; // 게시글 정보
 // 게시글 정보 불러오기
@@ -85,7 +106,7 @@ const loadPostData = async () => {
       while ((match = regex.exec(htmlContent)) !== null) {
         imageUrls.push(match[1]);
       }
-      console.log(imageUrls.length);
+      // console.log(imageUrls.length);
 
       if (imageUrls.length > 0) {
         const imageCarousel = document.getElementById('imageCarousel');
@@ -231,44 +252,77 @@ const fetchComments = async () => {
       // 댓글 카드 생성
       const commentCardElement = document.createElement('div');
       commentCardElement.classList.add('card', 'p-4');
-
+  
+      // 댓글 정보를 담는 div 요소 생성
+      const commentInfoElement = document.createElement('div');
+      commentInfoElement.classList.add('row');
+  
       // 유저 이메일 표시
-      const userEmailElement = document.createElement('p');
-      userEmailElement.classList.add('fs-4');
-      userEmailElement.textContent = comment.user_email;
+      const userEmailElement = document.createElement('div');
+      userEmailElement.classList.add('col-6');
+      const userEmailParagraph = document.createElement('p');
+      userEmailParagraph.classList.add('fs-4');
+      userEmailParagraph.textContent = comment.user_email;
+      userEmailElement.appendChild(userEmailParagraph);
+
+      // 댓글 날짜와 좋아요 수를 담는 div 요소 생성
+      const subdateLikeCountElement = document.createElement('div');
+      subdateLikeCountElement.classList.add('row');
+      subdateLikeCountElement.classList.add('col-6', 'text-end');
+
+      // 댓글 날짜 담는 div 요소 생성
+      const dateElement = document.createElement('div');
+      dateElement.classList.add('col-6', 'text-end');
+
+      // 좋아요 수를 담는 div 요소 생성
+      const LikeCountElement = document.createElement('div');
+      LikeCountElement.classList.add('col-6', 'text-end');
 
       // 댓글 날짜 표시
       const commentDateElement = document.createElement('p');
       commentDateElement.classList.add('fs-4');
       commentDateElement.textContent = comment.comment_date;
-
+  
       // 좋아요 수 표시
       const likeCountElement = document.createElement('p');
       likeCountElement.classList.add('fs-4');
       likeCountElement.textContent = comment.like_count_comment;
+  
+      // 생성한 요소들을 date/LikeCountElement에 추가
+      dateElement.appendChild(commentDateElement);
+      LikeCountElement.appendChild(likeCountElement);
 
+      subdateLikeCountElement.appendChild(dateElement);
+      subdateLikeCountElement.appendChild(LikeCountElement);
+  
+      // 생성한 요소들을 commentInfoElement에 추가
+      commentInfoElement.appendChild(userEmailElement);
+      commentInfoElement.appendChild(subdateLikeCountElement);
+  
       // 댓글 내용 표시
       const commentContentElement = document.createElement('p');
       commentContentElement.classList.add('fs-4');
       commentContentElement.textContent = comment.comment_content;
-
-      // 생성한 요소들을 commentCardElement에 추가합니다.
-      commentCardElement.appendChild(userEmailElement);
-      commentCardElement.appendChild(commentDateElement);
-      commentCardElement.appendChild(likeCountElement);
+  
+      // 생성한 요소들을 commentCardElement에 추가
+      commentCardElement.appendChild(commentInfoElement);
       commentCardElement.appendChild(commentContentElement);
-
-      // 댓글 컨테이너에 생성한 댓글 카드를 추가합니다.
+  
+      // 댓글 컨테이너에 생성한 댓글 카드를 추가
       commentViewerContainer.appendChild(commentCardElement);
-    });
+  });
+  
+  
+  
   } catch (error) {
     console.error("댓글 불러오기 오류:", error);
   }
 };
 
 
-const writeCommentBtn = document.getElementById('write_comment_btn');
 // const brandNav= document.getElementById('navbar-brand');
+
+
 
 writeCommentBtn.addEventListener('click', function () {
 
