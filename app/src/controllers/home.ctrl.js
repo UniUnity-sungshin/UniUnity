@@ -240,7 +240,21 @@ const partner = {
 // 소상공인 파트
 const retailer = {
     retailer: async (req, res) => {
-        res.render("store/retailer.html")
+        res.render("store/retailer.html");
+    },
+    retailerKind: async(req, res) => {
+        if(req.params.kind == 'all'){
+            res.render("store/retailer.html");
+        }
+        else if(req.params.kind == 'food'){
+            res.render("store/reatailerFood.html");
+        }
+        else if(req.params.kind == 'cafe'){
+            res.render("store/retailerCafe.html")
+        }
+        else{
+            res.render("store/retailer.html");
+        }
     },
 }
 
