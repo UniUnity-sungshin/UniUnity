@@ -54,6 +54,7 @@ router.get("/deleterStore/:storeID",ctrl.partner.DeletePartnerStore);
 
 // retailer 라우터
 router.get("/retailer/:university_url",ctrl.retailer.retailer);
+router.get("/retailer/:university_url/:kind", ctrl.retailer.retailerKind);
 
 // router.post("/login",ctrl.process.login);
 //council 페이지 라우팅

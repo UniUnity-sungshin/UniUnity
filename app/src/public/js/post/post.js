@@ -236,9 +236,9 @@ function getUniversityUrl() {
 }
 
 // 검색 기능
-const postSearchInput = document.querySelector('#postSearchInput'),
-      postSearchBtn = document.querySelector('#postSearchBtn');
+const postSearchBtn = document.querySelector('#postSearchBtn');
 var university_posts = [];
+const blogEntriesDiv = document.querySelector(".blog-entries");
 
 function searchPost(){
   const universityUrl = getUniversityUrl();
@@ -253,7 +253,8 @@ function searchPost(){
     // university_id를 university_posts[0]에 저장
     university_posts.push(response);
     // 검색한 게시글 불러오기
-    fetch(`${apiUrl}/searchPost/${postSearchInput}`)
+    const keyword = document.getElementById('postSearchInput').value;
+    fetch(`${apiUrl}/searchPost/${keyword}`)
     .then((res) => {
       if (!res.ok) {
         throw new Error('Network response was not ok');
@@ -262,12 +263,43 @@ function searchPost(){
     })
     .then(res => {
       for(let i = 0; i < res.length; i++){
-        if(res[i].university_id == university_posts[0]){
+        if(String(res[i].university_id) == String(university_posts[0])){
           university_posts.push(res[i]);
         }
       }
       // 기존 게시글 지운 후 검색된 게시글 나열
-      
+      while (blogEntriesDiv.firstChild) {
+        blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
+      }
+      for (var i = 0; i < res.length; i++) {
+        var card = document.createElement('div');
+        card.className = 'card mb-4';
+  
+        var cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+  
+        var date = document.createElement('div');
+        date.className = 'small text-muted';
+        date.textContent = res[i].post_date;
+  
+        var title = document.createElement('h2');
+        title.className = 'card-title h4';
+        title.textContent = res[i].post_title;
+       
+        var readMoreBtn = document.createElement('a');
+        readMoreBtn.className = 'btn btn-primary';
+        readMoreBtn.href = `${apiUrl}/postviewer/${res[i].post_id}`;
+        readMoreBtn.id = res[i].post_id;
+        readMoreBtn.textContent = 'Read more →';
+        changeButtonColor(readMoreBtn, universityColor) 
+        cardBody.appendChild(date);
+        cardBody.appendChild(title);
+        cardBody.appendChild(readMoreBtn);
+        card.appendChild(cardBody);
+        blogEntriesDiv.appendChild(card);
+  
+      }
+
     })
     .catch((error) => {
       console.error('There has been a problem with your fetch operation:', error);
@@ -279,9 +311,11 @@ function searchPost(){
 }
 
 postSearchBtn.addEventListener('click',searchPost);
-
-
-
+document.addEventListener('keydown', function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+  };
+}, true);
 
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {

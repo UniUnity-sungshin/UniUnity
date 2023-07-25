@@ -39,7 +39,7 @@ function getUniversityUrl() {
     return universityUrl;
 }
 
-function setCenter(map,latitude,longitude) {            
+function setCenter(map,latitude,longitude){            
     // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
                     
