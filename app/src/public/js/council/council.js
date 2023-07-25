@@ -10,6 +10,38 @@ const loadloginData = async() => {
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
+// university_url 값을 받아오는 함수
+function getUniversityUrl() {
+  // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
+  const path = window.location.pathname;
+
+  // 경로에서 universityUrl 값을 추출
+  const pathParts = path.split('/');
+  const universityUrl = pathParts[pathParts.length - 1];
+  return universityUrl;
+}
+var university_url = getUniversityUrl();
+var universityColor=setUniversityColor(university_url) //학교 색상으로 변경
+
+const menubar = document.querySelector('#temp-box1');
+
+
+menubar.style.backgroundColor = universityColor;
+
+
+//버튼 학교상징 색으로 바꾸기
+function setUniversityColor(university_url){
+  let universityColor
+  if(university_url==="sungshin"){
+    universityColor="#6a6fb3"
+  }else if(university_url==="konkuk"){
+    universityColor="#004a26"
+  }else{
+    universityColor="#FFD400" //Uniunity색상
+  }
+  return universityColor;
+}
+
 // 지도
 var mapContainer = document.getElementById('map'),
 mapOption = { 
@@ -97,17 +129,6 @@ var mySwiper = new Swiper('.swiper-container', {
   centerSlides: true,
   spaceBetween: 20,
 });
-
-// university_url 값을 받아오는 함수
-function getUniversityUrl() {
-  // 현재 페이지의 URL에서 경로(pathname) 부분을 추출
-  const path = window.location.pathname;
-
-  // 경로에서 universityUrl 값을 추출
-  const pathParts = path.split('/');
-  const universityUrl = pathParts[pathParts.length - 1];
-  return universityUrl;
-}
 
 const universityName = document.querySelector("#universityName");
 const userName = document.querySelector("#userName");

@@ -9,6 +9,36 @@
   color: #777777; 
 }
 
+.carousel-inner img {
+  max-height: 500px; 
+  object-fit: contain;
+  padding-left: 140px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  display: block; 
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none; 
+  width: 30px; 
+  height: 30px; 
+}
+
+.carousel-control-prev-icon::before{
+  content: '◀'; 
+  font-size: 30px;
+  color: #000; 
+}
+
+.carousel-control-next-icon::before {
+  content: '▶'; 
+  font-size: 30px; 
+  color: #000; 
+}
+
 /*댓글리스트*/
 .blog-entries {
   margin-top: 20px;

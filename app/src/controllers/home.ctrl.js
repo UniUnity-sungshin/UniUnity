@@ -274,11 +274,8 @@ const result = {
         res.render("home/post.html");
     },
 
-    // getImages: async (req, res) => {
-    //     const council = new Council();
-    //     const response = await council.getImages(req.body.university_id);
-    //     return res.json(response);
-    // }
+
+
 }
 
 

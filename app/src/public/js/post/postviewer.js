@@ -55,8 +55,64 @@ const loadPostData = async () => {
     commentCount.textContent = `댓글 ${postInfo.comment_count}개`;
     userEmail.textContent = postInfo.user_email;
 
+    // 화살표 버튼을 숨기거나 표시하는 함수
+    function toggleCarouselButtons(visible) {
+    const carouselButtons = document.querySelectorAll('.carousel-control-prev, .carousel-control-next');
+    carouselButtons.forEach(button => {
+      if (visible) {
+        button.style.display = 'block';
+      } else {
+        button.style.display = 'none';
+      }
+    });
+    }
+    // console.log(postContent.textContent);
+    if (postInfo.category === "총학생회 공지사항") {
+      toggleCarouselButtons(true);
+      // // 게시글 내용에서 이미지 제거
+      // const textContent = postInfo.post_content.replace(/<img[^>]+>/gi, '');
+      // console.log("이미지 태그 제거된 본문");
+      // console.log(textContent);
 
+      // // text-only content
+      // postContent.textContent = textContent;
+      
+      // 게시글 정보 로드 후, 이미지 URL 추출 및 카루셀 추가
+      const htmlContent = postInfo.post_content;
+      const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
+      const imageUrls = [];
+      let match;
+      while ((match = regex.exec(htmlContent)) !== null) {
+        imageUrls.push(match[1]);
+      }
+      console.log(imageUrls.length);
 
+      if (imageUrls.length > 0) {
+        const imageCarousel = document.getElementById('imageCarousel');
+        const carouselInner = imageCarousel.querySelector('.carousel-inner');
+        // imageCarousel.style.height = '400px';
+        carouselInner.innerHTML = '';
+
+        for (let i = 0; i < imageUrls.length; i++) {
+          const imageUrl = imageUrls[i];
+
+          const carouselItem = document.createElement('div');
+          carouselItem.classList.add('carousel-item');
+
+          if (i === 0) {
+            carouselItem.classList.add('active');
+          }
+
+          const imageElement = document.createElement('img');
+          imageElement.src = imageUrl;
+          imageElement.alt = `이미지 ${i + 1}`;
+
+          carouselItem.appendChild(imageElement);
+          carouselInner.appendChild(carouselItem);
+        }
+      }
+
+     
 
     //read more버튼 누르면 조회수 1 증가 -> db에 요청
     // async function increaseViewCount(post_id, view_count) {
@@ -113,14 +169,22 @@ const loadPostData = async () => {
     //     return { success: false, msg: error };
     //   }
     // }
-
-
     const viewer = toastui.Editor.factory({
       el: document.querySelector('.toast-custom-viewer'),
       viewer: true,
       height: '1000px',
-      initialValue: postInfo.post_content,
+      initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
     });
+    }
+    else {
+      toggleCarouselButtons(false);
+      const viewer = toastui.Editor.factory({
+        el: document.querySelector('.toast-custom-viewer'),
+        viewer: true,
+        height: '1000px',
+        initialValue: postInfo.post_content,
+      });
+  }
   }
   catch (error)  {
   console.error('게시글 정보 불러오기 오류', error);

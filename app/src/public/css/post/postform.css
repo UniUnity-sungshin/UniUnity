@@ -88,3 +88,27 @@
     font-size: 1.5rem !important;
     height: 40px;
 }
+
+
+.toastui-editor-contents h1{
+  font-size: 34px;
+}
+.toastui-editor-contents h2{
+  font-size: 32px;
+}
+.toastui-editor-contents h3{
+    font-size: 30px;
+  }
+  .toastui-editor-contents h4{
+    font-size: 28px;
+  }
+  .toastui-editor-contents h5{
+    font-size: 26px;
+  }
+  .toastui-editor-contents h6{
+    font-size: 24px;
+  }
+
+  .toastui-editor-contents p{
+    font-size: 20px;
+  }

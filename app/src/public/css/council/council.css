@@ -54,21 +54,21 @@ a:hover {
 } */
 
 .swiper-button-prev {
-  left: 650px;
-  top: 550px;
-  color: #f6db40;
-  width: 30px;
-  height: 30px;
-  transform: scale(0.7);
+    left: 650px;
+    top: 550px;
+    color:rgb(83, 81, 81);
+    width: 30px;
+    height: 30px;
+    transform: scale(0.7);
 }
 
 .swiper-button-next {
-  right: 650px;
+    right: 650px;
     top: 550px;
-  color: #f6db40;
-  width: 30px;
-  height: 30px;
-  transform: scale(0.7);
+    color:rgb(83, 81, 81);
+    width: 30px;
+    height: 30px;
+    transform: scale(0.7);
 }
 
 #userName {
