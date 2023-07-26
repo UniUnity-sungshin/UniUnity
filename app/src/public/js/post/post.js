@@ -125,16 +125,16 @@ storePromotionBtn.addEventListener('click', function () {
 });
 
 const fetchpostAllData = async () => {
-  const blogEntriesDiv = document.querySelector(".blog-entries");
+  const cardContainer = document.getElementById("card_container");
 
-  if (!blogEntriesDiv) {
-    console.error("blogEntriesDiv is null.");
+  if (!cardContainer) {
+    //console.error("card_container is null.");
     return;
   }
 
   // 기존의 게시글 요소들 제거
-  while (blogEntriesDiv.firstChild) {
-    blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
+  while (cardContainer.firstChild) {
+    cardContainer.removeChild(cardContainer.firstChild);
   }
 
   const url = `${apiUrl}/postAll/${university_url}`;
@@ -142,47 +142,25 @@ const fetchpostAllData = async () => {
 
   const data = await response.json();
   for (var i = 0; i < data.length; i++) {
-    var card = document.createElement('div');
-    card.className = 'card mb-4';
-
-    var cardBody = document.createElement('div');
-    cardBody.className = 'card-body';
-
-    var date = document.createElement('div');
-    date.className = 'small text-muted';
-    date.textContent = data[i].post_date;
-
-    var title = document.createElement('h2');
-    title.className = 'card-title h4';
-    title.textContent = data[i].post_title;
-
-    var readMoreBtn = document.createElement('a');
-    readMoreBtn.className = 'btn btn-primary';
-    readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
-    readMoreBtn.id = `${data[i].post_id}`;
-    readMoreBtn.textContent = 'Read more →';
-    changeButtonColor(readMoreBtn, universityColor) 
-    cardBody.appendChild(date);
-    cardBody.appendChild(title);
-    cardBody.appendChild(readMoreBtn);
-    card.appendChild(cardBody);
-    blogEntriesDiv.appendChild(card);
+    createCard(data[i])
+    var readMoreBtnList=document.querySelectorAll('.read-more-btn')
+    changeButtonColor(readMoreBtnList[i], universityColor) 
 
   }
 }
 
 // 게시글 불러오기 함수
 const fetchPosts = async (category, university_url) => {
-  const blogEntriesDiv = document.querySelector(".blog-entries");
+  const card_container = document.getElementById("card_container");
 
-  if (!blogEntriesDiv) {
-    console.error("blogEntriesDiv is null.");
+  if (!card_container) {
+    console.error("card_container is null.");
     return;
   }
 
   // 기존의 게시글 요소들 제거
-  while (blogEntriesDiv.firstChild) {
-    blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
+  while (card_container.firstChild) {
+    card_container.removeChild(card_container.firstChild);
   }
 
   try {
@@ -192,37 +170,67 @@ const fetchPosts = async (category, university_url) => {
     const data = await response.json();
 
     for (var i = 0; i < data.length; i++) {
-      var card = document.createElement('div');
-      card.className = 'card mb-4';
-
-      var cardBody = document.createElement('div');
-      cardBody.className = 'card-body';
-
-      var date = document.createElement('div');
-      date.className = 'small text-muted';
-      date.textContent = data[i].post_date;
-
-      var title = document.createElement('h2');
-      title.className = 'card-title h4';
-      title.textContent = data[i].post_title;
-     
-      var readMoreBtn = document.createElement('a');
-      readMoreBtn.className = 'btn btn-primary';
-      readMoreBtn.href = `${apiUrl}/postviewer/${data[i].post_id}`;
-      readMoreBtn.id = data[i].post_id;
-      readMoreBtn.textContent = 'Read more →';
-      changeButtonColor(readMoreBtn, universityColor) 
-      cardBody.appendChild(date);
-      cardBody.appendChild(title);
-      cardBody.appendChild(readMoreBtn);
-      card.appendChild(cardBody);
-      blogEntriesDiv.appendChild(card);
+      createCard(data[i])
+      var readMoreBtnList=document.querySelectorAll('.read-more-btn')
+      changeButtonColor(readMoreBtnList[i], universityColor) 
 
     }
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
 };
+
+function createCard(data) {
+  // console.log(data)
+  // let post_title = document.getElementById('post_title').textContent = data.post_title;
+  // let post_content = document.getElementById('post_content').textContent = data.post_content;
+  // //게시글 제목이 30자이상이면 나머지 문자열 ...처리
+  // if (data.post_title.length > 30) {
+  //     post_title = truncateText('post_title', 30, data.post_title);
+  // }
+  // //게시글 내용이 100글자 이상이면 나머지 문자열 ...처리
+  // if (data.post_content.length > 100) {
+  //     post_content = truncateText('post_content', 100, data.post_content);
+  // }
+
+
+  const cardContainer = document.getElementById('card_container');
+
+  // Create a new card element
+  const cardElement = document.createElement('div');
+  cardElement.classList.add('mt-2', 'mb-3', 'card');
+
+  // Fill in the card template with data
+  cardElement.innerHTML = `
+      <div class="card-body d-flex justify-content-between">
+          <div>
+              <div class="small text-muted">${data.post_date}</div>
+              <h2 class="card-title h4 mt-2">${data.post_title}</h2>
+          </div>
+          <a class="btn btn-primary read-more-btn" href="${apiUrl}/postviewer/${data.post_id}" style="margin-top: 0.5rem;">Read more →</a>
+      </div>
+
+      <div class="card-text ps-3 d-flex justify-content-between">
+          <p class="small text-muted">${data.category}</p>
+      </div>
+      <div class="card-text ps-3 d-flex">
+          <img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" />
+          <p class="small text-muted" style="margin-right: 1rem;" >${data.like_count}</p>
+          <img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" style="margin-right: 0.3rem; margin-bottom:0.3rem" alt="filled-star"/>
+          <p class="small text-muted" style="margin-right: 1rem;">${data.scrap_count}</p>
+          <img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/>
+          <p class="small text-muted" style="margin-right: 1rem;">${data.comment_count}</p>
+          <img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/>
+          <p class="small text-muted" style="margin-right: 1rem;">${data.view_count}</p>
+          </div>
+  `;
+  // Append the card to the container
+  cardContainer.appendChild(cardElement);
+}
+
+
+
+
 //로고 클릭시 postAllData()실행
 brandNav.addEventListener('click',function(){
   fetchpostAllData();
@@ -239,6 +247,8 @@ function getUniversityUrl() {
 const postSearchBtn = document.querySelector('#postSearchBtn');
 var university_posts = [];
 const blogEntriesDiv = document.querySelector(".blog-entries");
+
+const cardContainer=document.getElementById("card_container");
 
 function searchPost(){
   const universityUrl = getUniversityUrl();
@@ -268,35 +278,13 @@ function searchPost(){
         }
       }
       // 기존 게시글 지운 후 검색된 게시글 나열
-      while (blogEntriesDiv.firstChild) {
-        blogEntriesDiv.removeChild(blogEntriesDiv.firstChild);
+      while (cardContainer.firstChild) {
+        cardContainer.removeChild(cardContainer.firstChild);
       }
       for (var i = 0; i < res.length; i++) {
-        var card = document.createElement('div');
-        card.className = 'card mb-4';
-  
-        var cardBody = document.createElement('div');
-        cardBody.className = 'card-body';
-  
-        var date = document.createElement('div');
-        date.className = 'small text-muted';
-        date.textContent = res[i].post_date;
-  
-        var title = document.createElement('h2');
-        title.className = 'card-title h4';
-        title.textContent = res[i].post_title;
-       
-        var readMoreBtn = document.createElement('a');
-        readMoreBtn.className = 'btn btn-primary';
-        readMoreBtn.href = `${apiUrl}/postviewer/${res[i].post_id}`;
-        readMoreBtn.id = res[i].post_id;
-        readMoreBtn.textContent = 'Read more →';
-        changeButtonColor(readMoreBtn, universityColor) 
-        cardBody.appendChild(date);
-        cardBody.appendChild(title);
-        cardBody.appendChild(readMoreBtn);
-        card.appendChild(cardBody);
-        blogEntriesDiv.appendChild(card);
+        createCard(res[i])
+        var readMoreBtnList=document.querySelectorAll('.read-more-btn')
+        changeButtonColor(readMoreBtnList[i], universityColor) 
   
       }
 

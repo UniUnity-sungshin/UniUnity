@@ -107,6 +107,7 @@ class CommentStorage {
 
         });
     }
+
 }
 
 module.exports = CommentStorage;
