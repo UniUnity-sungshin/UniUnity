@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ÜniÜnity | 우리 대학 </title>
     <link rel="icon" href="/assets/favicon.ico">
+    <!-- 부트스트랩 CSS 링크 추가 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" src="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <!-- 부트스트랩 CSS 연결 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--swiper 라이브러리-->
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -18,11 +22,12 @@
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="container">
         <!--헤더-->
         <div class="temp-box" id="temp-box1">
             <!--상단 메뉴바-->
             <div class="menubar">
+               
                 <ul class="menu">
                     <li id="universityName">
                         
@@ -46,6 +51,7 @@
                         <span class="name"></span>
                     </li>
                 </ul>
+               
             </div>
         </div>
         <!--학교 주요 소식-->
@@ -104,6 +110,8 @@
             </ul>
         </div>
     </div>
+    <!-- 부트스트랩 JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!--자바스크립트 연결-->
     <script src="/js/apiUrl.js"></script>
     <script src="/js/council/council.js"></script>

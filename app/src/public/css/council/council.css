@@ -3,10 +3,10 @@ body {
     margin: 0;
 }
 
-.main-container {
+.container {
     /* width: 1440px; */
     width: 100%;
-    margin: auto;
+    /* margin: 0; */
     display: grid;
     grid-template-rows: 80px 500px 600px 100px;
     gap: 10px;
@@ -85,9 +85,12 @@ a:hover {
     background-color: #FDF0A5;
 }
 
+
+
 .menu {
     font-size: 20px;
     list-style: none;
+    
 }
 
 .category {
