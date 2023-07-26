@@ -6,6 +6,8 @@ console.log(post_id);
 var userInfo; // 유저정보
 var university_url;
 const writeCommentBtn = document.getElementById('write_comment_btn');
+const icons = document.getElementById('footer2').getElementsByTagName('i');
+
 var universityColor;
 
 // 작성자 회원 정보 불러오기
@@ -22,6 +24,9 @@ const loadloginData = async () => {
       console.log(universityColor);
       writeCommentBtn.style.backgroundColor = universityColor;
       writeCommentBtn.style.borderColor = universityColor;
+      for (let i = 0; i < icons.length; i++) {
+        icons[i].style.color = universityColor;
+    }
     })
     .catch((error) => {
       console.error('작성자 회원 정보 불러오기 오류', error);
