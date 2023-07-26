@@ -31,6 +31,9 @@ const output = {
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
+    marketingCheck:(req,res)=>{
+        res.render('home/marketingCheck.html');
+    },
     agreement:(req,res)=>{
         res.render('home/agreement.html');
     },
@@ -341,10 +344,11 @@ const post = {
             const post = new Post(req.body);
             const response = await post.myCommunityPost();
             return res.json(response);
-        }
-
-
-       
+        }else if(category==='2'){
+            const comment = new Comment(req.body);
+            const response = await comment.myCommunityComment();
+            return res.json(response);
+        }       
     }
 }
 
@@ -385,9 +389,8 @@ const comment = {
         const response = await comment.showCommentListAll(comment_id); //post_id
         console.log(response);
         return res.json(response);
-    }
-
-
+    },
+ 
 }
 
 

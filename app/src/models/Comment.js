@@ -44,6 +44,20 @@ class Comment {
             return { success: false, msg: err };
         }
     }
+
+    //내가 작성한 댓글리스트 불러오기
+    async myCommunityComment(){
+        try{
+            const client = this.body;
+            const response = await CommentStorage.getMyComment(client);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
     // async showCommentListAll(requestedPostId, comment_id) {
     //     try {
     //       // 클라이언트에서 요청한 post_id를 그대로 사용

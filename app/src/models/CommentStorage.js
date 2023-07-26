@@ -107,6 +107,32 @@ class CommentStorage {
 
         });
     }
+
+    //마이페이지-내가 작성한 댓글리스트 불러오기
+    static getMyComment(userInfo) {
+        const user_email = userInfo.user_email;
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+
+                pool.query("SELECT * FROM Comment WHERE user_email=?;", [user_email], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    console.log(rows)
+                    resolve({ result: rows, status: 200 });
+                })
+            })
+        });
+
+    }
+
+
 }
 
 module.exports = CommentStorage;
