@@ -37,6 +37,19 @@ const fetchPostData = async () => {
     let req = {
         user_email: userInfo.user_email
     }
+
+    const commnunityPostTitle = document.getElementById("community_post_title")
+    if(category==='1'){
+        commnunityPostTitle.textContent='내가 작성한 게시글'
+    }else if(category==='2'){
+        commnunityPostTitle.textContent='내가 댓글 단 게시글'
+    }else if(category==='3'){
+        commnunityPostTitle.textContent='나의 좋아요 게시글'
+    }else if(category==='4'){
+        commnunityPostTitle.textContent='나의 스크랩 게시글'
+    }
+
+
     const url = `${apiUrl}/mypage/community/post/${category}`;
     await fetch(url, {
         method: "POST",

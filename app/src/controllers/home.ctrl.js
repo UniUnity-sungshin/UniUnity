@@ -345,8 +345,8 @@ const post = {
             const response = await post.myCommunityPost();
             return res.json(response);
         }else if(category==='2'){
-            const comment = new Comment(req.body);
-            const response = await comment.myCommunityComment();
+            const post = new Post(req.body);
+            const response = await post.myCommunityCommentPost();
             return res.json(response);
         }       
     }

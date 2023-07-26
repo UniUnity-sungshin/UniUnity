@@ -61,9 +61,21 @@ class Post{
     //마이페이지-내가 작성한 게시글 보기
     async myCommunityPost(){
         try{
-            console.log("myCommunityPost");
             const client = this.body;
             const response = await PostStorage.getMyPost(client);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
+    //내가 작성한 댓글 단 게시글 불러오기
+    async myCommunityCommentPost(){
+        try{
+            const client = this.body;
+            const response = await PostStorage.getMyCommentPost(client);
             return response;
         }catch(err){
             return{result:false,
