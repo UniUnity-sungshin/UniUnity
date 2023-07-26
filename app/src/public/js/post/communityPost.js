@@ -113,7 +113,9 @@ function createCard(data) {
             <p class="small text-muted" style="margin-right: 1rem;">${data.scrap_count}</p>
             <img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/>
             <p class="small text-muted" style="margin-right: 1rem;">${data.comment_count}</p>
-        </div>
+            <img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/>
+            <p class="small text-muted" style="margin-right: 1rem;">${data.view_count}</p>
+            </div>
     `;
     // Append the card to the container
     cardContainer.appendChild(cardElement);
