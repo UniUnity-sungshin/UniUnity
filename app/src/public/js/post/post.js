@@ -207,10 +207,12 @@ function createCard(data) {
               <div class="small text-muted">${data.post_date}</div>
               <h2 class="card-title h4 mt-2">${data.post_title}</h2>
           </div>
-          <a class="btn btn-primary read-more-btn" href="${apiUrl}/postviewer/${data.post_id}" style="margin-top: 0.5rem;">Read more →</a>
+          <div>
+          <a class="btn btn-primary read-more-btn" href="${apiUrl}/postviewer/${data.post_id}">Read more →</a>
+          </div>
       </div>
 
-      <div class="card-text ps-3 d-flex justify-content-between">
+      <div class="card-text ps-3 d-flex justify-content-between mb-2">
           <p class="small text-muted">${data.category}</p>
       </div>
       <div class="card-text ps-3 d-flex">
