@@ -359,6 +359,9 @@ writeCommentBtn.addEventListener('click', function () {
             // const commentElement = document.createElement('p');
             // commentElement.textContent = commentContent;
             // commentViewer.appendChild(commentElement);
+            fetchComments();
+
+            
           } else {
             // 등록 실패한 경우, 오류 메시지를 표시하거나 다른 처리를 수행
             console.error('댓글 등록 실패:', data.err);

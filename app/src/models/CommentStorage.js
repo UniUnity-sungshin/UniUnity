@@ -3,9 +3,7 @@
 const { pool } = require("../../config/db");
 class CommentStorage {
     //commnet_id 랜덤생성 (1)
-    static randomCommentID(){
-        return commentID;
-    }
+
     
 
     //댓글 등록하기
@@ -17,11 +15,11 @@ class CommentStorage {
                     reject(err)
                 }
 
-                const commentID=randomCommentID();//(2)
+                // const commentID=randomCommentID();//(2)
                 const query = 'INSERT INTO Comment(comment_id,user_email,post_id,comment_content) VALUES (?,?,?,?);';
                 pool.query(query,
                     [
-                        commentID,
+                        commentInfo.comment_id,
                         commentInfo.user_email,
                         commentInfo.post_id,
                         commentInfo.comment_content,
@@ -31,8 +29,8 @@ class CommentStorage {
                         if (err) reject({
                             status: 500,
                             err: `${err}`
-                        });
-                        else resolve({ status: 201,comment:this.getComment(commentID) });
+                        });//,comment:this.getComment(comment_id)
+                        else resolve({ status: 201 });
                     });
             })
         })
