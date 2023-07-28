@@ -14,8 +14,10 @@ const loadloginData = () => {
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn=document.getElementById("loginStatusBtn");
 const signUpBtn=document.getElementById("signUpBtn");
+const navBar=document.getElementById("navbar-brand");
 
 const setLoginHeader=(res)=>{
+  navBar.setAttribute("href", `${apiUrl}/showPostListAll/${university_url}`);
   if(res.loginStatus){
       loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
       loginStatusBtn.innerText="로그아웃"
@@ -48,32 +50,8 @@ writePostBtn.addEventListener('click', function () {
 var currentUrl = window.location.href;
 var university_url = currentUrl.split("/").pop();
 
-var universityColor=setUniversityColor(university_url) //학교 색상으로 변경
 changeUniversityName(university_url) //학교 이름으로 변경
 
-const buttons = document.querySelectorAll('.btn');
-
-buttons.forEach(button => {
-  button.style.backgroundColor = universityColor;
-  button.style.borderColor= universityColor;
-});
-
-function changeButtonColor(button, color) {
-  button.style.backgroundColor = color;
-  button.style.borderColor= color
-}
-//버튼 학교상징 색으로 바꾸기
-function setUniversityColor(university_url){
-  let universityColor
-  if(university_url==="sungshin"){
-    universityColor="#6a6fb3"
-  }else if(university_url==="konkuk"){
-    universityColor="#004a26"
-  }else{
-    universityColor="#FFD400" //Uniunity색상
-  }
-  return universityColor;
-}
 //학교 이름 바꾸기
 function changeUniversityName(university_url){
   const universityNameElement = document.getElementById('university_name');
@@ -143,9 +121,6 @@ const fetchpostAllData = async () => {
   const data = await response.json();
   for (var i = 0; i < data.length; i++) {
     createCard(data[i])
-    var readMoreBtnList=document.querySelectorAll('.read-more-btn')
-    changeButtonColor(readMoreBtnList[i], universityColor) 
-
   }
 }
 
@@ -171,9 +146,6 @@ const fetchPosts = async (category, university_url) => {
 
     for (var i = 0; i < data.length; i++) {
       createCard(data[i])
-      var readMoreBtnList=document.querySelectorAll('.read-more-btn')
-      changeButtonColor(readMoreBtnList[i], universityColor) 
-
     }
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -198,7 +170,7 @@ function createCard(data) {
 
   // Create a new card element
   const cardElement = document.createElement('div');
-  cardElement.classList.add('mt-2', 'mb-3', 'card');
+  cardElement.classList.add('mb-4', 'card');
 
   // Fill in the card template with data
   cardElement.innerHTML = `
@@ -208,7 +180,7 @@ function createCard(data) {
               <h2 class="card-title h4 mt-2">${data.post_title}</h2>
           </div>
           <div>
-          <a class="btn btn-primary read-more-btn" href="${apiUrl}/postviewer/${data.post_id}">Read more →</a>
+          <a class="btn read-more-btn btn-outline-secondary" href="${apiUrl}/postviewer/${data.post_id}">게시글 보러가기 →</a>
           </div>
       </div>
 
@@ -285,9 +257,7 @@ function searchPost(){
       }
       for (var i = 0; i < res.length; i++) {
         createCard(res[i])
-        var readMoreBtnList=document.querySelectorAll('.read-more-btn')
-        changeButtonColor(readMoreBtnList[i], universityColor) 
-  
+
       }
 
     })
