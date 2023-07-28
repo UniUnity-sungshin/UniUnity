@@ -76,9 +76,9 @@ const loadPostData = async () => {
     postCategory.textContent = postInfo.category;
     postDate.textContent = postInfo.post_date;
     postContent.textContent = postInfo.post_content;
-    viewCount.textContent = `조회수 ${postInfo.view_count}`;
-    likeCount.textContent = `좋아요 ${postInfo.like_count}개`;
-    commentCount.textContent = `댓글 ${postInfo.comment_count}개`;
+    viewCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/> ${postInfo.view_count}`;
+    likeCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" /> ${postInfo.like_count}`;
+    commentCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${postInfo.comment_count}`;
     userEmail.textContent = postInfo.user_email;
 
     // 화살표 버튼을 숨기거나 표시하는 함수
@@ -121,7 +121,7 @@ const loadPostData = async () => {
 
         for (let i = 0; i < imageUrls.length; i++) {
           const imageUrl = imageUrls[i];
-
+          console.log(imageUrls[i]);
           const carouselItem = document.createElement('div');
           carouselItem.classList.add('carousel-item');
 
