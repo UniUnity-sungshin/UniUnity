@@ -1,12 +1,55 @@
+//로그인(로그아웃), 회원가입(마이페이지)버튼
+const loginStatusBtn = document.getElementById("loginStatusBtn");
+const signUpBtn = document.getElementById("signUpBtn");
+
+const user_email = document.getElementById("user_email");
+const user_nickname = document.getElementById("user_nickname");
+const user_type = document.getElementById("user_type");
+const user_name = document.getElementById("user_name");
+const university_name = document.getElementById("university_name");
+const navBar=document.getElementById("navbar");
 
 //회원로그인 정보 불러오기
-const loadloginData = async() => {
+const loadloginData = () => {
   const url = `${apiUrl}/loginStatus`;
-  const res = await fetch(url);
-  const userInfo = await res.json();
-  
-  return userInfo;
+  fetch(url)
+      .then((res) => res.json())
+      .then(res => {
+          userInfo=res;
+          setLoginHeader(res);
+      }
+      )
 }
+
+const setLoginHeader = (res) => {
+  navBar.setAttribute("href", `${apiUrl}`);
+  if (res.loginStatus) {
+      user_email.innerText = res.user_email
+      user_type.innerText = res.user_type
+      user_name.innerText = res.user_name
+      user_nickname.innerText = `${res.user_nickname}`
+      university_name.innerText = res.university_name
+
+      loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
+      loginStatusBtn.innerText = "로그아웃"
+      signUpBtn.setAttribute("href", `${apiUrl}/council/${res.university_url}`);
+      signUpBtn.innerText = "나의학교"
+  }
+  else {
+      loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
+      loginStatusBtn.innerText = "로그인"
+      signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
+      signUpBtn.innerText = "회원가입"
+  }
+
+}
+
+// 로드 후 loadData()실행
+window.addEventListener('DOMContentLoaded', function () {
+  loadloginData();
+});
+
+
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
@@ -21,82 +64,63 @@ function getUniversityUrl() {
   return universityUrl;
 }
 var university_url = getUniversityUrl();
-var universityColor=setUniversityColor(university_url) //학교 색상으로 변경
 
-const menubar = document.querySelector('#temp-box1');
-
-
-menubar.style.backgroundColor = universityColor;
-
-
-//버튼 학교상징 색으로 바꾸기
-function setUniversityColor(university_url){
-  let universityColor
-  if(university_url==="sungshin"){
-    universityColor="#6a6fb3"
-  }else if(university_url==="konkuk"){
-    universityColor="#004a26"
-  }else{
-    universityColor="#FFD400" //Uniunity색상
-  }
-  return universityColor;
-}
 
 // 지도
 var mapContainer = document.getElementById('map'),
-mapOption = { 
-  center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
-  level: 3 // 지도의 확대 레벨
-};
+  mapOption = {
+    center: new kakao.maps.LatLng(37.5912999, 127.0221068), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+  };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
 
-kakao.maps.event.addListener(map, 'bounds_changed', function() {
+kakao.maps.event.addListener(map, 'bounds_changed', function () {
   // 지도 영역정보를 얻어옵니다 
   var bounds = map.getBounds();
-    
+
   // 영역정보의 남서쪽 정보를 얻어옵니다 
   // swLatlng.La = 서쪽 경도좌표값 = minx
   // swLatlng.Ma = 남쪽 경도좌표값 = miny
   var swLatlng = bounds.getSouthWest();
   var minx = swLatlng.La.toString(),
-      miny = swLatlng.Ma.toString();
+    miny = swLatlng.Ma.toString();
 
   // 영역정보의 북동쪽 정보를 얻어옵니다 
   // neLatlng.La = 동쪽 경도좌표값 = maxx
   // neLatlng.Ma = 북쪽 경도좌표값 = maxy
   var neLatlng = bounds.getNorthEast();
   var maxx = neLatlng.La.toString(),
-      maxy = neLatlng.Ma.toString();
-    
+    maxy = neLatlng.Ma.toString();
 
-  var url = endPoint + 'storeListInRectangle' + '?serviceKey=' + serviceKey + '&pageNo=1' + '&numOfRows=10' + 
-  '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '&type=json';
+
+  var url = endPoint + 'storeListInRectangle' + '?serviceKey=' + serviceKey + '&pageNo=1' + '&numOfRows=10' +
+    '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '&type=json';
 
   fetch(url)
-  .then((res) => res.json())
-  .then(res => {
-    var positions = [];
-  for(let i = 0; i < res.body.items.length; i++) {
-      
-      positions.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
-  }
+    .then((res) => res.json())
+    .then(res => {
+      var positions = [];
+      for (let i = 0; i < res.body.items.length; i++) {
 
-  for (let i = 0; i < positions.length; i ++) {
-    // 마커를 생성합니다
-    let marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i] // 마커의 위치
+        positions.push(new kakao.maps.LatLng(res.body.items[i].lat, res.body.items[i].lon));
+      }
+
+      for (let i = 0; i < positions.length; i++) {
+        // 마커를 생성합니다
+        let marker = new kakao.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: positions[i] // 마커의 위치
+        });
+      }
+    })
+    .catch(error => {
+      console.log('Error:', error);
     });
-  }
-})
-.catch(error => {
- console.log('Error:', error);
-});
 })
 var swiperContainer = document.querySelector('.swiper-container');
 
-swiperContainer.addEventListener('click', function(event) {
+swiperContainer.addEventListener('click', function (event) {
   if (!event.target.classList.contains('swiper-button-prev') && !event.target.classList.contains('swiper-button-next')) {
     event.stopPropagation();
   }
@@ -121,8 +145,8 @@ var mySwiper = new Swiper('.swiper-container', {
   wrapperClass: 'swiper-wrapper',
   slideClass: 'swiper-slide',
   navigation: {
-  prevEl: '.swiper-button-prev',
-  nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+    nextEl: '.swiper-button-next',
   },
   loop: true,
   slidesPerView: 3,
@@ -141,7 +165,7 @@ const slide5 = document.querySelector("#img5");
 
 var Uniname = [];
 
-function councilLoad(){
+function councilLoad() {
   const universityUrl = getUniversityUrl();
   const req = {
     university_url: universityUrl
@@ -154,11 +178,11 @@ function councilLoad(){
     },
     body: JSON.stringify(req),
   })
-  .then((res) => res.json())
-  .then(res => {
-    Uniname.push(res.university_name);
-    universityName.innerHTML = Uniname[0];
-  })
+    .then((res) => res.json())
+    .then(res => {
+      Uniname.push(res.university_name);
+      universityName.innerHTML = Uniname[0];
+    })
   // fetch(`http://34.64.164.115:8080/getImages`, {
   //   method: "POST",
   //   headers: {
@@ -181,22 +205,22 @@ function councilLoad(){
 window.addEventListener('DOMContentLoaded', councilLoad);
 
 
-document.getElementById("moreUni").addEventListener("click", function(event) {
-  event.preventDefault(); // 기본 동작인 링크 이동을 막음
-  window.location.href = `${apiUrl}`; // 이동할 링크를 지정
-});
+// document.getElementById("moreUni").addEventListener("click", function(event) {
+//   event.preventDefault(); // 기본 동작인 링크 이동을 막음
+//   window.location.href = `${apiUrl}`; // 이동할 링크를 지정
+// });
 
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
-var path = window.location.pathname;
-var regex = /\/council\/([a-zA-Z]+)/; // /council/ 다음에 있는 영어 문자열을 추출하는 정규식
-var matches = path.match(regex);
-if (matches && matches.length > 1) {
-  return matches[1];
-} else {
-  return null;
-}
+  var path = window.location.pathname;
+  var regex = /\/council\/([a-zA-Z]+)/; // /council/ 다음에 있는 영어 문자열을 추출하는 정규식
+  var matches = path.match(regex);
+  if (matches && matches.length > 1) {
+    return matches[1];
+  } else {
+    return null;
+  }
 }
 
 // 새로운 url 만들기
@@ -222,40 +246,42 @@ function generateDynamicURL(linkId, userschool) {
 // 새로운 url로 업데이트
 async function updateDynamicLinks() {
   var userschool = getDynamicValueFromURL();
-      if (!userschool) {
-        console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
-        return;
-      }
+  if (!userschool) {
+    console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+    return;
+  }
 
   var link1 = document.getElementById("main_retailer");
   var link2 = document.getElementById("partner");
-  var link3 = document.getElementById("mypage");
-  var link4 = document.getElementById("news");
-  var link5 = document.getElementById("more_retailer");
+  var link3 = document.getElementById("news");
+  // var link4 = document.getElementById("news");
+  // var link5 = document.getElementById("more_retailer");
 
-  link1.href = generateDynamicURL("retailer",userschool);
-  link1.textContent = "소상공인 가게 지도";
-
-  link2.href = generateDynamicURL("partner",userschool);
-  link2.textContent = "제휴 지도";
-
-  let userInfo= await loadloginData();
-
-  if(!userInfo.loginStatus){
-    link3.href = generateDynamicURL("login",userschool);
-    link3.textContent = "로그인";
-  }
-  else{
-    link3.href = generateDynamicURL("mypage",userschool);
-    link3.textContent = "마이페이지";
-  }
+  link1.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("retailer", userschool);
+    window.location.href = link;
+  });
 
 
-  link4.href = generateDynamicURL("news",userschool);
-  link4.textContent = "게시글 더보기 ►";
+  link2.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("partner", userschool);
+    window.location.href = link;
+  });
 
-  link5.href = generateDynamicURL("retailer",userschool);
-  link5.textContent = "더보기 ►";
+  link3.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("news", userschool);
+    window.location.href = link;
+  });
+
+
+  // link4.href = generateDynamicURL("news",userschool);
+  // link4.textContent = "게시글 더보기 ►";
+
+  // link5.href = generateDynamicURL("retailer",userschool);
+  // link5.textContent = "더보기 ►";
 }
 
 // 동적 링크 업데이트 함수를 호출합니다.
