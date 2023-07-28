@@ -1,19 +1,20 @@
+/*
 body {
     height: 1440px;
     margin: 0;
 }
 
 .container {
-    /* width: 1440px; */
+  
     width: 100%;
-    /* margin: 0; */
+
     display: grid;
     grid-template-rows: 80px 500px 600px 100px;
     gap: 10px;
 }
 
 .temp-box {
-    /* width: 1440px; */
+
     width: 100%;
     height: 100%;
     text-align: center;
@@ -26,11 +27,26 @@ a {
 }
 
 a:hover {
-    color: rgb(83, 81, 81); /* 호버 시 텍스트 색상을 원하는 색으로 설정 */
+    color: rgb(83, 81, 81); 
   }
+  */
   
+  /* .temp-box {
+
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-weight: 700;
+}
+  .map {
+    height: 530px;
+    width: 1200px;
+  
+} */
+
+
 .swiper-container {
-    width: 1440px; 
+    width: 100%; 
     height: 400px;
     overflow: hidden;
 }
@@ -38,39 +54,28 @@ a:hover {
 .swiper-slide img {
     width: 300px;
     height: 300px;
-    margin-top: 40px;
-    margin-right: 100px;
-    object-fit: cover; 
-    margin-left: 85px;
 }
 
 .swiper-slide {
     width: calc(100% / 3);
     align-items: center;
 }
-
-/* .swiper-wrapper {
+/* 
+ .swiper-wrapper {
     overflow: hidden;
-} */
+}   */
 
 .swiper-button-prev {
-    left: 650px;
-    top: 550px;
+ 
     color:rgb(83, 81, 81);
-    width: 30px;
-    height: 30px;
     transform: scale(0.7);
 }
 
 .swiper-button-next {
-    right: 650px;
-    top: 550px;
     color:rgb(83, 81, 81);
-    width: 30px;
-    height: 30px;
     transform: scale(0.7);
 }
-
+/*
 #userName {
     font-size: 10px;
     font-weight: 600;
@@ -129,16 +134,31 @@ a:hover {
     margin-top: 5px;
 }
 
-.map {
-    height: 530px;
-    width: 1200px;
-    margin-left: 120px;
-    margin-top: -340px;
-    border-radius: 5px;
-}
 
 li {
     float: left;
     margin-top: 10px;
     margin-left: 13%;
+}
+*/
+#universityName,
+#main_retailer,
+#partner,
+#post{
+  color:var(--bs-gray-900);
+  background-color: white;
+  border-color: white;
+}
+
+.btn:hover {
+ font-weight: bold; /* hover 시 폰트 굵기 변경 */
+}
+.category{
+ border: 1px solid;
+ border-color: #dee2e6;
+}
+
+#category-bar{
+ line-height: 60px;
+ color: rgba(0,0,0,0.1);
 }
