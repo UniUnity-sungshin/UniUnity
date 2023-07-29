@@ -34,7 +34,7 @@ router.post("/register",ctrl.process.register);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
-
+router.post("/getCardNewsImageUrl", ctrl.result.getCardNewsImageUrl);
 
 
 //

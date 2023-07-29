@@ -277,8 +277,12 @@ const result = {
         res.render("home/post.html");
     },
 
-
-
+    getCardNewsImageUrl: async (req, res) => {
+        const council = new Council();
+        const response = await council.getUniversityID(req.body.university_url);
+        const response2 = await council.getCardNewsImageUrl(response);
+        return res.json(response2);
+    },
 }
 
 

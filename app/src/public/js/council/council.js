@@ -155,15 +155,50 @@ var mySwiper = new Swiper('.swiper-container', {
 });
 
 const universityName = document.querySelector("#universityName");
-const userName = document.querySelector("#userName");
-const slide1 = document.querySelector("#img1");
-const slide2 = document.querySelector("#img2");
-const slide3 = document.querySelector("#img3");
-const slide4 = document.querySelector("#img4");
-const slide5 = document.querySelector("#img5");
-
 
 var Uniname = [];
+var university_id;
+var imageUrls = [];
+
+// 카드뉴스 이미지 추가 함수
+async function fetchImageUrls(imageData) {
+  try {
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+
+    // Log the received imageData to check its content
+    console.log('Received imageData:', imageData);
+
+    if (imageData && imageData.image_url) {
+      // 이미지 URL을 단일 값에서 배열로 변경하여 imageUrls 변수에 추가
+      imageUrls.push(imageData.image_url);
+
+      // 이미지 URL을 swiperWrapper에 추가하는 부분은 그대로 유지
+      const imgContainer = document.createElement('div');
+      imgContainer.classList.add('swiper-slide');
+
+      const imgLink = document.createElement('a');
+      imgLink.href = `${apiUrl}/postviewer/${imageData.post_id}`;
+      imgLink.target = '_self';
+
+      const imgElement = document.createElement('img');
+      imgElement.classList.add('news');
+      imgElement.src = imageData.image_url;
+      imgElement.alt = 'no_image' + imageUrls.length; // 임의로 alt 속성 설정
+
+      imgLink.appendChild(imgElement);
+      imgContainer.appendChild(imgLink);
+      swiperWrapper.appendChild(imgContainer);
+
+      console.log('Image URLs:', imageUrls);
+    } else {
+      console.error('Error: imageData.image_url is not defined.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+
 
 function councilLoad() {
   const universityUrl = getUniversityUrl();
@@ -183,23 +218,22 @@ function councilLoad() {
       Uniname.push(res.university_name);
       universityName.innerHTML = Uniname[0];
     })
-  // fetch(`http://34.64.164.115:8080/getImages`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(req),
-  // })
-  // .then((res) => res.json())
-  // .then(res => {
-  //   const imageUrls = res.map(obj => obj.image_url); // 이미지 URL 배열
-  //   // 이미지 URL을 각각의 swiper-slide에 할당
-  //   slide1.src = imageUrls[0];
-  //   slide2.src = imageUrls[1];
-  //   slide3.src = imageUrls[2];
-  //   slide4.src = imageUrls[3];
-  //   slide5.src = imageUrls[4];
-  // })
+    .then(() => {
+    return fetch(`${apiUrl}/getCardNewsImageUrl`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+  })
+  .then((res) => res.json())
+  .then((imageData) => { // 이미지 데이터를 변수 imageData로 받아옴
+    fetchImageUrls(imageData); // 이미지 데이터를 fetchImageUrls 함수의 인자로 전달
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
 
 window.addEventListener('DOMContentLoaded', councilLoad);

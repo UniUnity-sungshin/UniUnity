@@ -54,6 +54,7 @@ a:hover {
 .swiper-slide img {
     width: 300px;
     height: 300px;
+    margin-top: 50px;
 }
 
 .swiper-slide {
