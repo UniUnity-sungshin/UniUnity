@@ -246,11 +246,12 @@ const retailer = {
         res.render("store/retailer.html");
     },
     retailerKind: async(req, res) => {
+        console.log(req.params.kind);
         if(req.params.kind == 'all'){
             res.render("store/retailer.html");
         }
         else if(req.params.kind == 'food'){
-            res.render("store/reatailerFood.html");
+            res.render("store/retailerFood.html");
         }
         else if(req.params.kind == 'cafe'){
             res.render("store/retailerCafe.html")

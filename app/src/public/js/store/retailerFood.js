@@ -14,6 +14,10 @@ var stores = [];
 var positions = [];
 var Uniname = [];
 
+const storeKind_all = document.querySelector('#storeKind_all'),
+      storeKind_food = document.querySelector('#storeKind_food'),
+      storeKind_cafe = document.querySelector('#storeKind_cafe');
+
 const storeName = document.querySelector('#storeName'),
       storeAdr = document.querySelector('#storeAdr'),
       storeClass = document.querySelector('#storeClass'),
@@ -36,13 +40,13 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 function getUniversityUrl() {
     const url = new URL(window.location.href);
     const universityUrl = url.pathname.split('/').pop();
+    console.log(universityUrl);
     return universityUrl;
 }
 
 function setCenter(map,latitude,longitude){            
     // 이동할 위도 경도 위치를 생성합니다 
     var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
-                    
     // 지도 중심을 이동 시킵니다
     map.setCenter(moveLatLon);
 }
@@ -102,63 +106,31 @@ kakao.maps.event.addListener(map, 'bounds_changed', function() {
                     storeItem: res.body.items[i].indsSclsNm,
                     ksicNm: res.body.items[i].ksicNm
                 };
-                storeFood.push(obj);
-                positionFood.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
+                stores.push(obj);
+                positions.push(new kakao.maps.LatLng(res.body.items[i].lat,res.body.items[i].lon));
             }
         }
     })
     .catch(error => {
         console.log('Error:', error);
     });
-    for (let i = 0; i < positionFood.length; i ++) {
+    for (let i = 0; i < positions.length; i ++) {
         // 마커를 생성합니다
         let marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
-            position: positionFood[i] // 마커의 위치
+            position: positions[i] // 마커의 위치
         });
         // 마커 click, mouseover, mouseout 시에 이벤트 발생
         kakao.maps.event.addListener(marker, 'click', function(){
             for(let i = 0; i < storeInfoTextBox.length; i++){
                 storeInfoTextBox[i].style.display = "block";
             }
-            storeName.innerHTML = storeFood[i].storeName;
-            storeAdr.innerHTML = storeFood[i].store_location;
-            storeClass.innerHTML = storeFood[i].storeClass + " " + storeFood[i].storeItem;
-            storeItem.innerHTML = storeFood[i].ksicNm;
+            storeName.innerHTML = stores[i].storeName;
+            storeAdr.innerHTML = stores[i].store_location;
+            storeClass.innerHTML = stores[i].storeClass + " " + stores[i].storeItem;
+            storeItem.innerHTML = stores[i].ksicNm;
         });
     }
-});
-
-// 분류 목록 별로 버튼 이벤트
-
-var storeAll = [],
-    positionAll = [];
-var storeFood = [],
-    positionFood = [];
-var storeCafe = [],
-    positionCafe = [];
-
-const storeKind_all = document.querySelector('#storeKind_all'),
-      storeKind_food = document.querySelector('#storeKind_food'),
-      storeKind_cafe = document.querySelector('#storeKind_cafe');
-
-
-storeKind_all.addEventListener('click', function() {
-    const universityUrl = getUniversityUrl();
-    fetch(`${apiUrl}/retailer/${universityUrl}`)
-    .then((res) => res.json())
-    .then(res => {
-        
-    })
-});
-
-storeKind_cafe.addEventListener('click', function() {
-    const universityUrl = getUniversityUrl();
-    fetch(`${apiUrl}/retailer/${universityUrl}/cafe`)
-    .then((res) => res.json())
-    .then(res => {
-        
-    })
 });
 
 function retailerLoad(){
@@ -184,6 +156,17 @@ window.addEventListener('load',function(){
     retailerLoad();
 });
 
+storeKind_all.addEventListener('click', function() {
+    const universityUrl = getUniversityUrl();
+    var change_location = apiUrl + '/retailer' + '/' + universityUrl; 
+    location.href = change_location;
+});
+
+storeKind_cafe.addEventListener('click', function() {
+    const universityUrl = getUniversityUrl();
+    var change_location = apiUrl + '/retailer' + '/' + universityUrl + '/cafe'; 
+    location.href = change_location;
+});
 
 // 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
