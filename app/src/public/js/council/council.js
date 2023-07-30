@@ -24,16 +24,10 @@ const loadloginData = () => {
 const setLoginHeader = (res) => {
   navBar.setAttribute("href", `${apiUrl}`);
   if (res.loginStatus) {
-      user_email.innerText = res.user_email
-      user_type.innerText = res.user_type
-      user_name.innerText = res.user_name
-      user_nickname.innerText = `${res.user_nickname}`
-      university_name.innerText = res.university_name
-
       loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
       loginStatusBtn.innerText = "로그아웃"
-      signUpBtn.setAttribute("href", `${apiUrl}/council/${res.university_url}`);
-      signUpBtn.innerText = "나의학교"
+      signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+      signUpBtn.innerText = "마이페이지"
   }
   else {
       loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
