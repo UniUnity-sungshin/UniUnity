@@ -1,111 +1,164 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ÜniÜnity | 우리 대학 </title>
     <link rel="icon" href="/assets/favicon.ico">
+    <!-- 부트스트랩 CSS 링크 추가 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" src="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+    <!-- 부트스트랩 CSS 연결 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--swiper 라이브러리-->
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <!--css 연결-->
-    <link rel="stylesheet" href="/css/home/mainpage.css">
     <link rel="stylesheet" href="/css/council/council.css">
+    <link rel="stylesheet" href="/css/home/mainpage.css">
     <!-- 카카오 지도 API 사용 -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
-</head>
-<body>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
 
-    <div class="main-container">
-        <!--헤더-->
-        <div class="temp-box" id="temp-box1">
-            <!--상단 메뉴바-->
-            <div class="menubar">
-                <ul class="menu">
-                    <li id="universityName">
-                        
-                    </li>
-                    <li>
-                        <a id="main_retailer" href="#" target="_self">
-                        소상공인 가게 지도
-                        </a>
-                    </li>
-                    <li>
-                        <a id="partner" href="#" target="_self">
-                        제휴 지도
-                        </a>
-                    </li>
-                    <li>
-                        <a id="mypage" href="#" target="_self">
-                        마이페이지
-                        </a>
-                        <br>
-                        <span id="userName"></span>
-                        <span class="name"></span>
-                    </li>
-                </ul>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar static-top mt-2">
+        <div class="container">
+            <a class="navbar-brand" id="navbar"><strong style="font-size: 30px;">UniUnity</strong></a>
+
+            <div class="d-grid gap-2 d-md-block">
+                <a class="btn btn-primary" href="#" id="loginStatusBtn">로그인</a>
+                <a class="btn btn-primary" href="#" id="signUpBtn">회원가입</a>
             </div>
+
         </div>
-        <!--학교 주요 소식-->
-        <div class="temp-box" id="temp-box2">
-            <div class="main-news">
-                <ul>
-                    <span class="category">학교 주요 소식</span>
-                    <a id="news" href="#" target="_self">
-                        <span class="more">게시글 더보기 ►</span>
-                    </a>
-                </ul>
-            </div>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                <!--swiper 요소-->
-                    <div class="swiper-slide"><a href="#" id ="img1" target="_self">
-                        <img class="news" src="/images/img1.JPG" alt="no_image1">
-                    </a></div>
-                    <div class="swiper-slide"><a href="#" id ="img2" target="_self">
-                        <img class="news" src="/images/img2.JPG" alt="no_image2">
-                    </a></div>
-                    <div class="swiper-slide"><a href="#" id ="img3" target="_self">
-                        <img class="news" src="/images/img3.JPG" alt="no_image3">
-                    </a></div>
-                    <div class="swiper-slide"><a href="#" id ="img4" target="_self">
-                        <img class="news" src="/images/img4.JPG" alt="no_image4">
-                    </a></div>
-                    <div class="swiper-slide"><a href="#" id ="img5" target="_self">
-                        <img class="news" src="/images/img5.JPG" alt="no_image5">
-                    </a></div>
+    </nav>
+
+    <div class="category mt-3 mb-5">
+        <div class="container" id="postKind">
+            <div class="row postKindUl">
+
+                <div class="col-lg-2 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="universityName"></button>
                 </div>
-                <!--buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>  
-        </div>
-        <!--소상공인 상가-->
-        <div class="temp-box" id="temp-box3">
-            <div class="stores">
-                <ul>
-                    <span class="category">우리 대학  인근 소상공인 상가 모아보기</span>
-                        <a id="more_retailer" href="#" target="_self">                           
-                            <span class="more">더보기 ►</span>
-                        </a>
-                </ul>
+
+                <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+
+                <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="main_retailer">소상공인 가게 지도</button>
+                </div>
+
+                <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="partner">제휴 지도</button>
+                </div>
+
+                <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="news">게시글 더보기</button>
+                </div>
             </div>
-            <div class="map" id="map"></div>
-            
-        </div>
-        <!--다른 학교 검색-->
-        <div class="temp-box" id="temp-box4">
-            <ul class="others">
-                <a href="#" id ="moreUni" target="_self">
-                <span id="more_university" class="more">다른 학교도 궁금하다면? ►</span>
-                </a>
-            </ul>
         </div>
     </div>
+
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="row">
+                <div class="col-11">
+                    <p class="h4 mb-2">학교 주요 소식</p>
+                </div>
+
+                <div class="col-1">
+                    <p class="mb-2">더보기</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+
+            <div class="col-lg-1">
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div class="col-lg-10">
+                <div class="swiper-container ">
+                    <div class="swiper-wrapper">
+                        
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row">
+                <div class="col-11">
+                    <p class="h4 mb-2">우리 대학 인근 소상공인 상가 모아보기</p>
+                </div>
+                <div class="col-1">
+                    <p class="mb-2">더보기</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <p class="mt-2">지도를 움직여주세요!</p>
+        </div>
+
+        <div class="row mt-4 mb-5 d-flex justify-content-center align-items-center">
+            <div id="map" style="width:1200px;height:530px;"></div>
+        </div>
+    </div>
+
+
+    <!-- Footer-->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item"><a href="#!">About</a></li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item"><a href="#!">Contact</a></li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                        <li class="list-inline-item">⋅</li>
+                        <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-4">
+                            <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                        </li>
+                        <li class="list-inline-item me-4">
+                            <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 부트스트랩 JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!--자바스크립트 연결-->
     <script src="/js/apiUrl.js"></script>
     <script src="/js/council/council.js"></script>
 </body>
+
 </html>

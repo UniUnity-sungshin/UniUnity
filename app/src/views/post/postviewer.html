@@ -40,7 +40,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-light bg-light static-top">
         <div class="mt-5 container">
-            <a class="navbar-brand" href="#"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
+            <a class="navbar-brand" href="#"><strong style="font-size: 30px; margin-left: 28px;">ÜniÜnity</strong></a>
 
         </div>
     </nav>
@@ -49,13 +49,25 @@
         <div class="row justify-content-center">
             <div class="col text-center">
                 <p class="fs-4" id="post_category"></p>
-                <p class="fs-1 fw-bold" id="post_title"></p>
+                <p class="fs-1 fw-bold" id="post_title" style="margin-left: 25px;"></p>
             </div>
-
-
-            <p class="fs-4" id="user_email"></p>
-            <p class="fs-4" id="post_date"></p>
-            <p class="fs-4" id="view_count"></p>
+            <div class="row">
+                <div class="col-6">
+                    <!-- user_email 왼쪽 상단에 위치하도록 설정 -->
+                    <p class="fs-4" id="user_email"></p>
+                </div>
+                <div class="col-6">
+                    <!-- post_date view_count 오른쪽 상단에 위치하도록 설정 -->
+                    <div class="row">
+                        <div class="col text-end">
+                            <p class="fs-4" id="post_date" style="margin-right: -130px;"></p>
+                        </div>
+                        <div class="col text-end">
+                            <p class="fs-4" id="view_count"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="card p-4">
                 <div id="imageCarousel" class="carousel slide">
@@ -71,56 +83,62 @@
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
-                  </div>
-                </br>
+                </div>
+                <br>
                 <div class="toast-custom-viewer" id="post_content">
                 
-                </div>
-                
-                  
+                </div>                  
             </div>
-            </br>
-            <p class="fs-4" id="like_count"></p>
-            <p class="fs-4" id="comment_count"></p>
-
-
+        
+            <div class="d-flex mt-2">
+                <p class="fs-4 me-4" id="like_count"></p>
+                <p class="fs-4" id="comment_count"></p>
+            </div>
         </div>
-
-
-        <!-- 댓글보기-->
+        <!-- 댓글보기 -->
         <div class="blog-entries" id="commentViewer">
             <div class="row justify-content-center">
                 <div class="card p-4">
                     <div class="card-body">
                         <div class="card-text">
-
-                            <p class="fs-4" id="comment_content">
-                            <p class="fs-4" id="user_email_comment"></p>
-                            <p class="fs-4" id="comment_date"></p>
-                            <p class="fs-4" id="like_count_comment"></p>
-                        </div> 
+                            <div class="row">
+                                <div class="col-6">
+                                    <!-- user_email_comment가 왼쪽 상단에 위치하도록 설정 -->
+                                    <p class="fs-4" id="user_email_comment"></p>
+                                </div>
+                                <div class="col-6">
+                                    <!-- comment_date과 like_count_comment가 오른쪽 상단에 위치하도록 설정 -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="fs-4 text-end" id="comment_date"></p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="fs-4 text-end" id="like_count_comment"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- comment_content가 밑에 위치하도록 설정 -->
+                            <p class="fs-4" id="comment_content"></p>
+                        </div>                        
                     </div>
                 </div>
-                </br>
+                <br>
             </div>
         </div>
-
         <!-- <댓글 작성> -->
         <div class="container_comment">
             <form class="form comment-form">
-                <textarea placeholder="댓글을 입력하세요"></textarea>
+                <textarea placeholder="댓글을 입력하세요" style="font-size: 17px;"></textarea>
                 <button type="button" class="btn btn-primary btn-lg" id="write_comment_btn">등록하기</button>
             </form>
         </div>
-
+    </div>
 </body>
-
-
-
 <footer class="footer bg-light mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+            <div class="col-lg-6 h-100 text-center text-lg-start my-auto" id="footer1">
                 <ul class="list-inline mb-2">
                     <li class="list-inline-item"><a href="#!">About</a></li>
                     <li class="list-inline-item">⋅</li>
@@ -132,7 +150,7 @@
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
             </div>
-            <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+            <div class="col-lg-6 h-100 text-center text-lg-end my-auto" id="footer2">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item me-4">
                         <a href="#!"><i class="bi-facebook fs-3"></i></a>
@@ -147,9 +165,6 @@
             </div>
         </div>
     </div>
-
-
-
 </footer>
 
 <!-- Bootstrap core JS-->

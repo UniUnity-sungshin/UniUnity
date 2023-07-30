@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>UniUnity 게시글 모아보기</title>
+    <title>UniUnity | 게시글 모아보기</title>
     <!-- Favicon-->
     <link rel="icon" href="/assets/favicon.ico">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/post/post.css" rel="stylesheet"/>
+    <link href="/css/home/mainpage.css" rel="stylesheet" />
+    <link href="/css/post/post.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-light bg-light static-top">
+    <nav class="navbar static-top mt-2">
         <div class="container">
-            <a class="navbar-brand" id="navbar-brand"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
+            <a class="navbar-brand" id="navbar-brand"><strong style="font-size: 30px;">UniUnity</strong></a>
 
             <div class="d-grid gap-2 d-md-block">
                 <a class="btn btn-primary" href="#" id="loginStatusBtn">로그인</a>
@@ -28,98 +28,123 @@
     </nav>
 
     <!-- Page header with logo and tagline-->
-    <header class="py-5 bg-light border-bottom mb-4">
+    <header class="py-5 border-bottom mb-4">
         <div class="container">
             <div class="text-center my-5">
                 <h1 class="fw-bolder" id="university_name">Unity</h1>
-                <p class="lead mb-0">제휴 정보,학교 인근 소상공인 가게홍보,학교 공지사항를 한눈에!</p>
+                <p class="lead mb-0">대학교 인근 상권의 제휴 정보, 소상공인 가게 홍보, 총학생회 공지사항를 한눈에!</p>
             </div>
         </div>
     </header>
 
     <!-- 검색창 -->
-    <div class="container">
+    <div class="container lg-12 mt-5 mb-5">
         <form action="" class="row">
-            <div class="col-lg-8" id="searchBox">
-                <input class="form-control form-control-lg" id="postSearchInput" type="text" placeholder="찾으시는 게시글을 입력하세요" aria-label=".form-control-lg example">
+            <div class="col-lg-10" id="searchBox">
+                <input class="form-control form-control-lg" id="postSearchInput" type="text"
+                    placeholder="찾으시는 게시글 키워드를 입력하세요" aria-label=".form-control-lg example">
             </div>
-            <div class="col-lg-2">
-                <button type="button" class="btn btn-primary btn-lg" id="postSearchBtn">검색</button>
+            <div class="col-lg-2 text-center">
+                <button type="button" class="btn btn-lg btn-outline-secondary mt-2" style="height: 60px; width: 180px;"
+                    type="button" id="postSearchBtn">검색</button>
             </div>
-            <div class="col-lg-2">
-                <button type="button" class="btn btn-primary btn-lg" id="write_post_btn">게시글 작성</button>
-            </div>
+
         </form>
     </div>
 
 
     <!-- 카테고리 -->
-    <div class="container" id="postKind">
-        <div class="row text-center postKindUl">
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg " id="affiliate_registration">제휴 등록</button>
-            </div>
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg" id="affiliate_referral">제휴 추천</button>
-            </div>
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg" id="affiliate_offer">제휴 제안</button>
-            </div>
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg" id="announcement">총학생회 공지사항</button>
-            </div>
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg" id="chat">잡담</button>
-            </div>
-            <div class="col-lg-2" >
-                <button type="button" class="btn btn-primary btn-lg" id="store_promotion">가게 홍보</button>
+    <div class="category mb-5">
+        <div class="container" id="postKind">
+            <div class="row postKindUl">
+
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="affiliate_registration">제휴 등록</button>
+                </div>
+
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="affiliate_referral">제휴 추천</button>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="affiliate_offer">제휴 제안</button>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+                <div class="col-lg-2 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="announcement">총학생회 공지사항</button>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="chat">잡담</button>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="store_promotion">가게 홍보</button>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <p id="category-bar">|</p>
+                </div>
+                <div class="col-lg d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-lg fw-medium" id="write_post_btn">
+                        <img width="24" height="24" src="https://img.icons8.com/fluency/48/pencil-tip.png"
+                            alt="pencil-tip" /> 글 작성</button>
+                </div>
             </div>
         </div>
     </div>
+
     <!-- Page content-->
     <div class="container" id="pageContentContainer">
         <div class="row">
-        <!-- Blog entries-->
+            <!-- Blog entries-->
             <div class="col-lg-12">
                 <!-- Nested row for non-featured blog posts-->
-                <div class="row">
-                    <!-- <div class="col-lg-4"> -->
-                        <div class="blog-entries">
-                            <!-- <script src="../js/post/post.js"> -->
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <div class="small text-muted" id="post_date">January 1, 2023</div>
-                                    <h2 class="card-title h4" id="post_title">Post Title</h2>
-                                    <p class="card-text" id="view_count">.</p>
-                                    <p class="card-text" id="like_count"></p>
-                                    <p class="card-text" id="comment_count"></p>
-                                    <a class="btn btn-primary" id="read_more_btn" href="#!">Read more →</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="card_container">
+
                 </div>
             </div>
-            
-    <!-- Pagination-->
-    <nav aria-label="Pagination">
-        <hr class="my-0" />
-        <ul class="pagination justify-content-center my-4">
-            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-            </li>
-            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-            <li class="page-item"><a class="page-link" href="#!">2</a></li>
-            <li class="page-item"><a class="page-link" href="#!">3</a></li>
-            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-            <li class="page-item"><a class="page-link" href="#!">15</a></li>
-            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-        </ul>
-    </nav>
+        </div>
+
+        <!-- Pagination-->
+        <nav aria-label="Pagination">
+            <hr class="my-0" />
+            <ul class="pagination justify-content-center my-4">
+                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
+                        aria-disabled="true">Newer</a>
+                </li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+            </ul>
+        </nav>
     </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
+            <p class="m-0 text-center text-white">Copyright &copy; UniUnity 2023 </p>
+            <p class="m-0 text-center text-white">Icon Copyright &copy; Icon8 </p>
+            <!-- <a href="https://icons8.com/icon/DFU1kReSUccu/heart">Heart</a> icon by <a
+                href="https://icons8.com">Icons8</a>
+            <a href="https://icons8.com/icon/8uAtuJQJ4jhd/star">Star</a> icon by <a href="https://icons8.com">Icons8</a>
+            <a href="https://icons8.com/icon/108791/comment">Comment</a> icon by <a href="https://icons8.com">Icons8</a>
+            <a href="https://icons8.com/icon/U0w9OIimAclW/click">Click</a> icon by <a
+                href="https://icons8.com">Icons8</a> -->
+
         </div>
     </footer>
     <script src="../js/apiUrl.js"></script>

@@ -14,6 +14,7 @@ router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
 router.get("/mypage/modify/1",ctrl.output.modifyNickname);//닉네임변경
 router.get("/mypage/modify/2",ctrl.output.modifyPsword); //비밀번호변경
+router.get("/mypage/marketingCheck",ctrl.output.marketingCheck);//회원탈퇴
 router.get("/mypage/withdrawal",ctrl.output.withdrawal);//회원탈퇴
 router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
 
@@ -33,7 +34,7 @@ router.post("/register",ctrl.process.register);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
-
+router.post("/getCardNewsImageUrl", ctrl.result.getCardNewsImageUrl);
 
 
 //

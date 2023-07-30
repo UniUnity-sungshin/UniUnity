@@ -31,6 +31,9 @@ const output = {
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
+    marketingCheck:(req,res)=>{
+        res.render('home/marketingCheck.html');
+    },
     agreement:(req,res)=>{
         res.render('home/agreement.html');
     },
@@ -275,8 +278,12 @@ const result = {
         res.render("home/post.html");
     },
 
-
-
+    getCardNewsImageUrl: async (req, res) => {
+        const council = new Council();
+        const response = await council.getUniversityID(req.body.university_url);
+        const response2 = await council.getCardNewsImageUrl(response);
+        return res.json(response2);
+    },
 }
 
 
@@ -342,10 +349,11 @@ const post = {
             const post = new Post(req.body);
             const response = await post.myCommunityPost();
             return res.json(response);
-        }
-
-
-       
+        }else if(category==='2'){
+            const post = new Post(req.body);
+            const response = await post.myCommunityCommentPost();
+            return res.json(response);
+        }       
     }
 }
 
@@ -386,9 +394,8 @@ const comment = {
         const response = await comment.showCommentListAll(comment_id); //post_id
         console.log(response);
         return res.json(response);
-    }
-
-
+    },
+ 
 }
 
 
