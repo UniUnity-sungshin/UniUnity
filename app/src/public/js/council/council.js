@@ -75,6 +75,14 @@ var mapContainer = document.getElementById('map'),
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
 
+function setCenter(map,latitude,longitude){            
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
+                  
+  // 지도 중심을 이동 시킵니다
+  map.setCenter(moveLatLon);
+}
+
 kakao.maps.event.addListener(map, 'bounds_changed', function () {
   // 지도 영역정보를 얻어옵니다 
   var bounds = map.getBounds();
@@ -93,7 +101,6 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
   var maxx = neLatlng.La.toString(),
     maxy = neLatlng.Ma.toString();
 
-
   var url = endPoint + 'storeListInRectangle' + '?serviceKey=' + serviceKey + '&pageNo=1' + '&numOfRows=10' +
     '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '&type=json';
 
@@ -102,7 +109,6 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
     .then(res => {
       var positions = [];
       for (let i = 0; i < res.body.items.length; i++) {
-
         positions.push(new kakao.maps.LatLng(res.body.items[i].lat, res.body.items[i].lon));
       }
 
@@ -118,6 +124,24 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
       console.log('Error:', error);
     });
 })
+
+function retailerLoad(){
+  const universityUrl = getUniversityUrl();
+  const req = {
+      university_url:universityUrl
+  };
+  fetch(`${apiUrl}/getUniversityLocation`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+  }).then((res) => res.json())
+  .then(res => {
+      setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+  })
+}
+
 var swiperContainer = document.querySelector('.swiper-container');
 
 swiperContainer.addEventListener('click', function (event) {
@@ -244,8 +268,12 @@ function councilLoad() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', councilLoad);
-
+window.addEventListener('DOMContentLoaded', function() {
+  // 동적 링크 업데이트 함수를 호출합니다.
+updateDynamicLinks();
+  councilLoad();
+  retailerLoad();
+});
 
 // document.getElementById("moreUni").addEventListener("click", function(event) {
 //   event.preventDefault(); // 기본 동작인 링크 이동을 막음
@@ -325,6 +353,3 @@ async function updateDynamicLinks() {
   // link5.href = generateDynamicURL("retailer",userschool);
   // link5.textContent = "더보기 ►";
 }
-
-// 동적 링크 업데이트 함수를 호출합니다.
-updateDynamicLinks();

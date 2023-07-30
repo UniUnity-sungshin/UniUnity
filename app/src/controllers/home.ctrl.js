@@ -283,6 +283,13 @@ const result = {
         const response2 = await council.getCardNewsImageUrl(response);
         return res.json(response2);
     },
+
+    getUniversityLocation: async (req, res) => {
+        const partner = new Partner();
+        const university_id = await partner.getUniversityID(req.body.university_url);
+        const response = await partner.getUniversityLocation(university_id);
+        return res.json(response);
+    },
 }
 
 
