@@ -302,10 +302,10 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "retailer/" + userschool;
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
-  } else if (linkId === "mypage") {
-    dynamicValue = "mypage";
-  } else if (linkId === "login") {
-    dynamicValue = "login";
+  } else if (linkId === "more_news") {
+    dynamicValue = "showPostListAll/" + userschool;
+  } else if (linkId === "more_retailer") {
+    dynamicValue = "retailer/" + userschool;
   } else if (linkId === "news") {
     dynamicValue = "showPostListAll/" + userschool;
   }
@@ -324,15 +324,14 @@ async function updateDynamicLinks() {
   var link1 = document.getElementById("main_retailer");
   var link2 = document.getElementById("partner");
   var link3 = document.getElementById("news");
-  // var link4 = document.getElementById("news");
-  // var link5 = document.getElementById("more_retailer");
+  var link4 = document.getElementById("more_news");
+  var link5 = document.getElementById("more_retailer");
 
   link1.addEventListener("click", function () {
     // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
     var link = generateDynamicURL("retailer", userschool);
     window.location.href = link;
   });
-
 
   link2.addEventListener("click", function () {
     // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
@@ -346,10 +345,15 @@ async function updateDynamicLinks() {
     window.location.href = link;
   });
 
+  link4.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("more_news", userschool);
+    window.location.href = link;
+  });
 
-  // link4.href = generateDynamicURL("news",userschool);
-  // link4.textContent = "게시글 더보기 ►";
-
-  // link5.href = generateDynamicURL("retailer",userschool);
-  // link5.textContent = "더보기 ►";
+  link5.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("more_retailer", userschool);
+    window.location.href = link;
+  });
 }
