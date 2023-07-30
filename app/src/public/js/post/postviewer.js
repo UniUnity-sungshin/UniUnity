@@ -92,7 +92,7 @@ const loadPostData = async () => {
       }
     });
     }
-    // console.log(postContent.textContent);
+    console.log(postContent.textContent);
     if (postInfo.category === "총학생회 공지사항") {
       toggleCarouselButtons(true);
       // // 게시글 내용에서 이미지 제거

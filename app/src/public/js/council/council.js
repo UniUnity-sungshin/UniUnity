@@ -165,38 +165,46 @@ async function fetchImageUrls(imageData) {
   try {
     const swiperWrapper = document.querySelector('.swiper-wrapper');
 
-    // Log the received imageData to check its content
     console.log('Received imageData:', imageData);
 
-    if (imageData && imageData.image_url) {
-      // 이미지 URL을 단일 값에서 배열로 변경하여 imageUrls 변수에 추가
-      imageUrls.push(imageData.image_url);
+    // 이미지 데이터 배열인지 확인
+    if (Array.isArray(imageData)) {
+      // imageData 배열을 역순으로 순회하며 이미지를 카루셀에 추가
+      for (let i = imageData.length - 1; i >= 0; i--) {
+        const currentData = imageData[i]; // 현재 이미지 데이터
+        // 이미지 데이터의 형태가 객체인지 확인
+        if (currentData && currentData.image_url) {
+          console.log(imageUrls.length);
+          imageUrls.push(currentData.image_url); // 이미지를 배열에 추가
 
-      // 이미지 URL을 swiperWrapper에 추가하는 부분은 그대로 유지
-      const imgContainer = document.createElement('div');
-      imgContainer.classList.add('swiper-slide');
+          const imgContainer = document.createElement('div');
+          imgContainer.classList.add('swiper-slide');
 
-      const imgLink = document.createElement('a');
-      imgLink.href = `${apiUrl}/postviewer/${imageData.post_id}`;
-      imgLink.target = '_self';
+          const imgLink = document.createElement('a');
+          imgLink.href = `${apiUrl}/postviewer/${currentData.post_id}`; // 이미지 클릭 시 postviewer 페이지로 이동하는 URL 생성
+          imgLink.target = '_self';
 
-      const imgElement = document.createElement('img');
-      imgElement.classList.add('news');
-      imgElement.src = imageData.image_url;
-      imgElement.alt = 'no_image' + imageUrls.length; // 임의로 alt 속성 설정
+          const imgElement = document.createElement('img');
+          imgElement.classList.add('news');
+          imgElement.src = currentData.image_url;
+          imgElement.alt = 'no_image' + imageUrls.length;
 
-      imgLink.appendChild(imgElement);
-      imgContainer.appendChild(imgLink);
-      swiperWrapper.appendChild(imgContainer);
+          imgLink.appendChild(imgElement);
+          imgContainer.appendChild(imgLink);
+          swiperWrapper.appendChild(imgContainer);
+        }
+      }
 
       console.log('Image URLs:', imageUrls);
     } else {
-      console.error('Error: imageData.image_url is not defined.');
+      console.error('Error: imageData is not an array or is empty.');
     }
   } catch (error) {
     console.error('Error:', error);
   }
 }
+
+
 
 
 

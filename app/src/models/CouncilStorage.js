@@ -57,7 +57,7 @@ class CouncilStorage{
                         console.error('Query 함수 오류',err);
                         reject(err)
                     }
-                    resolve(rows[0]);           
+                    resolve(rows);           
                 });                 
             });
         })
