@@ -32,3 +32,11 @@
  line-height: 60px;
  color: rgba(0,0,0,0.1);
 }
+
+.page-item:hover {
+  cursor: pointer;
+}
+
+.page-item.disabled {
+  pointer-events: none;
+}
