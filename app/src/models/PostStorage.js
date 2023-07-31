@@ -197,37 +197,85 @@ class PostStorage {
 
 
     }
-    //총게시물 개수 받아오기
-    // static updateTotalCount() {
-    //     return new Promise(async (resolve, reject) => {
-    //       try {
-    //         // Post 테이블에서 가장 최근의 post_id를 가져옵니다.
-    //         const query = 'SELECT MAX(post_id) as latest_post_id FROM Post;';
-    //         pool.query(query, (err, result) => {
-    //           if (err) {
-    //             console.error('게시글 총 개수 업데이트 오류:', err);
-    //             reject(err);
-    //           } else {
-    //             const latestPostId = result[0].latest_post_id;
-    //             // total_posts 테이블의 total_post_count 열에 가져온 post_id를 업데이트합니다.
-    //             const updateQuery = 'UPDATE total_posts SET total_post_count = ?;';
-    //             pool.query(updateQuery, [latestPostId], (err, result) => {
-    //               if (err) {
-    //                 console.error('게시글 총 개수 업데이트 오류:', err);
-    //                 reject(err);
-    //               } else {
-    //                 console.log('게시글 총 개수 업데이트 성공');
-    //                 resolve();
-    //               }
-    //             });
-    //           }
-    //         });
-    //       } catch (err) {
-    //         console.error('게시글 총 개수 업데이트 오류:', err);
-    //         reject(err);
-    //       }
-    //     });
-    //   }
+
+    //내가 작성한 게시글 삭제하기
+    static goDeletePost(post_id, user_email) {
+  return new Promise(async (resolve, reject) => {
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.error('MySQL 연결 오류: ', err);
+        reject(err);
+      }
+
+      const query = 'DELETE FROM Post WHERE post_id = ? AND user_email = ?';
+      pool.query(query, [post_id, user_email], (err, result) => {
+        pool.releaseConnection(connection);
+        if (err) {
+          reject({
+            result: false,
+            status: 500,
+            err: `${err}`
+          });
+        } else {
+          if (result.affectedRows > 0) {
+            resolve({
+              result: true,
+              status: 200
+            });
+          } else {
+            reject({
+              result: false,
+              status: 404,
+              err: '게시글을 찾을 수 없거나 삭제 권한이 없습니다.'
+            });
+          }
+        }
+      });
+    });
+  });
+}
+
+
+  // 게시글 조회수 증가
+  static async getIncreaseReadCount(post_id,read_count) {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) {
+          console.error('MySQL 연결 오류: ', err);
+          reject({
+            result: false,
+            status: 500,
+            err: `${err}`
+          });
+        }
+
+        const query = 'UPDATE Post SET read_count = read_count + 1 WHERE post_id = ?';
+        pool.query(query, [post_id, read_count], (err, result) => {
+          pool.releaseConnection(connection);
+          if (err) {
+            reject({
+              result: false,
+              status: 500,
+              err: `${err}`
+            });
+          } else {
+            if (result.affectedRows > 0) {
+              resolve({
+                result: true,
+                status: 200
+              });
+            } else {
+              reject({
+                result: false,
+                status: 404,
+                err: '게시글을 찾을 수 없습니다.'
+              });
+            }
+          }
+        });
+      });
+    });
+  }
     }
 
 

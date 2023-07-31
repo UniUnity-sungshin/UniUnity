@@ -36,6 +36,7 @@ router.post("/register",ctrl.process.register);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
+router.post("/getCardNewsImageUrl", ctrl.result.getCardNewsImageUrl);
 
 
 
@@ -79,6 +80,8 @@ router.get("/showPostListAll/:university_url",ctrl.output.post);
 router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 // router.get('/totalPosts', ctrl.post.getTotalPostsCount);//게시글총개수
 router.delete('/doDeletePost/:post_id', ctrl.post.DeletePost); //게시글 삭제
+// 게시글 조회수 증가
+router.put('/post/:post_id/increaseReadCount', ctrl.post.IncreaseReadCount);
 
 
 //댓글

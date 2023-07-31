@@ -76,10 +76,22 @@ class Post {
     //게시글 삭제하기
     async doDeletePost(post_id, user_email) {
         try {
-          const response = await PostStorage.deletePost(post_id, user_email);
+          const response = await PostStorage.godeletePost(post_id, user_email);
           return response;
         } catch (err) {
           return { err };
+        }
+      }
+
+//조회수 증가
+      async showIncreaseReadCount(req, res) {
+        const { read_count } = req.params;
+      
+        try {
+          const response = await PostStorage.getIncreaseReadCount(read_count);
+          res.status(response.status).json(response);
+        } catch (err) {
+          res.status(err.status || 500).json({ err: err.err });
         }
       }
       
