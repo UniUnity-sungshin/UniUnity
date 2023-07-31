@@ -8,7 +8,7 @@ const University = require("../models/University");
 const sendEmailWithAuthorization = require("../../mailer");
 const bcrypt = require('bcrypt');
 const Comment = require('../models/Comment');
-const { getLatestPosts } = require("../public/js/post/post");
+// const { getLatestPosts } = require("../public/js/post/post");
 
 const output = {
     home: (req, res) => {
@@ -237,7 +237,7 @@ const partner = {
         const partner = new Partner();
         const response = await partner.DeletePartnerStore(req.params.storeID);
         return res.json(response);
-    },
+    }
 };
 
 // 소상공인 파트
@@ -405,7 +405,13 @@ const comment = {
         const response = await comment.showCommentListAll(comment_id); //post_id
         console.log(response);
         return res.json(response);
-    }
+    },
+
+    DeleteComment: async (req, res) => {
+        const comment = new Comment(req.body);
+        const response = await comment.doDeleteComment();
+        return res.json(response);
+    },
 
     
 
