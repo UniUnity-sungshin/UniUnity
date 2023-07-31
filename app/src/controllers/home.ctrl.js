@@ -8,6 +8,7 @@ const University = require("../models/University");
 const sendEmailWithAuthorization = require("../../mailer");
 const bcrypt = require('bcrypt');
 const Comment = require('../models/Comment');
+const { getLatestPosts } = require("../public/js/post/post");
 
 const output = {
     home: (req, res) => {
@@ -30,9 +31,6 @@ const output = {
     },
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
-    },
-    marketingCheck:(req,res)=>{
-        res.render('home/marketingCheck.html');
     },
     agreement:(req,res)=>{
         res.render('home/agreement.html');
@@ -66,7 +64,9 @@ const output = {
     },
     showCommentListbyPostID: (req, res) => {
         res.render('post/postviewer.html');
-    }
+    },
+    
+    
 }
 
 //로그인 인증 process
@@ -246,12 +246,11 @@ const retailer = {
         res.render("store/retailer.html");
     },
     retailerKind: async(req, res) => {
-        console.log(req.params.kind);
         if(req.params.kind == 'all'){
             res.render("store/retailer.html");
         }
         else if(req.params.kind == 'food'){
-            res.render("store/retailerFood.html");
+            res.render("store/reatailerFood.html");
         }
         else if(req.params.kind == 'cafe'){
             res.render("store/retailerCafe.html")
@@ -278,23 +277,14 @@ const result = {
         res.render("home/post.html");
     },
 
-    getCardNewsImageUrl: async (req, res) => {
-        const council = new Council();
-        const response = await council.getUniversityID(req.body.university_url);
-        const response2 = await council.getCardNewsImageUrl(response);
-        return res.json(response2);
-    },
 
-    getUniversityLocation: async (req, res) => {
-        const partner = new Partner();
-        const university_id = await partner.getUniversityID(req.body.university_url);
-        const response = await partner.getUniversityLocation(university_id);
-        return res.json(response);
-    },
+
 }
 
 
 const post = {
+
+    
 
     uploadPost: async (req, res) => {
         const post = new Post(req.body);
@@ -349,6 +339,8 @@ const post = {
         return res.json(response);
 
     },
+
+
     //마이페이지-커뮤니티
     myCommunityPost: async (req, res) => {
         const category = req.params.category;
@@ -356,12 +348,24 @@ const post = {
             const post = new Post(req.body);
             const response = await post.myCommunityPost();
             return res.json(response);
-        }else if(category==='2'){
-            const post = new Post(req.body);
-            const response = await post.myCommunityCommentPost();
-            return res.json(response);
-        }       
-    }
+        }
+
+
+       
+    },
+    DeletePost: async (req, res) => {
+        const post = new Post(req.body);
+        const response = await post.doDeletePost();
+        return res.json(response);
+    },
+
+    
+
+    // getTotalPostsCount: async(req, res) => {
+    //     const post = new Post();
+    //     const response = await post.totalPostsCount();
+    //     return res.json(response);
+    // }
 }
 
 const comment = {
@@ -401,8 +405,11 @@ const comment = {
         const response = await comment.showCommentListAll(comment_id); //post_id
         console.log(response);
         return res.json(response);
-    },
- 
+    }
+
+    
+
+
 }
 
 

@@ -2,6 +2,9 @@
 
 const express =require("express");
 const router = express.Router();
+const cors = require('cors');
+
+
 
 const ctrl = require("./home.ctrl");
 
@@ -14,7 +17,6 @@ router.get("/logout",ctrl.process.logout);
 router.get("/mypage",ctrl.output.mypage);
 router.get("/mypage/modify/1",ctrl.output.modifyNickname);//닉네임변경
 router.get("/mypage/modify/2",ctrl.output.modifyPsword); //비밀번호변경
-router.get("/mypage/marketingCheck",ctrl.output.marketingCheck);//회원탈퇴
 router.get("/mypage/withdrawal",ctrl.output.withdrawal);//회원탈퇴
 router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
 
@@ -34,7 +36,7 @@ router.post("/register",ctrl.process.register);
 router.get("/council/:universityname",ctrl.result.council);
 router.get("/post/:universityname/:category",ctrl.output.post);
 router.post("/getUniversityName", ctrl.result.getUniversityName);
-router.post("/getCardNewsImageUrl", ctrl.result.getCardNewsImageUrl);
+
 
 
 //
@@ -75,11 +77,15 @@ router.get('/searchPost/:keyword',ctrl.post.searchPost);
 router.get("/showPostListAll/:university_url",ctrl.output.post);
 
 router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
+// router.get('/totalPosts', ctrl.post.getTotalPostsCount);//게시글총개수
+router.delete('/doDeletePost/:post_id', ctrl.post.DeletePost); //게시글 삭제
 
 
 //댓글
 router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPostID);//댓글 목록 보이기
 router.post("/uploadComment/postviewer",ctrl.comment.uploadComment); //댓글 작성하기
+router.delete('/doDeleteComment/postviewer', ctrl.comment.DeleteComment); //게시글 삭제
+
 
 
 module.exports=router;
