@@ -342,7 +342,7 @@ const post = {
         return res.json(response);
 
     },
-    //마이페이지-커뮤니티
+    //마이페이지) 커뮤니티
     myCommunityPost: async (req, res) => {
         const category = req.params.category;
         if(category==='1'){
@@ -354,7 +354,22 @@ const post = {
             const response = await post.myCommunityCommentPost();
             return res.json(response);
         }       
-    }
+    },
+    addHeart: async (req, res) => {
+        const post = new Post();
+        const response = await post.addHeart(req.body);
+        return res.json(response);
+    },
+    getUserHeartList: async (req, res) => {
+        const post = new Post();
+        const response = await post.getUserHeartList(req.params.user_email);
+        return res.json(response);
+    },
+    deleteHeart: async (req, res) => {
+        const post = new Post();
+        const response = await post.deleteHeart(req.params.heart_id);
+        return res.json(response);
+    },
 }
 
 const comment = {

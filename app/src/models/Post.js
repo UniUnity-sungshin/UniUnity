@@ -58,7 +58,7 @@ class Post{
         }
     }
 
-    //마이페이지-내가 작성한 게시글 보기
+    //마이페이지) 내가 작성한 게시글 보기
     async myCommunityPost(){
         try{
             const client = this.body;
@@ -84,7 +84,41 @@ class Post{
         }
     }
 
+    // 마이페이지) 하트 저장
+    async addHeart(heartInfo){
+        try{
+            const response = await PostStorage.addHeart(heartInfo);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
 
+    // 마이페이지) 유저 하트 목록 보기
+    async getUserHeartList(user_email){
+        try{
+            const response = await PostStorage.getUserHeartList(user_email);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
+    // 마이페이지) 하트 삭제
+    async deleteHeart(heart_id){
+        try{
+            const response = await PostStorage.deleteHeart(heart_id);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
 
 }
 

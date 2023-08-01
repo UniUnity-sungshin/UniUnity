@@ -74,8 +74,11 @@ router.get('/searchPost/:keyword',ctrl.post.searchPost);
 
 router.get("/showPostListAll/:university_url",ctrl.output.post);
 
+// 마이페이지
 router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
-
+router.post("/addHeart",ctrl.post.addHeart); // 하트 목록 추가하기
+router.get("/getUserHeartList/:user_email",ctrl.post.getUserHeartList); // 특정 사용자의 하트 목록 불러오기
+router.delete("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 지우기
 
 //댓글
 router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPostID);//댓글 목록 보이기

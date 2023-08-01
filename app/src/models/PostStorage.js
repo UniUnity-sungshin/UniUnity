@@ -171,7 +171,7 @@ class PostStorage {
         })
     }
 
-    //마이페이지-내가 작성한 게시글 보기
+    // 마이페이지) 내가 작성한 게시글 보기
     static getMyPost(userInfo) {
         const user_email = userInfo.user_email;
         console.log("getMyPost", userInfo);
@@ -195,7 +195,7 @@ class PostStorage {
 
     }
 
-    //마이페이지- 내가 작성한 댓글 단 게시글 불러오기
+    // 마이페이지) 내가 작성한 댓글 단 게시글 불러오기
     static getMyCommentPost(userInfo) {
         const user_email = userInfo.user_email;
         return new Promise(async (resolve, reject) => {
@@ -217,9 +217,99 @@ class PostStorage {
                     })
             })
         });
-
     }
 
+    // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
+    static addHeart(heartInfo) {
+        const post_id = heartInfo.post_id;
+        const user_email = heartInfo.user_email;
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT * FROM Heart WHERE post_id=? AND user_email=?;", [post_id,user_email], function (err, check){
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(check.length > 0){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "You have already clicked 'Heart' on this post.", status: 202 });
+                    }
+                    else {
+                        pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id,user_email], function (err, rows) {
+                            pool.releaseConnection(connection);
+                            if (err) {
+                                console.error('Query 함수 오류', err);
+                                reject(err)
+                            }
+                            resolve({ result: rows, status: 200 });
+                        })
+                    }
+                })
+            })
+        });
+    }
+
+    // 마이페이지) user_email에 해당하는 사용자의 하트 목록 보여주기
+    static getUserHeartList(user_email) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT post_id FROM Heart WHERE user_email=?;", [user_email], function (err, check) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(check.length < 1){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
+                    }
+                    // else {
+                    //     const rows = [];
+                    //     for(let i = 0; i < check.length; i++){
+                    //         pool.query("SELECT * FROM Post WHERE post_id=?", [parseInt(check[i].post_id)], function(err,row){
+                    //             if (err) {
+                    //                 console.error('Query 함수 오류', err);
+                    //                 reject(err)
+                    //             }
+                    //             console.log(row[0]);
+                    //             rows.push(row[0]);
+                    //         })
+                    //     }
+                        pool.releaseConnection(connection);
+                        resolve({ result: check, status: 200 });
+                    // }
+                })
+            })
+        });
+    }
+
+    // 마이페이지) Heart 테이블에 정보 삭제
+    static deleteHeart(heart_id) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    console.log(rows)
+                    resolve({ result: rows, status: 200 });
+                })
+            })
+        });
+    }
 }
 
 
