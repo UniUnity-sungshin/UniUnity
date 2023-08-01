@@ -8,6 +8,7 @@ const University = require("../models/University");
 const sendEmailWithAuthorization = require("../../mailer");
 const bcrypt = require('bcrypt');
 const Comment = require('../models/Comment');
+// const { getLatestPosts } = require("../public/js/post/post");
 
 const output = {
     home: (req, res) => {
@@ -31,10 +32,7 @@ const output = {
     modifyPsword: (req, res) => {
         res.render('home/modifyPsword.html');
     },
-    marketingCheck:(req,res)=>{
-        res.render('home/marketingCheck.html');
-    },
-    agreement:(req,res)=>{
+    agreement: (req, res) => {
         res.render('home/agreement.html');
     },
     showUniversityNameList: async (req, res) => {
@@ -51,7 +49,7 @@ const output = {
     postviewer: (req, res) => {
         res.render('post/postviewer.html');
     },
-    myCommunityPost:(req,res)=>{
+    myCommunityPost: (req, res) => {
         res.render('post/communityPost.html')
     },
 
@@ -66,7 +64,9 @@ const output = {
     },
     showCommentListbyPostID: (req, res) => {
         res.render('post/postviewer.html');
-    }
+    },
+
+
 }
 
 //로그인 인증 process
@@ -74,7 +74,7 @@ const process = {
 
     //회원가입
     register: async (req, res) => {
-        try{
+        try {
             console.log(req.body);
             const hashedPassword = await bcrypt.hash(req.body.psword, 10)
             const user = new User({
@@ -84,14 +84,14 @@ const process = {
                 user_type: req.body.user_type,
                 user_nickname: req.body.user_nickname,
                 university_id: req.body.university_id,
-                user_marketing:req.body.user_marketing,
+                user_marketing: req.body.user_marketing,
             });
             const response = await user.register();
             return res.json(response)
-        }catch(err){
+        } catch (err) {
             return res.json(err)
         }
-        
+
 
     },
     //로그인 상태
@@ -144,8 +144,8 @@ const process = {
         return res.json(response)
     },
     //회원탈퇴 
-    withdrawal: async(req,res)=>{
-       
+    withdrawal: async (req, res) => {
+
         const user = new User({
             user_email: req.body.user_email,
             psword: req.body.psword,
@@ -156,7 +156,7 @@ const process = {
             if (err) { return next(err); }
             return res.json(response)
         });
-       
+
     },
 
 
@@ -237,7 +237,7 @@ const partner = {
         const partner = new Partner();
         const response = await partner.DeletePartnerStore(req.params.storeID);
         return res.json(response);
-    },
+    }
 };
 
 // 소상공인 파트
@@ -245,18 +245,17 @@ const retailer = {
     retailer: async (req, res) => {
         res.render("store/retailer.html");
     },
-    retailerKind: async(req, res) => {
-        console.log(req.params.kind);
-        if(req.params.kind == 'all'){
+    retailerKind: async (req, res) => {
+        if (req.params.kind == 'all') {
             res.render("store/retailer.html");
         }
-        else if(req.params.kind == 'food'){
-            res.render("store/retailerFood.html");
+        else if (req.params.kind == 'food') {
+            res.render("store/reatailerFood.html");
         }
-        else if(req.params.kind == 'cafe'){
+        else if (req.params.kind == 'cafe') {
             res.render("store/retailerCafe.html")
         }
-        else{
+        else {
             res.render("store/retailer.html");
         }
     },
@@ -291,10 +290,15 @@ const result = {
         const response = await partner.getUniversityLocation(university_id);
         return res.json(response);
     },
+
+
+
 }
 
 
 const post = {
+
+
 
     uploadPost: async (req, res) => {
         const post = new Post(req.body);
@@ -349,19 +353,49 @@ const post = {
         return res.json(response);
 
     },
+
+
     //마이페이지-커뮤니티
     myCommunityPost: async (req, res) => {
         const category = req.params.category;
-        if(category==='1'){
+        if (category === '1') {
             const post = new Post(req.body);
             const response = await post.myCommunityPost();
             return res.json(response);
-        }else if(category==='2'){
+        }
+        else if (category === '2') {
             const post = new Post(req.body);
             const response = await post.myCommunityCommentPost();
             return res.json(response);
-        }       
-    }
+        }
+    },
+
+
+
+DeletePost: async (req, res) => {
+    let post_id = req.params.post_id;
+    let user_email = req.params.user_email;
+    const post = new Post(req.body);
+    const response = await post.doDeletePost(post_id, user_email);
+    return res.json(response);
+},
+
+    IncreaseReadCount: async (req, res) => {
+        let post_id = req.params.post_id;
+        const read_count = req.params.read_count;
+        const post = new Post();
+        const response = await post.showIncreaseReadCount(post_id, read_count);
+        return res.json(response);
+
+    },
+
+
+
+    // getTotalPostsCount: async(req, res) => {
+    //     const post = new Post();
+    //     const response = await post.totalPostsCount();
+    //     return res.json(response);
+    // }
 }
 
 const comment = {
@@ -402,7 +436,16 @@ const comment = {
         console.log(response);
         return res.json(response);
     },
- 
+
+    DeleteComment: async (req, res) => {
+        const comment = new Comment(req.body);
+        const response = await comment.doDeleteComment();
+        return res.json(response);
+    },
+
+
+
+
 }
 
 

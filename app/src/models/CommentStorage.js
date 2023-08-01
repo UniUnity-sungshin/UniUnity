@@ -106,6 +106,43 @@ class CommentStorage {
         });
     }
 
+//댓글 삭제하기
+    static goDeleteComment(user_email) {
+        return new Promise(async (resolve, reject) => {
+          pool.getConnection((err, connection) => {
+            if (err) {
+              console.error('MySQL 연결 오류: ', err);
+              reject(err);
+            }
+      
+            const query = 'DELETE FROM Comment WHERE user_email = ?';
+            pool.query(query, [user_email], (err, result) => {
+              pool.releaseConnection(connection);
+              if (err) {
+                reject({
+                  result: false,
+                  status: 500,
+                  err: `${err}`
+                });
+              } else {
+                if (result.affectedRows > 0) {
+                  resolve({
+                    result: true,
+                    status: 200
+                  });
+                } else {
+                  reject({
+                    result: false,
+                    status: 404,
+                    err: '게시글을 찾을 수 없거나 삭제 권한이 없습니다.'
+                  });
+                }
+              }
+            });
+          });
+        });
+      }
+
 }
 
 module.exports = CommentStorage;

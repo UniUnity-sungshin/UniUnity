@@ -7,7 +7,7 @@ class Comment {
     }
     //댓글 작성하기
     async createComment() {
-        const client = this.body; 
+        const client = this.body;
         try {
             const response = await CommentStorage.saveComment(client);
             return response;
@@ -45,24 +45,18 @@ class Comment {
         }
     }
 
+    //댓글 삭제하기
+    async doDeleteComment(user_email) {
+        try {
+            const response = await CommentStorage.goDeleteComment(user_email);
+            return response;
+        } catch (err) {
+            return { err };
+        }
+    }
 
-    // async showCommentListAll(requestedPostId, comment_id) {
-    //     try {
-    //       // 클라이언트에서 요청한 post_id를 그대로 사용
-    //       const post_id = requestedPostId;
 
-    //       // PostStorage를 이용하여 post_id에 해당하는 데이터를 가져오는 예시 코드
-    //       const post = await PostStorage.getPost(post_id);
 
-    //       // CommentStorage를 이용하여 댓글 리스트를 가져오는 예시 코드
-    //       const comments = await CommentStorage.getCommentListAll(post_id, comment_id);
-
-    //       return { success: true, post: post, comments: comments };
-    //     } catch (err) {
-    //       console.error("댓글 리스트 가져오기 오류:", err);
-    //       return { success: false, msg: "댓글 리스트 가져오기 실패" };
-    //     }
-    //   }
 }
 
 module.exports = Comment
