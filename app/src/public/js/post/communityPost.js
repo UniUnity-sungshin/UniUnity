@@ -113,12 +113,15 @@ function createCard(data) {
                 <div class="small text-muted">${data.post_date}</div>
                 <h2 class="card-title h4 mt-2">${data.post_title}</h2>
             </div>
-            <a class="btn btn-primary" href="${apiUrl}/postviewer/${data.post_id}" style="margin-top: 0.5rem;">Read more →</a>
+            <div>
+                <a class="btn btn-primary mt-2" href="${apiUrl}/postviewer/${data.post_id}">Read more →</a>
+            </div>
         </div>
 
-        <div class="card-text ps-3 d-flex justify-content-between">
+        <div class="card-text ps-3 d-flex justify-content-between mb-2">
             <p class="small text-muted">${data.category}</p>
         </div>
+
         <div class="card-text ps-3 d-flex">
             <img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" />
             <p class="small text-muted" style="margin-right: 1rem;" >${data.like_count}</p>

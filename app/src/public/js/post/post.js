@@ -64,7 +64,6 @@ function changeUniversityName(university_url){
   }  
 }
 
-
 // 카테고리 버튼 요소들을 선택합니다.
 const affiliateRegistrationBtn = document.getElementById('affiliate_registration');
 const affiliateReferralBtn = document.getElementById('affiliate_referral');
@@ -81,30 +80,58 @@ affiliateRegistrationBtn.addEventListener('click',function(){
         return; // 리다이렉션 후 함수 종료
 })
 
+let currentCategory = ""; // 선택한 카테고리를 기억하는 변수
+
 // 카테고리 버튼 클릭 이벤트 리스너를 추가합니다.
 announcementBtn.addEventListener('click', function () {
-  fetchPosts("announcement", university_url);
+  currentCategory = "announcement"; // 선택한 카테고리 업데이트
+  currentPage = 1;
+  fetchPosts(currentCategory, university_url); // 해당 카테고리의 게시글 불러오기
 });
 
 affiliateReferralBtn.addEventListener('click', function () {
-  fetchPosts("affiliate_referral", university_url);
+  currentCategory = "affiliate_referral"; // 선택한 카테고리 업데이트
+  currentPage = 1;
+  fetchPosts(currentCategory, university_url); // 해당 카테고리의 게시글 불러오기
 });
 
 affiliateofferBtn.addEventListener('click', function () {
-  fetchPosts("affiliate_offer", university_url);
+  currentCategory = "affiliate_offer"; // 선택한 카테고리 업데이트
+  currentPage = 1;
+  fetchPosts(currentCategory, university_url); // 해당 카테고리의 게시글 불러오기
 });
 
 chatBtn.addEventListener('click', function () {
-  fetchPosts("chat", university_url);
+  currentCategory = "chat"; // 선택한 카테고리 업데이트
+  currentPage = 1;
+  fetchPosts(currentCategory, university_url); // 해당 카테고리의 게시글 불러오기
 });
 
 storePromotionBtn.addEventListener('click', function () {
-  fetchPosts("store_promotion", university_url);
+  currentCategory = "store_promotion"; // 선택한 카테고리 업데이트
+  currentPage = 1;
+  fetchPosts(currentCategory, university_url); // 해당 카테고리의 게시글 불러오기
 });
 
-const fetchpostAllData = async () => {
-  const cardContainer = document.getElementById("card_container");
+let currentPage = 1; // 현재 페이지 수
+const postsPerPage = 10; // 한 페이지에 보여줄 게시글 수
+let postsToShowLength = 0; // 현재 한 페이지에 보여줄 게시글 수
+let dataLength = 0; // 보여줄 총 게시글 수
 
+// 게시글 전체 보기
+const fetchpostAllData = async () => {
+  currentCategory = "";
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const url = `${apiUrl}/postAll/${university_url}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  dataLength = data.length;
+  const postsToShow = data.slice(startIndex, endIndex);
+  postsToShowLength = postsToShow.length; 
+  
+  const cardContainer = document.getElementById("card_container");
+  
   if (!cardContainer) {
     //console.error("card_container is null.");
     return;
@@ -115,17 +142,24 @@ const fetchpostAllData = async () => {
     cardContainer.removeChild(cardContainer.firstChild);
   }
 
-  const url = `${apiUrl}/postAll/${university_url}`;
-  const response = await fetch(url);
-
-  const data = await response.json();
-  for (var i = 0; i < data.length; i++) {
-    createCard(data[i])
+  for (let i = 0; i < postsToShowLength; i++) {
+    createCard(postsToShow[i]);
   }
-}
+  updatePagination(currentPage, postsToShowLength);
+};
 
-// 게시글 불러오기 함수
+
+// 카테고리 선택시 게시글 불러오기 함수
 const fetchPosts = async (category, university_url) => {
+  console.log("currentCategory " + currentCategory);
+  if (currentCategory === "") { // 카테고리 선택 안 했으면 모든 게시글 로드하도록
+    fetchpostAllData();
+    return;
+  }
+
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+
   const card_container = document.getElementById("card_container");
 
   if (!card_container) {
@@ -143,10 +177,14 @@ const fetchPosts = async (category, university_url) => {
     console.log(url);
     const response = await fetch(url);
     const data = await response.json();
+    dataLength = data.length;
 
-    for (var i = 0; i < data.length; i++) {
-      createCard(data[i])
+    const postsToShow = data.slice(startIndex, endIndex);
+    postsToShowLength = postsToShow.length;
+    for (let i = 0; i < postsToShowLength; i++) {
+      createCard(postsToShow[i]);
     }
+    updatePagination(currentPage, postsToShowLength);
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -164,7 +202,6 @@ function createCard(data) {
   // if (data.post_content.length > 100) {
   //     post_content = truncateText('post_content', 100, data.post_content);
   // }
-
 
   const cardContainer = document.getElementById('card_container');
 
@@ -202,9 +239,6 @@ function createCard(data) {
   cardContainer.appendChild(cardElement);
 }
 
-
-
-
 //로고 클릭시 postAllData()실행
 brandNav.addEventListener('click',function(){
   fetchpostAllData();
@@ -221,7 +255,6 @@ function getUniversityUrl() {
 const postSearchBtn = document.querySelector('#postSearchBtn');
 var university_posts = [];
 const blogEntriesDiv = document.querySelector(".blog-entries");
-
 const cardContainer=document.getElementById("card_container");
 
 function searchPost(){
@@ -257,7 +290,6 @@ function searchPost(){
       }
       for (var i = 0; i < res.length; i++) {
         createCard(res[i])
-
       }
 
     })
@@ -280,6 +312,125 @@ document.addEventListener('keydown', function(event) {
 // 페이지 로드 후 실행
 window.addEventListener('DOMContentLoaded', function () {
   loadloginData();
-  fetchpostAllData();
-  
+  fetchPosts();
 });
+
+const previouspage = document.getElementById('first_page'); // 첫 번째 숫자 버튼
+const currentpage = document.getElementById('second_page'); // 두 번째 숫자 버튼
+const nextpage = document.getElementById('third_page'); // 세 번째 숫자 버튼
+const pageBtns = document.getElementsByClassName("page-item");
+const newer = document.getElementById('previous_page'); // 이전 버튼
+const older = document.getElementById('next_page'); // 다음 버튼
+const lastpage = document.getElementById('last_page'); // 마지막 15 페이지 버튼
+
+// Add event listeners to each page button
+for (let i = 0; i < pageBtns.length; i++) {
+  pageBtns[i].addEventListener('click', function() {
+      const clickedPageNum = parseInt(this.firstChild.innerText);
+      if (!isNaN(clickedPageNum)) {
+          goToPage(clickedPageNum);
+      }     
+  });
+}
+
+// 페이지네이션 업데이트
+function updatePagination(currentPage, postsToShowLength) {
+  initializeBtns();
+  if (dataLength <= 140) { // 총 게시글 140개 이하면 15페이지로 바로 가지 못하도록
+    lastpage.classList.toggle('disabled');
+  }
+  if (dataLength <= 10) { // 총 게시글 10개 이하면 첫 페이지만 있도록
+    currentpage.classList.toggle('disabled');
+  }
+  else if (dataLength <= 20) { // 20개 이하면 
+    if (currentPage === 1) { // 첫 페이지일 때 세 번째 페이지로 이동하지 못하도록
+      nextpage.classList.toggle('disabled');
+    }
+  }
+  if (currentPage * postsPerPage > dataLength) { // 게시글 수보다 더 많은 페이지로는 이동하지 못하도록
+    nextpage.classList.toggle('disabled');
+    older.classList.toggle('disabled');
+  }
+
+  if (currentPage === 1) { // 현재 페이지가 1일 때
+    currentpage.classList.remove('active');
+    previouspage.classList.add('active');
+    nextpage.classList.remove('active');
+    previouspage.firstChild.innerText = 1;
+    currentpage.firstChild.innerText = 2;
+    nextpage.firstChild.innerText = 3;
+  }
+  else if (currentPage === 15) { // 현재 페이지가 15일 때
+    currentpage.classList.remove('active');
+    nextpage.classList.add('active');
+    previouspage.classList.remove('active');
+    previouspage.firstChild.innerText = 13;
+    currentpage.firstChild.innerText = 14;
+    nextpage.firstChild.innerText = 15;
+  }
+  else { // 그 외
+    previouspage.firstChild.innerText = currentPage - 1;
+    currentpage.firstChild.innerText = currentPage;
+    nextpage.firstChild.innerText = currentPage + 1;
+
+    // 모든 페이지에 active 속성 제거
+    for (let i = 0; i < pageBtns.length; i++) {
+      pageBtns[i].classList.remove('active');
+    }
+    // 현재 페이지에 active 속성 부여
+    currentpage.classList.add('active');
+  }
+}
+
+// 버튼 초기화
+function initializeBtns() {
+  previouspage.classList.remove('disabled');
+  currentpage.classList.remove('disabled');
+  nextpage.classList.remove('disabled');
+  lastpage.classList.remove('disabled');
+  newer.classList.remove('disabled');
+  older.classList.remove('disabled');
+}
+
+// 특정 페이지 이동
+function goToPage(pageNum) {
+  currentPage = pageNum;
+  console.log("Navigating to page: " + currentPage);
+  fetchPosts(currentCategory, university_url); 
+}
+
+// 다음 페이지로 이동 함수
+function goToNextPage() {
+  console.log("goToNextPage");
+  // 다음 페이지 번호 계산
+  currentPage = currentPage + 1;
+  // 페이지네이션 클래스 변경
+  if (currentPage <= 15) {
+    goToPage(currentPage);
+  }
+}
+
+// 이전 페이지로 이동 함수
+function goToPrevPage() {
+  console.log("goToPrevPage");
+  // 다음 페이지 번호 계산
+  currentPage = currentPage - 1;
+  // 페이지네이션 클래스 변경
+  if (currentPage >= 1) {
+    goToPage(currentPage);
+  }
+}
+
+// 다음/이전 페이지 이벤트리스너
+newer.addEventListener('click', function() {
+  if (currentPage >= 2) {
+    goToPrevPage();
+  }
+});
+
+older.addEventListener('click', function() {
+  if (currentPage <= 14) {
+    goToNextPage();
+  }
+});
+

@@ -24,16 +24,10 @@ const loadloginData = () => {
 const setLoginHeader = (res) => {
   navBar.setAttribute("href", `${apiUrl}`);
   if (res.loginStatus) {
-      user_email.innerText = res.user_email
-      user_type.innerText = res.user_type
-      user_name.innerText = res.user_name
-      user_nickname.innerText = `${res.user_nickname}`
-      university_name.innerText = res.university_name
-
       loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
       loginStatusBtn.innerText = "로그아웃"
-      signUpBtn.setAttribute("href", `${apiUrl}/council/${res.university_url}`);
-      signUpBtn.innerText = "나의학교"
+      signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+      signUpBtn.innerText = "마이페이지"
   }
   else {
       loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
@@ -75,6 +69,14 @@ var mapContainer = document.getElementById('map'),
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
 
+function setCenter(map,latitude,longitude){            
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new kakao.maps.LatLng(latitude,longitude);
+                  
+  // 지도 중심을 이동 시킵니다
+  map.setCenter(moveLatLon);
+}
+
 kakao.maps.event.addListener(map, 'bounds_changed', function () {
   // 지도 영역정보를 얻어옵니다 
   var bounds = map.getBounds();
@@ -93,7 +95,6 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
   var maxx = neLatlng.La.toString(),
     maxy = neLatlng.Ma.toString();
 
-
   var url = endPoint + 'storeListInRectangle' + '?serviceKey=' + serviceKey + '&pageNo=1' + '&numOfRows=10' +
     '&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy + '&type=json';
 
@@ -102,7 +103,6 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
     .then(res => {
       var positions = [];
       for (let i = 0; i < res.body.items.length; i++) {
-
         positions.push(new kakao.maps.LatLng(res.body.items[i].lat, res.body.items[i].lon));
       }
 
@@ -118,6 +118,24 @@ kakao.maps.event.addListener(map, 'bounds_changed', function () {
       console.log('Error:', error);
     });
 })
+
+function retailerLoad(){
+  const universityUrl = getUniversityUrl();
+  const req = {
+      university_url:universityUrl
+  };
+  fetch(`${apiUrl}/getUniversityLocation`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+  }).then((res) => res.json())
+  .then(res => {
+      setCenter(map,parseFloat(res.latitude),parseFloat(res.longitude));
+  })
+}
+
 var swiperContainer = document.querySelector('.swiper-container');
 
 swiperContainer.addEventListener('click', function (event) {
@@ -244,8 +262,12 @@ function councilLoad() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', councilLoad);
-
+window.addEventListener('DOMContentLoaded', function() {
+  // 동적 링크 업데이트 함수를 호출합니다.
+updateDynamicLinks();
+  councilLoad();
+  retailerLoad();
+});
 
 // document.getElementById("moreUni").addEventListener("click", function(event) {
 //   event.preventDefault(); // 기본 동작인 링크 이동을 막음
@@ -274,10 +296,10 @@ function generateDynamicURL(linkId, userschool) {
     dynamicValue = "retailer/" + userschool;
   } else if (linkId === "partner") {
     dynamicValue = "partner/" + userschool;
-  } else if (linkId === "mypage") {
-    dynamicValue = "mypage";
-  } else if (linkId === "login") {
-    dynamicValue = "login";
+  } else if (linkId === "more_news") {
+    dynamicValue = "showPostListAll/" + userschool;
+  } else if (linkId === "more_retailer") {
+    dynamicValue = "retailer/" + userschool;
   } else if (linkId === "news") {
     dynamicValue = "showPostListAll/" + userschool;
   }
@@ -296,15 +318,14 @@ async function updateDynamicLinks() {
   var link1 = document.getElementById("main_retailer");
   var link2 = document.getElementById("partner");
   var link3 = document.getElementById("news");
-  // var link4 = document.getElementById("news");
-  // var link5 = document.getElementById("more_retailer");
+  var link4 = document.getElementById("more_news");
+  var link5 = document.getElementById("more_retailer");
 
   link1.addEventListener("click", function () {
     // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
     var link = generateDynamicURL("retailer", userschool);
     window.location.href = link;
   });
-
 
   link2.addEventListener("click", function () {
     // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
@@ -318,13 +339,15 @@ async function updateDynamicLinks() {
     window.location.href = link;
   });
 
+  link4.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("more_news", userschool);
+    window.location.href = link;
+  });
 
-  // link4.href = generateDynamicURL("news",userschool);
-  // link4.textContent = "게시글 더보기 ►";
-
-  // link5.href = generateDynamicURL("retailer",userschool);
-  // link5.textContent = "더보기 ►";
+  link5.addEventListener("click", function () {
+    // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+    var link = generateDynamicURL("more_retailer", userschool);
+    window.location.href = link;
+  });
 }
-
-// 동적 링크 업데이트 함수를 호출합니다.
-updateDynamicLinks();

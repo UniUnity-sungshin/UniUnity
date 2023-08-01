@@ -48,6 +48,7 @@ const loadLinkData=()=>{
     const nicknameLink = document.getElementById("nickname_modify_btn");
     const pswordLink = document.getElementById("psword_modify_btn");
     const withdrawalLink = document.getElementById("withdrawal_btn");
+    const markectingCheckLink = document.getElementById("marketing_check_btn")
 
     const communityLink1= document.getElementById("community1_btn");
     const communityLink2= document.getElementById("community2_btn");
@@ -65,6 +66,9 @@ const loadLinkData=()=>{
     withdrawalLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/withdrawal`;
     });
+    markectingCheckLink.addEventListener("click", function () {
+        window.location.href = `${apiUrl}/mypage/marketingCheck`;
+    });
     communityLink1.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/community/post/1`;
     });
@@ -77,6 +81,8 @@ const loadLinkData=()=>{
     communityLink4.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/community/post/4`;
     });
+
+
 
 }
 
