@@ -58,7 +58,7 @@ class Post {
         }
     }
 
-    //마이페이지) 내가 작성한 게시글 보기
+    //마이페이지-내가 작성한 게시글 보기
     async myCommunityPost() {
         try {
             console.log("myCommunityPost");
@@ -73,90 +73,131 @@ class Post {
             };
         }
     }
+
+    //마이페이지-내가 작성한 댓글 단 게시글 불러오기
+    async myCommunityCommentPost() {
+        try {
+            const client = this.body;
+            const response = await PostStorage.getMyCommentPost(client);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+
     //게시글 삭제하기
     async doDeletePost(post_id, user_email) {
         try {
-          const response = await PostStorage.godeletePost(post_id, user_email);
-          return response;
+            const response = await PostStorage.godeletePost(post_id, user_email);
+            return response;
         } catch (err) {
-          return { err };
+            return { err };
         }
-      }
+    }
 
-//조회수 증가
-      async showIncreaseReadCount(req, res) {
+    //조회수 증가
+    async showIncreaseReadCount(req, res) {
         const { read_count } = req.params;
-      
+
         try {
-          const response = await PostStorage.getIncreaseReadCount(read_count);
-          res.status(response.status).json(response);
+            const response = await PostStorage.getIncreaseReadCount(read_count);
+            res.status(response.status).json(response);
         } catch (err) {
-          res.status(err.status || 500).json({ err: err.err });
+            res.status(err.status || 500).json({ err: err.err });
         }
     }
 
     // 마이페이지) 하트 저장
-    async addHeart(heartInfo){
-        try{
+    async addHeart(heartInfo) {
+        try {
             const response = await PostStorage.addHeart(heartInfo);
             return response;
-        }catch(err){
-            return{result:false,
-                status:500,
-                msg:err};
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
         }
     }
 
     // 마이페이지) 유저 하트 목록 보기
-    async getUserHeartList(user_email){
-        try{
-            const response = await PostStorage.getUserHeartList(user_email);
+    async getUserHeartList() {
+        try {
+            const client = this.body;
+            const response = await PostStorage.getUserHeartList(client);
             return response;
-        }catch(err){
-            return{result:false,
-                status:500,
-                msg:err};
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+    // 마이페이지) 유저 스크랩 목록 보기
+    async getUserScrapList() {
+        try {
+            const client = this.body;
+            const response = await PostStorage.getUserHeartList(client);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
         }
     }
 
     // 마이페이지) 특정 user_email 과 post_id에 해당하는 heart_id가 존재하는지 확인
-    async checkHeart(heartInfo){
-        try{
+    async checkHeart(heartInfo) {
+        try {
             const response = await PostStorage.checkHeart(heartInfo);
             return response;
-        }catch(err){
-            return{result:false,
-                status:500,
-                msg:err};
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
         }
     }
 
     // 마이페이지) 하트 삭제
-    async deleteHeart(heart_id){
-        try{
+    async deleteHeart(heart_id) {
+        try {
             const response = await PostStorage.deleteHeart(heart_id);
             return response;
-        }catch(err){
-            return{result:false,
-                status:500,
-                msg:err};
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
         }
     }
 
     // 해당 게시글에 heart 개수 반환
-    async postHeartNum(post_id){
-        try{
+    async postHeartNum(post_id) {
+        try {
             const response = await PostStorage.postHeartNum(post_id);
             return response;
-        }catch(err){
-            return{result:false,
-                status:500,
-                msg:err};
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
         }
     }
 
 }
-    
+
 
 
 

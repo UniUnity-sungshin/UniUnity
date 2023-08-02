@@ -65,6 +65,9 @@ const output = {
     showCommentListbyPostID: (req, res) => {
         res.render('post/postviewer.html');
     },
+    forgotPassword:(req,res)=>{
+        res.render('home/forgotPassword.html');
+    }
 
 
 }
@@ -158,7 +161,10 @@ const process = {
         });
 
     },
+    //비밀번호 찾기
+    forgotPassword:(req,res)=>{
 
+    },
 
     //이메일 인증
     emailAuth: (req, res) => {
@@ -353,16 +359,25 @@ const post = {
     //마이페이지) 커뮤니티
     myCommunityPost: async (req, res) => {
         const category = req.params.category;
-        if (category === '1') {
+        if (category === '1') { //내 게시글 목록
             const post = new Post(req.body);
             const response = await post.myCommunityPost();
             return res.json(response);
         }
-        else if (category === '2') {
+        else if (category === '2') {//내 댓글 목록
             const post = new Post(req.body);
             const response = await post.myCommunityCommentPost();
             return res.json(response);
+        }else if (category =='3'){ //내 하트 게시글 목록
+            const post = new Post(req.body);
+            const response = await post.getUserHeartList();
+            return res.json(response);
+        }else if(category=='4'){ //내 스크랩 게시글 목록
+            const post = new Post(req.body);
+            const response = await post.getUserScrapList();
+            return res.json(response);
         }
+
     },
     DeletePost: async (req, res) => {
         let post_id = req.params.post_id;
@@ -387,11 +402,6 @@ const post = {
     addHeart: async (req, res) => {
         const post = new Post();
         const response = await post.addHeart(req.body);
-        return res.json(response);
-    },
-    getUserHeartList: async (req, res) => {
-        const post = new Post();
-        const response = await post.getUserHeartList(req.params.user_email);
         return res.json(response);
     },
     checkHeart: async (req, res) => {
