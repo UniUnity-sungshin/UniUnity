@@ -119,10 +119,34 @@ class Post {
         }
     }
 
+    // 마이페이지) 특정 user_email 과 post_id에 해당하는 heart_id가 존재하는지 확인
+    async checkHeart(heartInfo){
+        try{
+            const response = await PostStorage.checkHeart(heartInfo);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
     // 마이페이지) 하트 삭제
     async deleteHeart(heart_id){
         try{
             const response = await PostStorage.deleteHeart(heart_id);
+            return response;
+        }catch(err){
+            return{result:false,
+                status:500,
+                msg:err};
+        }
+    }
+
+    // 해당 게시글에 heart 개수 반환
+    async postHeartNum(post_id){
+        try{
+            const response = await PostStorage.postHeartNum(post_id);
             return response;
         }catch(err){
             return{result:false,

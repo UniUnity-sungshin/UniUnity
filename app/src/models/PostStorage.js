@@ -276,39 +276,6 @@ class PostStorage {
           });
         });
     }
-    // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
-    static addHeart(heartInfo) {
-        const post_id = heartInfo.post_id;
-        const user_email = heartInfo.user_email;
-        return new Promise(async (resolve, reject) => {
-            pool.getConnection((err, connection) => {
-                if (err) {
-                    console.error('MySQL 연결 오류: ', err);
-                    reject(err)
-                }
-                pool.query("SELECT * FROM Heart WHERE post_id=? AND user_email=?;", [post_id,user_email], function (err, check){
-                    if (err) {
-                        console.error('Query 함수 오류', err);
-                        reject(err)
-                    }
-                    else if(check.length > 0){
-                        pool.releaseConnection(connection);
-                        resolve({ result: "You have already clicked 'Heart' on this post.", status: 202 });
-                    }
-                    else {
-                        pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id,user_email], function (err, rows) {
-                            pool.releaseConnection(connection);
-                            if (err) {
-                                console.error('Query 함수 오류', err);
-                                reject(err)
-                            }
-                            resolve({ result: rows, status: 200 });
-                        })
-                    }
-                })
-            })
-        });
-    }
 
     // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
     static addHeart(heartInfo) {
@@ -352,30 +319,43 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT post_id FROM Heart WHERE user_email=?;", [user_email], function (err, check) {
+                pool.query("SELECT post_id FROM Heart WHERE user_email=?;", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    else if(check.length < 1){
+                    else if(rows.length < 1){
                         pool.releaseConnection(connection);
                         resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
                     }
-                    // else {
-                    //     const rows = [];
-                    //     for(let i = 0; i < check.length; i++){
-                    //         pool.query("SELECT * FROM Post WHERE post_id=?", [parseInt(check[i].post_id)], function(err,row){
-                    //             if (err) {
-                    //                 console.error('Query 함수 오류', err);
-                    //                 reject(err)
-                    //             }
-                    //             console.log(row[0]);
-                    //             rows.push(row[0]);
-                    //         })
-                    //     }
+                    pool.releaseConnection(connection);
+                    resolve({ result: rows, status: 200 });
+                })
+            })
+        });
+    }
+
+    // 마이페이지) 특정 user_email 과 post_id에 해당하는 heart_id가 존재하는지 확인
+    static checkHeart(heartInfo) {
+        const post_id = heartInfo.post_id;
+        const user_email = heartInfo.user_email;
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT heart_id FROM Heart WHERE user_email=? AND post_id=?;", [user_email, post_id], function (err, rows) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(rows.length < 1){
                         pool.releaseConnection(connection);
-                        resolve({ result: check, status: 200 });
-                    // }
+                        resolve({ result: false, status: 200 });
+                    }
+                    pool.releaseConnection(connection);
+                    resolve({ result: rows[0], status: 200 });
                 })
             })
         });
@@ -389,14 +369,44 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
+                pool.query("SELECT * FROM Heart WHERE heart_id=?;", [heart_id], function(err,check) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(check.length < 1){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "This 'heart_id' does not exist in the 'Heart' table.", status: 202 });
+                    }
+                    pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
+                        pool.releaseConnection(connection);
+                        if (err) {
+                            console.error('Query 함수 오류', err);
+                            reject(err)
+                        }
+                        console.log(rows)
+                        resolve({ result: rows, status: 200 });
+                    })
+                })
+            })
+        });
+    }
+
+    // 해당 게시글에 heart 개수 반환
+    static postHeartNum(post_id) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT COUNT(*) FROM Heart WHERE post_id=?;", [post_id], function (err, rows) {
                     pool.releaseConnection(connection);
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    console.log(rows)
-                    resolve({ result: rows, status: 200 });
+                    resolve({ result: rows[0], status: 200 });
                 })
             })
         });

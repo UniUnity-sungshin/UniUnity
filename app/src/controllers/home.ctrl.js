@@ -297,9 +297,6 @@ const result = {
 
 
 const post = {
-
-
-
     uploadPost: async (req, res) => {
         const post = new Post(req.body);
         const response = await post.createPost();
@@ -367,17 +364,13 @@ const post = {
             return res.json(response);
         }
     },
-
-
-
-DeletePost: async (req, res) => {
-    let post_id = req.params.post_id;
-    let user_email = req.params.user_email;
-    const post = new Post(req.body);
-    const response = await post.doDeletePost(post_id, user_email);
-    return res.json(response);
-},
-
+    DeletePost: async (req, res) => {
+        let post_id = req.params.post_id;
+        let user_email = req.params.user_email;
+        const post = new Post(req.body);
+        const response = await post.doDeletePost(post_id, user_email);
+        return res.json(response);
+    },
     IncreaseReadCount: async (req, res) => {
         let post_id = req.params.post_id;
         const read_count = req.params.read_count;
@@ -390,7 +383,7 @@ DeletePost: async (req, res) => {
     //     const response = await post.totalPostsCount();
     //     return res.json(response);
     // }
-      
+    // 마이페이지) 하트 기능
     addHeart: async (req, res) => {
         const post = new Post();
         const response = await post.addHeart(req.body);
@@ -401,9 +394,20 @@ DeletePost: async (req, res) => {
         const response = await post.getUserHeartList(req.params.user_email);
         return res.json(response);
     },
+    checkHeart: async (req, res) => {
+        const post = new Post();
+        const response = await post.checkHeart(req.body);
+        return res.json(response);
+    },
     deleteHeart: async (req, res) => {
         const post = new Post();
         const response = await post.deleteHeart(req.params.heart_id);
+        return res.json(response);
+    },
+    // 게시글 하트 개수 확인
+    postHeartNum: async (req, res) => {
+        const post = new Post();
+        const response = await post.postHeartNum(req.params.post_id);
         return res.json(response);
     },
 }
