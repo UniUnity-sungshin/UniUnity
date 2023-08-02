@@ -276,7 +276,7 @@ class PostStorage {
           });
         });
     }
-
+    // 하트 기능 //
     // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
     static addHeart(heartInfo) {
         const post_id = heartInfo.post_id;
@@ -411,6 +411,143 @@ class PostStorage {
             })
         });
     }
+
+    // 스크랩 기능 //
+    // 마이페이지) (스크랩 버튼 클릭 시)Scrap 테이블에 정보 저장
+    static addScrap(scrapInfo) {
+        const post_id = scrapInfo.post_id;
+        const user_email = scrapInfo.user_email;
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT * FROM Scrap WHERE post_id=? AND user_email=?;", [post_id,user_email], function (err, check){
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(check.length > 0){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "You have already clicked 'Scrap' on this post.", status: 202 });
+                    }
+                    else {
+                        pool.query("INSERT INTO Scrap(post_id, user_email) values(?,?);", [post_id,user_email], function (err, rows) {
+                            pool.releaseConnection(connection);
+                            if (err) {
+                                console.error('Query 함수 오류', err);
+                                reject(err)
+                            }
+                            resolve({ result: rows, status: 200 });
+                        })
+                    }
+                })
+            })
+        });
+    }
+
+    // 마이페이지) user_email에 해당하는 사용자의 스크랩 목록 보여주기
+    static getUserScrapList(user_email) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT post_id FROM Scrap WHERE user_email=?;", [user_email], function (err, rows) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(rows.length < 1){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "The user's 'Scrap' post list does not exist.", status: 202 });
+                    }
+                    pool.releaseConnection(connection);
+                    resolve({ result: rows, status: 200 });
+                })
+            })
+        });
+    }
+
+    // 마이페이지) 특정 user_email 과 post_id에 해당하는 scrap_id가 존재하는지 확인
+    static checkScrap(scrapInfo) {
+        const post_id = scrapInfo.post_id;
+        const user_email = scrapInfo.user_email;
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT scrap_id FROM Scrap WHERE user_email=? AND post_id=?;", [user_email, post_id], function (err, rows) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(rows.length < 1){
+                        pool.releaseConnection(connection);
+                        resolve({ result: false, status: 200 });
+                    }
+                    pool.releaseConnection(connection);
+                    resolve({ result: rows[0], status: 200 });
+                })
+            })
+        });
+    }
+
+    // 마이페이지) Scrap 테이블에 정보 삭제
+    static deleteScrap(scrap_id) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT * FROM Scrap WHERE scrap_id=?;", [scrap_id], function(err,check) {
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    else if(check.length < 1){
+                        pool.releaseConnection(connection);
+                        resolve({ result: "This 'scrap_id' does not exist in the 'Scrap' table.", status: 202 });
+                    }
+                    pool.query("DELETE FROM Scrap WHERE scrap_id=?;", [scrap_id], function (err, rows) {
+                        pool.releaseConnection(connection);
+                        if (err) {
+                            console.error('Query 함수 오류', err);
+                            reject(err)
+                        }
+                        console.log(rows)
+                        resolve({ result: rows, status: 200 });
+                    })
+                })
+            })
+        });
+    }
+
+    // 해당 게시글에 scrap 개수 반환
+    static postScrapNum(post_id) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT COUNT(*) FROM Scrap WHERE post_id=?;", [post_id], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    resolve({ result: rows[0], status: 200 });
+                })
+            })
+        });
+    }
+
 }
 
 

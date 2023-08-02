@@ -95,6 +95,7 @@ class Post {
         }
     }
 
+    // 하트 기능 //
     // 마이페이지) 하트 저장
     async addHeart(heartInfo){
         try{
@@ -143,7 +144,7 @@ class Post {
         }
     }
 
-    // 해당 게시글에 heart 개수 반환
+    // 해당 게시글에 하트 개수 반환
     async postHeartNum(post_id){
         try{
             const response = await PostStorage.postHeartNum(post_id);
@@ -155,6 +156,8 @@ class Post {
         }
     }
 
+    // 스크랩 기능 //
+    
 }
     
 
