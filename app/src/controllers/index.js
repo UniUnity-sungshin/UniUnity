@@ -14,6 +14,7 @@ router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup/agreement",ctrl.output.agreement);
 router.get("/signup",ctrl.output.signup);
 router.get("/logout",ctrl.process.logout);
+router.get("/forgot/password",ctrl.output.forgotPassword)
 router.get("/mypage",ctrl.output.mypage);
 router.get("/mypage/modify/1",ctrl.output.modifyNickname);//닉네임변경
 router.get("/mypage/modify/2",ctrl.output.modifyPsword); //비밀번호변경
@@ -27,6 +28,9 @@ router.post("/mypage/modify/1",ctrl.process.modifyNickname)
 router.post("/mypage/modify/2",ctrl.process.modifyPsword)
 //회원 탈퇴
 router.post("/mypage/withdrawal",ctrl.process.withdrawal)
+
+//비밀번호 찾기
+router.post("/forgot/password",ctrl.process.forgotPassword)
 
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);
@@ -86,7 +90,6 @@ router.put('/post/:post_id/increaseReadCount', ctrl.post.IncreaseReadCount);
 
 // 마이페이지 -> 하트
 router.post("/addHeart",ctrl.post.addHeart); // 하트 목록 추가하기
-router.get("/getUserHeartList/:user_email",ctrl.post.getUserHeartList); // 특정 사용자의 하트 목록 불러오기
 router.post("/checkHeart",ctrl.post.checkHeart); // 특정 user_email 과 post_id에 해당하는 heart_id 확인
 router.delete("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 지우기
 
