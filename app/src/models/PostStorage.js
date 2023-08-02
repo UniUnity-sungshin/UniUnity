@@ -345,7 +345,7 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Post where post_id IN (SELECT post_id FROM Heart WHERE user_email=?);", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Heart WHERE user_email=?);", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
@@ -360,34 +360,6 @@ class PostStorage {
             })
         });
     }
-
-    // 마이페이지) user_email에 해당하는 사용자의 스크랩 목록 보여주기
-    static getUserScrapList(userInfo) {
-        const user_email = userInfo.user_email;
-        return new Promise(async (resolve, reject) => {
-            pool.getConnection((err, connection) => {
-                if (err) {
-                    console.error('MySQL 연결 오류: ', err);
-                    reject(err)
-                }
-                pool.query("SELECT * FROM Post where post_id IN (SELECT post_id FROM Scrap WHERE user_email=?);", [user_email], function (err, rows) {
-                    if (err) {
-                        console.error('Query 함수 오류', err);
-                        reject(err)
-                    }
-                    else if (rows.length < 1) {
-                        pool.releaseConnection(connection);
-                        resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
-                    }
-                    pool.releaseConnection(connection);
-                    resolve({ result: rows, status: 200 });
-                })
-            })
-        });
-    }
-
-
-
 
     // 마이페이지) 특정 user_email 과 post_id에 해당하는 heart_id가 존재하는지 확인
     static checkHeart(heartInfo) {
@@ -502,21 +474,22 @@ class PostStorage {
     }
 
     // 마이페이지) user_email에 해당하는 사용자의 스크랩 목록 보여주기
-    static getUserScrapList(user_email) {
+    static getUserScrapList(userInfo) {
+        const user_email = userInfo.user_email;
         return new Promise(async (resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT post_id FROM Scrap WHERE user_email=?;", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Scrap WHERE user_email=?);", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    else if(rows.length < 1){
+                    else if (rows.length < 1) {
                         pool.releaseConnection(connection);
-                        resolve({ result: "The user's 'Scrap' post list does not exist.", status: 202 });
+                        resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
                     }
                     pool.releaseConnection(connection);
                     resolve({ result: rows, status: 200 });

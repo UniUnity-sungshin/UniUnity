@@ -140,20 +140,6 @@ class Post {
             };
         }
     }
-    // 마이페이지) 유저 스크랩 목록 보기
-    async getUserScrapList() {
-        try {
-            const client = this.body;
-            const response = await PostStorage.getUserHeartList(client);
-            return response;
-        } catch (err) {
-            return {
-                result: false,
-                status: 500,
-                msg: err
-            };
-        }
-    }
 
     // 마이페이지) 특정 user_email 과 post_id에 해당하는 heart_id가 존재하는지 확인
     async checkHeart(heartInfo) {
@@ -198,7 +184,76 @@ class Post {
     }
 
     // 스크랩 기능 //
-    
+    // 마이페이지) 스크랩 저장
+    async addScrap(scrapInfo) {
+        try {
+            const response = await PostStorage.addScrap(scrapInfo);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+
+    // 마이페이지) 유저 스크랩 목록 보기
+    async getUserScrapList() {
+        try {
+            const client = this.body;
+            const response = await PostStorage.getUserScrapList(client);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+
+    // 마이페이지) 특정 user_email 과 post_id에 해당하는 scrap_id가 존재하는지 확인
+    async checkScrap(scrapInfo) {
+        try {
+            const response = await PostStorage.checkScrap(scrapInfo);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+
+    // 마이페이지) 하트 삭제
+    async deleteScrap(scrap_id) {
+        try {
+            const response = await PostStorage.deleteScrap(scrap_id);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
+
+    // 해당 게시글에 스크랩 개수 반환
+    async postScrapNum(post_id){
+        try{
+            const response = await PostStorage.postScrapNum(post_id);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
 }
 
 

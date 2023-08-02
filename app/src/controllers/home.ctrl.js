@@ -420,6 +420,28 @@ const post = {
         const response = await post.postHeartNum(req.params.post_id);
         return res.json(response);
     },
+    // 마이페이지) 스크랩 기능
+    addScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.addScrap(req.body);
+        return res.json(response);
+    },
+    checkScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.checkScrap(req.body);
+        return res.json(response);
+    },
+    deleteScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.deleteScrap(req.params.scrap_id);
+        return res.json(response);
+    },
+    // 게시글 스크랩 개수 확인
+    postScrapNum: async (req, res) => {
+        const post = new Post();
+        const response = await post.postScrapNum(req.params.post_id);
+        return res.json(response);
+    },
 }
 
 const comment = {
