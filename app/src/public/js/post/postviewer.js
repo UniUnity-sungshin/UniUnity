@@ -68,7 +68,7 @@ const loadPostData = async () => {
     const viewCount = document.getElementById('view_count');
     const likeCount = document.getElementById('like_count');
     const commentCount = document.getElementById('comment_count');
-
+    const deletePost = document.getElementById('delete');
     const userEmail = document.getElementById('user_email');
     // const readMoreBtn = document.getElementById('read_more_btn');
 
@@ -80,6 +80,7 @@ const loadPostData = async () => {
     likeCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" /> ${postInfo.like_count}`;
     commentCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${postInfo.comment_count}`;
     userEmail.textContent = postInfo.user_email;
+    deletePost.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png" style="margin-right: 0.3rem;" />`;
 
     // 화살표 버튼을 숨기거나 표시하는 함수
     function toggleCarouselButtons(visible) {
@@ -112,8 +113,10 @@ const loadPostData = async () => {
         imageUrls.push(match[1]);
       }
       // console.log(imageUrls.length);
-
-      if (imageUrls.length > 0) {
+      if (imageUrls.length === 0) {
+        toggleCarouselButtons(false);
+      }
+      else if (imageUrls.length > 0) {
         const imageCarousel = document.getElementById('imageCarousel');
         const carouselInner = imageCarousel.querySelector('.carousel-inner');
         // imageCarousel.style.height = '400px';
@@ -423,3 +426,19 @@ writeCommentBtn.addEventListener('click', function () {
 //     height: '1000px',
 //     initialValue: commentInfo.comment_content,
 //   });
+
+
+// 게시글 삭제 클릭시 
+function handleDeleteClick() {
+  const confirmed = window.confirm("삭제하시겠습니까?");
+
+  if (confirmed) {
+    alert("게시글이 삭제되었습니다.");
+    
+  } else {
+    
+  }
+}
+
+// 게시글 삭제 아이콘 클릭 이벤트 리스너
+deletePost.addEventListener("click", handleDeleteClick);

@@ -155,3 +155,7 @@ button:not(:disabled),
 #like_count_comment {
   font-size: 10px;
 } */
+
+#delete {
+  cursor: pointer;
+}
