@@ -191,6 +191,10 @@ class PostStorage {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
+                    else if (rows.length < 1) {
+                        pool.releaseConnection(connection);
+                        resolve({ result: "현재 내가 작성한 게시글이 없습니다. 게시글을 작성해 보세요 :)", status: 202 });
+                    }
                     resolve({ result: rows, status: 200 });
                 })
             })
@@ -214,6 +218,10 @@ class PostStorage {
                         if (err) {
                             console.error('Query 함수 오류', err);
                             reject(err)
+                        }
+                        else if (rows.length < 1) {
+                            pool.releaseConnection(connection);
+                            resolve({ result: "현재 내가 댓글 단 게시글이 없습니다. 게시글에 댓글을 작성해 보세요 :)", status: 202 });
                         }
                         console.log(rows)
                         resolve({ result: rows, status: 200 });
@@ -379,7 +387,7 @@ class PostStorage {
                     }
                     else if (rows.length < 1) {
                         pool.releaseConnection(connection);
-                        resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
+                        resolve({ result: "현재 나의 좋아요 게시글이 없습니다. 게시글에 좋아요를 눌러보세요 :)", status: 202 });
                     }
                     pool.releaseConnection(connection);
                     resolve({ result: rows, status: 200 });
@@ -543,7 +551,7 @@ class PostStorage {
                     }
                     else if (rows.length < 1) {
                         pool.releaseConnection(connection);
-                        resolve({ result: "The user's 'Scrap' post list does not exist.", status: 202 });
+                        resolve({ result: "현재 나의 스크랩 게시글이 없습니다. 게시글을 스크랩 해보세요 :)", status: 202 });
                     }
                     pool.releaseConnection(connection);
                     resolve({ result: rows, status: 200 });

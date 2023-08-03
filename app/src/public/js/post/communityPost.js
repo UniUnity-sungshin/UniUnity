@@ -39,14 +39,14 @@ const fetchPostData = async () => {
     }
 
     const commnunityPostTitle = document.getElementById("community_post_title")
-    if(category==='1'){
-        commnunityPostTitle.textContent='내가 작성한 게시글'
-    }else if(category==='2'){
-        commnunityPostTitle.textContent='내가 댓글 단 게시글'
-    }else if(category==='3'){
-        commnunityPostTitle.textContent='나의 좋아요 게시글'
-    }else if(category==='4'){
-        commnunityPostTitle.textContent='나의 스크랩 게시글'
+    if (category === '1') {
+        commnunityPostTitle.textContent = '내가 작성한 게시글'
+    } else if (category === '2') {
+        commnunityPostTitle.textContent = '내가 댓글 단 게시글'
+    } else if (category === '3') {
+        commnunityPostTitle.textContent = '나의 좋아요 게시글'
+    } else if (category === '4') {
+        commnunityPostTitle.textContent = '나의 스크랩 게시글'
     }
 
 
@@ -62,9 +62,12 @@ const fetchPostData = async () => {
         .then(res => {
             console.log(res)
             if (res.status === 200) {
-                res.result.forEach((data) =>createCard(data));
-                
-            } else {
+                res.result.forEach((data) => createCard(data));
+            }
+            else if (res.status === 202) {
+                createEmptyCard(res.result)
+            }
+            else {
                 alert("서버의 문제로 게시글 관리 접근에 실패했습니다. 다시 시도해주세요.");
             }
         })
@@ -83,7 +86,28 @@ function truncateText(elementId, maxLength, data) {
         }
     }
 }
+function createEmptyCard(data) {
+    const cardContainer = document.getElementById('card_container');
 
+    // Create a new card element
+    const cardElement = document.createElement('div');
+    cardElement.classList.add('mt-2', 'mb-3', 'card');
+
+    // Fill in the card template with data
+    cardElement.innerHTML = `
+
+    <div class="card-body d-flex justify-content-between">
+            <div>
+                <h2 class="card-title h5 mt-2" id="post_title" style="font-weight:500;">${data} </h2>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    `;
+    // Append the card to the container
+    cardContainer.appendChild(cardElement);
+}
 
 // Function to create a card element with data and append it to the container
 function createCard(data) {
