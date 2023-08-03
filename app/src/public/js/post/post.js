@@ -11,6 +11,7 @@ const loadloginData = () => {
       setLoginHeader(res)
     })
 };
+
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn=document.getElementById("loginStatusBtn");
 const signUpBtn=document.getElementById("signUpBtn");
@@ -32,6 +33,8 @@ const setLoginHeader=(res)=>{
   }
   
 }
+
+// 글 작성
 const writePostBtn = document.getElementById('write_post_btn');
 const brandNav= document.getElementById('navbar-brand');
 
@@ -47,12 +50,13 @@ writePostBtn.addEventListener('click', function () {
   }
 });
 
+// 학교 이름으로 변경
 var currentUrl = window.location.href;
 var university_url = currentUrl.split("/").pop();
 
-changeUniversityName(university_url) //학교 이름으로 변경
+changeUniversityName(university_url)
 
-//학교 이름 바꾸기
+//학교 이름 바꾸기 함수
 function changeUniversityName(university_url){
   const universityNameElement = document.getElementById('university_name');
   if(university_url==="sungshin"){
@@ -127,25 +131,41 @@ const fetchpostAllData = async () => {
   const response = await fetch(url);
   const data = await response.json();
   dataLength = data.length;
+  // 데이터의 총 개수를 가져온 뒤, 페이지 수를 계산
+  const remainder = dataLength % postsPerPage;
+  let quotient = (dataLength - remainder) / postsPerPage;
+  // console.log("나머지: " + remainder);
+  // console.log("몫: " + quotient);
+  if (remainder > 0) {
+    quotient = quotient + 1;
+  }
+  let totalPages = quotient;
+  // 최대 페이지 수를 설정
+  setMaxPage(totalPages);
+  lastpage.style.display = "block"; // 해당 버튼 보이기
+  dots.style.display = "block"; // ... 역시 보이기
+  // 만약 last_page의 내용이 "3" 이하라면, 해당 버튼을 안 보이게 처리
+  if (parseInt(lastpage.textContent) <= 3) {
+    lastpage.style.display = "none"; // 해당 버튼 숨기기
+    if (dots) {
+      dots.style.display = "none"; // ... 역시 숨기기
+    }
+  }
   const postsToShow = data.slice(startIndex, endIndex);
   postsToShowLength = postsToShow.length; 
-  
   const cardContainer = document.getElementById("card_container");
-  
   if (!cardContainer) {
     //console.error("card_container is null.");
     return;
   }
-
   // 기존의 게시글 요소들 제거
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
-
   for (let i = 0; i < postsToShowLength; i++) {
     createCard(postsToShow[i]);
   }
-  updatePagination(currentPage, postsToShowLength);
+  updatePagination(currentPage);
 };
 
 
@@ -156,35 +176,49 @@ const fetchPosts = async (category, university_url) => {
     fetchpostAllData();
     return;
   }
-
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-
   const card_container = document.getElementById("card_container");
-
   if (!card_container) {
     console.error("card_container is null.");
     return;
   }
-
   // 기존의 게시글 요소들 제거
   while (card_container.firstChild) {
     card_container.removeChild(card_container.firstChild);
   }
-
   try {
     const url = `${apiUrl}/showPostListbyCategory/${category}/${university_url}`;
     console.log(url);
     const response = await fetch(url);
     const data = await response.json();
     dataLength = data.length;
-
+    // 데이터의 총 개수를 가져온 뒤, 페이지 수를 계산
+    const remainder = dataLength % postsPerPage;
+    let quotient = (dataLength - remainder) / postsPerPage;
+    console.log("나머지: " + remainder);
+    console.log("몫: " + quotient);
+    if (remainder > 0) {
+      quotient = quotient + 1;
+    }
+    let totalPages = quotient;
+    // 최대 페이지 수를 설정
+    setMaxPage(totalPages);
+    lastpage.style.display = "block"; // 해당 버튼 보이기
+    dots.style.display = "block"; // ... 역시 보이기
+    // 만약 last_page의 내용이 "3" 이하라면, 해당 버튼을 안 보이게 처리
+    if (parseInt(lastpage.textContent) <= 3) {
+      lastpage.style.display = "none"; // 해당 버튼 숨기기
+      if (dots) {
+        dots.style.display = "none"; // ... 역시 숨기기
+      }
+    }
     const postsToShow = data.slice(startIndex, endIndex);
     postsToShowLength = postsToShow.length;
     for (let i = 0; i < postsToShowLength; i++) {
       createCard(postsToShow[i]);
     }
-    updatePagination(currentPage, postsToShowLength);
+    updatePagination(currentPage);
   } catch (error) {
     console.error("Error fetching posts:", error);
   }
@@ -321,7 +355,13 @@ const nextpage = document.getElementById('third_page'); // 세 번째 숫자 버
 const pageBtns = document.getElementsByClassName("page-item");
 const newer = document.getElementById('previous_page'); // 이전 버튼
 const older = document.getElementById('next_page'); // 다음 버튼
-const lastpage = document.getElementById('last_page'); // 마지막 15 페이지 버튼
+const lastpage = document.getElementById('last_page'); // 마지막 페이지 버튼
+const pagination = document.querySelector(".pagination");
+const dots = document.getElementById("..."); // ...
+
+function setMaxPage(totalPages) {
+  lastpage.innerHTML = `<a class="page-link">${totalPages}</a>`;
+}
 
 // Add event listeners to each page button
 for (let i = 0; i < pageBtns.length; i++) {
@@ -334,11 +374,11 @@ for (let i = 0; i < pageBtns.length; i++) {
 }
 
 // 페이지네이션 업데이트
-function updatePagination(currentPage, postsToShowLength) {
+function updatePagination(currentPage) {
   initializeBtns();
-  if (dataLength <= 140) { // 총 게시글 140개 이하면 15페이지로 바로 가지 못하도록
-    lastpage.classList.toggle('disabled');
-  }
+  // if (dataLength <= 140) { // 총 게시글 140개 이하면 15페이지로 바로 가지 못하도록
+  //   lastpage.classList.toggle('disabled');
+  // }
   if (dataLength <= 10) { // 총 게시글 10개 이하면 첫 페이지만 있도록
     currentpage.classList.toggle('disabled');
   }
@@ -347,7 +387,7 @@ function updatePagination(currentPage, postsToShowLength) {
       nextpage.classList.toggle('disabled');
     }
   }
-  if (currentPage * postsPerPage > dataLength) { // 게시글 수보다 더 많은 페이지로는 이동하지 못하도록
+  if (currentPage * postsPerPage >= dataLength) { // 게시글 수보다 더 많은 페이지로는 이동하지 못하도록
     nextpage.classList.toggle('disabled');
     older.classList.toggle('disabled');
   }
