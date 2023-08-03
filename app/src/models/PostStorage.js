@@ -312,23 +312,50 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Heart WHERE post_id=? AND user_email=?;", [post_id, user_email], function (err, check) {
+                // 해당 게시글이 존재하는지 확인
+                pool.query("SELECT * FROM Post WHERE post_id=?;",[post_id], function(err, posts){
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    else if (check.length > 0) {
+                    else if(posts.length < 1){
                         pool.releaseConnection(connection);
-                        resolve({ result: "You have already clicked 'Heart' on this post.", status: 202 });
+                        resolve({ result: "Post does not exist.", status: 202 });
                     }
-                    else {
-                        pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
-                            pool.releaseConnection(connection);
+                    else{
+                        // 해당 사용자가 존재하는지 확인
+                        pool.query("SELECT * FROM User WHERE user_email=?", [user_email], function(err, users){
                             if (err) {
                                 console.error('Query 함수 오류', err);
                                 reject(err)
                             }
-                            resolve({ result: rows, status: 200 });
+                            else if(users.length < 1){
+                                pool.releaseConnection(connection);
+                                resolve({ result: "User does not exist.", status: 202 });
+                            }
+                            else {
+                                // 게시글이 존재하고 사용자가 존재할 때 하트 추가 가능
+                                pool.query("SELECT * FROM Heart WHERE post_id=? AND user_email=?;", [post_id, user_email], function (err, check) {
+                                    if (err) {
+                                        console.error('Query 함수 오류', err);
+                                        reject(err)
+                                    }
+                                    else if (check.length > 0) {
+                                        pool.releaseConnection(connection);
+                                        resolve({ result: "You have already clicked 'Heart' on this post.", status: 202 });
+                                    }
+                                    else {
+                                        pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
+                                            pool.releaseConnection(connection);
+                                            if (err) {
+                                                console.error('Query 함수 오류', err);
+                                                reject(err)
+                                            }
+                                            resolve({ result: rows, status: 200 });
+                                        })
+                                    }
+                                })
+                            }
                         })
                     }
                 })
@@ -449,23 +476,50 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Scrap WHERE post_id=? AND user_email=?;", [post_id,user_email], function (err, check){
+                // 해당 게시글이 존재하는지 확인
+                pool.query("SELECT * FROM Post WHERE post_id=?;",[post_id], function(err, posts){
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    else if(check.length > 0){
+                    else if(posts.length < 1){
                         pool.releaseConnection(connection);
-                        resolve({ result: "You have already clicked 'Scrap' on this post.", status: 202 });
+                        resolve({ result: "Post does not exist.", status: 202 });
                     }
-                    else {
-                        pool.query("INSERT INTO Scrap(post_id, user_email) values(?,?);", [post_id,user_email], function (err, rows) {
-                            pool.releaseConnection(connection);
+                    else{
+                        // 해당 사용자가 존재하는지 확인
+                        pool.query("SELECT * FROM User WHERE user_email=?", [user_email], function(err, users){
                             if (err) {
                                 console.error('Query 함수 오류', err);
                                 reject(err)
                             }
-                            resolve({ result: rows, status: 200 });
+                            else if(users.length < 1){
+                                pool.releaseConnection(connection);
+                                resolve({ result: "User does not exist.", status: 202 });
+                            }
+                            else {
+                                // 게시글이 존재하고 사용자가 존재할 때 스크랩 추가 가능
+                                pool.query("SELECT * FROM Scrap WHERE post_id=? AND user_email=?;", [post_id, user_email], function (err, check) {
+                                    if (err) {
+                                        console.error('Query 함수 오류', err);
+                                        reject(err)
+                                    }
+                                    else if (check.length > 0) {
+                                        pool.releaseConnection(connection);
+                                        resolve({ result: "You have already clicked 'Scrap' on this post.", status: 202 });
+                                    }
+                                    else {
+                                        pool.query("INSERT INTO Scrap(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
+                                            pool.releaseConnection(connection);
+                                            if (err) {
+                                                console.error('Query 함수 오류', err);
+                                                reject(err)
+                                            }
+                                            resolve({ result: rows, status: 200 });
+                                        })
+                                    }
+                                })
+                            }
                         })
                     }
                 })
@@ -489,7 +543,7 @@ class PostStorage {
                     }
                     else if (rows.length < 1) {
                         pool.releaseConnection(connection);
-                        resolve({ result: "The user's 'Heart' post list does not exist.", status: 202 });
+                        resolve({ result: "The user's 'Scrap' post list does not exist.", status: 202 });
                     }
                     pool.releaseConnection(connection);
                     resolve({ result: rows, status: 200 });
