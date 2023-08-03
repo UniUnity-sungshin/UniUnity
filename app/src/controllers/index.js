@@ -12,7 +12,8 @@ router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup/agreement",ctrl.output.agreement);
-router.get("/signup",ctrl.output.signup);
+router.get("/signup/0",ctrl.output.signup); //마케팅 여부 false
+router.get("/signup/1",ctrl.output.signup);//마케팅 여부 true
 router.get("/logout",ctrl.process.logout);
 router.get("/forgot/password",ctrl.output.forgotPassword)
 router.get("/mypage",ctrl.output.mypage);
