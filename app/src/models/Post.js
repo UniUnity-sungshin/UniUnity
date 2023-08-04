@@ -9,8 +9,13 @@ class Post {
         const client = this.body;
         try {
             const response = await PostStorage.savePost(client);
-
-            return response;
+            console.log(response)
+            const response2 = await PostStorage.saveImagePost(
+                response.post_id,
+                response.postInfo.post_content,
+                response.formattedDateTime
+            )
+            return response2;
         } catch (err) {
             return { err }
         }
