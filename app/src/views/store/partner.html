@@ -2,68 +2,74 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>우리 대학 제휴 - UniUnity</title>
     <!-- Favicon-->
-    <link rel="icon" href="/assets/favicon.ico">
-    <!-- First include jquery js -->
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <!-- 부트스트랩 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <!-- 부트스트랩 JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/css/store/partnerPage.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"
+        type="text/css" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" /> -->
+    <!-- Core theme CSS (includes Bootstrap)-->
     <!-- 카카오 지도 API 사용 -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
-    <title>ÜniÜnity | 우리 대학 제휴</title>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5166111ed4f1253158d6cada9a192b0"></script>
+    <link href="/css/home/mainpage.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/store/partnerPage.css">
 </head>
 
 <body id="body_container">
-    <header>
-        <!-- header 박스 -->
-        <div class="headerBox">
-            <div class="container headerMenu">
-                <div class="row text-center headerContent">
-                    <div class="col-lg-3 " id="headerMenu_university">
-                        
+    <nav class="navbar static-top mb-2 mt-2">
+        <div class="container">
+            <a class="navbar-brand" id="navbar"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
+
+            <div class="d-grid gap-2 d-md-block">
+                <a class="btn btn-primary" href="#" id="loginStatusBtn">로그인</a>
+                <a class="btn btn-primary" href="#" id="signUpBtn">회원가입</a>
+            </div>
+        </div>
+    </nav>
+   
+
+    <main>
+        <div class="category mt-3 mb-5">
+            <div class="container" id="postKind">
+                <div class="row postKindUl">
+    
+                    <div class="col-lg-2 d-flex justify-content-center align-items-center">
+                        <button type="button" class="btn btn-lg fw-medium" id="universityName"></button>
                     </div>
-                    <div class="col-lg-3 storeKindli">
-                        <a id="headerMenu_reatiler" href="#" target="_self">
-                            소상공인 가게 지도
-                        </a>
+    
+                    <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                        <p id="category-bar">|</p>
                     </div>
-                    <div class="col-lg-3 storeKindli">
-                        <a id="headerMenu_partner" href="#" target="_self">
-                            제휴 지도
-                        </a>
+    
+                    <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                        <button type="button" class="btn btn-lg fw-medium" id="main_retailer">소상공인 가게 지도</button>
                     </div>
-                    <div class="col-lg-3 storeKindli">
-                        <a id="headerMenu_mypage" href="#" target="_self">
-                            마이페이지
-                            <br>
-                            <span id="headerMenu_name"></span>
-                        </a>
+    
+                    <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                        <button type="button" class="btn btn-lg fw-medium" id="partner">제휴 지도</button>
+                    </div>
+    
+                    <div class="col-lg-3 d-flex justify-content-center align-items-center">
+                        <button type="button" class="btn btn-lg fw-medium" id="news">게시글 더보기</button>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-
-    <main>
-        <!-- 소상공인 지도 모아보기 -->
-
-        <!-- "우리대학 인근 소상공인 모아보기" + 검색창-->
-        <div class="retailerTextBox">
-            <div id="retailerText">우리대학 제휴 가게 모아보기</div>
+        <div class="container">
+            <div class="row">
+                <div class="h4 mt-2" id="retailerText">우리대학 제휴 가게 모아보기</div>
+            </div>
         </div>
-
+       
         <!-- 지도가 들어가는 박스 -->
         <div id="mapBox">
             <div class="container text-left">

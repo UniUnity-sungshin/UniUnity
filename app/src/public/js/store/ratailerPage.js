@@ -443,7 +443,7 @@ function generateDynamicURL(linkId, userschool) {
     return `${apiUrl}/` + dynamicValue;
 }
     
-// 새로운 url로 업데이트
+
 // 새로운 url로 업데이트
 async function updateDynamicLinks() {
     var userschool = getDynamicValueFromURL();
@@ -478,6 +478,4 @@ async function updateDynamicLinks() {
     });
   
   }
-
-// 동적 링크 업데이트 함수를 호출합니다.
 
