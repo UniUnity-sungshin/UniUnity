@@ -119,11 +119,17 @@ const process = {
     },
     //로그아웃
     logout: (req, res, next) => {
-        req.logout(function (err) {
-            if (err) { return next(err); }
-            res.redirect('/');
-        });
-
+        try{
+            req.logout(function (err) {
+                if (err) { return next(err); }
+                res.redirect('/');
+            });
+        }catch(err) {
+            return res.json({
+                "status": 500,
+                "err": err
+            });
+        };
     },
     //닉네임 변경
     modifyNickname: async (req, res) => {
@@ -364,7 +370,7 @@ const post = {
             const response = await post.myCommunityPost();
             return res.json(response);
         }
-        else if (category === '2') {//내 댓글 목록
+        else if (category === '2') {//댓글 목록
             const post = new Post(req.body);
             const response = await post.myCommunityCommentPost();
             return res.json(response);
@@ -372,7 +378,7 @@ const post = {
             const post = new Post(req.body);
             const response = await post.getUserHeartList();
             return res.json(response);
-        }else if(category=='4'){ //내 스크랩 게시글 목록
+        }else if(category=='4'){ //스크랩 목록
             const post = new Post(req.body);
             const response = await post.getUserScrapList();
             return res.json(response);
@@ -404,6 +410,11 @@ const post = {
         const response = await post.addHeart(req.body);
         return res.json(response);
     },
+    getUserHeartList: async (req, res) => {
+        const post = new Post();
+        const response = await post.getUserHeartList(req.params.user_email);
+        return res.json(response);
+    },
     checkHeart: async (req, res) => {
         const post = new Post();
         const response = await post.checkHeart(req.body);
@@ -418,28 +429,6 @@ const post = {
     postHeartNum: async (req, res) => {
         const post = new Post();
         const response = await post.postHeartNum(req.params.post_id);
-        return res.json(response);
-    },
-    // 마이페이지) 스크랩 기능
-    addScrap: async (req, res) => {
-        const post = new Post();
-        const response = await post.addScrap(req.body);
-        return res.json(response);
-    },
-    checkScrap: async (req, res) => {
-        const post = new Post();
-        const response = await post.checkScrap(req.body);
-        return res.json(response);
-    },
-    deleteScrap: async (req, res) => {
-        const post = new Post();
-        const response = await post.deleteScrap(req.params.scrap_id);
-        return res.json(response);
-    },
-    // 게시글 스크랩 개수 확인
-    postScrapNum: async (req, res) => {
-        const post = new Post();
-        const response = await post.postScrapNum(req.params.post_id);
         return res.json(response);
     },
 }

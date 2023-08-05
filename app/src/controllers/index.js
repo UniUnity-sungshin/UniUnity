@@ -12,7 +12,9 @@ router.get("/",ctrl.output.home);
 router.get("/login",ctrl.output.login);
 router.get("/loginStatus",ctrl.process.loginStatus);
 router.get("/signup/agreement",ctrl.output.agreement);
-router.get("/signup",ctrl.output.signup);
+router.get("/signup/0",ctrl.output.signup); //마케팅 여부 false
+router.get("/signup/1",ctrl.output.signup);//마케팅 여부 true
+
 router.get("/logout",ctrl.process.logout);
 router.get("/forgot/password",ctrl.output.forgotPassword)
 router.get("/mypage",ctrl.output.mypage);
@@ -84,7 +86,7 @@ router.get("/showPostListAll/:university_url",ctrl.output.post);
 // 마이페이지
 router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 // router.get('/totalPosts', ctrl.post.getTotalPostsCount);//게시글총개수
-router.delete('/doDeletePost/:post_id', ctrl.post.DeletePost); //게시글 삭제
+router.post('/doDeletePost/:post_id', ctrl.post.DeletePost); //게시글 삭제
 // 게시글 조회수 증가
 router.put('/post/:post_id/increaseReadCount', ctrl.post.IncreaseReadCount);
 
@@ -97,17 +99,17 @@ router.delete("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 
 router.get("/postHeartNum/:post_id",ctrl.post.postHeartNum);
 
 // 마이페이지 -> 스크랩
-router.post("/addScrap",ctrl.post.addScrap); // 스크랩 목록 추가하기
-router.post("/checkScrap",ctrl.post.checkScrap); // 특정 user_email 과 post_id에 해당하는 scrap_id 확인
-router.delete("/deleteScrap/:scrap_id",ctrl.post.deleteScrap); // 스크랩 목록 지우기
+// router.post("/addScrap",ctrl.post.addScrap); // 스크랩 목록 추가하기
+// router.post("/checkScrap",ctrl.post.checkScrap); // 특정 user_email 과 post_id에 해당하는 scrap_id 확인
+// router.delete("/deleteScrap/:scrap_id",ctrl.post.deleteScrap); // 스크랩 목록 지우기
 
-// 게시글 스크랩 개수 반환
-router.get("/postScrapNum/:post_id",ctrl.post.postScrapNum);
+// // 게시글 스크랩 개수 반환
+// router.get("/postScrapNum/:post_id",ctrl.post.postScrapNum);
 
 //댓글
 router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPostID);//댓글 목록 보이기
 router.post("/uploadComment/postviewer",ctrl.comment.uploadComment); //댓글 작성하기
-router.delete('/doDeleteComment/postviewer', ctrl.comment.DeleteComment); //게시글 삭제
+router.post('/doDeleteComment/:comment_id', ctrl.comment.DeleteComment); //댓글 삭제
 
 
 

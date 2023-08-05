@@ -17,6 +17,12 @@ backBtn.addEventListener('click', () => {
   window.location.href = '/';
 });
 
+// 현재 URL 가져오기
+var currentURL = window.location.href;
+// URL을 '/' 기준으로 분리
+var urlParts = currentURL.split('/');
+// 배열의 마지막 요소(숫자) 가져오기
+var isCheckedMarketing = urlParts[urlParts.length - 1];
 
 var universitySearchList = [];
 const loadData = async () => {

@@ -1,12 +1,43 @@
-"use strict";
-//회원 로그인 정보 불러오기
-const loadloginData = async() => {
-    const url = `${apiUrl}/loginStatus`;
-    const res = await fetch(url);
-    const userInfo = await res.json();
-    
-    return userInfo;
+//로그인(로그아웃), 회원가입(마이페이지)버튼
+const loginStatusBtn = document.getElementById("loginStatusBtn");
+const signUpBtn = document.getElementById("signUpBtn");
+
+const user_email = document.getElementById("user_email");
+const user_nickname = document.getElementById("user_nickname");
+const user_type = document.getElementById("user_type");
+const user_name = document.getElementById("user_name");
+const university_name = document.getElementById("university_name");
+const navBar=document.getElementById("navbar");
+
+//회원로그인 정보 불러오기
+const loadloginData = () => {
+  const url = `${apiUrl}/loginStatus`;
+  fetch(url)
+      .then((res) => res.json())
+      .then(res => {
+          userInfo=res;
+          setLoginHeader(res);
+      }
+      )
+}
+const setLoginHeader = (res) => {
+    navBar.setAttribute("href", `${apiUrl}`);
+    if (res.loginStatus) {
+        loginStatusBtn.setAttribute("href", `${apiUrl}/logout`);
+        loginStatusBtn.innerText = "로그아웃"
+        signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
+        signUpBtn.innerText = "마이페이지"
+    }
+    else {
+        loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
+        loginStatusBtn.innerText = "로그인"
+        signUpBtn.setAttribute("href", `${apiUrl}/signup/agreement`);
+        signUpBtn.innerText = "회원가입"
+    }
+  
   }
+  
+
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
@@ -19,7 +50,7 @@ const storeName = document.querySelector('#storeName'),
       storeClass = document.querySelector('#storeClass'),
       storeItem = document.querySelector('#storeItem');
 const storeInfoTextBox = document.querySelectorAll(".storeInfoTextBox");
-const universityName = document.querySelector("#headerMenu_university");
+const universityName = document.getElementById("universityName");
 
 // 고정 지도 코드
 // ===========================================================================================
@@ -62,7 +93,7 @@ function getUniversityName(){
     .then((res) => res.json())
     .then(res => {
         Uniname.push(res.university_name);
-        universityName.innerHTML = Uniname[0];
+        universityName.textContent = Uniname[0];
     })
     .catch((error) => {
         console.error('There has been a problem with your fetch operation:', error);
@@ -374,14 +405,16 @@ function retailerLoad(){
 
 window.addEventListener('load',function(){
     getUniversityName();
+    updateDynamicLinks();
+    loadloginData();
     retailerLoad();
 });
 
 
-// 현재 URL의 경로 일부 가져오기 (partner 뒤의 학교 이름 추출함)
+// 현재 URL의 경로 일부 가져오기 (retailer 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {
     var path = window.location.pathname;
-    var regex = /\/partner\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
+    var regex = /\/retailer\/([a-zA-Z]+)/; // /partner/ 다음에 있는 영어 문자열을 추출하는 정규식
     var matches = path.match(regex);
     if (matches && matches.length > 1) {
       return matches[1];
@@ -396,47 +429,53 @@ function generateDynamicURL(linkId, userschool) {
 
     // linkId에 따라 동적 값을 할당하는 로직을 구현합니다.
     if (linkId === "retailer") {
-    dynamicValue = "retailer/" + userschool;
-    } else if (linkId === "partner") {
-    dynamicValue = "partner/" + userschool;
-    } else if (linkId === "mypage") {
-    dynamicValue = "mypage";
-    }else if (linkId === "login") {
-        dynamicValue = "login";
+        dynamicValue = "retailer/" + userschool;
+      } else if (linkId === "partner") {
+        dynamicValue = "partner/" + userschool;
+      } else if (linkId === "more_news") {
+        dynamicValue = "showPostListAll/" + userschool;
+      } else if (linkId === "news") {
+        dynamicValue = "showPostListAll/" + userschool;
+      } else if(linkId==="council"){
+        dynamicValue = "council/" + userschool;
       }
 
     return `${apiUrl}/` + dynamicValue;
 }
     
+
 // 새로운 url로 업데이트
 async function updateDynamicLinks() {
     var userschool = getDynamicValueFromURL();
-        if (!userschool) {
-        console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
-        return;
-        }
-
-    var link1 = document.getElementById("headerMenu_reatiler");
-    var link2 = document.getElementById("headerMenu_partner");
-    var link3 = document.getElementById("headerMenu_mypage");
-
-    link1.href = generateDynamicURL("retailer",userschool);
-    link1.textContent = "소상공인 가게 지도";
-
-    link2.href = generateDynamicURL("partner",userschool);
-    link2.textContent = "제휴 지도";
+    if (!userschool) {
+      console.log("영어 문자열이 URL에서 추출되지 않았습니다.");
+      return;
+    }
+    var link1 = document.getElementById("main_retailer");
+    var link2 = document.getElementById("partner");
+    var link3 = document.getElementById("news");
     
-    let userInfo= await loadloginData();
-    console.log(userInfo);
-    if(!userInfo.loginStatus){
-        link3.href = generateDynamicURL("login",userschool);
-        link3.textContent = "로그인";
-      }
-      else{
-        link3.href = generateDynamicURL("mypage",userschool);
-        link3.textContent = "마이페이지";
-      }
-}
+    universityName.addEventListener("click",function(){
+        var link = generateDynamicURL("council", userschool);
+        window.location.href = link;
+    })
+    link1.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("retailer", userschool);
+      window.location.href = link;
+    });
+  
+    link2.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("partner", userschool);
+      window.location.href = link;
+    });
+  
+    link3.addEventListener("click", function () {
+      // 버튼을 클릭하면 이동할 링크 주소를 설정하세요.
+      var link = generateDynamicURL("news", userschool);
+      window.location.href = link;
+    });
+  
+  }
 
-// 동적 링크 업데이트 함수를 호출합니다.
-updateDynamicLinks();
