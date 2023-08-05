@@ -14,6 +14,9 @@ const output = {
     home: (req, res) => {
         res.render('home/mainpage.html');
     },
+    system:(req,res)=>{
+        res.render('home/computerSys.html');
+    },
     login: (req, res) => {
         res.render('home/login.html');
     },

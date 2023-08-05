@@ -99,12 +99,12 @@ router.delete("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 
 router.get("/postHeartNum/:post_id",ctrl.post.postHeartNum);
 
 // 마이페이지 -> 스크랩
-router.post("/addScrap",ctrl.post.addScrap); // 스크랩 목록 추가하기
-router.post("/checkScrap",ctrl.post.checkScrap); // 특정 user_email 과 post_id에 해당하는 scrap_id 확인
-router.delete("/deleteScrap/:scrap_id",ctrl.post.deleteScrap); // 스크랩 목록 지우기
+// router.post("/addScrap",ctrl.post.addScrap); // 스크랩 목록 추가하기
+// router.post("/checkScrap",ctrl.post.checkScrap); // 특정 user_email 과 post_id에 해당하는 scrap_id 확인
+// router.delete("/deleteScrap/:scrap_id",ctrl.post.deleteScrap); // 스크랩 목록 지우기
 
-// 게시글 스크랩 개수 반환
-router.get("/postScrapNum/:post_id",ctrl.post.postScrapNum);
+// // 게시글 스크랩 개수 반환
+// router.get("/postScrapNum/:post_id",ctrl.post.postScrapNum);
 
 //댓글
 router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPostID);//댓글 목록 보이기
@@ -114,5 +114,6 @@ router.post('/doDeleteComment/:comment_id', ctrl.comment.DeleteComment); //댓�
 
 
 module.exports=router;
+
 
 
