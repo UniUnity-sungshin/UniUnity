@@ -150,13 +150,24 @@ var nextButton = document.querySelector('.swiper-button-next');
 
 // 다음 버튼 클릭시
 nextButton.addEventListener('click', function () {
-  mySwiper.slideToNext();
+  slideToNext();
 });
 
 // 이전 버튼 클릭시
 prevButton.addEventListener('click', function () {
-  mySwiper.slideToPrev();
+  slideToPrev();
 });
+
+// slideToNext() 함수 정의
+function slideToNext() {
+  mySwiper.slideNext();
+}
+
+// slideToPrev() 함수 정의
+function slideToPrev() {
+  mySwiper.slidePrev();
+}
+
 
 // 슬라이더 정보
 var mySwiper = new Swiper('.swiper-container', {
