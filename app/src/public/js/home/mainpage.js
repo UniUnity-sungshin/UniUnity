@@ -19,12 +19,12 @@ const loadData = async() => {
     })
         .then((res) => res.json())
         .then(res => {
-            fillSearch(res);
+            searchUniversityName(res);
         }
     )
 }
 
-const fillSearch = (suggestArr) => {
+const searchUniversityName = (suggestArr) => {
     ul.innerHTML = "";
     suggestArr.forEach((el, idx) => {
         // el : {universityname : "성신여자대학교"}
@@ -76,11 +76,19 @@ window.addEventListener('DOMContentLoaded', function()
 const checkInput = () => {
 
     const input = searchInput.value;
+    console.log(input);
     while(ul.hasChildNodes()){
         ul.removeChild(ul.firstChild);
     }
-    if(input==""){ //input이 빈문자열일 경우에도 indexOf()반환값이 0 이기 때문에 예외처리 해줘야함
-        return ;
+    if(input==""){ //input이 빈문자열일 경우에 모든 학교리스트 반환(keyup)
+        universitySearchList.forEach((el)=>{
+            const li=document.createElement("li");
+                const a = document.createElement("a");
+                ul.appendChild(li);
+                li.appendChild(a);
+                a.innerHTML=el.university_name;
+                a.href=`/council/${el.university_url}`;
+        })
     }
     else{
         universitySearchList.forEach((el) => {
@@ -96,3 +104,20 @@ const checkInput = () => {
     }
 }
 searchInput.addEventListener("keyup", checkInput);
+
+ //input이 빈 문자열일 경우에 모든 학교리스트 반환(mousedown)
+searchInput.addEventListener("mousedown", (event) => {
+    console.log("mouse hello");
+    while(ul.hasChildNodes()){
+        ul.removeChild(ul.firstChild);
+    }
+    universitySearchList.forEach((el)=>{
+        const li=document.createElement("li");
+            const a = document.createElement("a");
+            ul.appendChild(li);
+            li.appendChild(a);
+            a.innerHTML=el.university_name;
+            a.href=`/council/${el.university_url}`;
+    })
+});
+
