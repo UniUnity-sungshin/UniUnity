@@ -168,8 +168,16 @@ const process = {
 
     },
     //비밀번호 찾기
-    forgotPassword:(req,res)=>{
+    forgotPassword:async(req,res)=>{
 
+    },
+
+    duplicateCheckEmail:async(req,res)=>{
+        const user = new User({
+            user_email:req.body.user_email
+        })
+        const response= await user.duplicateCheckEmail();
+        return res.json(response)
     },
 
     //이메일 인증

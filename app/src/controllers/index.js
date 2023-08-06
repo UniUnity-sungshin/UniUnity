@@ -34,6 +34,9 @@ router.post("/mypage/withdrawal",ctrl.process.withdrawal)
 //비밀번호 찾기
 router.post("/forgot/password",ctrl.process.forgotPassword)
 
+//회원가입시 이메일 중복확인
+router.post("/signup/duplicateCheckEmail",ctrl.process.duplicateCheckEmail);
+
 //메일 인증
 router.post("/auth/email",ctrl.process.emailAuth);
 router.post("/register",ctrl.process.register);
