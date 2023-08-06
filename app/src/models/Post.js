@@ -7,12 +7,13 @@ class Post {
     //게시글 작성하기
     async createPost() {
         const client = this.body;
+
         try {
             const response = await PostStorage.savePost(client);
-            console.log(response)
+            //console.log(response)
             const response2 = await PostStorage.saveImagePost(
                 response.post_id,
-                response.postInfo.post_content,
+                response.postInfo,
                 response.formattedDateTime
             )
             return response2;
@@ -35,9 +36,9 @@ class Post {
     async showPostListAll(university_url, page = 1, pageSize = 10) {
         try {
             let university_id = await PostStorage.getUniversityUrlToID(university_url);
-            console.log(university_id);
+            //console.log(university_id);
             const response = await PostStorage.getPostListAll(university_id);
-            console.log(response);
+            //console.log(response);
             return response;
         } catch (err) {
             return { success: false, msg: err };

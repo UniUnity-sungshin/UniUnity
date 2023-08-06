@@ -45,22 +45,39 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err);
                 }
+                
                 const post_id = postId; // 새로 추가된 게시글의 ID
+                const htmlContent = postInfo || ''; // postInfo.post_content가 undefined인 경우 빈 문자열로 초기화
+                //console.log("htmlContent:", htmlContent); // 디버깅용 로그
                 const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
-                const matches = postInfo.post_content.match(regex);
+                const matches = htmlContent.match(regex);
+                //console.log("matches:", matches); // 디버깅용 로그
                 const image_url = matches && matches.length > 0 ? matches[0].replace(/<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi, '$1') : null;
-                console.log(image_url)
+                //console.log("saveImagePost: " + image_url);
+                
+                // console.log("post_id:", post_id);
+                // console.log("image_url:", image_url);
+                // console.log("formattedDateTime:", formattedDateTime);
+
                 if (image_url) {
-                    const imageQuery = 'INSERT INTO PostImage(image_id, post_id, image_url, image_date) VALUES (?, ?, ?, ?);';
-                     pool.query(imageQuery, [null, post_id, image_url, formattedDateTime], (imageErr) => {
-                        pool.releaseConnection(connection);
+                    const imageQuery = 'INSERT INTO PostImage(post_id, image_url, image_date) VALUES (?, ?, ?);';
+                    pool.query(imageQuery, 
+                        [
+                            post_id, 
+                            image_url, 
+                            formattedDateTime
+
+                        ], 
+                        (imageErr) => {
                         if (imageErr) {
+                            pool.releaseConnection(connection);
                             reject({
                                 result: false,
                                 status: 500,
                                 err: `${imageErr}`
                             });
                         } else {
+                            pool.releaseConnection(connection);
                             console.log("이미지 삽입 성공")
                             resolve({
                                 result: true,
@@ -68,7 +85,7 @@ class PostStorage {
                             });
                         }
                     });
-                }else{  //이미지 url 없음
+                }else {  //이미지 url 없음
                     console.log("이미지 url 없음");
                     resolve({
                         result: true,
@@ -124,9 +141,10 @@ class PostStorage {
                                 });
                             } else {
                                 pool.releaseConnection(connection);
+                                console.log('postInfo after insert: ', postInfo.post_content);
                                 resolve({
                                     post_id:result.insertId,
-                                    postInfo:postInfo,
+                                    postInfo:postInfo.post_content,
                                     formattedDateTime:formattedDateTime
                                 });
                             }

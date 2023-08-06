@@ -189,7 +189,7 @@ var Uniname = [];
 var university_id;
 var imageUrls = [];
 
-// 카드뉴스 이미지 추가 함수
+// 카루셀에 이미지 추가
 async function fetchImageUrls(imageData) {
   try {
     const swiperWrapper = document.querySelector('.swiper-wrapper');
@@ -198,8 +198,8 @@ async function fetchImageUrls(imageData) {
 
     // 이미지 데이터 배열인지 확인
     if (Array.isArray(imageData)) {
-      // imageData 배열을 역순으로 순회하며 이미지를 카루셀에 추가
-      for (let i = imageData.length - 1; i >= 0; i--) {
+      // imageData 배열을 정순으로 순회하며 이미지를 카루셀에 추가
+      for (let i = 0; i < imageData.length; i++) {
         const currentData = imageData[i]; // 현재 이미지 데이터
         // 이미지 데이터의 형태가 객체인지 확인
         if (currentData && currentData.image_url) {
@@ -216,6 +216,7 @@ async function fetchImageUrls(imageData) {
           const imgElement = document.createElement('img');
           imgElement.classList.add('news');
           imgElement.src = currentData.image_url;
+          console.log("image_url: " + currentData.image_url);
           imgElement.alt = 'no_image' + imageUrls.length;
 
           imgLink.appendChild(imgElement);
@@ -225,6 +226,8 @@ async function fetchImageUrls(imageData) {
       }
 
       console.log('Image URLs:', imageUrls);
+      // 카루셀을 업데이트
+      mySwiper.update();
     } else {
       console.error('Error: imageData is not an array or is empty.');
     }
