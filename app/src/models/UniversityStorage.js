@@ -52,13 +52,13 @@ class UniversityStorage {
                     reject(err)
                 }
 
-                pool.query("SELECT university_name,university_url FROM University;", function (err, rows, fields) {
+                pool.query("SELECT university_name,university_url FROM University ORDER BY university_name ASC;", function (err, rows, fields) {
                     pool.releaseConnection(connection);
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    resolve(rows);
+                    resolve({success:true,status:200,result:rows});
                 })
             })
         })

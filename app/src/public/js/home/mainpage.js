@@ -19,7 +19,13 @@ const loadData = async() => {
     })
         .then((res) => res.json())
         .then(res => {
-            searchUniversityName(res);
+            if(res.success==true){
+                searchUniversityName(res.result);
+            }
+            else{
+                ul.appendChild("서버 오류로 점검 중 입니다. 잠시 후 이용해주세요");
+            }
+         
         }
     )
 }
