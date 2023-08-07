@@ -141,15 +141,25 @@ const process = {
         return res.json(response)
 
     },
-    //비밀번호 변경
-    modifyPsword: async (req, res) => {
+    //비밀번호 변경1(마이페이지-현재 비밀번호를 아는 상태로 비밀번호 변경)
+    modifyPsword1: async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
             new_psword: hashedPassword,
             psword: req.body.psword
         });
-        const response = await user.modifyPsword();
+        const response = await user.modifyPsword1();
+        return res.json(response)
+    },
+    //비밀번호 변경2(이메일을 이용한 비밀번호 변경)
+    modifyPsword2: async (req, res) => {
+        const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
+        const user = new User({
+            user_email: req.body.user_email,
+            new_psword: hashedPassword
+        });
+        const response = await user.modifyPsword2();
         return res.json(response)
     },
     //회원탈퇴 
