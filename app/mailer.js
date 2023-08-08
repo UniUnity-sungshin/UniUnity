@@ -32,7 +32,7 @@ function sendMail(auth, emailAddress) {
           raw: base64Encode(
             'From: oldedusolution@gmail.com\n' +
               `To: ${emailAddress}\n` +
-              'Subject: "UniUnity Sign Up Authentication Code"\n' +
+              'Subject: "UniUnity Authentication Code"\n' +
               'MIME-Version: 1.0\n' +
               'Content-Type: text/plain; charset="UTF-8"\n' +
               'Content-Transfer-Encoding: message/rfc2822\n' +

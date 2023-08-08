@@ -26,8 +26,11 @@ router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
 
 //닉네임 변경
 router.post("/mypage/modify/1",ctrl.process.modifyNickname)
-//비밀번호 변경
-router.post("/mypage/modify/2",ctrl.process.modifyPsword)
+//비밀번호 변경1(마이페이지-현재 비밀번호를 아는 상태로 비밀번호 변경)
+router.post("/mypage/modify/2",ctrl.process.modifyPsword1)
+//비밀번호 변경2(이메일을 이용한 비밀번호 변경)
+router.post("/mypage/modify/3",ctrl.process.modifyPsword2)
+
 //회원 탈퇴
 router.post("/mypage/withdrawal",ctrl.process.withdrawal)
 
@@ -49,7 +52,7 @@ router.post("/getCardNewsImageUrl", ctrl.result.getCardNewsImageUrl);
 
 
 
-//
+//학교 라우터
 router.get("/showUniversityNameList/:university_name",ctrl.output.showUniversityNameList);
 router.get("/showUniversityNameList",ctrl.output.showUniversityNameList);
 
