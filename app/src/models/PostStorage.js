@@ -536,11 +536,18 @@ class PostStorage {
                                     }
                                     else {
                                         pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
-                                            pool.releaseConnection(connection);
                                             if (err) {
                                                 console.error('Query 함수 오류', err);
                                                 reject(err)
                                             }
+                                            // 해당 게시글 like_count 증가
+                                            pool.query("UPDATE Post SET like_count=like_count+1 WHERE post_id=?;", [post_id], function(err){
+                                                pool.releaseConnection(connection);
+                                                if (err) {
+                                                    console.error('Query 함수 오류', err);
+                                                    reject(err)
+                                                }
+                                            })
                                             resolve({ result: rows, status: 200 });
                                         })
                                     }
@@ -614,7 +621,7 @@ class PostStorage {
                     }
                     pool.query("SELECT * FROM Heart WHERE heart_id=?;", [heart_id], function (err, check) {
                         if (err) {
-                            console.error('1.Query 함수 오류', err);
+                            console.error('Query 함수 오류', err);
                             reject(err)
                         }
                         else if (check.length < 1) {
@@ -623,14 +630,14 @@ class PostStorage {
                         }
                         pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
                             if (err) {
-                                console.error('2.Query 함수 오류', err);
+                                console.error('Query 함수 오류', err);
                                 reject(err)
                             }
                             // 해당 게시글 like_count 감소
                             pool.query("UPDATE Post SET like_count=like_count-1 WHERE post_id=?;", [check[0].post_id], function(err){
                                 pool.releaseConnection(connection);
                                 if (err) {
-                                    console.error('4.Query 함수 오류', err);
+                                    console.error('Query 함수 오류', err);
                                     reject(err)
                                 }
                             })
