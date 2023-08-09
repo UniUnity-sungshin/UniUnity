@@ -170,7 +170,9 @@ function slideToPrev() {
 
 
 // 슬라이더 정보
-var mySwiper = new Swiper('.swiper-container', {
+var mySwiper;
+function setSwiper() {
+  mySwiper = new Swiper('.swiper-container', {
   wrapperClass: 'swiper-wrapper',
   slideClass: 'swiper-slide',
   navigation: {
@@ -182,6 +184,7 @@ var mySwiper = new Swiper('.swiper-container', {
   centerSlides: true,
   spaceBetween: 20,
 });
+}
 
 const universityName = document.querySelector("#universityName");
 
@@ -194,7 +197,7 @@ async function fetchImageUrls(imageData) {
   try {
     const swiperWrapper = document.querySelector('.swiper-wrapper');
 
-    console.log('Received imageData:', imageData);
+    //console.log('Received imageData:', imageData);
 
     // 이미지 데이터 배열인지 확인
     if (Array.isArray(imageData)) {
@@ -203,7 +206,7 @@ async function fetchImageUrls(imageData) {
         const currentData = imageData[i]; // 현재 이미지 데이터
         // 이미지 데이터의 형태가 객체인지 확인
         if (currentData && currentData.image_url) {
-          console.log(imageUrls.length);
+          //console.log(imageUrls.length);
           imageUrls.push(currentData.image_url); // 이미지를 배열에 추가
 
           const imgContainer = document.createElement('div');
@@ -224,7 +227,7 @@ async function fetchImageUrls(imageData) {
         }
       }
 
-      console.log('Image URLs:', imageUrls);
+      //console.log('Image URLs:', imageUrls);
     } else {
       console.error('Error: imageData is not an array or is empty.');
     }
@@ -267,6 +270,7 @@ function councilLoad() {
   .then((res) => res.json())
   .then((imageData) => { // 이미지 데이터를 변수 imageData로 받아옴
     fetchImageUrls(imageData); // 이미지 데이터를 fetchImageUrls 함수의 인자로 전달
+    setSwiper();
   })
   .catch(error => {
     console.error('Error:', error);
@@ -285,6 +289,14 @@ updateDynamicLinks();
 //   window.location.href = `${apiUrl}`; // 이동할 링크를 지정
 // });
 
+// 버튼 요소를 가져옵니다.
+const button = document.getElementById('universityName');
+
+// 버튼에 클릭 이벤트를 추가합니다.
+button.addEventListener('click', () => {
+  // 페이지를 다시 로드합니다.
+  location.reload();
+});
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {

@@ -141,15 +141,25 @@ const process = {
         return res.json(response)
 
     },
-    //비밀번호 변경
-    modifyPsword: async (req, res) => {
+    //비밀번호 변경1(마이페이지-현재 비밀번호를 아는 상태로 비밀번호 변경)
+    modifyPsword1: async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
         const user = new User({
             user_email: req.body.user_email,
             new_psword: hashedPassword,
             psword: req.body.psword
         });
-        const response = await user.modifyPsword();
+        const response = await user.modifyPsword1();
+        return res.json(response)
+    },
+    //비밀번호 변경2(이메일을 이용한 비밀번호 변경)
+    modifyPsword2: async (req, res) => {
+        const hashedPassword = await bcrypt.hash(req.body.new_psword, 10)
+        const user = new User({
+            user_email: req.body.user_email,
+            new_psword: hashedPassword
+        });
+        const response = await user.modifyPsword2();
         return res.json(response)
     },
     //회원탈퇴 
@@ -396,16 +406,28 @@ const post = {
     DeletePost: async (req, res) => {
         let post_id = req.params.post_id;
         let user_email = req.params.user_email;
-        const post = new Post(req.body);
-        const response = await post.doDeletePost(post_id, user_email);
-        return res.json(response);
+
+        try {
+            const post = new Post();
+            const response = await post.doDeletePost(post_id, user_email);
+            return res.json(response);
+          } catch (err) {
+            console.error('게시글 삭제 실패:', err);
+            return res.status(500).json({ error: '게시글 삭제에 실패하였습니다.' });
+          }
+        
     },
-    IncreaseReadCount: async (req, res) => {
+    IncreaseViewCount: async (req, res) => {
         let post_id = req.params.post_id;
-        const read_count = req.params.read_count;
+
+        try{
         const post = new Post();
-        const response = await post.showIncreaseReadCount(post_id, read_count);
+        const response = await post.showIncreaseViewCount(post_id);
         return res.json(response);
+        } catch(err){
+            console.error('조회수 증가 실패:', err);
+            return res.status(500).json({ error: '게시글 증가에 실패하였습니다.' });
+          }
     },
     // getTotalPostsCount: async(req, res) => {
     //     const post = new Post();
@@ -416,11 +438,6 @@ const post = {
     addHeart: async (req, res) => {
         const post = new Post();
         const response = await post.addHeart(req.body);
-        return res.json(response);
-    },
-    getUserHeartList: async (req, res) => {
-        const post = new Post();
-        const response = await post.getUserHeartList(req.params.user_email);
         return res.json(response);
     },
     checkHeart: async (req, res) => {
@@ -437,6 +454,28 @@ const post = {
     postHeartNum: async (req, res) => {
         const post = new Post();
         const response = await post.postHeartNum(req.params.post_id);
+        return res.json(response);
+    },
+    // 마이페이지) 스크랩 기능
+    addScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.addScrap(req.body);
+        return res.json(response);
+    },
+    checkScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.checkScrap(req.body);
+        return res.json(response);
+    },
+    deleteScrap: async (req, res) => {
+        const post = new Post();
+        const response = await post.deleteScrap(req.params.scrap_id);
+        return res.json(response);
+    },
+    // 게시글 스크랩 개수 확인
+    postScrapNum: async (req, res) => {
+        const post = new Post();
+        const response = await post.postScrapNum(req.params.post_id);
         return res.json(response);
     },
 }
@@ -485,6 +524,44 @@ const comment = {
         const response = await comment.doDeleteComment();
         return res.json(response);
     },
+    // removeComment: function ($comment) {
+    //     $.ajax({
+    //         url: _apiServerUrl + '/remove/board/comment',
+    //         xhrFields: {withCredentials: true},
+    //         type: 'POST',
+    //         data: {
+    //             id: $comment.data('id')
+    //         },
+    //         success: function (data) {
+    //             if (Number($('response', data).text())) {
+    //                 $comment.remove();
+    //             } else {
+    //                 alert('삭제할 수 없습니다.');
+    //             }
+    //         }
+    //     });
+    // },
+
+    //대댓글
+    // createChildCommentForm: function ($comment) {
+    //     var $commentForm = $articles.find('> article > div.comments > form.writecomment').filter(function () {
+    //         return $(this).data('parentId') === $comment.data('id');
+    //     });
+    //     if ($commentForm.length === 0) {
+    //         $commentForm = $articles.find('> article > div.comments > form.writecomment:not(.child)').clone().addClass('child').data('parentId', $comment.data('id'));
+    //         $commentForm.find('input[name="text"]').attr('placeholder', '대댓글을 입력하세요.');
+    //         var $beforeComment = $articles.find('> article > div.comments > article.child').filter(function () {
+    //             return $(this).data('parentId') === $comment.data('id');
+    //         }).last();
+    //         if ($beforeComment.length === 0) {
+    //             $beforeComment = $articles.find('> article > div.comments > article.parent').filter(function () {
+    //                 return $(this).data('id') === $comment.data('id');
+    //             });
+    //         }
+    //         $commentForm.insertAfter($beforeComment);
+    //     }
+    //     $commentForm.find('input[name="text"]').focus();
+    // },
 
 
 

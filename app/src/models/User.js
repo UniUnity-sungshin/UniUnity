@@ -72,8 +72,8 @@ class User {
         }
 
     }
-    //비밀번호 변경
-    async modifyPsword() {
+    //비밀번호 변경1(마이페이지-현재 비밀번호를 아는 상태로 비밀번호 변경)
+    async modifyPsword1() {
         try {
             const client = this.body;
             console.log(client)
@@ -98,6 +98,24 @@ class User {
         }
 
     }
+    //비밀번호 변경2(이메일을 이용한 비밀번호 변경)
+    async modifyPsword2() {
+        try {
+            const client = this.body;
+            const response = await UserStorage.updatePsword(client);
+            return response;
+        
+        } catch (err) {
+            return {
+                result: false,
+                status: 400,
+                err: err
+            };
+        }
+
+    }
+
+
     //회원 탈퇴
     async withdrawalUser() {
         try {
