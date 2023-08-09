@@ -103,18 +103,17 @@ class Post {
             return { err };
         }
     }
-
+    
     //조회수 증가
-    async showIncreaseReadCount(req, res) {
-        const { read_count } = req.params;
-
+    async showIncreaseViewCount(post_id) {
         try {
-            const response = await PostStorage.getIncreaseReadCount(read_count);
-            res.status(response.status).json(response);
+            const response = await PostStorage.getIncreaseViewCount(post_id);
+            return response;
         } catch (err) {
-            res.status(err.status || 500).json({ err: err.err });
+            return{err};
         }
     }
+
 
     // 하트 기능 //
     // 마이페이지) 하트 저장

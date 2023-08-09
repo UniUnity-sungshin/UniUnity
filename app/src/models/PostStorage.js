@@ -410,77 +410,8 @@ class PostStorage {
             });
         });
     }
-    //내가 작성한 게시글 삭제하기
-    // static goDeletePost(post_id, user_email) {
-    //     return new Promise(async (resolve, reject) => {
-    //       pool.getConnection((err, connection) => {
-    //         if (err) {
-    //           console.error('MySQL 연결 오류: ', err);
-    //           reject(err);
-    //         }
 
-    //         const checkQuery = 'SELECT * FROM Post WHERE post_id = ?';
-    //         pool.query(checkQuery, [post_id], (err, result) => {
-    //           if (err) {
-    //             pool.releaseConnection(connection);
-    //             reject({
-    //               result: false,
-    //               status: 500,
-    //               err: `${err}`
-    //             });
-    //           } else {
-    //             if (result.length > 0) {
-    //               const post = result[0];
-    //               if (post.user_email === user_email) {
-    //                 const deleteQuery = 'DELETE FROM Post WHERE post_id=?  AND user_email = ?';
-    //                 pool.query(deleteQuery, [post_id,user_email], (err, result) => {
-    //                   pool.releaseConnection(connection);
-    //                   if (err) {
-    //                     reject({
-    //                       result: false,
-    //                       status: 500,
-    //                       err: `${err}`
-    //                     });
-    //                   } else {
-    //                     if (result.affectedRows > 0) {
-    //                       resolve({
-    //                         result: true,
-    //                         status: 200
-    //                       });
-    //                     } else {
-    //                       reject({
-    //                         result: false,
-    //                         status: 404,
-    //                         err: '게시글을 찾을 수 없거나 삭제 권한이 없습니다.'
-    //                       });
-    //                     }
-    //                   }
-    //                 });
-    //               } else {
-    //                 pool.releaseConnection(connection);
-    //                 reject({
-    //                   result: false,
-    //                   status: 403,
-    //                   err: '게시글 삭제 권한이 없습니다.'
-    //                 });
-    //               }
-    //             } else {
-    //               pool.releaseConnection(connection);
-    //               reject({
-    //                 result: false,
-    //                 status: 404,
-    //                 err: '게시글을 찾을 수 없습니다.'
-    //               });
-    //             }
-    //           }
-    //         });
-    //       });
-    //     });
-    //   }
-
-
-    // 게시글 조회수 증가
-    static async getIncreaseReadCount(post_id, read_count) {
+    static getIncreaseViewCount(post_id) {
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) {
@@ -492,8 +423,8 @@ class PostStorage {
                     });
                 }
 
-                const query = 'UPDATE Post SET read_count = read_count + 1 WHERE post_id = ?';
-                pool.query(query, [post_id, read_count], (err, result) => {
+                const query = 'UPDATE Post SET view_count = view_count + 1 WHERE post_id = ?';
+                pool.query(query, [post_id], (err, result) => {
                     pool.releaseConnection(connection);
                     if (err) {
                         reject({
@@ -519,6 +450,47 @@ class PostStorage {
             });
         });
     }
+    
+    // 게시글 조회수 증가
+    // static getIncreaseViewCount(post_id) {
+    //     return new Promise((resolve, reject) => {
+    //         pool.getConnection((err, connection) => {
+    //             if (err) {
+    //                 console.error('MySQL 연결 오류: ', err);
+    //                 reject({
+    //                     result: false,
+    //                     status: 500,
+    //                     err: `${err}`
+    //                 });
+    //             }
+
+    //             const query = 'UPDATE Post SET view_count = view_count + 1 WHERE post_id = ?';
+    //             pool.query(query, [post_id], (err, result) => {
+    //                 pool.releaseConnection(connection);
+    //                 if (err) {
+    //                     reject({
+    //                         result: false,
+    //                         status: 500,
+    //                         err: `${err}`
+    //                     });
+    //                 } else {
+    //                     if (result.affectedRows > 0) {
+    //                         resolve({
+    //                             result: true,
+    //                             status: 200
+    //                         });
+    //                     } else {
+    //                         reject({
+    //                             result: false,
+    //                             status: 404,
+    //                             err: '게시글을 찾을 수 없습니다.'
+    //                         });
+    //                     }
+    //                 }
+    //             });
+    //         });
+    //     });
+    // }
     // 하트 기능 //
     // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
     static addHeart(heartInfo) {

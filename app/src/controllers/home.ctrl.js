@@ -417,12 +417,17 @@ const post = {
           }
         
     },
-    IncreaseReadCount: async (req, res) => {
+    IncreaseViewCount: async (req, res) => {
         let post_id = req.params.post_id;
-        const read_count = req.params.read_count;
+
+        try{
         const post = new Post();
-        const response = await post.showIncreaseReadCount(post_id, read_count);
+        const response = await post.showIncreaseViewCount(post_id);
         return res.json(response);
+        } catch(err){
+            console.error('조회수 증가 실패:', err);
+            return res.status(500).json({ error: '게시글 증가에 실패하였습니다.' });
+          }
     },
     // getTotalPostsCount: async(req, res) => {
     //     const post = new Post();
@@ -519,6 +524,44 @@ const comment = {
         const response = await comment.doDeleteComment();
         return res.json(response);
     },
+    // removeComment: function ($comment) {
+    //     $.ajax({
+    //         url: _apiServerUrl + '/remove/board/comment',
+    //         xhrFields: {withCredentials: true},
+    //         type: 'POST',
+    //         data: {
+    //             id: $comment.data('id')
+    //         },
+    //         success: function (data) {
+    //             if (Number($('response', data).text())) {
+    //                 $comment.remove();
+    //             } else {
+    //                 alert('삭제할 수 없습니다.');
+    //             }
+    //         }
+    //     });
+    // },
+
+    //대댓글
+    // createChildCommentForm: function ($comment) {
+    //     var $commentForm = $articles.find('> article > div.comments > form.writecomment').filter(function () {
+    //         return $(this).data('parentId') === $comment.data('id');
+    //     });
+    //     if ($commentForm.length === 0) {
+    //         $commentForm = $articles.find('> article > div.comments > form.writecomment:not(.child)').clone().addClass('child').data('parentId', $comment.data('id'));
+    //         $commentForm.find('input[name="text"]').attr('placeholder', '대댓글을 입력하세요.');
+    //         var $beforeComment = $articles.find('> article > div.comments > article.child').filter(function () {
+    //             return $(this).data('parentId') === $comment.data('id');
+    //         }).last();
+    //         if ($beforeComment.length === 0) {
+    //             $beforeComment = $articles.find('> article > div.comments > article.parent').filter(function () {
+    //                 return $(this).data('id') === $comment.data('id');
+    //             });
+    //         }
+    //         $commentForm.insertAfter($beforeComment);
+    //     }
+    //     $commentForm.find('input[name="text"]').focus();
+    // },
 
 
 
