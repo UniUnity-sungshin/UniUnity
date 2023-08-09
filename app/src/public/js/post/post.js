@@ -259,13 +259,13 @@ function createCard(data) {
           <p class="small text-muted">${data.category}</p>
       </div>
       <div class="card-text ps-3 d-flex">
-          <img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" />
+          <img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;" id="heartIcon" alt="filled-like" />
           <p class="small text-muted" style="margin-right: 1rem;" >${data.like_count}</p>
-          <img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" style="margin-right: 0.3rem; margin-bottom:0.3rem" alt="filled-star"/>
+          <img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" style="margin-right: 0.3rem; margin-bottom:0.3rem" id="scrapIcon" alt="filled-star"/>
           <p class="small text-muted" style="margin-right: 1rem;">${data.scrap_count}</p>
-          <img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/>
+          <img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" id="commentIcon" alt="speech-bubble-with-dots"/>
           <p class="small text-muted" style="margin-right: 1rem;">${data.comment_count}</p>
-          <img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/>
+          <img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" id="viewIcon" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/>
           <p class="small text-muted" style="margin-right: 1rem;">${data.view_count}</p>
           </div>
   `;

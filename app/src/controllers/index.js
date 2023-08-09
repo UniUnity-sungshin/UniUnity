@@ -96,7 +96,7 @@ router.put('/post/:post_id/increaseReadCount', ctrl.post.IncreaseReadCount);
 // 마이페이지 -> 하트
 router.post("/addHeart",ctrl.post.addHeart); // 하트 목록 추가하기
 router.post("/checkHeart",ctrl.post.checkHeart); // 특정 user_email 과 post_id에 해당하는 heart_id 확인
-router.delete("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 지우기
+router.get("/deleteHeart/:heart_id",ctrl.post.deleteHeart); // 하트 목록 지우기
 
 // 게시글 하트 개수 반환
 router.get("/postHeartNum/:post_id",ctrl.post.postHeartNum);

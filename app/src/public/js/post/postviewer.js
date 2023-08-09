@@ -1,3 +1,5 @@
+// const { result } = require("underscore");
+
 var currentUrl = window.location.href;
 var post_id = currentUrl.split("/").pop();
 console.log(post_id);
@@ -67,6 +69,7 @@ const loadPostData = async () => {
     const postContent = document.getElementById('post_content');
     const viewCount = document.getElementById('view_count');
     const likeCount = document.getElementById('like_count');
+    const scrapCount = document.getElementById('scrap_count');
     const commentCount = document.getElementById('comment_count');
     const deletePost = document.getElementById('delete');
     const userEmail = document.getElementById('user_email');
@@ -77,7 +80,8 @@ const loadPostData = async () => {
     postDate.textContent = postInfo.post_date;
     postContent.textContent = postInfo.post_content;
     viewCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/external-yogi-aprelliyanto-flat-yogi-aprelliyanto/32/external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto.png" style="margin-right: 0.3rem;" alt="external-click-marketing-and-seo-yogi-aprelliyanto-flat-yogi-aprelliyanto"/> ${postInfo.view_count}`;
-    likeCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" style="margin-right: 0.3rem;"  alt="filled-like" /> ${postInfo.like_count}`;
+    likeCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" id="like_img" style="margin-right: 0.3rem;" alt="filled-like" /> ${postInfo.like_count}`;
+    scrapCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" id="scrap_img" style="margin-right: 0.3rem; " alt="filled-star"/> ${postInfo.scrap_count}`
     commentCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${postInfo.comment_count}`;
     userEmail.textContent = postInfo.user_email;
     deletePost.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png" style="margin-right: 0.3rem;" />`;
@@ -141,6 +145,92 @@ const loadPostData = async () => {
         }
       }
 
+//********* 마이페이지 하트기능 **********//
+// post_id 값을 받아오는 함수
+function getPostID() {
+  const url = new URL(window.location.href);
+  const postID = url.pathname.split('/').pop();
+  return postID;
+}
+
+const likeImg = document.querySelector('#like_img');
+
+// 하트추가 기능
+function addHeart(){
+  // console.log("addHeart클릭");
+  if(userInfo.loginStatus===false){
+    alert("로그인 후에 기능을 사용할 수 있습니다.");
+  }
+  else{
+    //사용자가 이미 해당 게시글에 하트를 눌렀는지 확인
+    const postID = getPostID();
+    const req = {
+      post_id: postID,
+      user_email: userInfo.user_email
+    };
+    fetch(`${apiUrl}/checkHeart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
+    .then(res => {
+       console.log(res);
+       // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
+       if(res.result == false){
+          fetch(`${apiUrl}/addHeart`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(req),
+          })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return res.json();
+          })
+          .then(res => {
+            alert("하트 목록에 추가 되었습니다.");
+          })
+          .catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+          });
+       }
+       // 사용자가 해당게시글에 하트를 눌렀을 경우 -> 하트 삭제
+       else {
+          fetch(`${apiUrl}/deleteHeart/${res.result.heart_id}`)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return res.json();
+          })
+          .then(res => {
+            alert("하트 목록에서 삭제 되었습니다.");
+          })
+          .catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+          });
+       }
+    })
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+  }
+}
+
+likeImg.addEventListener('click', function(){
+  addHeart();
+})
      
 
     //read more버튼 누르면 조회수 1 증가 -> db에 요청
@@ -218,10 +308,8 @@ const loadPostData = async () => {
   catch (error)  {
   console.error('게시글 정보 불러오기 오류', error);
 }
-
 // page 로드 후 loadData() 실행
 };
-
 
 window.addEventListener('DOMContentLoaded', async function () {
   loadloginData();

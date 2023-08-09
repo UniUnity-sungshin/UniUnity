@@ -159,3 +159,7 @@ button:not(:disabled),
 #delete {
   cursor: pointer;
 }
+
+.countIcons{
+  cursor: pointer;
+}
