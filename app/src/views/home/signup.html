@@ -2,110 +2,193 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico" />
-    <title>회원 가입 - ÜniÜnity</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>회원가입 - ÜniÜnity</title>
+    <!-- Favicon-->
+    <link rel="icon" href="/assets/favicon.ico">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"
+        type="text/css" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" /> -->
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/home/signup.css" rel="stylesheet" />
+    <link href="/css/home/mainpage.css" rel="stylesheet" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-   
-    
-        <link href="/css/home/signup.css" rel="stylesheet" />
 </head>
 
 <body>
-
-    <div class="main">
+    <nav class="navbar static-top mb-2 mt-2">
         <div class="container">
-            <div class="signup-content">
-                <div class="signup-form">
-                    <form action ="/register" method="POST" class="register-form" id="register-form">
-                        <h2>UniUnity 회원가입</h2>
-                        <label for="univ_info" class="form-label">대학교</label>
-                        <select class="selectpicker" aria-label="univ_select" id="univ_select">
-                            <option selected>대학교 선택 ▼ </option>
-                          </select>
+            <a class="navbar-brand" id="navbar"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
 
-                          <label for="univ_info" class="form-label">유저 타입</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"  disabled="true">
-                            <label class="form-check-label" for="inlineCheckbox1">학생</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" disabled="true">
-                            <label class="form-check-label" for="inlineCheckbox2">상인</label>
-                          </div>
-                       
-                          <label for="email" class="form-label">이메일(대학생은 학교 이메일로만 인증 후 가입이 완료됩니다.)</label>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <input type="text" class="form-control" id=email placeholder="email" aria-label="email" aria-describedby="basic-addon2">
-                              <select class="custom-select" id="email_url_select">
-                                <option selected>@</option>
-                              </select>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <div class="row">
+                    <div class="card p-3 mt-3 mb-3 col-md-6 offset-md-3">
+                        <h3 class="mt-2 mb-3 ps-1 pt-2 pb-2">회원가입</h3>
+                        <div class="card-body ml-3">
+                            <div class="row">
+                                <label for="univ_info" class="form-label">1. 대학교</label>
+                                <input class="form-control search_input" type="search" placeholder="대학교를 검색하세요."
+                                    style="margin-left: 10px; width: 98%;" />
+                                <container class="rel_search">
+                                    <ul class="pop_rel_keywords">
+                                    </ul>
+                                </container>
                             </div>
-                          </div>
+                            <div class="row mt-2">
+                                <label for="univ_info" class="form-label">2. 유저 타입</label>
+                                <div class="col">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                            value="option1" disabled="true">
+                                        <label class="form-check-label" for="inlineCheckbox1">학생</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                            value="option2" disabled="true">
+                                        <label class="form-check-label" for="inlineCheckbox2">상인</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                        
+                            <div class="row mt-4">
+                                <label for="email" class="form-label">3. 이메일(대학생은 학교 이메일로만 인증 후 가입이 완료됩니다.)</label>
+                                <div class="input-group mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id=email placeholder="이메일"
+                                            aria-label="email" aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="custom-select" id="email_url_select">
+                                            <option selected>@</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary" id="confirmEmail">중복 확인</button>
+                                    </div>
 
-                        <div class="mb-3">
-                            <label for="formGroupExampleInput" class="form-label">인증코드</label>
-                            <input type="text" class="form-control" 
-                                placeholder="" id="authenticationInputText">
-                        </div>
-                        
-                        <div class="form-submit">
-                            <button type="button" class="btn btn-primary btn" id="sendAuthEmailBtn">인증번호 받기</button>
-                            <button type="button" class="btn btn-primary btn" id="confirmAuthEmailBtn">인증 확인</button>
-                        </div>
+                                </div>
+                            </div>
 
-                        <label for="inputPassword5" class="form-label">비밀번호</label>
-                        <input type="password" id="password" class="form-control"
-                            aria-labelledby="passwordHelpBlock" oninput="validatePasswordInput()">
-                        <div id="passwordHelpBlock" class="form-text">
-                            비밀번호는 8-20자 길이로 문자와 숫자를 포함해야 하며,
-                            공백, 특수 문자 또는 그림 이모티콘을 포함하지 않습니다.
-                        </div>
-                        <label for="inputPassword5" class="form-label">비밀번호 확인</label>
-                        <input type="password" id="confirmPassword" class="form-control"
-                            aria-labelledby="passwordHelpBlock" oninput="validateConfirmPasswordInput()">
-                        <div id="passwordHelpBlock" class="form-text">
-                            비밀번호는 8-20자 길이로 문자와 숫자를 포함해야 하며,
-                            공백, 특수 문자 또는 그림 이모티콘을 포함하지 않습니다.
-                        </div>
+                            <div class="row mt-4">
+                                <label for="formGroupExampleInput" class="form-label">4. 이메일 인증코드 입력</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" placeholder="인증코드"
+                                        id="authenticationInputText">
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <button type="button" class="btn btn-primary" id="sendAuthEmailBtn">인증코드
+                                                받기</button>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <button type="button" class="btn btn-primary" id="confirmAuthEmailBtn">인증
+                                                확인</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="formGroupExampleInput" class="form-label">이름</label>
-                            <input type="text" class="form-control" id="user_name"
-                                placeholder="">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="formGroupExampleInput" class="form-label">닉네임(상인은 상업명으로 설정하는 것을 권장합니다)</label>
-                            <input type="text" class="form-control" id="user_nickname"
-                                placeholder="">
-                        </div>
-                        
+                            <div class="row mt-4">
+                                <label for="inputPassword5" class="form-label">5. 비밀번호</label>
+                                <input type="password" id="password" class="form-control"
+                                    aria-labelledby="passwordHelpBlock" oninput="validatePasswordInput()">
+                                <div id="passwordHelpBlock" class="form-text">
+                                    비밀번호는 8-20자 길이로 문자와 숫자를 포함해야 하며,
+                                    공백, 특수 문자 또는 그림 이모티콘을 포함하지 않습니다.
+                                </div>
+                            </div>
 
-                        <div class="form-submit">
-                            <button type="button" class="btn btn-primary btn" id="backBtn" >처음으로</button>
-                            <button type="button" class="btn btn-primary btn" id="registerBtn">회원가입</button>
+                            <div class="row mt-4">
+                                <label for="inputPassword5" class="form-label">6. 비밀번호 확인</label>
+                                <input type="password" id="confirmPassword" class="form-control"
+                                    aria-labelledby="passwordHelpBlock" oninput="validateConfirmPasswordInput()">
+
+                            </div>
+
+
+                            <div class="row mt-4">
+
+                                <label for="formGroupExampleInput" class="form-label">7. 이름</label>
+                                <input type="text" class="form-control" id="user_name" placeholder="">
+
+
+                            </div>
+
+                            <div class="row mt-4">
+                                <label for="formGroupExampleInput" class="form-label">8. 닉네임(상인은 상업명으로 설정하는 것을
+                                    권장합니다)</label>
+                                <input type="text" class="form-control" id="user_nickname" placeholder="">
+                            </div>
+
+                            <div class="row mt-5 form-submit mb-4">
+                                <div class="col-lg-6">
+                                    <button type="button" class="btn btn-primary btn" id="backBtn">뒤로가기</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="btn btn-primary btn" id="registerBtn">회원가입</button>
+                                </div>
+
+                            </div>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
+
+
             </div>
         </div>
-
     </div>
+</body>
+<!-- Footer-->
+<footer class="footer bg-light mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                <ul class="list-inline mb-2">
+                    <li class="list-inline-item"><a href="#!">About</a></li>
+                    <li class="list-inline-item">⋅</li>
+                    <li class="list-inline-item"><a href="#!">Contact</a></li>
+                    <li class="list-inline-item">⋅</li>
+                    <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                    <li class="list-inline-item">⋅</li>
+                    <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                </ul>
+                <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <!-- JS -->
-    <script src="/js/apiUrl.js"></script>
-    <script src="/js/home/signup.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+<!-- JS -->
+<script src="/js/apiUrl.js"></script>
+<script src="/js/home/signup.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+
 
 </html>
