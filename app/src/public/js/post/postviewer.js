@@ -142,62 +142,6 @@ const loadPostData = async () => {
       }
 
 
-
-      //read more버튼 누르면 조회수 1 증가 -> db에 요청
-      // async function increaseViewCount(post_id, view_count) {
-      //   try {//increaseViewCount
-      //     const url = `${apiUrl}/postviewer/${post_id}`;
-      //     const response = await fetch(url, {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({ view_count }),
-      //     });
-      //     const data = await response.json();
-      //     return { success: true, view_count: data.view_count };
-      //   } catch (error) {
-      //     console.error('조회수 증가 요청 중 오류 발생', error);
-      //     return { success: false, msg: error };
-      //   }
-      // }
-
-      // // 이벤트리스너
-      // readMoreBtn.addEventListener('click', async () => {
-      //   try {
-      //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
-      //     const response = await increaseViewCount(post_id, postInfo.view_count);
-      //     if (response.success) {
-      //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
-      //       postInfo.view_count = response.view_count;
-      //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
-      //       await updateViewCountInDatabase(post_id, postInfo.view_count);
-      //     } else {
-      //       console.error('조회수 증가 실패');
-      //     }
-      //   } catch (error) {
-      //     console.error('조회수 증가 요청 중 오류 발생', error);
-      //   }
-      // });
-
-      // //업데이트된 조회수 받아오기
-      // async function updateViewCountInDatabase(post_id, view_count) {
-      //   try {
-      //     const url = `${apiUrl}/postviewer/${post_id}`;
-      //     const response = await fetch(url, {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({ view_count }),
-      //     });
-      //     const data = await response.json();
-      //     return { success: true, msg: data.msg };
-      //   } catch (error) {
-      //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
-      //     return { success: false, msg: error };
-      //   }
-      // }
       const viewer = toastui.Editor.factory({
         el: document.querySelector('.toast-custom-viewer'),
         viewer: true,
@@ -449,7 +393,7 @@ const fetchDeletePost = async (post_id,user_email) => {
       console.log(data);
       alert("게시글이 성공적으로 삭제되었습니다.");
       // 삭제 성공 후 추가 작업이 필요하면 이곳에 추가
-      window.location.href = `${apiUrl}/showPostListALL/${university_url}`;
+      window.location.href = `${apiUrl}/showPostListALL/${userInfo.university_url}`;
     } else {
       console.error('게시글 삭제 실패:', data.err);
       alert("게시글 삭제에 실패하였습니다.");
