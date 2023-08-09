@@ -26,7 +26,7 @@ const loadloginData = async () => {
       writeCommentBtn.style.borderColor = universityColor;
       for (let i = 0; i < icons.length; i++) {
         icons[i].style.color = universityColor;
-    }
+      }
     })
     .catch((error) => {
       console.error('작성자 회원 정보 불러오기 오류', error);
@@ -34,13 +34,13 @@ const loadloginData = async () => {
 };
 
 //버튼 학교상징 색으로 바꾸기
-function setUniversityColor(university_url){
-  if(university_url==="sungshin"){
-    universityColor="#6a6fb3"
-  }else if(university_url==="konkuk"){
-    universityColor="#004a26"
-  }else{
-    universityColor="#FFD400" //Uniunity색상
+function setUniversityColor(university_url) {
+  if (university_url === "sungshin") {
+    universityColor = "#6a6fb3"
+  } else if (university_url === "konkuk") {
+    universityColor = "#004a26"
+  } else {
+    universityColor = "#FFD400" //Uniunity색상
   }
   return universityColor;
 }
@@ -84,14 +84,14 @@ const loadPostData = async () => {
 
     // 화살표 버튼을 숨기거나 표시하는 함수
     function toggleCarouselButtons(visible) {
-    const carouselButtons = document.querySelectorAll('.carousel-control-prev, .carousel-control-next');
-    carouselButtons.forEach(button => {
-      if (visible) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
-    });
+      const carouselButtons = document.querySelectorAll('.carousel-control-prev, .carousel-control-next');
+      carouselButtons.forEach(button => {
+        if (visible) {
+          button.style.display = 'block';
+        } else {
+          button.style.display = 'none';
+        }
+      });
     }
     console.log(postContent.textContent);
     if (postInfo.category === "총학생회 공지사항") {
@@ -103,7 +103,7 @@ const loadPostData = async () => {
 
       // // text-only content
       // postContent.textContent = textContent;
-      
+
       // 게시글 정보 로드 후, 이미지 URL 추출 및 카루셀 추가
       const htmlContent = postInfo.post_content;
       const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
@@ -141,69 +141,69 @@ const loadPostData = async () => {
         }
       }
 
-     
 
-    //read more버튼 누르면 조회수 1 증가 -> db에 요청
-    // async function increaseViewCount(post_id, view_count) {
-    //   try {//increaseViewCount
-    //     const url = `${apiUrl}/postviewer/${post_id}`;
-    //     const response = await fetch(url, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ view_count }),
-    //     });
-    //     const data = await response.json();
-    //     return { success: true, view_count: data.view_count };
-    //   } catch (error) {
-    //     console.error('조회수 증가 요청 중 오류 발생', error);
-    //     return { success: false, msg: error };
-    //   }
-    // }
 
-    // // 이벤트리스너
-    // readMoreBtn.addEventListener('click', async () => {
-    //   try {
-    //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
-    //     const response = await increaseViewCount(post_id, postInfo.view_count);
-    //     if (response.success) {
-    //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
-    //       postInfo.view_count = response.view_count;
-    //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
-    //       await updateViewCountInDatabase(post_id, postInfo.view_count);
-    //     } else {
-    //       console.error('조회수 증가 실패');
-    //     }
-    //   } catch (error) {
-    //     console.error('조회수 증가 요청 중 오류 발생', error);
-    //   }
-    // });
+      //read more버튼 누르면 조회수 1 증가 -> db에 요청
+      // async function increaseViewCount(post_id, view_count) {
+      //   try {//increaseViewCount
+      //     const url = `${apiUrl}/postviewer/${post_id}`;
+      //     const response = await fetch(url, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({ view_count }),
+      //     });
+      //     const data = await response.json();
+      //     return { success: true, view_count: data.view_count };
+      //   } catch (error) {
+      //     console.error('조회수 증가 요청 중 오류 발생', error);
+      //     return { success: false, msg: error };
+      //   }
+      // }
 
-    // //업데이트된 조회수 받아오기
-    // async function updateViewCountInDatabase(post_id, view_count) {
-    //   try {
-    //     const url = `${apiUrl}/postviewer/${post_id}`;
-    //     const response = await fetch(url, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ view_count }),
-    //     });
-    //     const data = await response.json();
-    //     return { success: true, msg: data.msg };
-    //   } catch (error) {
-    //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
-    //     return { success: false, msg: error };
-    //   }
-    // }
-    const viewer = toastui.Editor.factory({
-      el: document.querySelector('.toast-custom-viewer'),
-      viewer: true,
-      height: '1000px',
-      initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
-    });
+      // // 이벤트리스너
+      // readMoreBtn.addEventListener('click', async () => {
+      //   try {
+      //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
+      //     const response = await increaseViewCount(post_id, postInfo.view_count);
+      //     if (response.success) {
+      //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
+      //       postInfo.view_count = response.view_count;
+      //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
+      //       await updateViewCountInDatabase(post_id, postInfo.view_count);
+      //     } else {
+      //       console.error('조회수 증가 실패');
+      //     }
+      //   } catch (error) {
+      //     console.error('조회수 증가 요청 중 오류 발생', error);
+      //   }
+      // });
+
+      // //업데이트된 조회수 받아오기
+      // async function updateViewCountInDatabase(post_id, view_count) {
+      //   try {
+      //     const url = `${apiUrl}/postviewer/${post_id}`;
+      //     const response = await fetch(url, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({ view_count }),
+      //     });
+      //     const data = await response.json();
+      //     return { success: true, msg: data.msg };
+      //   } catch (error) {
+      //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
+      //     return { success: false, msg: error };
+      //   }
+      // }
+      const viewer = toastui.Editor.factory({
+        el: document.querySelector('.toast-custom-viewer'),
+        viewer: true,
+        height: '1000px',
+        initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
+      });
     }
     else {
       toggleCarouselButtons(false);
@@ -213,13 +213,13 @@ const loadPostData = async () => {
         height: '1000px',
         initialValue: postInfo.post_content,
       });
+    }
   }
+  catch (error) {
+    console.error('게시글 정보 불러오기 오류', error);
   }
-  catch (error)  {
-  console.error('게시글 정보 불러오기 오류', error);
-}
 
-// page 로드 후 loadData() 실행
+  // page 로드 후 loadData() 실행
 };
 
 
@@ -260,11 +260,11 @@ const fetchComments = async () => {
       // 댓글 카드 생성
       const commentCardElement = document.createElement('div');
       commentCardElement.classList.add('card', 'p-4');
-  
+
       // 댓글 정보를 담는 div 요소 생성
       const commentInfoElement = document.createElement('div');
       commentInfoElement.classList.add('row');
-  
+
       // 유저 이메일 표시
       const userEmailElement = document.createElement('div');
       userEmailElement.classList.add('col-6');
@@ -290,38 +290,38 @@ const fetchComments = async () => {
       const commentDateElement = document.createElement('p');
       commentDateElement.classList.add('fs-4');
       commentDateElement.textContent = comment.comment_date;
-  
+
       // 좋아요 수 표시
       const likeCountElement = document.createElement('p');
       likeCountElement.classList.add('fs-4');
       likeCountElement.textContent = comment.like_count_comment;
-  
+
       // 생성한 요소들을 date/LikeCountElement에 추가
       dateElement.appendChild(commentDateElement);
       LikeCountElement.appendChild(likeCountElement);
 
       subdateLikeCountElement.appendChild(dateElement);
       subdateLikeCountElement.appendChild(LikeCountElement);
-  
+
       // 생성한 요소들을 commentInfoElement에 추가
       commentInfoElement.appendChild(userEmailElement);
       commentInfoElement.appendChild(subdateLikeCountElement);
-  
+
       // 댓글 내용 표시
       const commentContentElement = document.createElement('p');
       commentContentElement.classList.add('fs-4');
       commentContentElement.textContent = comment.comment_content;
-  
+
       // 생성한 요소들을 commentCardElement에 추가
       commentCardElement.appendChild(commentInfoElement);
       commentCardElement.appendChild(commentContentElement);
-  
+
       // 댓글 컨테이너에 생성한 댓글 카드를 추가
       commentViewerContainer.appendChild(commentCardElement);
-  });
-  
-  
-  
+    });
+
+
+
   } catch (error) {
     console.error("댓글 불러오기 오류:", error);
   }
@@ -334,28 +334,28 @@ const fetchComments = async () => {
 
 writeCommentBtn.addEventListener('click', function () {
 
-    if(userInfo.loginStatus===false){
-      alert("로그인 후에 게시글을 작성할 수 있습니다.");
-    }
-    else{
-      var commentContent = document.querySelector('.comment-form textarea').value;
-  
-      if (commentContent.trim().length > 0) {
-            // 댓글 등록 API 호출
+  if (userInfo.loginStatus === false) {
+    alert("로그인 후에 게시글을 작성할 수 있습니다.");
+  }
+  else {
+    var commentContent = document.querySelector('.comment-form textarea').value;
+
+    if (commentContent.trim().length > 0) {
+      // 댓글 등록 API 호출
       fetch(`${apiUrl}/uploadComment/postviewer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          post_id:postInfo.post_id,
-          user_email:userInfo.user_email,
+          post_id: postInfo.post_id,
+          user_email: userInfo.user_email,
           comment_content: commentContent
         })
       })
         .then(response => response.json())
         .then(data => { //data.status === 201
-          if (data.status===201) {
+          if (data.status === 201) {
             console.log(data);
             // 등록 성공한 경우, 등록한 댓글을 프론트엔드에 표시
             // const commentViewer = document.getElementById('comment_content');
@@ -364,7 +364,7 @@ writeCommentBtn.addEventListener('click', function () {
             // commentViewer.appendChild(commentElement);
             fetchComments();
 
-            
+
           } else {
             // 등록 실패한 경우, 오류 메시지를 표시하거나 다른 처리를 수행
             console.error('댓글 등록 실패:', data.err);
@@ -376,11 +376,11 @@ writeCommentBtn.addEventListener('click', function () {
     } else {
       alert("댓글 등록 실패.");
     }
-    }
-   
+  }
+
 });
-  
-  
+
+
 //버튼 학교상징 색으로 바꾸기
 // function setUniversityColor_comment(university_url){
 //     let universityColor
@@ -394,32 +394,32 @@ writeCommentBtn.addEventListener('click', function () {
 //     return universityColor;
 //   }
 
-  //댓글  불러오기
+//댓글  불러오기
 // const showCommentListbyPostID = async () => {
-  // try {
+// try {
 
-  //   const url = `${apiUrl}/showComment/postviewer/${post_id}`;
-  //   const response = await fetch(url);
-  //   const res = await response.json();
-  //   console.log(res);
-  //   commentInfo = res;
-  
-  //       const commentDate = document.getElementById('comment_date');
-  //       const commentContent = document.getElementById('comment_content');
-  //       const likeCount = document.getElementById('like_count_comment');
-  //       const userEmail = document.getElementById('user_email');
-  
-  //       commentDate.textContent = commentInfo.comment_date;
-  //       commentContent.textContent = commentInfo.comment_content;
-  //       likeCount.textContent = `좋아요 ${commentInfo.like_count_comment}개`;
-  //       userEmail.textContent = commentInfo.user_email;
-  //     } catch (error){
-  //       console.error('Error: ');
-  //     }
-  //   };
-  
+//   const url = `${apiUrl}/showComment/postviewer/${post_id}`;
+//   const response = await fetch(url);
+//   const res = await response.json();
+//   console.log(res);
+//   commentInfo = res;
 
-  
+//       const commentDate = document.getElementById('comment_date');
+//       const commentContent = document.getElementById('comment_content');
+//       const likeCount = document.getElementById('like_count_comment');
+//       const userEmail = document.getElementById('user_email');
+
+//       commentDate.textContent = commentInfo.comment_date;
+//       commentContent.textContent = commentInfo.comment_content;
+//       likeCount.textContent = `좋아요 ${commentInfo.like_count_comment}개`;
+//       userEmail.textContent = commentInfo.user_email;
+//     } catch (error){
+//       console.error('Error: ');
+//     }
+//   };
+
+
+
 // const changeButtonColorommentViewer = toastui.Editor.factory({
 //     el: document.querySelector('.toast-custom-viewer'),
 //     viewer: true,
@@ -427,18 +427,58 @@ writeCommentBtn.addEventListener('click', function () {
 //     initialValue: commentInfo.comment_content,
 //   });
 
+//게시글지우기
+const fetchDeletePost = async (post_id,user_email) => {
+  try {
+    const response = await fetch(`/doDeletePost/${post_id}/${user_email}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
 
-// 게시글 삭제 클릭시 
+    })
+
+
+    if (!response.ok) {
+      throw new Error('서버 응답이 올바르지 않습니다.');
+    }
+
+    const data = await response.json();
+
+    if (data.result === true) {
+      console.log(data);
+      alert("게시글이 성공적으로 삭제되었습니다.");
+      // 삭제 성공 후 추가 작업이 필요하면 이곳에 추가
+      window.location.href = `${apiUrl}/showPostListALL/${university_url}`;
+    } else {
+      console.error('게시글 삭제 실패:', data.err);
+      alert("게시글 삭제에 실패하였습니다.");
+    }
+  } catch (error) {
+    console.error('서버 응답 에러:', error);
+    alert("서버 응답에 오류가 발생하였습니다.");
+  }
+};
+
+
 function handleDeleteClick() {
   const confirmed = window.confirm("삭제하시겠습니까?");
 
   if (confirmed) {
-    alert("게시글이 삭제되었습니다.");
-    
+    const post_id = postInfo.post_id;
+    const user_email = userInfo.user_email;
+
+    // 서버로 게시글 삭제 요청
+    fetchDeletePost(post_id,user_email); // fetchDeletePost 함수를 호출하여 게시글 삭제
   } else {
-    
+    // 삭제 취소 시 처리
   }
 }
 
+
+
 // 게시글 삭제 아이콘 클릭 이벤트 리스너
+const deletePost = document.getElementById("delete");
 deletePost.addEventListener("click", handleDeleteClick);
+
+

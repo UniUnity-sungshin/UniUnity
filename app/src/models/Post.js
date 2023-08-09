@@ -95,9 +95,9 @@ class Post {
     }
 
     //게시글 삭제하기
-    async doDeletePost(post_id, user_email) {
+    async doDeletePost( post_id, user_email) {
         try {
-            const response = await PostStorage.godeletePost(post_id, user_email);
+            const response = await PostStorage.goDeletePost(post_id, user_email);
             return response;
         } catch (err) {
             return { err };

@@ -92,7 +92,7 @@ router.get("/showPostListAll/:university_url",ctrl.output.post);
 // 마이페이지
 router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 // router.get('/totalPosts', ctrl.post.getTotalPostsCount);//게시글총개수
-router.post('/doDeletePost/:post_id', ctrl.post.DeletePost); //게시글 삭제
+router.delete('/doDeletePost/:post_id/:user_email', ctrl.post.DeletePost); //게시글 삭제
 // 게시글 조회수 증가
 router.put('/post/:post_id/increaseReadCount', ctrl.post.IncreaseReadCount);
 
