@@ -43,7 +43,6 @@ const loadData = async() => {
         .then((res) => res.json())
         .then(res => {
             if(res.success==true){
-                console.log(res)
                 searchUniversityName(res.result);
             }
             else{
@@ -267,12 +266,10 @@ function duplicateCheckEmail(){
         .then((res) => res.json())
         .then(res => {
             if (res.msg === "사용가능한 이메일입니다.") {
-                console.log(res)
                 duplicateEmailChecked=true;
                 alert(res.msg)
 
             } else {
-                console.log(res)
                 duplicateEmailChecked=false;
                 alert(res.msg)
             }
@@ -333,8 +330,6 @@ function validateConfirmPasswordInput() {
 
 
     if (password === confirmPassword) {
-        console.log("password:", password)
-        console.log("confirmPassword:", confirmPassword)
         passwordConfirmChecked = true;
     } else {
         passwordConfirmChecked = false;
@@ -434,7 +429,6 @@ function register() {
             university_id:universityIdMap.get(selectedValue),
             user_marketing:isCheckedMarketing
         };
-        console.log(req);
     
         fetch(`${apiUrl}/register`, {
             method: "POST",

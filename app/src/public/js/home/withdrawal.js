@@ -6,7 +6,6 @@ const loadloginData = () => {
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       userInfo = res;
 
     })
@@ -25,7 +24,6 @@ const fetchWithdrawalUser = async (event) => {
       user_email: userInfo.user_email,
       psword: pwdElement.value
     }
-    console.log(req)
 
     await fetch(`${apiUrl}/mypage/withdrawal`, {
       method: "POST",
@@ -36,7 +34,6 @@ const fetchWithdrawalUser = async (event) => {
     })
       .then((res) => res.json())
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           alert('회원 탈퇴가 완료되었습니다.');
           window.location.href = "/"; // 리다이렉션 처리  

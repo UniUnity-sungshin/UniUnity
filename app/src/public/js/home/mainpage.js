@@ -82,7 +82,6 @@ window.addEventListener('DOMContentLoaded', function()
 const checkInput = () => {
 
     const input = searchInput.value;
-    console.log(input);
     while(ul.hasChildNodes()){
         ul.removeChild(ul.firstChild);
     }
@@ -113,7 +112,6 @@ searchInput.addEventListener("keyup", checkInput);
 
  //input이 빈 문자열일 경우에 모든 학교리스트 반환(mousedown)
 searchInput.addEventListener("mousedown", (event) => {
-    console.log("mouse hello");
     while(ul.hasChildNodes()){
         ul.removeChild(ul.firstChild);
     }

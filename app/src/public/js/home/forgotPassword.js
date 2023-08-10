@@ -12,7 +12,6 @@ const fetchForgotPassword = async (event) => {
         return
     }
     else {
-        console.log(emailElement.value)
         const req = {
             user_email: emailElement.value,
         }
@@ -121,7 +120,6 @@ modifyBtn.addEventListener('click',() => {
 
 //유효한 비밀번호 확인
 function validatePassword(password) {
-    console.log(password)
     // 비밀번호의 길이가 8에서 20 사이인지 확인
     if (password.length < 8 || password.length > 20) {
         return false;
@@ -146,7 +144,6 @@ const fetchChangePsword = async (event) => {
     const newPwdElement = document.getElementById('new_pwd');
     const newPwdCheckElement =  document.getElementById('new_pwd_check');
 
-    console.log(newPwdCheckElement.value)
     if (!newPwdElement.value) {
         alert('새 비밀번호를 입력해주세요.');
         return
@@ -178,7 +175,6 @@ const fetchChangePsword = async (event) => {
         })
             .then((res) => res.json())
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     alert('비밀번호 변경이 완료되었습니다. 로그인 화면으로 이동합니다.');
                     window.location.href = `${apiUrl}/login`; // 리다이렉션 처리

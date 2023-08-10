@@ -6,7 +6,6 @@ const loadloginData = () => {
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       userInfo = res;
 
     })
@@ -15,8 +14,6 @@ const loadloginData = () => {
 const fetchChangeNickname = async (event) => {
   event.preventDefault(); // 기본 폼 제출 동작을 중단합니다. 닉네임 값이 입력되지 않으면 중단
   const nicknameElement = document.getElementById('nickname');
-  console.log(nicknameElement.value);
-  console.log(!nicknameElement.value)
   if (!nicknameElement.value) {
     alert('닉네임을 입력해주세요.');
     return 
@@ -26,7 +23,6 @@ const fetchChangeNickname = async (event) => {
       user_email: userInfo.user_email,
       user_nickname: nicknameElement.value
     }
-    console.log(req)
 
     await fetch(`${apiUrl}/mypage/modify/1`, {
       method: "POST",
@@ -37,7 +33,6 @@ const fetchChangeNickname = async (event) => {
     })
       .then((res) => res.json())
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           alert('닉네임 변경이 완료되었습니다.');
           window.location.href = "/mypage"; // 리다이렉션 처리
