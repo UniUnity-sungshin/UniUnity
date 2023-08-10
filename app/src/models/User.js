@@ -150,13 +150,13 @@ class User {
 
             if (userInfo) { //유저 정보 반환
                 return {
-                    result: true,
+                    result: false,
                     status: 200,
                     msg: "존재하는 이메일입니다."
                 };
             } else {
                 //유저 정보 반환하지 못했을 경우
-                return { result: false, msg: "사용가능한 이메일입니다.", status: 200 }
+                return { result: true, msg: "사용가능한 이메일입니다.", status: 200 }
             }
         } catch (err) {
             return { result: false, msg: "서버와 연결이 실패했습니다.", status: 400, err: `${err}` }
