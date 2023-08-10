@@ -217,7 +217,7 @@ function createCard(data) {
               <h2 class="card-title h4 mt-2">${data.post_title}</h2>
           </div>
           <div>
-          <a class="btn read-more-btn btn-outline-secondary" href="${apiUrl}/postviewer/${data.post_id}">게시글 보러가기 →</a>
+          <a class="btn read-more-btn btn-outline-secondary" id="read_more_btn" href="${apiUrl}/postviewer/${data.post_id}" onclick="increaseViewCount(${data.post_id});">게시글 보러가기 →</a>
           </div>
       </div>
 
@@ -480,57 +480,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//////조회수증가코드!!
-
-//read more버튼 누르면 조회수 1 증가 -> db에 요청
-// function increaseViewCount(post_id) {
-//   try {
-//     const url = `${apiUrl}/increaseViewCount/${post_id}`;
-//     return fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-//       .then(response => response.json())
-//       .then(data => {
-//         if (data.success) {
-//           return { success: true, post_id: data.post_id, view_count: data.view_count };
-//         } else {
-//           console.error('조회수 증가 실패');
-//           return { success: false, msg: '조회수 증가 실패' };
-//         }
-//       })
-//       .catch(error => {
-//         console.error('조회수 증가 요청 중 오류 발생', error);
-//         return { success: false, msg: error };
-//       });
-//   } catch (error) {
-//     console.error('조회수 증가 요청 중 오류 발생', error);
-//     return { success: false, msg: error };
-//   }
-// }
-
-// const readMoreBtn = document.getElementById('read_more_btn');
-// const viewCountElement = document.getElementById('view_count');
-
-// // // 이벤트리스너
-// readMoreBtn.addEventListener('click', async () => {
-//   try {
-//     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
-//     const response = await increaseViewCount(post_id);
-//     if (response.success) {
-//       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
-//       postInfo.view_count = response.view_count;
-//       viewCountElement.textContent = response.view_count;
-//     } else {
-//       console.error('조회수 증가 실패');
-//     }
-//   } catch (error) {
-//     console.error('조회수 증가 요청 중 오류 발생', error);
-//   }
-// });
-
-
-
-
+//조회수증가코드!!
+// read more버튼 누르면 조회수 1 증가 -> db에 요청
+const increaseViewCount= async(post_id)=>{
+  try {
+    const url = `${apiUrl}/increaseViewCount/${post_id}`;
+    await fetch(url)
+        .then((res) => res.json())
+        .then(res => {
+            if(res.result==true){
+                //조회수 증가 성공
+            }else{
+              //조회수 증가 실패
+            }
+        })
+      } catch (error) {
+        console.error('조회수 증가 요청 중 오류 발생', error);
+       
+    }
+}
+   

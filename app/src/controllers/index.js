@@ -94,7 +94,7 @@ router.post("/mypage/community/post/:category",ctrl.post.myCommunityPost);
 // router.get('/totalPosts', ctrl.post.getTotalPostsCount);//게시글총개수
 router.delete('/doDeletePost/:post_id/:user_email', ctrl.post.DeletePost); //게시글 삭제
 // 게시글 조회수 증가
-router.post('/increaseViewCount/:post_id', ctrl.post.IncreaseViewCount);
+router.get('/increaseViewCount/:post_id', ctrl.post.IncreaseViewCount);
 
 // 마이페이지 -> 하트
 router.post("/addHeart",ctrl.post.addHeart); // 하트 목록 추가하기
