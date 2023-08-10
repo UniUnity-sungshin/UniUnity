@@ -263,13 +263,12 @@ function councilLoad() {
   .then((res) => res.json())
   .then((imageData) => { // 이미지 데이터를 변수 imageData로 받아옴
     fetchImageUrls(imageData); // 이미지 데이터를 fetchImageUrls 함수의 인자로 전달
-    setSwiper();
   })
   .catch(error => {
     console.error('Error:', error);
   });
 }
-
+setSwiper();
 window.addEventListener('DOMContentLoaded', function() {
   // 동적 링크 업데이트 함수를 호출합니다.
 updateDynamicLinks();
