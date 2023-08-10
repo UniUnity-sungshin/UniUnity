@@ -341,8 +341,10 @@ display-flex, .signup-content, .form-row, .form-radio, .select-icon, .select-ico
 #backBtn,#registerBtn{
   width: 100%;
   font-weight: bold;
+}
 
-
+a{
+  margin:1rem;
 }
 #email_url_select {
   width: 90%;
