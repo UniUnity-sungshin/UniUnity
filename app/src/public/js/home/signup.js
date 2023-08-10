@@ -11,7 +11,7 @@ var passwordInput = document.getElementById("password");
 var confirmPasswordInput = document.getElementById("confirmPassword");
 var registerBtn = document.getElementById("registerBtn");
 
-
+var confirmEmailBtn=document.getElementById("confirmEmailBtn")
 
 var backBtn = document.getElementById("backBtn");
 
@@ -245,9 +245,50 @@ checkbox2.addEventListener("change", function () {
     }
 });
 
+var duplicateEmailChecked=false;
+
+function duplicateCheckEmail(){
+    const selectedEmailDomain = selectElement2.value;
+    if(!emailElement.value || !selectedEmailDomain){
+        alert("이메일을 입력해주세요")
+    }
+
+    const req = {
+        user_email: `${emailElement.value}${selectedEmailDomain}`
+    };
+
+    fetch(`${apiUrl}/signup/duplicateCheckEmail`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    })
+        .then((res) => res.json())
+        .then(res => {
+            if (res.msg === "사용가능한 이메일입니다.") {
+                console.log(res)
+                duplicateEmailChecked=true;
+                alert(res.msg)
+
+            } else {
+                console.log(res)
+                duplicateEmailChecked=false;
+                alert(res.msg)
+            }
+        })
+        .catch(error => {
+            console.error("Error: ", error);
+        })
+
+
+}
+
+//처음으로 버튼
+confirmEmailBtn.addEventListener('click',duplicateCheckEmail)
+
 //유효한 비밀번호 확인
 function validatePassword(password) {
-    console.log(password)
     // 비밀번호의 길이가 8에서 20 사이인지 확인
     if (password.length < 8 || password.length > 20) {
         return false;
@@ -309,7 +350,6 @@ let authenticationCode;
 let emailAuthChecked=false;     //이메일 인증 체크
 function sendAuthEmail() {
     const selectedEmailDomain = selectElement2.value;
-    console.log(selectedEmailDomain)
     const req = {
         email: `${emailElement.value}${selectedEmailDomain}`
     };
@@ -324,6 +364,7 @@ function sendAuthEmail() {
         .then((res) => res.json())
         .then(res => {
             if (res.status = 201) {
+                alert("인증코드를 발송하였습니다. 인증코드를 입력해주세요.")
                 authenticationCode = res.authentication_code;
             } else {
                 console.error("Error", res.err);
@@ -361,6 +402,10 @@ function register() {
 
     if(!emailAuthChecked) {
         alert('이메일 인증을 완료하지 않았습니다');
+        return;
+    }
+    else if(!duplicateEmailChecked){
+        alert('이메일 중복 인증을 하지않았습니다.');
         return;
     }
     else if(!passwordChecked) {
@@ -401,7 +446,7 @@ function register() {
         .then((res) => res.json())
         .then(res => {
             if (res.status === 201) {
-              console.log("회원가입 완료");
+              alert("회원가입이 완료되었습니다! 로그인 페이지로 이동합니다.")
               window.location.href = "/login"; // 리다이렉션 처리
             } else {
               alert("서버의 문제로 회원가입에 실패했습니다. 다시 시도해주세요.");
