@@ -113,5 +113,4 @@ dist
 .credentials.json
 .token.json
 
-
-apikey.js
+app/config/*
