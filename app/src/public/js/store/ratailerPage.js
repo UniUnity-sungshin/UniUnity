@@ -38,8 +38,8 @@ const setLoginHeader = (res) => {
   }
   
 
-const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
-const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
+const serviceKey = api_Key.SERVICE_KEY;
+const endPoint = api_Key.ENDPOINT;
 
 var stores = [];
 var positions = [];
