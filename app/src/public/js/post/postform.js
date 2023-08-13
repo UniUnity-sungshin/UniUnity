@@ -163,8 +163,8 @@ const setSelectCategory = (user_type) => {
           selectElement.appendChild(option);
       }
   } else if (user_type === "학생회") {
-      const options = ["제휴 등록", "총학생회 공지사항"];
-      const values = ["제휴 등록", "총학생회 공지사항"];
+      const options = ["제휴 등록", "총학생회 공지사항","제휴 추천", "잡담"];
+      const values = ["제휴 등록", "총학생회 공지사항","제휴 추천", "잡담"];
       for (let i = 0; i < options.length; i++) {
           const option = document.createElement("option");
           option.value = values[i];
