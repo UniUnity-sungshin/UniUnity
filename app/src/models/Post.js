@@ -10,12 +10,19 @@ class Post {
         try {
             const response = await PostStorage.savePost(client);
             console.log(response)
-            const response2 = await PostStorage.saveImagePost(
-                response.post_id,
-                response.postInfo.post_content,
-                response.formattedDateTime
-            )
-            return response2;
+            if(client.category==="총학생회 공지사항"){
+                const response2 = await PostStorage.saveImagePost(
+                    response.post_id,
+                    response.postInfo.post_content,
+                    response.formattedDateTime
+                )
+                if(response.result==true && response2.result==true){
+                    return response;
+                }
+            }
+            else{
+                return response;
+            }
         } catch (err) {
             return { err }
         }
