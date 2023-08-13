@@ -47,7 +47,7 @@ class PostStorage {
                 }
                 const post_id = postId; // 새로 추가된 게시글의 ID
                 const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
-                const matches = postInfo.post_content.match(regex);
+                const matches = postInfo.match(regex);
                 const image_url = matches && matches.length > 0 ? matches[0].replace(/<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi, '$1') : null;
                 console.log(image_url)
                 if (image_url) {
@@ -125,6 +125,8 @@ class PostStorage {
                         } else {
                             pool.releaseConnection(connection);
                             resolve({
+                                result: true,
+                                status: 201,
                                 post_id: result.insertId,
                                 postInfo: postInfo,
                                 formattedDateTime: formattedDateTime
