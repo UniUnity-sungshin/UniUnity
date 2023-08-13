@@ -80,6 +80,8 @@ router.get("/retailer/:university_url/:kind", ctrl.retailer.retailerKind);
 router.get("/postAll/:university_url",ctrl.post.postAll); //전체게시글 불러오기 API
 router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
+// 게시글 작성자 반환
+router.get("/getPostWriter/:post_id",ctrl.post.postWriter);
 
 router.get("/showPost/:post_id",ctrl.post.showPost);
 

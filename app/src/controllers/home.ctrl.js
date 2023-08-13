@@ -479,6 +479,13 @@ const post = {
         const post = new Post();
         const response = await post.postScrapNum(req.params.post_id);
         return res.json(response);
+    },
+    // 게시글 작성자 반환
+    postWriter: async (req, res) => {
+        const post = new Post();
+        console.log("controller ")
+        const response = await post.postWriter(req.params.post_id);
+        return res.json(response);
     }
 }
 

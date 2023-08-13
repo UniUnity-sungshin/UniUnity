@@ -271,6 +271,17 @@ class Post {
             };
         }
     }
+
+    // 게시글 작성자 반환
+    async postWriter(post_id){
+        try{
+            const response = await PostStorage.postWriter(post_id);
+            console.log("postWriter " + response);
+            return response;
+        } catch (err) {
+            return{success:false,msg:err};
+        }
+    }
 }
 
 

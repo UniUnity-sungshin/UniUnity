@@ -783,6 +783,25 @@ class PostStorage {
         });
     }
 
+    static postWriter(post_id) {
+        return new Promise((resolve, reject) => {
+          pool.getConnection((err, connection) => {
+            if (err) {
+              console.error('MySQL 연결 오류: ', err);
+              reject(err);
+            }
+            pool.query("SELECT user_email FROM Post WHERE post_id = ?;", [post_id], function (err, rows) {
+              pool.releaseConnection(connection);
+              if (err) {
+                console.error('Query 함수 오류', err);
+                reject(err);
+              }
+              resolve(rows[0]);
+            });
+          });
+        });
+      }
+
 }
 
 

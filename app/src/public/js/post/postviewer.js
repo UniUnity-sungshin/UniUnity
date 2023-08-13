@@ -5,6 +5,7 @@ console.log(post_id);
 
 var userInfo; // 유저정보
 var university_url;
+var postWriterInfo;
 const writeCommentBtn = document.getElementById('write_comment_btn');
 
 // 작성자 회원 정보 불러오기
@@ -24,6 +25,32 @@ const loadloginData = async () => {
     });
 };
 
+// 게시글 작성자 이메일 가져오기
+const postWriter = async (post_id) => {
+  const url = `${apiUrl}/getPostWriter/${post_id}`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    postWriterInfo = data;
+
+  } catch (error) {
+    console.error('게시글 작성자 정보 불러오기 오류', error);
+  }
+};
+
+
+// 게시글 삭제 버튼 보이는 조건
+async function showDeleteButtonIfNeeded() {
+  await postWriter(post_id);
+  console.log("postWriterInfo ", postWriterInfo.user_email);
+  console.log("userInfo ", userInfo.user_email);
+  if (userInfo.user_email === postWriterInfo.user_email) {
+    deletePost.style.display = 'block'; // 해당 요소를 보이게 설정
+  } else {
+    deletePost.style.display = 'none'; // 해당 요소를 숨기게 설정
+  }
+} 
 
 var postInfo; // 게시글 정보
 // 게시글 정보 불러오기
@@ -399,9 +426,10 @@ const loadPostData = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', async function () {
-  loadloginData();
-  loadPostData();
+  await loadloginData();
+  await loadPostData();
   fetchComments();//댓글 보기
+  await showDeleteButtonIfNeeded();
 });
 
 
