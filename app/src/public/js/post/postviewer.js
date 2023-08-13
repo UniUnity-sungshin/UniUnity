@@ -6,9 +6,6 @@ console.log(post_id);
 var userInfo; // 유저정보
 var university_url;
 const writeCommentBtn = document.getElementById('write_comment_btn');
-const icons = document.getElementById('footer2').getElementsByTagName('i');
-
-var universityColor;
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
@@ -19,48 +16,25 @@ const loadloginData = async () => {
       console.log("유저정보");
       console.log(res);
       userInfo = res;
-      universityColor = setUniversityColor(res.university_url);
-      console.log("학교 색깔");
-      console.log(universityColor);
-      writeCommentBtn.style.backgroundColor = universityColor;
-      writeCommentBtn.style.borderColor = universityColor;
-      for (let i = 0; i < icons.length; i++) {
-        icons[i].style.color = universityColor;
-      }
+
+
     })
     .catch((error) => {
       console.error('작성자 회원 정보 불러오기 오류', error);
     });
 };
 
-//버튼 학교상징 색으로 바꾸기
-function setUniversityColor(university_url) {
-  if (university_url === "sungshin") {
-    universityColor = "#6a6fb3"
-  } else if (university_url === "konkuk") {
-    universityColor = "#004a26"
-  } else {
-    universityColor = "#FFD400" //Uniunity색상
-  }
-  return universityColor;
-}
 
 var postInfo; // 게시글 정보
 // 게시글 정보 불러오기
 const loadPostData = async () => {
   try {
-    // const url = `${apiUrl}/showPost/${post_id}`;
-    // await fetch(url)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     postInfo = data;
     const url = `${apiUrl}/showPost/${post_id}`;
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
     postInfo = data;
-
+    
     const postTitle = document.getElementById('post_title');
     const postCategory = document.getElementById('post_category');
     const postDate = document.getElementById('post_date');
@@ -70,7 +44,7 @@ const loadPostData = async () => {
     const scrapCount = document.getElementById('scrap_count');
     const commentCount = document.getElementById('comment_count');
     const deletePost = document.getElementById('delete');
-    const userEmail = document.getElementById('user_email');
+    const userNickname = document.getElementById('user_nickname');
     // const readMoreBtn = document.getElementById('read_more_btn');
 
     postTitle.textContent = postInfo.post_title;
@@ -81,7 +55,7 @@ const loadPostData = async () => {
     likeCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/filled-like.png" id="like_img" style="margin-right: 0.3rem;" alt="filled-like" /> ${postInfo.like_count}`;
     scrapCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" id="scrap_img" style="margin-right: 0.3rem; " alt="filled-star"/> ${postInfo.scrap_count}`
     commentCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${postInfo.comment_count}`;
-    userEmail.textContent = postInfo.user_email;
+    userNickname.textContent = postInfo.user_nickname;
     deletePost.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png" style="margin-right: 0.3rem;" />`;
 
     // 화살표 버튼을 숨기거나 표시하는 함수

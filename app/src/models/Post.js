@@ -1,4 +1,5 @@
 const PostStorage = require("./PostStorage");
+const User = require("./User");
 
 class Post {
     constructor(body) {
@@ -31,7 +32,12 @@ class Post {
     //post_id로 게시글 불러오기
     async showPost(post_id) {
         try {
-            const response = await PostStorage.getPost(post_id);
+            var response = await PostStorage.getPost(post_id);
+            const user=new User()
+            const userInfo= await user.getUserInfo(response.user_email)
+            const user_nickname=userInfo.user_nickname
+            response.user_nickname=user_nickname
+            
             return response;
         } catch (err) {
             return { err }
