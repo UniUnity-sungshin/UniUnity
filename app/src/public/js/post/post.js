@@ -120,6 +120,7 @@ let currentPage = 1; // 현재 페이지 수
 const postsPerPage = 10; // 한 페이지에 보여줄 게시글 수
 let postsToShowLength = 0; // 현재 한 페이지에 보여줄 게시글 수
 let dataLength = 0; // 보여줄 총 게시글 수
+let quotient = 0;
 
 // 게시글 전체 보기
 const fetchpostAllData = async () => {
@@ -202,7 +203,7 @@ const fetchPosts = async (category, university_url) => {
     dataLength = data.length;
     // 데이터의 총 개수를 가져온 뒤, 페이지 수를 계산
     const remainder = dataLength % postsPerPage;
-    let quotient = (dataLength - remainder) / postsPerPage;
+    quotient = (dataLength - remainder) / postsPerPage;
     // console.log("나머지: " + remainder);
     // console.log("몫: " + quotient);
     if (remainder > 0) {
@@ -390,11 +391,12 @@ function updatePagination(currentPage) {
   if (dataLength <= 10) { // 총 게시글 10개 이하면 첫 페이지만 있도록
     currentpage.classList.toggle('disabled');
     nextpage.classList.toggle('disabled');
+    // console.log("10개 이하");
   }
   else if (dataLength <= 20) { // 20개 이하면 
-    if (currentPage === 1) { // 첫 페이지일 때 세 번째 페이지로 이동하지 못하도록
+      // 세 번째 페이지로 이동하지 못하도록
       nextpage.classList.toggle('disabled');
-    }
+      // console.log("20개 이하");
   }
   if (currentPage * postsPerPage >= dataLength) { // 게시글 수보다 더 많은 페이지로는 이동하지 못하도록  nextpage.classList.toggle('disabled');
     older.classList.toggle('disabled');
@@ -449,7 +451,7 @@ function goToPage(pageNum) {
 
 // 다음 페이지로 이동 함수
 function goToNextPage() {
-  console.log("goToNextPage");
+  // console.log("goToNextPage");
   // 다음 페이지 번호 계산
   currentPage = currentPage + 1;
   // 페이지네이션 클래스 변경
@@ -460,7 +462,7 @@ function goToNextPage() {
 
 // 이전 페이지로 이동 함수
 function goToPrevPage() {
-  console.log("goToPrevPage");
+  // console.log("goToPrevPage");
   // 다음 페이지 번호 계산
   currentPage = currentPage - 1;
   // 페이지네이션 클래스 변경
