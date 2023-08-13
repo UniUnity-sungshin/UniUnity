@@ -7,6 +7,7 @@ var userInfo; // 유저정보
 var university_url;
 const writeCommentBtn = document.getElementById('write_comment_btn');
 
+
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
   const url = `${apiUrl}/loginStatus`;
@@ -23,6 +24,7 @@ const loadloginData = async () => {
       console.error('작성자 회원 정보 불러오기 오류', error);
     });
 };
+
 
 
 var postInfo; // 게시글 정보
@@ -116,172 +118,6 @@ const loadPostData = async () => {
           carouselInner.appendChild(carouselItem);
         }
       }
-
-      //********* 마이페이지 하트기능 **********//
-      // post_id 값을 받아오는 함수
-      function getPostID() {
-        const url = new URL(window.location.href);
-        const postID = url.pathname.split('/').pop();
-        return postID;
-      }
-
-      const likeImg = document.querySelector('#like_img');
-
-      // 하트추가 기능
-      function addHeart() {
-        if (userInfo.loginStatus === false) {
-          alert("로그인 후에 기능을 사용할 수 있습니다.");
-        }
-        else {
-          //사용자가 이미 해당 게시글에 하트를 눌렀는지 확인
-          const postID = getPostID();
-          const req = {
-            post_id: postID,
-            user_email: userInfo.user_email
-          };
-          fetch(`${apiUrl}/checkHeart`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(req),
-          })
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return res.json();
-            })
-            .then(res => {
-              console.log(res);
-              // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
-              if (res.result == false) {
-                fetch(`${apiUrl}/addHeart`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(req),
-                })
-                  .then((res) => {
-                    if (!res.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return res.json();
-                  })
-                  .then(res => {
-                    alert("하트 목록에 추가 되었습니다.");
-                  })
-                  .catch((error) => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                  });
-              }
-              // 사용자가 해당게시글에 하트를 눌렀을 경우 -> 하트 삭제
-              else {
-                fetch(`${apiUrl}/deleteHeart/${res.result.heart_id}`)
-                  .then((res) => {
-                    if (!res.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return res.json();
-                  })
-                  .then(res => {
-                    alert("하트 목록에서 삭제 되었습니다.");
-                  })
-                  .catch((error) => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                  });
-              }
-            })
-            .catch((error) => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
-        }
-      }
-
-      likeImg.addEventListener('click', function () {
-        addHeart();
-      })
-
-      //********* 마이페이지 스크랩기능 **********//
-      const scrapImg = document.querySelector('#scrap_img');
-
-      // 스크랩추가 기능
-      function addScrap() {
-        if (userInfo.loginStatus === false) {
-          alert("로그인 후에 기능을 사용할 수 있습니다.");
-        }
-        else {
-          //사용자가 이미 해당 게시글에 스크랩를 눌렀는지 확인
-          const postID = getPostID();
-          const req = {
-            post_id: postID,
-            user_email: userInfo.user_email
-          };
-          fetch(`${apiUrl}/checkScrap`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(req),
-          })
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return res.json();
-            })
-            .then(res => {
-              console.log(res);
-              // 사용자가 해당게시글에 스크랩를 누르지 않았을 경우 -> 스크랩 추가
-              if (res.result == false) {
-                fetch(`${apiUrl}/addScrap`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(req),
-                })
-                  .then((res) => {
-                    if (!res.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return res.json();
-                  })
-                  .then(res => {
-                    alert("스크랩 목록에 추가 되었습니다.");
-                  })
-                  .catch((error) => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                  });
-              }
-              // 사용자가 해당게시글에 스크랩를 눌렀을 경우 -> 스크랩 삭제
-              else {
-                fetch(`${apiUrl}/deleteScrap/${res.result.scrap_id}`)
-                  .then((res) => {
-                    if (!res.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return res.json();
-                  })
-                  .then(res => {
-                    alert("스크랩 목록에서 삭제 되었습니다.");
-                  })
-                  .catch((error) => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                  });
-              }
-            })
-            .catch((error) => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
-        }
-      }
-
-      scrapImg.addEventListener('click', function () {
-        addScrap();
-      })
-
 
       // 댓글 개수를 가져오는 함수
       async function fetchCommentNum(post_id) {
@@ -394,7 +230,170 @@ const loadPostData = async () => {
   catch (error) {
     console.error('게시글 정보 불러오기 오류', error);
   }
+  //********* 마이페이지 하트기능 **********//
+// post_id 값을 받아오는 함수
+function getPostID() {
+  const url = new URL(window.location.href);
+  const postID = url.pathname.split('/').pop();
+  return postID;
+}
 
+const likeImg = document.querySelector('#like_img');
+
+// 하트추가 기능
+function addHeart() {
+  if (userInfo.loginStatus === false) {
+    alert("로그인 후에 기능을 사용할 수 있습니다.");
+  }
+  else {
+    //사용자가 이미 해당 게시글에 하트를 눌렀는지 확인
+    const postID = getPostID();
+    const req = {
+      post_id: postID,
+      user_email: userInfo.user_email
+    };
+    fetch(`${apiUrl}/checkHeart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(res => {
+        console.log(res);
+        // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
+        if (res.result == false) {
+          fetch(`${apiUrl}/addHeart`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(req),
+          })
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              alert("하트 목록에 추가 되었습니다.");
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+        // 사용자가 해당게시글에 하트를 눌렀을 경우 -> 하트 삭제
+        else {
+          fetch(`${apiUrl}/deleteHeart/${res.result.heart_id}`)
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              alert("하트 목록에서 삭제 되었습니다.");
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+  }
+}
+
+likeImg.addEventListener('click', function () {
+  addHeart();
+})
+
+//********* 마이페이지 스크랩기능 **********//
+const scrapImg = document.querySelector('#scrap_img');
+
+// 스크랩추가 기능
+function addScrap() {
+  if (userInfo.loginStatus === false) {
+    alert("로그인 후에 기능을 사용할 수 있습니다.");
+  }
+  else {
+    //사용자가 이미 해당 게시글에 스크랩를 눌렀는지 확인
+    const postID = getPostID();
+    const req = {
+      post_id: postID,
+      user_email: userInfo.user_email
+    };
+    fetch(`${apiUrl}/checkScrap`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then(res => {
+        console.log(res);
+        // 사용자가 해당게시글에 스크랩를 누르지 않았을 경우 -> 스크랩 추가
+        if (res.result == false) {
+          fetch(`${apiUrl}/addScrap`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(req),
+          })
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              alert("스크랩 목록에 추가 되었습니다.");
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+        // 사용자가 해당게시글에 스크랩를 눌렀을 경우 -> 스크랩 삭제
+        else {
+          fetch(`${apiUrl}/deleteScrap/${res.result.scrap_id}`)
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              alert("스크랩 목록에서 삭제 되었습니다.");
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+  }
+}
+
+scrapImg.addEventListener('click', function () {
+  addScrap();
+})
   // page 로드 후 loadData() 실행
 };
 
@@ -403,9 +402,6 @@ window.addEventListener('DOMContentLoaded', async function () {
   loadPostData();
   fetchComments();//댓글 보기
 });
-
-
-
 
 
 var currentUrl = window.location.href;
