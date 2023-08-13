@@ -1,4 +1,5 @@
 const PostStorage = require("./PostStorage");
+const User = require("./User");
 
 class Post {
     constructor(body) {
@@ -10,12 +11,19 @@ class Post {
         try {
             const response = await PostStorage.savePost(client);
             console.log(response)
-            const response2 = await PostStorage.saveImagePost(
-                response.post_id,
-                response.postInfo.post_content,
-                response.formattedDateTime
-            )
-            return response2;
+            if(client.category==="총학생회 공지사항"){
+                const response2 = await PostStorage.saveImagePost(
+                    response.post_id,
+                    response.postInfo.post_content,
+                    response.formattedDateTime
+                )
+                if(response.result==true && response2.result==true){
+                    return response;
+                }
+            }
+            else{
+                return response;
+            }
         } catch (err) {
             return { err }
         }
@@ -24,7 +32,12 @@ class Post {
     //post_id로 게시글 불러오기
     async showPost(post_id) {
         try {
-            const response = await PostStorage.getPost(post_id);
+            var response = await PostStorage.getPost(post_id);
+            const user=new User()
+            const userInfo= await user.getUserInfo(response.user_email)
+            const user_nickname=userInfo.user_nickname
+            response.user_nickname=user_nickname
+            
             return response;
         } catch (err) {
             return { err }

@@ -47,7 +47,7 @@ class PostStorage {
                 }
                 const post_id = postId; // 새로 추가된 게시글의 ID
                 const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
-                const matches = postInfo.post_content.match(regex);
+                const matches = postInfo.match(regex);
                 const image_url = matches && matches.length > 0 ? matches[0].replace(/<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi, '$1') : null;
                 console.log(image_url)
                 if (image_url) {
@@ -125,6 +125,8 @@ class PostStorage {
                         } else {
                             pool.releaseConnection(connection);
                             resolve({
+                                result: true,
+                                status: 201,
                                 post_id: result.insertId,
                                 postInfo: postInfo,
                                 formattedDateTime: formattedDateTime
@@ -218,7 +220,7 @@ class PostStorage {
                     reject(err)
                 }
 
-                pool.query("SELECT * FROM Post WHERE category=? AND university_id=?;", [category, university_id], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE category=? AND university_id=?  ORDER BY post_id DESC;", [category, university_id], function (err, rows) {
                     pool.releaseConnection(connection);
                     if (err) {
                         console.error('Query 함수 오류', err);
@@ -437,6 +439,7 @@ class PostStorage {
                             resolve({
                                 result: true,
                                 status: 200
+                                
                             });
                         } else {
                             reject({
@@ -450,47 +453,8 @@ class PostStorage {
             });
         });
     }
-    
-    // 게시글 조회수 증가
-    // static getIncreaseViewCount(post_id) {
-    //     return new Promise((resolve, reject) => {
-    //         pool.getConnection((err, connection) => {
-    //             if (err) {
-    //                 console.error('MySQL 연결 오류: ', err);
-    //                 reject({
-    //                     result: false,
-    //                     status: 500,
-    //                     err: `${err}`
-    //                 });
-    //             }
 
-    //             const query = 'UPDATE Post SET view_count = view_count + 1 WHERE post_id = ?';
-    //             pool.query(query, [post_id], (err, result) => {
-    //                 pool.releaseConnection(connection);
-    //                 if (err) {
-    //                     reject({
-    //                         result: false,
-    //                         status: 500,
-    //                         err: `${err}`
-    //                     });
-    //                 } else {
-    //                     if (result.affectedRows > 0) {
-    //                         resolve({
-    //                             result: true,
-    //                             status: 200
-    //                         });
-    //                     } else {
-    //                         reject({
-    //                             result: false,
-    //                             status: 404,
-    //                             err: '게시글을 찾을 수 없습니다.'
-    //                         });
-    //                     }
-    //                 }
-    //             });
-    //         });
-    //     });
-    // }
+    
     // 하트 기능 //
     // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
     static addHeart(heartInfo) {
@@ -536,18 +500,11 @@ class PostStorage {
                                     }
                                     else {
                                         pool.query("INSERT INTO Heart(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
+                                            pool.releaseConnection(connection);
                                             if (err) {
                                                 console.error('Query 함수 오류', err);
                                                 reject(err)
                                             }
-                                            // 해당 게시글 like_count 증가
-                                            pool.query("UPDATE Post SET like_count=like_count+1 WHERE post_id=?;", [post_id], function(err){
-                                                pool.releaseConnection(connection);
-                                                if (err) {
-                                                    console.error('Query 함수 오류', err);
-                                                    reject(err)
-                                                }
-                                            })
                                             resolve({ result: rows, status: 200 });
                                         })
                                     }
@@ -613,40 +570,34 @@ class PostStorage {
 
     // 마이페이지) Heart 테이블에 정보 삭제
     static deleteHeart(heart_id) {
-            return new Promise(async (resolve, reject) => {
-                pool.getConnection((err, connection) => {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT * FROM Heart WHERE heart_id=?;", [heart_id], function (err, check) {
                     if (err) {
-                        console.error('MySQL 연결 오류: ', err);
+                        console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    pool.query("SELECT * FROM Heart WHERE heart_id=?;", [heart_id], function (err, check) {
+                    else if (check.length < 1) {
+                        pool.releaseConnection(connection);
+                        resolve({ result: "This 'heart_id' does not exist in the 'Heart' table.", status: 202 });
+                    }
+                    pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
+                        pool.releaseConnection(connection);
                         if (err) {
                             console.error('Query 함수 오류', err);
                             reject(err)
                         }
-                        else if (check.length < 1) {
-                            pool.releaseConnection(connection);
-                            resolve({ result: "This 'heart_id' does not exist in the 'Heart' table.", status: 202 });
-                        }
-                        pool.query("DELETE FROM Heart WHERE heart_id=?;", [heart_id], function (err, rows) {
-                            if (err) {
-                                console.error('Query 함수 오류', err);
-                                reject(err)
-                            }
-                            // 해당 게시글 like_count 감소
-                            pool.query("UPDATE Post SET like_count=like_count-1 WHERE post_id=?;", [check[0].post_id], function(err){
-                                pool.releaseConnection(connection);
-                                if (err) {
-                                    console.error('Query 함수 오류', err);
-                                    reject(err)
-                                }
-                            })
-                            resolve({ result: rows, status: 200 });
-                        })
+                        console.log(rows)
+                        resolve({ result: rows, status: 200 });
                     })
                 })
-            });
-        }
+            })
+        });
+    }
 
     // 해당 게시글에 heart 개수 반환
     static postHeartNum(post_id) {
@@ -713,18 +664,11 @@ class PostStorage {
                                     }
                                     else {
                                         pool.query("INSERT INTO Scrap(post_id, user_email) values(?,?);", [post_id, user_email], function (err, rows) {
+                                            pool.releaseConnection(connection);
                                             if (err) {
                                                 console.error('Query 함수 오류', err);
                                                 reject(err)
                                             }
-                                            // 해당 게시글 scrap_count 증가
-                                            pool.query("UPDATE Post SET scrap_count=scrap_count+1 WHERE post_id=?;", [post_id], function(err){
-                                                pool.releaseConnection(connection);
-                                                if (err) {
-                                                    console.error('Query 함수 오류', err);
-                                                    reject(err)
-                                                }
-                                            })
                                             resolve({ result: rows, status: 200 });
                                         })
                                     }
@@ -806,18 +750,12 @@ class PostStorage {
                         resolve({ result: "This 'scrap_id' does not exist in the 'Scrap' table.", status: 202 });
                     }
                     pool.query("DELETE FROM Scrap WHERE scrap_id=?;", [scrap_id], function (err, rows) {
+                        pool.releaseConnection(connection);
                         if (err) {
                             console.error('Query 함수 오류', err);
                             reject(err)
                         }
-                        // 해당 게시글 scrap_count 감소
-                        pool.query("UPDATE Post SET scrap_count=scrap_count-1 WHERE post_id=?;", [check[0].post_id], function(err){
-                            pool.releaseConnection(connection);
-                            if (err) {
-                                console.error('Query 함수 오류', err);
-                                reject(err)
-                            }
-                        })
+                        console.log(rows)
                         resolve({ result: rows, status: 200 });
                     })
                 })
