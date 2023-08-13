@@ -14,6 +14,7 @@ const loadloginData = () => {
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
 const signUpBtn = document.getElementById("signUpBtn");
+const backBtn =document.getElementById("backBtn");
 const navBar = document.getElementById("navbar-brand");
 
 const setLoginHeader = (res) => {
@@ -23,12 +24,14 @@ const setLoginHeader = (res) => {
     loginStatusBtn.innerText = "로그아웃"
     signUpBtn.setAttribute("href", `${apiUrl}/mypage`);
     signUpBtn.innerText = "마이페이지"
+    backBtn.setAttribute("href", `${apiUrl}/council/${university_url}`);
   }
   else {
     loginStatusBtn.setAttribute("href", `${apiUrl}/login`);
     loginStatusBtn.innerText = "로그인"
     signUpBtn.setAttribute("href", `${apiUrl}/signup`);
     signUpBtn.innerText = "회원가입"
+    backBtn.setAttribute("href", `${apiUrl}/council/${university_url}`);
   }
 
 }
