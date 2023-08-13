@@ -54,9 +54,23 @@ class Comment {
             return { err };
         }
     }
-
-
-
+    //댓글 개수 반환
+    async postCommentpNum(post_id) {
+        try {
+            const response = await CommentStorage.postCommentNum(post_id);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
 }
+
+
+
+
 
 module.exports = Comment

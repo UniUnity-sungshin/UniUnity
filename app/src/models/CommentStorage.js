@@ -2,7 +2,6 @@
 // const { reject } = require("underscore");
 const { pool } = require("../../config/db");
 class CommentStorage {
-    //commnet_id 랜덤생성 (1)
 
     
 
@@ -15,7 +14,7 @@ class CommentStorage {
                     reject(err)
                 }
 
-                // const commentID=randomCommentID();//(2)
+            
                 const query = 'INSERT INTO Comment(comment_id,user_email,post_id,comment_content) VALUES (?,?,?,?);';
                 pool.query(query,
                     [
@@ -77,7 +76,7 @@ class CommentStorage {
             });
     
         }
-    //댓글 최신순불러오기
+    //댓글 불러오기(등록순)
     static getCommentListAll(comment_id) {//post_Id
         return new Promise(async (resolve, reject) => {
 
@@ -106,7 +105,7 @@ class CommentStorage {
         });
     }
 
-//댓글 삭제하기
+//댓글 삭제하기(프론트 구현x)
     static goDeleteComment(user_email) {
         return new Promise(async (resolve, reject) => {
           pool.getConnection((err, connection) => {
@@ -134,7 +133,7 @@ class CommentStorage {
                   reject({
                     result: false,
                     status: 404,
-                    err: '게시글을 찾을 수 없거나 삭제 권한이 없습니다.'
+                    err: '댓글을 찾을 수 없거나 삭제 권한이 없습니다.'
                   });
                 }
               }
@@ -142,6 +141,27 @@ class CommentStorage {
           });
         });
       }
+
+      
+//댓글 개수 받아오기
+      static postCommentNum(post_id) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err)
+                }
+                pool.query("SELECT COUNT(*) FROM Comment WHERE post_id=?;", [post_id], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err)
+                    }
+                    resolve({ result: rows[0], status: 200 });
+                })
+            })
+        });
+    }
 
 }
 

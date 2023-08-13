@@ -78,6 +78,7 @@ const process = {
     //회원가입
     register: async (req, res) => {
         try {
+            console.log(req.body);
             const hashedPassword = await bcrypt.hash(req.body.psword, 10)
             const user = new User({
                 user_email: req.body.user_email,
@@ -100,6 +101,7 @@ const process = {
     loginStatus: async (req, res) => {
         const user = new User();
         let userInfo = await user.getUserInfo(req.user);
+        console.log(userInfo);
         if (req.user) {
             return res.json({
                 loginStatus: true,
@@ -117,12 +119,12 @@ const process = {
     },
     //로그아웃
     logout: (req, res, next) => {
-        try{
+        try {
             req.logout(function (err) {
                 if (err) { return next(err); }
                 res.redirect('/');
             });
-        }catch(err) {
+        } catch (err) {
             return res.json({
                 "status": 500,
                 "err": err
@@ -176,15 +178,15 @@ const process = {
 
     },
     //비밀번호 찾기
-    forgotPassword:async(req,res)=>{
+    forgotPassword: async (req, res) => {
 
     },
 
-    duplicateCheckEmail:async(req,res)=>{
+    duplicateCheckEmail: async (req, res) => {
         const user = new User({
-            user_email:req.body.user_email
+            user_email: req.body.user_email
         })
-        const response= await user.duplicateCheckEmail();
+        const response = await user.duplicateCheckEmail();
         return res.json(response)
     },
 
@@ -193,6 +195,7 @@ const process = {
         const emailAdderess = req.body.email;
         sendEmailWithAuthorization(emailAdderess)
             .then((authentication_code) => {
+                console.log('Authentication code:', authentication_code);
                 return res.json({
                     "status": 201,
                     "authentication_code": authentication_code
@@ -331,9 +334,12 @@ const post = {
     },
 
     postAll: async (req, res) => {
+        console.log(req.params.university_url);
+
         let university_url = req.params.university_url;
         const post = new Post();
         const response = await post.showPostListAll(university_url);
+        console.log(response);
         return res.json(response);
     },
     showPost: async (req, res) => {
@@ -386,11 +392,11 @@ const post = {
             const post = new Post(req.body);
             const response = await post.myCommunityCommentPost();
             return res.json(response);
-        }else if (category =='3'){ //내 하트 게시글 목록
+        } else if (category == '3') { //내 하트 게시글 목록
             const post = new Post(req.body);
             const response = await post.getUserHeartList();
             return res.json(response);
-        }else if(category=='4'){ //스크랩 목록
+        } else if (category == '4') { //스크랩 목록
             const post = new Post(req.body);
             const response = await post.getUserScrapList();
             return res.json(response);
@@ -405,23 +411,25 @@ const post = {
             const post = new Post();
             const response = await post.doDeletePost(post_id, user_email);
             return res.json(response);
-          } catch (err) {
+        } catch (err) {
             console.error('게시글 삭제 실패:', err);
             return res.status(500).json({ error: '게시글 삭제에 실패하였습니다.' });
-          }
-        
+        }
+
     },
+
     IncreaseViewCount: async (req, res) => {
         let post_id = req.params.post_id;
 
-        try{
-        const post = new Post();
-        const response = await post.showIncreaseViewCount(post_id);
-        return res.json(response);
-        } catch(err){
+
+        try {
+            const post = new Post();
+            const response = await post.showIncreaseViewCount(post_id);
+            return res.json(response);
+        } catch (err) {
             console.error('조회수 증가 실패:', err);
-            return res.status(500).json({ error: '게시글 증가에 실패하였습니다.' });
-          }
+            return res.status(500).json({ error: '조회수 증가에 실패하였습니다.' });
+        }
     },
     // getTotalPostsCount: async(req, res) => {
     //     const post = new Post();
@@ -471,7 +479,7 @@ const post = {
         const post = new Post();
         const response = await post.postScrapNum(req.params.post_id);
         return res.json(response);
-    },
+    }
 }
 
 const comment = {
@@ -514,9 +522,28 @@ const comment = {
     },
 
     DeleteComment: async (req, res) => {
-        const comment = new Comment(req.body);
-        const response = await comment.doDeleteComment();
-        return res.json(response);
+        let user_email = req.params.user_email;
+
+        try {
+            const comment = new Comment();
+            const response = await comment.doDeleteComment(user_email);
+            return res.json(response);
+        } catch (err) {
+            console.error('댓글 삭제 실패:', err);
+            return res.status(500).json({ error: '댓글 삭제에 실패하였습니다.' });
+        }
+
+    },
+    postCommentNum: async (req, res) => {
+        let post_id = req.params.post_id;
+        try {
+            const comment = new Comment();
+            const response = await comment.postCommentNum(post_id);
+            return res.json(response);
+        } catch (err) {
+            console.error('댓글 개수 받아오기 실패:', err);
+            return res.status(500).json({ error: '댓글 개수 반영에 실패하였습니다.' });
+        }
     },
     // removeComment: function ($comment) {
     //     $.ajax({

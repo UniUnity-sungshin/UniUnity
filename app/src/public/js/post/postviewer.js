@@ -34,7 +34,7 @@ const loadPostData = async () => {
     const data = await response.json();
     console.log(data);
     postInfo = data;
-    
+
     const postTitle = document.getElementById('post_title');
     const postCategory = document.getElementById('post_category');
     const postDate = document.getElementById('post_date');
@@ -117,233 +117,269 @@ const loadPostData = async () => {
         }
       }
 
-//********* 마이페이지 하트기능 **********//
-// post_id 값을 받아오는 함수
-function getPostID() {
-  const url = new URL(window.location.href);
-  const postID = url.pathname.split('/').pop();
-  return postID;
-}
-
-const likeImg = document.querySelector('#like_img');
-
-// 하트추가 기능
-function addHeart(){
-  if(userInfo.loginStatus===false){
-    alert("로그인 후에 기능을 사용할 수 있습니다.");
-  }
-  else{
-    //사용자가 이미 해당 게시글에 하트를 눌렀는지 확인
-    const postID = getPostID();
-    const req = {
-      post_id: postID,
-      user_email: userInfo.user_email
-    };
-    fetch(`${apiUrl}/checkHeart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req),
-    })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
+      //********* 마이페이지 하트기능 **********//
+      // post_id 값을 받아오는 함수
+      function getPostID() {
+        const url = new URL(window.location.href);
+        const postID = url.pathname.split('/').pop();
+        return postID;
       }
-      return res.json();
-    })
-    .then(res => {
-       console.log(res);
-       // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
-       if(res.result == false){
-          fetch(`${apiUrl}/addHeart`, {
+
+      const likeImg = document.querySelector('#like_img');
+
+      // 하트추가 기능
+      function addHeart() {
+        if (userInfo.loginStatus === false) {
+          alert("로그인 후에 기능을 사용할 수 있습니다.");
+        }
+        else {
+          //사용자가 이미 해당 게시글에 하트를 눌렀는지 확인
+          const postID = getPostID();
+          const req = {
+            post_id: postID,
+            user_email: userInfo.user_email
+          };
+          fetch(`${apiUrl}/checkHeart`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(req),
           })
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return res.json();
-          })
-          .then(res => {
-            alert("하트 목록에 추가 되었습니다.");
-          })
-          .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-          });
-       }
-       // 사용자가 해당게시글에 하트를 눌렀을 경우 -> 하트 삭제
-       else {
-          fetch(`${apiUrl}/deleteHeart/${res.result.heart_id}`)
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return res.json();
-          })
-          .then(res => {
-            alert("하트 목록에서 삭제 되었습니다.");
-          })
-          .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-          });
-       }
-    })
-    .catch((error) => {
-      console.error('There has been a problem with your fetch operation:', error);
-    });
-  }
-}
-
-likeImg.addEventListener('click', function(){
-  addHeart();
-})
-
-//********* 마이페이지 스크랩기능 **********//
-const scrapImg = document.querySelector('#scrap_img');
-
-// 스크랩추가 기능
-function addScrap(){
-  if(userInfo.loginStatus===false){
-    alert("로그인 후에 기능을 사용할 수 있습니다.");
-  }
-  else{
-    //사용자가 이미 해당 게시글에 스크랩를 눌렀는지 확인
-    const postID = getPostID();
-    const req = {
-      post_id: postID,
-      user_email: userInfo.user_email
-    };
-    fetch(`${apiUrl}/checkScrap`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req),
-    })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              console.log(res);
+              // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
+              if (res.result == false) {
+                fetch(`${apiUrl}/addHeart`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(req),
+                })
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                  })
+                  .then(res => {
+                    alert("하트 목록에 추가 되었습니다.");
+                  })
+                  .catch((error) => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                  });
+              }
+              // 사용자가 해당게시글에 하트를 눌렀을 경우 -> 하트 삭제
+              else {
+                fetch(`${apiUrl}/deleteHeart/${res.result.heart_id}`)
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                  })
+                  .then(res => {
+                    alert("하트 목록에서 삭제 되었습니다.");
+                  })
+                  .catch((error) => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                  });
+              }
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
       }
-      return res.json();
-    })
-    .then(res => {
-       console.log(res);
-       // 사용자가 해당게시글에 스크랩를 누르지 않았을 경우 -> 스크랩 추가
-       if(res.result == false){
-          fetch(`${apiUrl}/addScrap`, {
+
+      likeImg.addEventListener('click', function () {
+        addHeart();
+      })
+
+      //********* 마이페이지 스크랩기능 **********//
+      const scrapImg = document.querySelector('#scrap_img');
+
+      // 스크랩추가 기능
+      function addScrap() {
+        if (userInfo.loginStatus === false) {
+          alert("로그인 후에 기능을 사용할 수 있습니다.");
+        }
+        else {
+          //사용자가 이미 해당 게시글에 스크랩를 눌렀는지 확인
+          const postID = getPostID();
+          const req = {
+            post_id: postID,
+            user_email: userInfo.user_email
+          };
+          fetch(`${apiUrl}/checkScrap`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(req),
           })
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return res.json();
-          })
-          .then(res => {
-            alert("스크랩 목록에 추가 되었습니다.");
-          })
-          .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-          });
-       }
-       // 사용자가 해당게시글에 스크랩를 눌렀을 경우 -> 스크랩 삭제
-       else {
-          fetch(`${apiUrl}/deleteScrap/${res.result.scrap_id}`)
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return res.json();
-          })
-          .then(res => {
-            alert("스크랩 목록에서 삭제 되었습니다.");
-          })
-          .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
-          });
-       }
-    })
-    .catch((error) => {
-      console.error('There has been a problem with your fetch operation:', error);
-    });
-  }
-}
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return res.json();
+            })
+            .then(res => {
+              console.log(res);
+              // 사용자가 해당게시글에 스크랩를 누르지 않았을 경우 -> 스크랩 추가
+              if (res.result == false) {
+                fetch(`${apiUrl}/addScrap`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(req),
+                })
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                  })
+                  .then(res => {
+                    alert("스크랩 목록에 추가 되었습니다.");
+                  })
+                  .catch((error) => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                  });
+              }
+              // 사용자가 해당게시글에 스크랩를 눌렀을 경우 -> 스크랩 삭제
+              else {
+                fetch(`${apiUrl}/deleteScrap/${res.result.scrap_id}`)
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                  })
+                  .then(res => {
+                    alert("스크랩 목록에서 삭제 되었습니다.");
+                  })
+                  .catch((error) => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                  });
+              }
+            })
+            .catch((error) => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
+        }
+      }
 
-scrapImg.addEventListener('click', function(){
-  addScrap();
-})
-     
+      scrapImg.addEventListener('click', function () {
+        addScrap();
+      })
 
-    //read more버튼 누르면 조회수 1 증가 -> db에 요청
-    // async function increaseViewCount(post_id, view_count) {
-    //   try {//increaseViewCount
-    //     const url = `${apiUrl}/postviewer/${post_id}`;
-    //     const response = await fetch(url, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ view_count }),
-    //     });
-    //     const data = await response.json();
-    //     return { success: true, view_count: data.view_count };
-    //   } catch (error) {
-    //     console.error('조회수 증가 요청 중 오류 발생', error);
-    //     return { success: false, msg: error };
-    //   }
-    // }
 
-    // // 이벤트리스너
-    // readMoreBtn.addEventListener('click', async () => {
-    //   try {
-    //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
-    //     const response = await increaseViewCount(post_id, postInfo.view_count);
-    //     if (response.success) {
-    //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
-    //       postInfo.view_count = response.view_count;
-    //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
-    //       await updateViewCountInDatabase(post_id, postInfo.view_count);
-    //     } else {
-    //       console.error('조회수 증가 실패');
-    //     }
-    //   } catch (error) {
-    //     console.error('조회수 증가 요청 중 오류 발생', error);
-    //   }
-    // });
+      // 댓글 개수를 가져오는 함수
+      async function fetchCommentNum(post_id) {
+        try {
+          const response = await fetch(`/postCommentNum/${post_id}`);
+          if (!response.ok) {
+            throw new Error('서버 응답이 올바르지 않습니다.');
+          }
+          const data = await response.json();
+          if (data.status === 200) {
+            return data.result; // 댓글 개수를 반환
+          } else {
+            throw new Error(data.msg);
+          }
+        } catch (error) {
+          console.error('서버 응답 에러:', error);
+          return -1; // 에러 발생 시 -1을 반환하거나 에러 처리 방식을 선택
+        }
+      }
 
-    // //업데이트된 조회수 받아오기
-    // async function updateViewCountInDatabase(post_id, view_count) {
-    //   try {
-    //     const url = `${apiUrl}/postviewer/${post_id}`;
-    //     const response = await fetch(url, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ view_count }),
-    //     });
-    //     const data = await response.json();
-    //     return { success: true, msg: data.msg };
-    //   } catch (error) {
-    //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
-    //     return { success: false, msg: error };
-    //   }
-    // }
-    const viewer = toastui.Editor.factory({
-      el: document.querySelector('.toast-custom-viewer'),
-      viewer: true,
-      height: '1000px',
-      initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
-    });
+      // 댓글 개수를 표시하는 함수
+      async function displayCommentNum(post_id) {
+        const commentCountElement = document.getElementById('comment_count'); // 댓글 개수를 표시할 HTML 요소 선택
+        const commentCount = await fetchCommentNum(post_id); // 댓글 개수 가져오기
+        if (commentCount >= 0) {
+          commentCountElement.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${commentCount}`;
+        } else {
+          commentCountElement.textContent = '댓글 개수를 가져오지 못했습니다.'; // 에러 처리 방식에 따라 메시지 표시
+        }
+      }
+
+      // 페이지 로드 후 댓글 개수 표시
+      window.addEventListener('DOMContentLoaded', function () {
+        const post_id = postInfo.post_id; 
+        displayCommentNum(post_id);
+      });
+
+      //read more버튼 누르면 조회수 1 증가 -> db에 요청
+      // async function increaseViewCount(post_id, view_count) {
+      //   try {//increaseViewCount
+      //     const url = `${apiUrl}/postviewer/${post_id}`;
+      //     const response = await fetch(url, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({ view_count }),
+      //     });
+      //     const data = await response.json();
+      //     return { success: true, view_count: data.view_count };
+      //   } catch (error) {
+      //     console.error('조회수 증가 요청 중 오류 발생', error);
+      //     return { success: false, msg: error };
+      //   }
+      // }
+
+      // // 이벤트리스너
+      // readMoreBtn.addEventListener('click', async () => {
+      //   try {
+      //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
+      //     const response = await increaseViewCount(post_id, postInfo.view_count);
+      //     if (response.success) {
+      //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
+      //       postInfo.view_count = response.view_count;
+      //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
+      //       await updateViewCountInDatabase(post_id, postInfo.view_count);
+      //     } else {
+      //       console.error('조회수 증가 실패');
+      //     }
+      //   } catch (error) {
+      //     console.error('조회수 증가 요청 중 오류 발생', error);
+      //   }
+      // });
+
+      // //업데이트된 조회수 받아오기
+      // async function updateViewCountInDatabase(post_id, view_count) {
+      //   try {
+      //     const url = `${apiUrl}/postviewer/${post_id}`;
+      //     const response = await fetch(url, {
+      //       method: 'POST',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //       },
+      //       body: JSON.stringify({ view_count }),
+      //     });
+      //     const data = await response.json();
+      //     return { success: true, msg: data.msg };
+      //   } catch (error) {
+      //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
+      //     return { success: false, msg: error };
+      //   }
+      // }
+      const viewer = toastui.Editor.factory({
+        el: document.querySelector('.toast-custom-viewer'),
+        viewer: true,
+        height: '1000px',
+        initialValue: postInfo.post_content.replace(/<img[^>]+>/gi, '')
+      });
     }
     else {
       toggleCarouselButtons(false);
@@ -389,6 +425,7 @@ const fetchComments = async () => {
   try {
     const response = await fetch(`${apiUrl}/showComment/postviewer/${post_id}`);
     const data = await response.json();
+    const deleteIconImageUrl = 'https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png';
 
     console.log(data); // 댓글 데이터 확인용 (콘솔 출력)
 
@@ -435,6 +472,24 @@ const fetchComments = async () => {
       likeCountElement.classList.add('fs-4');
       likeCountElement.textContent = comment.like_count_comment;
 
+      //댓글 삭제
+      const deleteCommentElement = document.createElement('div');
+      deleteCommentElement.classList.add('col', 'text-end');
+
+      // 댓글 삭제 아이콘 이미지 생성 및 설정
+      const deleteIconElement = document.createElement('img');
+      deleteIconElement.width = 24;
+      deleteIconElement.height = 24;
+      deleteIconElement.src = deleteIconImageUrl;
+      deleteIconElement.alt = 'Delete Comment';
+
+      deleteIconElement.addEventListener("click", handleDeleteCommentClick);
+
+      deleteCommentElement.appendChild(deleteIconElement);
+
+      deleteCommentElement.appendChild(deleteIconElement);
+      const deleteCommentContainer = document.getElementById("delete_comment");
+
       // 생성한 요소들을 date/LikeCountElement에 추가
       dateElement.appendChild(commentDateElement);
       LikeCountElement.appendChild(likeCountElement);
@@ -442,9 +497,14 @@ const fetchComments = async () => {
       subdateLikeCountElement.appendChild(dateElement);
       subdateLikeCountElement.appendChild(LikeCountElement);
 
+
       // 생성한 요소들을 commentInfoElement에 추가
       commentInfoElement.appendChild(userEmailElement);
       commentInfoElement.appendChild(subdateLikeCountElement);
+      commentInfoElement.appendChild(deleteCommentElement);
+      commentInfoElement.appendChild(userEmailElement);
+      commentInfoElement.appendChild(subdateLikeCountElement);
+      commentInfoElement.appendChild(deleteCommentElement);
 
       // 댓글 내용 표시
       const commentContentElement = document.createElement('p');
@@ -489,7 +549,8 @@ writeCommentBtn.addEventListener('click', function () {
         body: JSON.stringify({
           post_id: postInfo.post_id,
           user_email: userInfo.user_email,
-          comment_content: commentContent
+          comment_content: commentContent,
+
         })
       })
         .then(response => response.json())
@@ -567,7 +628,7 @@ writeCommentBtn.addEventListener('click', function () {
 //   });
 
 //게시글지우기
-const fetchDeletePost = async (post_id,user_email) => {
+const fetchDeletePost = async (post_id, user_email) => {
   try {
     const response = await fetch(`/doDeletePost/${post_id}/${user_email}`, {
       method: 'DELETE',
@@ -608,7 +669,7 @@ function handleDeleteClick() {
     const user_email = userInfo.user_email;
 
     // 서버로 게시글 삭제 요청
-    fetchDeletePost(post_id,user_email); // fetchDeletePost 함수를 호출하여 게시글 삭제
+    fetchDeletePost(post_id, user_email); // fetchDeletePost 함수를 호출하여 게시글 삭제
   } else {
     // 삭제 취소 시 처리
   }
@@ -620,3 +681,56 @@ function handleDeleteClick() {
 const deletePost = document.getElementById("delete");
 deletePost.addEventListener("click", handleDeleteClick);
 
+
+
+//댓글 지우기
+const fetchDeleteComment = async (user_email) => {
+  try {
+    const response = await fetch(`/doDeleteComment/${user_email}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    })
+
+
+    if (!response.ok) {
+      throw new Error('서버 응답이 올바르지 않습니다.');
+    }
+
+    const data = await response.json();
+
+    if (data.result === true) {
+      console.log(data);
+      alert("댓글이 성공적으로 삭제되었습니다.");
+      window.location.href = `${apiUrl}/postviewer/${post_id}`;
+    } else {
+      console.error('댓글 삭제 실패:', data.err);
+      alert("댓글 삭제에 실패하였습니다.");
+    }
+  } catch (error) {
+    console.error('서버 응답 에러:', error);
+    alert("서버 응답에 오류가 발생하였습니다.");
+  }
+};
+
+
+function handleDeleteCommentClick() {
+  const confirmed = window.confirm("삭제하시겠습니까?");
+
+  if (confirmed) {
+    const user_email = userInfo.user_email;
+
+    // 서버로 게시글 삭제 요청
+    fetchDeleteComment(user_email);
+  } else {
+    // 삭제 취소 시 처리
+  }
+}
+
+
+
+// 게시글 삭제 아이콘 클릭 이벤트 리스너
+const deleteComment = document.getElementById("delete_comment");
+deleteComment.addEventListener("click", handleDeleteCommentClick);
