@@ -747,7 +747,7 @@ function handleDeleteCommentClick() {
     const user_email = userInfo.user_email;
     const comment_id = commentInfo.comment_id;
 
-    // 서버로 게시글 삭제 요청
+    // 서버로 댓글 삭제 요청
     fetchDeleteComment(user_email,comment_id);
   } else {
     // 삭제 취소 시 처리
@@ -756,6 +756,6 @@ function handleDeleteCommentClick() {
 
 
 
-// 게시글 삭제 아이콘 클릭 이벤트 리스너
+// 댓글 삭제 아이콘 클릭 이벤트 리스너
 const deleteComment = document.getElementById("delete_comment");
 deleteComment.addEventListener("click", handleDeleteCommentClick);
