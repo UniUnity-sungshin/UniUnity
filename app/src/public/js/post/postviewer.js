@@ -590,7 +590,11 @@ writeCommentBtn.addEventListener('click', function () {
             // const commentElement = document.createElement('p');
             // commentElement.textContent = commentContent;
             // commentViewer.appendChild(commentElement);
+
+ 
             fetchComments();
+            document.querySelector('.comment-form textarea').value = "";
+            
 
 
           } else {
