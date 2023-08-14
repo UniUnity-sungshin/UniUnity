@@ -119,7 +119,7 @@ router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPost
 router.post("/uploadComment/postviewer",ctrl.comment.uploadComment); //댓글 작성하기
 
 //댓글 삭제하기!!!
-// router.delete('/doDeleteComment/:user_email/:comment_id', ctrl.comment.deleteComment); 
+router.delete('/doDeleteComment/:post_id/:user_email/:comment_id', ctrl.comment.deleteComment); 
 
 //댓글 개수 받아오기
 router.get("/postCommentNum/:post_id",ctrl.comment.postCommentNum);

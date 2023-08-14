@@ -48,20 +48,18 @@ class Comment {
         }
     }
 
-    //댓글 삭제하기!!!
-    // async doDeleteComment(user_email,comment_id) {
-    //     const client = this.body;
-    //     try {
-    //         const response1 = await CommentStorage.goDeleteComment(client);
-    //         const response2 = await CommentStorage.reducePostCommentCount(client.comment_id);
-    //         if(response1.result==true && response2.result==true){
-    //             return response1;
-    //         }
-    //     } catch (err) {
-    //         return { result:false, err }
-    //     } return { err };
-    //     }
-    
+    //댓글 삭제하기
+    async doDeleteComment(user_email,comment_id,post_id) {
+        try {
+            const response1 = await CommentStorage.goDeleteComment(user_email,comment_id);
+            const response2 = await CommentStorage.reducePostCommentCount(post_id);
+            if(response1.result==true && response2.result==true){
+                return response1;
+            }
+        } catch (err) {
+            return { err };
+        }
+    }
     //댓글 개수 반환
     async postCommentpNum(post_id) {
         try {
@@ -73,16 +71,6 @@ class Comment {
                 status: 500,
                 msg: err
             };
-        }
-    }
-
-    async commentWriter(comment_id){
-        try{
-            const response = await CommentStorage.commentWriter(comment_id);
-            console.log("postWriter " + response);
-            return response;
-        } catch (err) {
-            return{success:false,msg:err};
         }
     }
 }
