@@ -13,11 +13,26 @@ class CommentStorage {
                     reject(err);
                     return;
                 }
-
-                const query = 'INSERT INTO Comment(user_email, post_id, comment_content) VALUES ( ?, ?, ?);';
+                function getCurrentDateTime() {
+                    const now = new Date();
+                    const offset = 9 * 60; // 9시간을 분 단위로 변환
+                    const localTime = now.getTime() + now.getTimezoneOffset() * 60 * 1000; // 로컬 시간을 밀리초 단위로 변환
+                    const seoulTime = new Date(localTime + offset * 60 * 1000); // 서울 시간 계산
+                    const year = seoulTime.getFullYear();
+                    const month = String(seoulTime.getMonth() + 1).padStart(2, '0');
+                    const day = String(seoulTime.getDate()).padStart(2, '0');
+                    const hours = String(seoulTime.getHours()).padStart(2, '0');
+                    const minutes = String(seoulTime.getMinutes()).padStart(2, '0');
+                    const seconds = String(seoulTime.getSeconds()).padStart(2, '0');
+                    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                }
+                // 현재 시간을 YYYY-MM-DD HH:MM:SS 형식으로 포맷팅
+                const formattedDateTime = getCurrentDateTime();
+            
+                const query = 'INSERT INTO Comment(user_email, post_id, comment_content, comment_date) VALUES ( ?, ?, ?, ?);';
                 // const updateQuery = 'UPDATE Post SET comment_count = comment_count + 1 WHERE post_id = ?';
 
-                connection.query(query, [ commentInfo.user_email, commentInfo.post_id, commentInfo.comment_content], (err) => {
+                connection.query(query, [ commentInfo.user_email, commentInfo.post_id, commentInfo.comment_content, formattedDateTime], (err) => {
                     if (err) {
                         pool.releaseConnection(connection);
                         console.error('INSERT Query 함수 오류', err);
