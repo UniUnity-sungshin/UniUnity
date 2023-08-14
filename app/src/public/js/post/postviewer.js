@@ -707,55 +707,56 @@ deletePost.addEventListener("click", handleDeleteClick);
 
 
 
-//댓글 지우기
-const fetchDeleteComment = async (user_email,comment_id) => {
-  try {
-    const response = await fetch(`/doDeleteComment/${user_email}/${comment_id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+//댓글 지우기!!!
+// const fetchDeleteComment = async (user_email,comment_id) => {
+//   try {
+//     const response = await fetch(`/doDeleteComment/${user_email}/${comment_id}`, {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
 
-    })
-
-
-    if (!response.ok) {
-      throw new Error('서버 응답이 올바르지 않습니다.');
-    }
-
-    const data = await response.json();
-
-    if (data.result === true) {
-      console.log(data);
-      alert("댓글이 성공적으로 삭제되었습니다.");
-      window.location.href = `${apiUrl}/postviewer/${post_id}`;
-    } else {
-      console.error('댓글 삭제 실패:', data.err);
-      alert("댓글 삭제에 실패하였습니다.");
-    }
-  } catch (error) {
-    console.error('서버 응답 에러:', error);
-    alert("서버 응답에 오류가 발생하였습니다.");
-  }
-};
+//     })
 
 
-function handleDeleteCommentClick() {
-  const confirmed = window.confirm("삭제하시겠습니까?");
+//     if (!response.ok) {
+//       throw new Error('서버 응답이 올바르지 않습니다.');
+//     }
 
-  if (confirmed) {
-    const user_email = userInfo.user_email;
-    const comment_id = commentInfo.comment_id;
+//     const data = await response.json();
 
-    // 서버로 댓글 삭제 요청
-    fetchDeleteComment(user_email,comment_id);
-  } else {
-    // 삭제 취소 시 처리
-  }
-}
+//     if (data.result === true) {
+//       console.log(data);
+//       alert("댓글이 성공적으로 삭제되었습니다.");
+//       window.location.href = `${apiUrl}/postviewer/${post_id}`;
+//     } else {
+//       console.error('댓글 삭제 실패:', data.err);
+//       alert("댓글 삭제에 실패하였습니다.");
+//     }
+//   } catch (error) {
+//     console.error('서버 응답 에러:', error);
+//     alert("서버 응답에 오류가 발생하였습니다.");
+//   }
+// };
+
+
+// function handleDeleteCommentClick() {
+//   const confirmed = window.confirm("삭제하시겠습니까?");
+
+//   if (confirmed) {
+//     const user_email = userInfo.user_email;
+//     const comment_id = commentInfo.comment_id;
+
+//     // 서버로 댓글 삭제 요청
+//     fetchDeleteComment(user_email,comment_id);
+//   } else {
+//     // 삭제 취소 시 처리
+//   }
+// }
 
 
 
-// 댓글 삭제 아이콘 클릭 이벤트 리스너
-const deleteComment = document.getElementById("delete_comment");
-deleteComment.addEventListener("click", handleDeleteCommentClick);
+
+// // 댓글 삭제 아이콘 클릭 이벤트 리스너
+// const deleteComment = document.getElementById("delete_comment");
+// deleteComment.addEventListener("click", handleDeleteCommentClick);

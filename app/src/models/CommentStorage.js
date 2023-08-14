@@ -14,7 +14,7 @@ class CommentStorage {
                     return;
                 }
 
-                const query = 'INSERT INTO Comment(user_email, post_id, comment_content) VALUES (?, ?, ?);';
+                const query = 'INSERT INTO Comment(user_email, post_id, comment_content) VALUES ( ?, ?, ?);';
                 // const updateQuery = 'UPDATE Post SET comment_count = comment_count + 1 WHERE post_id = ?';
 
                 connection.query(query, [ commentInfo.user_email, commentInfo.post_id, commentInfo.comment_content], (err) => {
@@ -29,6 +29,7 @@ class CommentStorage {
             });
         });
     }
+
     static updatePostCommentCount(post_id){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
@@ -156,58 +157,89 @@ class CommentStorage {
         });
     }
 
-    //댓글 삭제하기
-    static goDeleteComment(user_email, comment_id) {
-        return new Promise(async (resolve, reject) => {
+    //댓글 삭제하기!!!
+    // static goDeleteComment(user_email, comment_id) {
+    //     return new Promise(async (resolve, reject) => {
+    //         pool.getConnection((err, connection) => {
+    //             if (err) {
+    //                 console.error('MySQL 연결 오류: ', err);
+    //                 reject(err);
+    //             }
+
+    //             const query = 'DELETE FROM Comment WHERE user_email = ? AND comment_id =?';
+    //             // const reduceQuery = 'UPDATE Post SET comment_count = comment_count - 1 WHERE post_id = ?';
+
+    //             pool.query(query, [user_email, comment_id], (err, result) => {
+    //                 pool.releaseConnection(connection);
+    //                 if (err) {
+    //                     reject({
+    //                         result: false,
+    //                         status: 500,
+    //                         err: `${err}`
+    //                     });
+    //                 } else {
+    //                     if (result.affectedRows > 0) {
+    //                         resolve({
+    //                             result: true,
+    //                             status: 200
+    //                         });
+    //                     } else {
+    //                         reject({
+    //                             result: false,
+    //                             status: 404,
+    //                             err: '댓글을 찾을 수 없거나 삭제 권한이 없습니다.'
+    //                         });
+    //                     }
+    //                 }
+    //             });
+
+    //         });
+    //     });
+    // }
+
+    static reducePostCommentCount(post_id){
+        return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err);
+                    return;
                 }
 
-                const query = 'DELETE FROM Comment WHERE user_email = ? AND commnet_id =?';
-                // const updateQuery = 'UPDATE Post SET comment_count = comment_count - 1 WHERE post_id = ?';
+                const query = 'UPDATE Post SET comment_count = comment_count - 1 WHERE post_id = ?';
 
-                pool.query(query, [user_email, comment_id], (err, result) => {
-                    pool.releaseConnection(connection);
+                connection.query(query, [ post_id], (err) => {
                     if (err) {
-                        reject({
-                            result: false,
-                            status: 500,
-                            err: `${err}`
-                        });
-                    } else {
-                        if (result.affectedRows > 0) {
-                            resolve({
-                                result: true,
-                                status: 200
-                            });
-                        } else {
-                            reject({
-                                result: false,
-                                status: 404,
-                                err: '댓글을 찾을 수 없거나 삭제 권한이 없습니다.'
-                            });
-                        }
-                    }
-                });
-                // 업데이트 쿼리 실행
-    //             connection.query(updateQuery, [commentInfo.post_id], (err) => {
-    //                 pool.releaseConnection(connection);
-    //                 if (err) {
-    //                     console.error('UPDATE Query 함수 오류', err);
-    //                     reject({ status: 500, err: `${err}` });
-    //                     return;
-    //                 }
+                        pool.releaseConnection(connection);
+                        console.error('INSERT Query 함수 오류', err);
+                        reject({ result:false, err: `${err}` });
 
-    //                 resolve({ status: 201 });
-    //             });
-    //         });
-    //     });
-    // }
+                    }
+                    else resolve({ result:true});
+                });
             });
         });
+
     }
+
+    static commentWriter(comment_id) {
+        return new Promise((resolve, reject) => {
+          pool.getConnection((err, connection) => {
+            if (err) {
+              console.error('MySQL 연결 오류: ', err);
+              reject(err);
+            }
+            pool.query("SELECT user_email FROM Comment WHERE comment_id = ?;", [comment_id], function (err, rows) {
+              pool.releaseConnection(connection);
+              if (err) {
+                console.error('Query 함수 오류', err);
+                reject(err);
+              }
+              resolve(rows[0]);
+            });
+          });
+        });
+      }
     
 
 

@@ -528,20 +528,21 @@ const comment = {
         return res.json(response);
     },
 
-    deleteComment: async (req, res) => {
-        let user_email = req.params.user_email;
-        let comment_id = req.params.comment_id;
+    //댓글 삭제하기!!!
+    // deleteComment: async (req, res) => {
+    //     let user_email = req.params.user_email;
+    //     let comment_id = req.params.comment_id;
 
-        try {
-            const comment = new Comment();
-            const response = await comment.doDeleteComment(user_email,comment_id);
-            return res.json(response);
-        } catch (err) {
-            console.error('댓글 삭제 실패:', err);
-            return res.status(500).json({ error: '댓글 삭제에 실패하였습니다.' });
-        }
+    //     try {
+    //         const comment = new Comment();
+    //         const response = await comment.doDeleteComment(user_email,comment_id);
+    //         return res.json(response);
+    //     } catch (err) {
+    //         console.error('댓글 삭제 실패:', err);
+    //         return res.status(500).json({ error: '댓글 삭제에 실패하였습니다.' });
+    //     }
 
-    },
+    // },
     postCommentNum: async (req, res) => {
         let post_id = req.params.post_id;
         try {
@@ -553,6 +554,12 @@ const comment = {
             return res.status(500).json({ error: '댓글 개수 반영에 실패하였습니다.' });
         }
     },
+    commentWriter: async (req, res) => {
+        const comment = new Comment();
+        console.log("controller ")
+        const response = await comment.commentWriter(req.params.comment_id);
+        return res.json(response);
+    }
     // removeComment: function ($comment) {
     //     $.ajax({
     //         url: _apiServerUrl + '/remove/board/comment',
