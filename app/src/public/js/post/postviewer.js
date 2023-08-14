@@ -708,9 +708,9 @@ deletePost.addEventListener("click", handleDeleteClick);
 
 
 //댓글 지우기
-const fetchDeleteComment = async (user_email,comment_id) => {
+const fetchDeleteComment = async (user_email) => {
   try {
-    const response = await fetch(`/doDeleteComment/${user_email}/${comment_id}`, {
+    const response = await fetch(`/doDeleteComment/${user_email}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -745,10 +745,9 @@ function handleDeleteCommentClick() {
 
   if (confirmed) {
     const user_email = userInfo.user_email;
-    const comment_id = commentInfo.comment_id
 
     // 서버로 게시글 삭제 요청
-    fetchDeleteComment(user_email,comment_id);
+    fetchDeleteComment(user_email);
   } else {
     // 삭제 취소 시 처리
   }
@@ -756,6 +755,6 @@ function handleDeleteCommentClick() {
 
 
 
-// 댓글 삭제 아이콘 클릭 이벤트 리스너
+// 게시글 삭제 아이콘 클릭 이벤트 리스너
 const deleteComment = document.getElementById("delete_comment");
 deleteComment.addEventListener("click", handleDeleteCommentClick);

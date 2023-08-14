@@ -106,7 +106,7 @@ class CommentStorage {
     }
 
 //댓글 삭제하기(프론트 구현x)
-    static goDeleteComment(user_email,comment_id) {
+    static goDeleteComment(user_email) {
         return new Promise(async (resolve, reject) => {
           pool.getConnection((err, connection) => {
             if (err) {
@@ -114,7 +114,7 @@ class CommentStorage {
               reject(err);
             }
       
-            const query = 'DELETE FROM Comment WHERE user_email = ? AND comment_id =?';
+            const query = 'DELETE FROM Comment WHERE user_email = ?';
             pool.query(query, [user_email], (err, result) => {
               pool.releaseConnection(connection);
               if (err) {
