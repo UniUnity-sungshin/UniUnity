@@ -117,7 +117,7 @@ router.get("/deleteScrap/:scrap_id",ctrl.post.deleteScrap); // 스크랩 목록 
 //댓글
 router.get("/showComment/postviewer/:post_id",ctrl.comment.showCommentListbyPostID);//댓글 목록 보이기
 router.post("/uploadComment/postviewer",ctrl.comment.uploadComment); //댓글 작성하기
-router.delete('/doDeleteComment/:user_email', ctrl.comment.DeleteComment); //댓글 삭제
+router.delete('/doDeleteComment/:user_email/:comment_id', ctrl.comment.deleteComment); //댓글 삭제
 
 //댓글 개수 받아오기
 router.get("/postCommentNum/:post_id",ctrl.comment.postCommentNum);
