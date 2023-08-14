@@ -14,31 +14,44 @@ class CommentStorage {
                     return;
                 }
 
-                const query = 'INSERT INTO Comment(comment_id, user_email, post_id, comment_content) VALUES (?, ?, ?, ?);';
+                const query = 'INSERT INTO Comment(user_email, post_id, comment_content) VALUES (?, ?, ?);';
                 // const updateQuery = 'UPDATE Post SET comment_count = comment_count + 1 WHERE post_id = ?';
 
-                connection.query(query, [commentInfo.comment_id, commentInfo.user_email, commentInfo.post_id, commentInfo.comment_content], (err) => {
+                connection.query(query, [ commentInfo.user_email, commentInfo.post_id, commentInfo.comment_content], (err) => {
                     if (err) {
                         pool.releaseConnection(connection);
                         console.error('INSERT Query 함수 오류', err);
-                        reject({ status: 500, err: `${err}` });
-                        return;
+                        reject({ result:false, status: 500, err: `${err}` });
+
                     }
-
-                    // 업데이트 쿼리 실행
-                    // connection.query(updateQuery, [commentInfo.post_id], (err) => {
-                    //     pool.releaseConnection(connection);
-                    //     if (err) {
-                    //         console.error('UPDATE Query 함수 오류', err);
-                    //         reject({ status: 500, err: `${err}` });
-                    //         return;
-                    //     }
-
-                    //     resolve({ status: 201 });
-                //});
+                    else resolve({ result:true, status: 201 });
                 });
             });
         });
+    }
+    static updatePostCommentCount(post_id){
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err);
+                    return;
+                }
+
+                const query = 'UPDATE Post SET comment_count = comment_count + 1 WHERE post_id = ?';
+
+                connection.query(query, [ post_id], (err) => {
+                    if (err) {
+                        pool.releaseConnection(connection);
+                        console.error('INSERT Query 함수 오류', err);
+                        reject({ result:false, err: `${err}` });
+
+                    }
+                    else resolve({ result:true});
+                });
+            });
+        });
+
     }
 
 

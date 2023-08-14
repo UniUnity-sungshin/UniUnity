@@ -9,10 +9,13 @@ class Comment {
     async createComment() {
         const client = this.body;
         try {
-            const response = await CommentStorage.saveComment(client);
-            return response;
+            const response1 = await CommentStorage.saveComment(client);
+            const response2 = await CommentStorage.updatePostCommentCount(client.post_id);
+            if(response1.result==true && response2.result==true){
+                return response1;
+            }
         } catch (err) {
-            return { err }
+            return { result:false, err }
         }
     }
     //comment_id로 댓글 불러오기
