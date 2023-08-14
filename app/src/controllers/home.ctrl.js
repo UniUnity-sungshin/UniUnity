@@ -528,12 +528,13 @@ const comment = {
         return res.json(response);
     },
 
-    DeleteComment: async (req, res) => {
+    deleteComment: async (req, res) => {
         let user_email = req.params.user_email;
+        let comment_id = req.params.comment_id;
 
         try {
             const comment = new Comment();
-            const response = await comment.doDeleteComment(user_email);
+            const response = await comment.doDeleteComment(user_email,comment_id);
             return res.json(response);
         } catch (err) {
             console.error('댓글 삭제 실패:', err);

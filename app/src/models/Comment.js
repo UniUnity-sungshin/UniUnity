@@ -46,9 +46,9 @@ class Comment {
     }
 
     //댓글 삭제하기
-    async doDeleteComment(user_email) {
+    async doDeleteComment(user_email,comment_id) {
         try {
-            const response = await CommentStorage.goDeleteComment(user_email);
+            const response = await CommentStorage.goDeleteComment(user_email,comment_id);
             return response;
         } catch (err) {
             return { err };
