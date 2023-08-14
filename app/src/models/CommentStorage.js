@@ -116,7 +116,7 @@ class CommentStorage {
                     reject(err)
                 }
 
-                pool.query("SELECT * FROM Comment WHERE post_id=?;", [post_id], function (err, rows) {
+                pool.query("select comment_content,like_count_comment,post_id,comment_date,comment_id,user_nickname,user.user_email from Comment comm LEFT JOIN User user ON comm.user_email=user.user_email where post_id=?;", [post_id], function (err, rows) {
                     pool.releaseConnection(connection);
                     if (err) {
                         console.error('Query 함수 오류', err);

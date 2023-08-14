@@ -465,13 +465,13 @@ const fetchComments = async () => {
       const commentInfoElement = document.createElement('div');
       commentInfoElement.classList.add('row');
 
-      // 유저 이메일 표시
-      const userEmailElement = document.createElement('div');
-      userEmailElement.classList.add('col-6');
-      const userEmailParagraph = document.createElement('p');
-      userEmailParagraph.classList.add('fs-4');
-      userEmailParagraph.textContent = comment.user_email;
-      userEmailElement.appendChild(userEmailParagraph);
+      // 유저 닉네임 표시
+      const userNickNameElement = document.createElement('div');
+      userNickNameElement.classList.add('col-6');
+      const userNickNameParagraph = document.createElement('p');
+      userNickNameParagraph.classList.add('fs-4');
+      userNickNameParagraph.textContent = comment.user_nickname;
+      userNickNameElement.appendChild(userNickNameParagraph);
 
       // 댓글 날짜와 좋아요 수를 담는 div 요소 생성
       const subdateLikeCountElement = document.createElement('div');
@@ -523,10 +523,10 @@ const fetchComments = async () => {
 
 
       // 생성한 요소들을 commentInfoElement에 추가
-      commentInfoElement.appendChild(userEmailElement);
+      commentInfoElement.appendChild(userNickNameElement);
       commentInfoElement.appendChild(subdateLikeCountElement);
       commentInfoElement.appendChild(deleteCommentElement);
-      commentInfoElement.appendChild(userEmailElement);
+      commentInfoElement.appendChild(userNickNameElement);
       commentInfoElement.appendChild(subdateLikeCountElement);
       commentInfoElement.appendChild(deleteCommentElement);
 
