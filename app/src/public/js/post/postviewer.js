@@ -7,7 +7,7 @@ var userInfo; // 유저정보
 var university_url;
 var postWriterInfo;
 const writeCommentBtn = document.getElementById('write_comment_btn');
-
+var university_url;
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
@@ -18,7 +18,7 @@ const loadloginData = async () => {
       console.log("유저정보");
       console.log(res);
       userInfo = res;
-
+      university_url = userInfo.university_url;
 
     })
     .catch((error) => {
@@ -761,5 +761,8 @@ function handleDeleteCommentClick(comment_id) {
     // 삭제 취소 시 처리
   }
 }
-
-
+ 
+const navBar = document.getElementById("navbar-brand");
+navBar.addEventListener("click", function() {
+  window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
+});
