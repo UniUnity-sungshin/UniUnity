@@ -358,6 +358,11 @@ function loadPartnerUpload() {
     });
   })
 }
+var university_url = getUniversityUrl();
+const navBar = document.getElementById("navbar-brand");
+navBar.addEventListener("click", function() {
+  window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
+});
 // ===========================================================================================
 //page 로드 후 loadData()실행
 window.addEventListener('DOMContentLoaded', function()

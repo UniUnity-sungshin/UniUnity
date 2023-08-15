@@ -112,3 +112,7 @@
   .toastui-editor-contents p{
     font-size: 20px;
   }
+
+.navbar-brand {
+    cursor: pointer;
+}
