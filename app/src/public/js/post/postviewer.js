@@ -7,7 +7,9 @@ var userInfo; // 유저정보
 var university_url;
 var postWriterInfo;
 const writeCommentBtn = document.getElementById('write_comment_btn');
+var domain;
 var university_url;
+const navBar = document.getElementById("navbar-brand");
 
 // 작성자 회원 정보 불러오기
 const loadloginData = async () => {
@@ -18,8 +20,10 @@ const loadloginData = async () => {
       console.log("유저정보");
       console.log(res);
       userInfo = res;
-      university_url = userInfo.university_url;
 
+      navBar.addEventListener("click", function() {
+        window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
+      });
     })
     .catch((error) => {
       console.error('작성자 회원 정보 불러오기 오류', error);
@@ -34,12 +38,13 @@ const postWriter = async (post_id) => {
     const data = await response.json();
     console.log(data);
     postWriterInfo = data;
-
+    domain = extractDomainFromEmail(postWriterInfo.user_email);
+    //console.log(domain); // 게시글에서 학교 이름 추출
+    university_url = domain;
   } catch (error) {
     console.error('게시글 작성자 정보 불러오기 오류', error);
   }
 };
-
 
 // 게시글 삭제 버튼 보이는 조건
 async function showDeleteButtonIfNeeded() {
@@ -53,6 +58,16 @@ async function showDeleteButtonIfNeeded() {
   }
 }
 
+function extractDomainFromEmail(email) {
+  const parts = email.split("@");
+  if (parts.length === 2) {
+    const domainParts = parts[1].split(".");
+    if (domainParts.length >= 2) {
+      return domainParts[0];
+    }
+  }
+  return null;
+}
 
 var postInfo; // 게시글 정보
 // 게시글 정보 불러오기
@@ -761,8 +776,3 @@ function handleDeleteCommentClick(comment_id) {
     // 삭제 취소 시 처리
   }
 }
- 
-const navBar = document.getElementById("navbar-brand");
-navBar.addEventListener("click", function() {
-  window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
-});
