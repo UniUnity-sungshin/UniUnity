@@ -25,7 +25,7 @@ const fetchForgotPassword = async (event) => {
         })
             .then((res) => res.json())
             .then(res => {
-                if (res.status === 200 && res.result === true) {
+                if (res.status === 200 && res.result === false) {
                     alert('가입하신 이메일로 인증코드를 발송하였습니다. 인증코드를 입력해주세요.');
                 } else {
                     alert("입력하신 아이디를 찾을 수 없습니다.");
