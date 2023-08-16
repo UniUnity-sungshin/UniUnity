@@ -6,7 +6,7 @@ const SCOPES = [
   'https://mail.google.com/',
   'https://www.googleapis.com/auth/gmail.send',
 ];
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = '../app/config/mail_token.json';
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -99,7 +99,7 @@ function getNewToken(oAuth2Client, callback, emailAddress) {
 
 async function sendEmailWithAuthorization(emailAddress) {
   return new Promise((resolve, reject) => {
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile('../app/config/mail_credentials.json', (err, content) => {
       if (err) {
         console.log('Error loading client secret file:', err);
         reject(err);
