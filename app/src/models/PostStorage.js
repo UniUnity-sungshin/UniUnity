@@ -533,7 +533,7 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Heart WHERE user_email=?) ORDER BY post_id DESC;", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Heart WHERE user_email=? ORDER BY heart_id DESC);", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
@@ -710,7 +710,7 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Scrap WHERE user_email=?) ORDER BY post_id DESC;", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Scrap WHERE user_email=? ORDER BY scrap_id DESC);", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
