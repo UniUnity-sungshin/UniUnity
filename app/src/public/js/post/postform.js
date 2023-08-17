@@ -10,6 +10,13 @@ const loadloginData = () => {
     .then((res) => res.json())
     .then(res => {
       userInfo = res;
+      const navBar = document.getElementById("navbar-brand");
+      const previousPageURL = document.referrer;
+      console.log(previousPageURL); // 이전 페이지의 URL을 콘솔에 출력
+
+      navBar.addEventListener("click", function() {
+        window.location.href = previousPageURL;
+      });
       //로그인이 되지 않았을 경우 로그인 창으로 리다이렉션 
       if (!userInfo.loginStatus) {
         alert("로그인 후에 게시글을 작성할 수 있습니다.");
@@ -359,10 +366,10 @@ function loadPartnerUpload() {
   })
 }
 var university_url = getUniversityUrl();
-const navBar = document.getElementById("navbar-brand");
-navBar.addEventListener("click", function() {
-  window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
-});
+
+// navBar.addEventListener("click", function() {
+//   window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
+// });
 // ===========================================================================================
 //page 로드 후 loadData()실행
 window.addEventListener('DOMContentLoaded', function()

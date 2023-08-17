@@ -20,9 +20,11 @@ const loadloginData = async () => {
       console.log("유저정보");
       console.log(res);
       userInfo = res;
+      const previousPageURL = document.referrer;
+      console.log(previousPageURL); // 이전 페이지의 URL을 콘솔에 출력
 
       navBar.addEventListener("click", function() {
-        window.location.href = `${apiUrl}/showPostListAll/${university_url}`;
+        window.location.href = previousPageURL;
       });
     })
     .catch((error) => {
@@ -538,7 +540,7 @@ const fetchComments = async () => {
       LikeCountElement.appendChild(likeCountElement);
 
       subdateLikeCountElement.appendChild(dateElement);
-      subdateLikeCountElement.appendChild(LikeCountElement);
+      //subdateLikeCountElement.appendChild(LikeCountElement);
 
 
       // 생성한 요소들을 commentInfoElement에 추가
