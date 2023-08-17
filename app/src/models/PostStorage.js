@@ -279,14 +279,14 @@ class PostStorage {
     static getMyPost(userInfo) {
         const user_email = userInfo.user_email;
         console.log("getMyPost", userInfo);
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => { 
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
 
-                pool.query("SELECT * FROM Post WHERE user_email=?;", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE user_email=?  ORDER BY post_id DESC;", [user_email], function (err, rows) {
                     pool.releaseConnection(connection);
                     if (err) {
                         console.error('Query 함수 오류', err);
@@ -313,7 +313,7 @@ class PostStorage {
                     reject(err)
                 }
 
-                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Comment WHERE user_email =?);"
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Comment WHERE user_email =?) ORDER BY post_id DESC;"
                     , [user_email], function (err, rows) {
                         pool.releaseConnection(connection);
                         if (err) {
@@ -533,7 +533,7 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Heart WHERE user_email=?);", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Heart WHERE user_email=?) ORDER BY post_id DESC;", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
@@ -710,7 +710,7 @@ class PostStorage {
                     console.error('MySQL 연결 오류: ', err);
                     reject(err)
                 }
-                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Scrap WHERE user_email=?);", [user_email], function (err, rows) {
+                pool.query("SELECT * FROM Post WHERE post_id IN (SELECT post_id FROM Scrap WHERE user_email=?) ORDER BY post_id DESC;", [user_email], function (err, rows) {
                     if (err) {
                         console.error('Query 함수 오류', err);
                         reject(err)
