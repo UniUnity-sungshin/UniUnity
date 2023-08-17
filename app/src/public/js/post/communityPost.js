@@ -138,7 +138,7 @@ function createCard(data) {
                 <h2 class="card-title h4 mt-2">${data.post_title}</h2>
             </div>
             <div>
-                <a class="btn btn-primary mt-2" href="${apiUrl}/postviewer/${data.post_id}">게시글 보러가기 →</a>
+                <a class="btn read-more-btn btn-outline-secondary" href="${apiUrl}/postviewer/${data.post_id}">게시글 보러가기 →</a>
             </div>
         </div>
 
