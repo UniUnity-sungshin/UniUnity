@@ -352,6 +352,13 @@ const post = {
         return res.json(response);
 
     },
+    modifyPost:async(req,res)=>{
+        console.log("modifyPost1");
+        const post=new Post(req.body);
+        const response = await post.modifyPost();
+        return res.json(response);
+
+    },
     showPostListbyCategory: async (req, res) => {
         let university_url = req.params.university_url;
         let category = req.params.category;

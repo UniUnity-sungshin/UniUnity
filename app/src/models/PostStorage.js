@@ -49,7 +49,6 @@ class PostStorage {
                 const regex = /<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi;
                 const matches = postInfo.match(regex);
                 const image_url = matches && matches.length > 0 ? matches[0].replace(/<img\s+src="([^"]+)"\s+alt="[^"]+"\s+contenteditable="false">/gi, '$1') : null;
-                console.log(image_url)
                 if (image_url) {
                     const imageQuery = 'INSERT INTO PostImage(image_id, post_id, image_url, image_date) VALUES (?, ?, ?, ?);';
                     pool.query(imageQuery, [null, post_id, image_url, formattedDateTime], (imageErr) => {
@@ -61,7 +60,6 @@ class PostStorage {
                                 err: `${imageErr}`
                             });
                         } else {
-                            console.log("이미지 삽입 성공")
                             resolve({
                                 result: true,
                                 status: 201
@@ -69,7 +67,6 @@ class PostStorage {
                         }
                     });
                 } else {  //이미지 url 없음
-                    console.log("이미지 url 없음");
                     resolve({
                         result: true,
                         status: 201
@@ -103,7 +100,6 @@ class PostStorage {
                 }
                 // 현재 시간을 YYYY-MM-DD HH:MM:SS 형식으로 포맷팅
                 const formattedDateTime = getCurrentDateTime();
-                console.log(formattedDateTime); // 예: "2023-07-28 12:34:56"
                 const query = 'INSERT INTO Post(user_email, university_id, post_title, post_content, category, post_date) VALUES (?,?,?,?,?,?);';
                 pool.query(query,
                     [
@@ -158,6 +154,44 @@ class PostStorage {
         });
 
     }
+    //post_id로 게시글 수정
+    static updatePost(postInfo) {
+        return new Promise(async (resolve, reject) => {
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject({err:`${err}`})
+                }
+
+                const query = `UPDATE Post SET post_title = ?, post_content = ?, category = ? WHERE (post_id = ?);`
+
+                pool.query(query,
+                    [
+                        postInfo.post_title,
+                        postInfo.post_content,
+                        postInfo.category,
+                        postInfo.post_id,
+                    ],
+                    (err,result) => {
+                        if (err) {
+                            pool.releaseConnection(connection);
+                            reject({
+                                result: false,
+                                status: 500,
+                                err: `${err}`
+                            });
+                        } else {
+                            pool.releaseConnection(connection);
+                            resolve({
+                                result: true,
+                                status: 201,
+                                post_id: postInfo.post_id
+                            });
+                        }
+                    });
+            });
+        });
+    }
 
     // unversity_url 입력받아 university_id 보내기
     static getUniversityUrlToID(university_url) {
@@ -174,7 +208,6 @@ class PostStorage {
                         console.error('Query 함수 오류', err);
                         reject(err)
                     }
-                    // console.log(rows[0].university_id);
                     resolve(rows[0].university_id);
                 })
             })
@@ -278,8 +311,7 @@ class PostStorage {
     // 마이페이지) 내가 작성한 게시글 보기
     static getMyPost(userInfo) {
         const user_email = userInfo.user_email;
-        console.log("getMyPost", userInfo);
-        return new Promise(async (resolve, reject) => { 
+        return new Promise(async (resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
@@ -324,7 +356,6 @@ class PostStorage {
                             pool.releaseConnection(connection);
                             resolve({ result: "현재 내가 댓글 단 게시글이 없습니다. 게시글에 댓글을 작성해 보세요 :)", status: 202 });
                         }
-                        console.log(rows)
                         resolve({ result: rows, status: 200 });
                     })
             })
@@ -439,7 +470,7 @@ class PostStorage {
                             resolve({
                                 result: true,
                                 status: 200
-                                
+
                             });
                         } else {
                             reject({
@@ -454,7 +485,7 @@ class PostStorage {
         });
     }
 
-    
+
     // 하트 기능 //
     // 마이페이지) (하트 버튼 클릭 시)Heart 테이블에 정보 저장
     static addHeart(heartInfo) {
@@ -505,7 +536,7 @@ class PostStorage {
                                                 reject(err)
                                             }
                                             // 해당 게시글 like_count 증가
-                                            pool.query("UPDATE Post SET like_count=like_count+1 WHERE post_id=?;", [post_id], function(err){
+                                            pool.query("UPDATE Post SET like_count=like_count+1 WHERE post_id=?;", [post_id], function (err) {
                                                 pool.releaseConnection(connection);
                                                 if (err) {
                                                     console.error('Query 함수 오류', err);
@@ -598,7 +629,7 @@ class PostStorage {
                             reject(err)
                         }
                         // 해당 게시글 like_count 감소
-                        pool.query("UPDATE Post SET like_count=like_count-1 WHERE post_id=?;", [check[0].post_id], function(err){
+                        pool.query("UPDATE Post SET like_count=like_count-1 WHERE post_id=?;", [check[0].post_id], function (err) {
                             pool.releaseConnection(connection);
                             if (err) {
                                 console.error('Query 함수 오류', err);
@@ -682,7 +713,7 @@ class PostStorage {
                                                 reject(err)
                                             }
                                             // 해당 게시글 scrap_count 증가
-                                            pool.query("UPDATE Post SET scrap_count=scrap_count+1 WHERE post_id=?;", [post_id], function(err){
+                                            pool.query("UPDATE Post SET scrap_count=scrap_count+1 WHERE post_id=?;", [post_id], function (err) {
                                                 pool.releaseConnection(connection);
                                                 if (err) {
                                                     console.error('Query 함수 오류', err);
@@ -775,7 +806,7 @@ class PostStorage {
                             reject(err)
                         }
                         // 해당 게시글 scrap_count 감소
-                        pool.query("UPDATE Post SET scrap_count=scrap_count-1 WHERE post_id=?;", [check[0].post_id], function(err){
+                        pool.query("UPDATE Post SET scrap_count=scrap_count-1 WHERE post_id=?;", [check[0].post_id], function (err) {
                             pool.releaseConnection(connection);
                             if (err) {
                                 console.error('Query 함수 오류', err);
@@ -811,22 +842,22 @@ class PostStorage {
 
     static postWriter(post_id) {
         return new Promise((resolve, reject) => {
-          pool.getConnection((err, connection) => {
-            if (err) {
-              console.error('MySQL 연결 오류: ', err);
-              reject(err);
-            }
-            pool.query("SELECT user_email FROM Post WHERE post_id = ?;", [post_id], function (err, rows) {
-              pool.releaseConnection(connection);
-              if (err) {
-                console.error('Query 함수 오류', err);
-                reject(err);
-              }
-              resolve(rows[0]);
+            pool.getConnection((err, connection) => {
+                if (err) {
+                    console.error('MySQL 연결 오류: ', err);
+                    reject(err);
+                }
+                pool.query("SELECT user_email FROM Post WHERE post_id = ?;", [post_id], function (err, rows) {
+                    pool.releaseConnection(connection);
+                    if (err) {
+                        console.error('Query 함수 오류', err);
+                        reject(err);
+                    }
+                    resolve(rows[0]);
+                });
             });
-          });
         });
-      }
+    }
 
 }
 

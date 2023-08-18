@@ -83,6 +83,8 @@ router.get("/postform/:university_url",ctrl.output.postform);
 router.get("/postviewer/:post_id",ctrl.output.postviewer);
 // 게시글 작성자 반환
 router.get("/getPostWriter/:post_id",ctrl.post.postWriter);
+// 게시글 수정
+router.post("/modifyPost",ctrl.post.modifyPost);
 
 router.get("/showPost/:post_id",ctrl.post.showPost);
 
