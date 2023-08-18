@@ -14,7 +14,6 @@ const loadloginData = () => {
     fetch(url)
         .then((res) => res.json())
         .then(res => {
-            console.log(res);
             setLoginHeader(res);
         }
         )
@@ -66,9 +65,9 @@ const loadLinkData=()=>{
     withdrawalLink.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/withdrawal`;
     });
-    markectingCheckLink.addEventListener("click", function () {
-        window.location.href = `${apiUrl}/mypage/marketingCheck`;
-    });
+    // markectingCheckLink.addEventListener("click", function () {
+    //     window.location.href = `${apiUrl}/mypage/marketingCheck`;
+    // });
     communityLink1.addEventListener("click", function () {
         window.location.href = `${apiUrl}/mypage/community/post/1`;
     });

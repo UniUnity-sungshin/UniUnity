@@ -1,2 +1,2 @@
 // config.js
-const apiUrl = 'http://34.64.188.63:8080';
+const apiUrl = 'http://uniunity.store:80';

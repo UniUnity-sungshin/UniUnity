@@ -6,7 +6,6 @@ const loadloginData = () => {
     fetch(url)
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             userInfo = res;
 
         })
@@ -14,7 +13,6 @@ const loadloginData = () => {
 
 //유효한 비밀번호 확인
 function validatePassword(password) {
-    console.log(password)
     // 비밀번호의 길이가 8에서 20 사이인지 확인
     if (password.length < 8 || password.length > 20) {
         return false;
@@ -79,7 +77,6 @@ const fetchChangePsword = async (event) => {
         })
             .then((res) => res.json())
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     alert('비밀번호 변경이 완료되었습니다.');
                     window.location.href = "/mypage"; // 리다이렉션 처리

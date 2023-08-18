@@ -9,6 +9,7 @@ const user_name = document.getElementById("user_name");
 const university_name = document.getElementById("university_name");
 const navBar = document.getElementById("navbar");
 
+
 //회원로그인 정보 불러오기
 const loadloginData = () => {
   const url = `${apiUrl}/loginStatus`;

@@ -43,7 +43,6 @@ window.addEventListener('DOMContentLoaded', function () {
   loadloginData();
 });
 
-
 const serviceKey = 'p0%2BHQGnCYhn4J%2BB0BJpY5cOD0thCQ29az7PS9MQ4gLwPqbZrSns3eFy4VZ%2BUSc95PAkZUjK%2FGiir%2FcMk1FAq4A%3D%3D';
 const endPoint = 'http://apis.data.go.kr/B553077/api/open/sdsc2/';
 
@@ -58,7 +57,6 @@ function getUniversityUrl() {
   return universityUrl;
 }
 var university_url = getUniversityUrl();
-
 
 // 지도
 var mapContainer = document.getElementById('map'),
@@ -136,41 +134,10 @@ function retailerLoad(){
   })
 }
 
-var swiperContainer = document.querySelector('.swiper-container');
-
-swiperContainer.addEventListener('click', function (event) {
-  if (!event.target.classList.contains('swiper-button-prev') && !event.target.classList.contains('swiper-button-next')) {
-    event.stopPropagation();
-  }
-});
-
-// 슬라이더 버튼
-var prevButton = document.querySelector('.swiper-button-prev');
-var nextButton = document.querySelector('.swiper-button-next');
-
-// 다음 버튼 클릭시
-nextButton.addEventListener('click', function () {
-  slideToNext();
-});
-
-// 이전 버튼 클릭시
-prevButton.addEventListener('click', function () {
-  slideToPrev();
-});
-
-// slideToNext() 함수 정의
-function slideToNext() {
-  mySwiper.slideNext();
-}
-
-// slideToPrev() 함수 정의
-function slideToPrev() {
-  mySwiper.slidePrev();
-}
-
-
 // 슬라이더 정보
-var mySwiper = new Swiper('.swiper-container', {
+var mySwiper;
+function setSwiper() {
+  mySwiper = new Swiper('.swiper-container', {
   wrapperClass: 'swiper-wrapper',
   slideClass: 'swiper-slide',
   navigation: {
@@ -182,6 +149,7 @@ var mySwiper = new Swiper('.swiper-container', {
   centerSlides: true,
   spaceBetween: 20,
 });
+}
 
 const universityName = document.querySelector("#universityName");
 
@@ -194,16 +162,17 @@ async function fetchImageUrls(imageData) {
   try {
     const swiperWrapper = document.querySelector('.swiper-wrapper');
 
-    console.log('Received imageData:', imageData);
+    //console.log('Received imageData:', imageData);
 
     // 이미지 데이터 배열인지 확인
     if (Array.isArray(imageData)) {
       // imageData 배열을 역순으로 순회하며 이미지를 카루셀에 추가
-      for (let i = imageData.length - 1; i >= 0; i--) {
+      // for (let i = imageData.length - 1; i >= 0; i--) {
+        for (let i = 0; i <= imageData.length - 1; i++) {
         const currentData = imageData[i]; // 현재 이미지 데이터
         // 이미지 데이터의 형태가 객체인지 확인
         if (currentData && currentData.image_url) {
-          console.log(imageUrls.length);
+          //console.log(imageUrls.length);
           imageUrls.push(currentData.image_url); // 이미지를 배열에 추가
 
           const imgContainer = document.createElement('div');
@@ -224,7 +193,7 @@ async function fetchImageUrls(imageData) {
         }
       }
 
-      console.log('Image URLs:', imageUrls);
+      //console.log('Image URLs:', imageUrls);
     } else {
       console.error('Error: imageData is not an array or is empty.');
     }
@@ -232,10 +201,6 @@ async function fetchImageUrls(imageData) {
     console.error('Error:', error);
   }
 }
-
-
-
-
 
 function councilLoad() {
   const universityUrl = getUniversityUrl();
@@ -274,17 +239,61 @@ function councilLoad() {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-  // 동적 링크 업데이트 함수를 호출합니다.
-updateDynamicLinks();
+  setSwiper();
+  updateDynamicLinks();
   councilLoad();
   retailerLoad();
 });
 
+
+var swiperContainer = document.querySelector('.swiper-container');
+
+// 슬라이더 버튼
+var prevButton = document.querySelector('.swiper-button-prev');
+var nextButton = document.querySelector('.swiper-button-next');
+
+function updateSwiper() {
+  if (mySwiper) {
+      mySwiper.update(); // 스와이퍼 업데이트 메서드 호출
+  }
+}
+
+// 다음 버튼 클릭시
+nextButton.addEventListener('click', function () {
+  console.log("다음 버튼");
+  slideToNext();
+  updateSwiper();
+});
+
+// 이전 버튼 클릭시
+prevButton.addEventListener('click', function () {
+  console.log("이전 버튼");
+  slideToPrev();
+  updateSwiper();
+});
+
+// slideToNext() 함수 정의
+function slideToNext() {
+  mySwiper.slideNext();
+}
+
+// slideToPrev() 함수 정의
+function slideToPrev() {
+  mySwiper.slidePrev();
+}
 // document.getElementById("moreUni").addEventListener("click", function(event) {
 //   event.preventDefault(); // 기본 동작인 링크 이동을 막음
 //   window.location.href = `${apiUrl}`; // 이동할 링크를 지정
 // });
 
+// 버튼 요소를 가져옵니다.
+const button = document.getElementById('universityName');
+
+// 버튼에 클릭 이벤트를 추가합니다.
+button.addEventListener('click', () => {
+  // 페이지를 다시 로드합니다.
+  location.reload();
+});
 
 // 현재 URL의 경로 일부 가져오기 (council 뒤의 학교 이름 추출함)
 function getDynamicValueFromURL() {

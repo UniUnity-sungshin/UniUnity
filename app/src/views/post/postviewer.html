@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <title>게시글 보기 - ÜniÜnity</title>
     <!-- First include jquery js -->
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -38,13 +39,10 @@
 
 <body>
     <!-- Navigation-->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="mt-5 container">
-            <a class="navbar-brand" href="#"><strong style="font-size: 30px; margin-left: 28px;">ÜniÜnity</strong></a>
-
-        </div>
+    <nav class="navbar static-top mb-5 mt-5">
+            <a class="navbar-brand" id="navbar-brand"><strong style="font-size: 30px;">ÜniÜnity</strong></a>
+        
     </nav>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col text-center">
@@ -54,18 +52,18 @@
             <div class="row">
                 <div class="col-6">
                     <!-- user_email 왼쪽 상단에 위치하도록 설정 -->
-                    <p class="fs-4" id="user_email"></p>
+                    <p class="fs-4" id="user_nickname"></p>
                 </div>
                 <div class="col-6">
                     <!-- post_date view_count 오른쪽 상단에 위치하도록 설정 -->
                     <div class="row">
                         <div class="col-auto">
-                            <p class="fs-4" id="post_date" style="margin-left: 125px;"></p>
+                            <p class="fs-4" id="post_date" style="margin-left: 120px;"></p>
                         </div>
                         <div class="col-auto">
-                            <p class="fs-4" id="view_count" style="margin-left: 3px;"></p>
+                            <p class="fs-4" id="view_count" style="margin-left: 0px;"></p>
                         </div>
-                        <div class="col-auto" id="delete" style="margin-left: 3px;">
+                        <div class="col-auto" id="delete">
                             
                         </div>
                     </div>
@@ -94,8 +92,10 @@
             </div>
         
             <div class="d-flex mt-2">
-                <p class="fs-4 me-4" id="like_count"></p>
+                <p class="countIcons fs-4 me-4" id="like_count"></p>
+                <p class="countIcons fs-4 me-4" id="scrap_count"></p>
                 <p class="fs-4" id="comment_count"></p>
+                
             </div>
         </div>
         <!-- 댓글보기 -->
@@ -113,12 +113,13 @@
                                     <!-- comment_date과 like_count_comment가 오른쪽 상단에 위치하도록 설정 -->
                                     <div class="row">
                                         <div class="col">
-                                            <p class="fs-4 text-end" id="comment_date"></p>
+                                            <p class="fs-4 text-end" id="comment_date" ></p>
                                         </div>
                                         <div class="col">
                                             <p class="fs-4 text-end" id="like_count_comment"></p>
                                         </div>
                                     </div>
+                                    <div class="col-auto" id="delete_comment" style="margin-left: 3px;"></div>
                                 </div>
                             </div>
                             <!-- comment_content가 밑에 위치하도록 설정 -->
@@ -143,26 +144,16 @@
         <div class="row">
             <div class="col-lg-6 h-100 text-center text-lg-start my-auto" id="footer1">
                 <ul class="list-inline mb-2">
-                    <li class="list-inline-item"><a href="#!">About</a></li>
-                    <li class="list-inline-item">⋅</li>
-                    <li class="list-inline-item"><a href="#!">Contact</a></li>
-                    <li class="list-inline-item">⋅</li>
-                    <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                    <li class="list-inline-item">⋅</li>
-                    <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                   
+                    <li class="list-inline-item"><a href="/contact">Contact</a></li>
+                    
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
             </div>
             <div class="col-lg-6 h-100 text-center text-lg-end my-auto" id="footer2">
                 <ul class="list-inline mb-0">
-                    <li class="list-inline-item me-4">
-                        <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                    </li>
-                    <li class="list-inline-item me-4">
-                        <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                    </li>
                     <li class="list-inline-item">
-                        <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                        <a href="https://instagram.com/dev_aerim"><i class="bi-instagram fs-3"></i></a>
                     </li>
                 </ul>
             </div>
@@ -176,7 +167,6 @@
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <!-- Core theme JS-->
 <script src="/js/apiUrl.js"></script>
-<script src="path/to/postform.js"></script>
 <script src="/js/post/postviewer.js"></script>
 <script src="/js/post/comment.js"></script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->

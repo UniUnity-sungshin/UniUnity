@@ -5,7 +5,6 @@ const marketingCheckbox = document.getElementById("flexCheckDefault4");
 var isCheckedMarketing=false;
 marketingCheckbox.addEventListener("change",function(){
      isCheckedMarketing=this.checked;
-     console.log(isCheckedMarketing)
 })
 agreeToAllCheckbox.addEventListener("change", function () {
     const isChecked = this.checked;
@@ -36,7 +35,6 @@ nextButton.addEventListener("click", function () {
     
     if (!allChecked) {
         if(!isCheckedMarketing){
-            console.log(isCheckedMarketing)
              // 페이지 이동할 URL
              const signupURL = `${apiUrl}/signup/0`;
              // 페이지 이동
@@ -47,7 +45,6 @@ nextButton.addEventListener("click", function () {
     } 
     
     else {
-        console.log(isCheckedMarketing)
         // 페이지 이동할 URL
         const signupURL = `${apiUrl}/signup/1`;
         // 페이지 이동

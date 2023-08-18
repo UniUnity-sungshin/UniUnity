@@ -1,4 +1,5 @@
 const PostStorage = require("./PostStorage");
+const User = require("./User");
 
 class Post {
     constructor(body) {
@@ -9,13 +10,19 @@ class Post {
         const client = this.body;
         try {
             const response = await PostStorage.savePost(client);
-            console.log(response)
-            const response2 = await PostStorage.saveImagePost(
-                response.post_id,
-                response.postInfo.post_content,
-                response.formattedDateTime
-            )
-            return response2;
+            if(client.category==="총학생회 공지사항"){
+                const response2 = await PostStorage.saveImagePost(
+                    response.post_id,
+                    response.postInfo.post_content,
+                    response.formattedDateTime
+                )
+                if(response.result==true && response2.result==true){
+                    return response;
+                }
+            }
+            else{
+                return response;
+            }
         } catch (err) {
             return { err }
         }
@@ -24,20 +31,47 @@ class Post {
     //post_id로 게시글 불러오기
     async showPost(post_id) {
         try {
-            const response = await PostStorage.getPost(post_id);
+            var response = await PostStorage.getPost(post_id);
+            const user=new User()
+            const userInfo= await user.getUserInfo(response.user_email)
+            const user_nickname=userInfo.user_nickname
+            response.user_nickname=user_nickname
+            
             return response;
         } catch (err) {
             return { err }
         }
 
     }
+    async modifyPost(){
+        const client = this.body;
+        try {
+            const response = await PostStorage.updatePost(client);
+            const postInfo=await PostStorage.getPost(client.post_id);
+            
+            response.postInfo=postInfo;
+            if(client.category==="총학생회 공지사항"){
+                const response2 = await PostStorage.saveImagePost(
+                    response.post_id,
+                    response.postInfo.post_content,
+                    response.postInfo.post_date
+                )
+                if(response.result==true && response2.result==true){
+                    return response;
+                }
+            }
+            else{
+                return response;
+            }
+        } catch (err) {
+            return { err }
+        }
+    }
     //최신순 포스트 리스트 불러오기
     async showPostListAll(university_url, page = 1, pageSize = 10) {
         try {
             let university_id = await PostStorage.getUniversityUrlToID(university_url);
-            console.log(university_id);
             const response = await PostStorage.getPostListAll(university_id);
-            console.log(response);
             return response;
         } catch (err) {
             return { success: false, msg: err };
@@ -66,7 +100,6 @@ class Post {
     //마이페이지-내가 작성한 게시글 보기
     async myCommunityPost() {
         try {
-            console.log("myCommunityPost");
             const client = this.body;
             const response = await PostStorage.getMyPost(client);
             return response;
@@ -95,26 +128,25 @@ class Post {
     }
 
     //게시글 삭제하기
-    async doDeletePost(post_id, user_email) {
+    async doDeletePost( post_id, user_email) {
         try {
-            const response = await PostStorage.godeletePost(post_id, user_email);
+            const response = await PostStorage.goDeletePost(post_id, user_email);
             return response;
         } catch (err) {
             return { err };
         }
     }
-
+    
     //조회수 증가
-    async showIncreaseReadCount(req, res) {
-        const { read_count } = req.params;
-
+    async showIncreaseViewCount(post_id) {
         try {
-            const response = await PostStorage.getIncreaseReadCount(read_count);
-            res.status(response.status).json(response);
+            const response = await PostStorage.getIncreaseViewCount(post_id);
+            return response;
         } catch (err) {
-            res.status(err.status || 500).json({ err: err.err });
+            return{err};
         }
     }
+
 
     // 하트 기능 //
     // 마이페이지) 하트 저장
@@ -257,6 +289,16 @@ class Post {
                 status: 500,
                 msg: err
             };
+        }
+    }
+
+    // 게시글 작성자 반환
+    async postWriter(post_id){
+        try{
+            const response = await PostStorage.postWriter(post_id);
+            return response;
+        } catch (err) {
+            return{success:false,msg:err};
         }
     }
 }

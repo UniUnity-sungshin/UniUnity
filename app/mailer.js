@@ -6,7 +6,7 @@ const SCOPES = [
   'https://mail.google.com/',
   'https://www.googleapis.com/auth/gmail.send',
 ];
-const TOKEN_PATH = 'token.json';
+const TOKEN_PATH = '../app/config/mail_token.json';
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -32,7 +32,7 @@ function sendMail(auth, emailAddress) {
           raw: base64Encode(
             'From: oldedusolution@gmail.com\n' +
               `To: ${emailAddress}\n` +
-              'Subject: "UniUnity Sign Up Authentication Code"\n' +
+              'Subject: "UniUnity Authentication Code"\n' +
               'MIME-Version: 1.0\n' +
               'Content-Type: text/plain; charset="UTF-8"\n' +
               'Content-Transfer-Encoding: message/rfc2822\n' +
@@ -99,7 +99,7 @@ function getNewToken(oAuth2Client, callback, emailAddress) {
 
 async function sendEmailWithAuthorization(emailAddress) {
   return new Promise((resolve, reject) => {
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile('../app/config/mail_credentials.json', (err, content) => {
       if (err) {
         console.log('Error loading client secret file:', err);
         reject(err);

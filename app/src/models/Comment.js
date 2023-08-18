@@ -9,10 +9,13 @@ class Comment {
     async createComment() {
         const client = this.body;
         try {
-            const response = await CommentStorage.saveComment(client);
-            return response;
+            const response1 = await CommentStorage.saveComment(client);
+            const response2 = await CommentStorage.updatePostCommentCount(client.post_id);
+            if(response1.result==true && response2.result==true){
+                return response1;
+            }
         } catch (err) {
-            return { err }
+            return { result:false, err }
         }
     }
     //comment_id로 댓글 불러오기
@@ -46,17 +49,34 @@ class Comment {
     }
 
     //댓글 삭제하기
-    async doDeleteComment(user_email) {
+    async doDeleteComment(user_email,comment_id,post_id) {
         try {
-            const response = await CommentStorage.goDeleteComment(user_email);
-            return response;
+            const response1 = await CommentStorage.goDeleteComment(user_email,comment_id);
+            const response2 = await CommentStorage.reducePostCommentCount(post_id);
+            if(response1.result==true && response2.result==true){
+                return response1;
+            }
         } catch (err) {
             return { err };
         }
     }
-
-
-
+    //댓글 개수 반환
+    async postCommentpNum(post_id) {
+        try {
+            const response = await CommentStorage.postCommentNum(post_id);
+            return response;
+        } catch (err) {
+            return {
+                result: false,
+                status: 500,
+                msg: err
+            };
+        }
+    }
 }
+
+
+
+
 
 module.exports = Comment
