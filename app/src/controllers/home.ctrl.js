@@ -35,6 +35,9 @@ const output = {
     agreement: (req, res) => {
         res.render('home/agreement.html');
     },
+    contact:(req,res)=>{
+        res.render('home/contact.html');
+    },
     showUniversityNameList: async (req, res) => {
         const university_name = new University();
         const response = await university_name.showUniversityNameList();

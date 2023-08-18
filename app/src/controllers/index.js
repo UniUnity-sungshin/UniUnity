@@ -22,6 +22,7 @@ router.get("/mypage/modify/1",ctrl.output.modifyNickname);//닉네임변경
 router.get("/mypage/modify/2",ctrl.output.modifyPsword); //비밀번호변경
 router.get("/mypage/withdrawal",ctrl.output.withdrawal);//회원탈퇴
 router.get("/mypage/community/post/:category",ctrl.output.myCommunityPost)
+router.get("/contact",ctrl.output.contact);
 
 
 //닉네임 변경
