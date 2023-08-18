@@ -500,8 +500,8 @@ const fetchComments = async () => {
       dateElement.classList.add('col-6', 'text-end');
 
       // 좋아요 수를 담는 div 요소 생성
-      const LikeCountElement = document.createElement('div');
-      LikeCountElement.classList.add('col-6', 'text-end');
+      // const LikeCountElement = document.createElement('div');
+      // LikeCountElement.classList.add('col-6', 'text-end');
 
       // 댓글 날짜 표시
       const commentDateElement = document.createElement('p');
@@ -509,9 +509,9 @@ const fetchComments = async () => {
       commentDateElement.textContent = comment.comment_date;
 
       // 좋아요 수 표시
-      const likeCountElement = document.createElement('p');
-      likeCountElement.classList.add('fs-4');
-      likeCountElement.textContent = comment.like_count_comment;
+      // const likeCountElement = document.createElement('p');
+      // likeCountElement.classList.add('fs-4');
+      // likeCountElement.textContent = comment.like_count_comment;
       //댓글 삭제
       const deleteCommentElement = document.createElement('div');
       deleteCommentElement.classList.add('col', 'text-end');
@@ -537,7 +537,7 @@ const fetchComments = async () => {
       }
       // 생성한 요소들을 date/LikeCountElement에 추가
       dateElement.appendChild(commentDateElement);
-      LikeCountElement.appendChild(likeCountElement);
+      // LikeCountElement.appendChild(likeCountElement);
 
       subdateLikeCountElement.appendChild(dateElement);
       //subdateLikeCountElement.appendChild(LikeCountElement);
