@@ -23,9 +23,9 @@ class Council{
         }
     }
 
-    async getCardNewsImageUrl(university_id){
+    async getCardNewsImageUrl(universityInfo){
         try{
-            const response = await CouncilStorage.getCardNewsImageUrl(university_id);
+            const response = await CouncilStorage.getCardNewsImageUrl(universityInfo.university_id);
             return response;
         }catch(err){
             return{success:false,msg:err};

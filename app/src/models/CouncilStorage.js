@@ -48,8 +48,9 @@ class CouncilStorage{
                     console.error('MySQL 연결 오류: ',err);
                     reject(err)
                 }
-
-                pool.query("SELECT pi.post_id, pi.image_id, pi.image_url FROM (SELECT p.university_id, p.post_id, p.category, p.post_date FROM Post p WHERE p.university_id = ? AND p.category = '총학생회 공지사항' AND p.post_id IN ( SELECT post_id FROM PostImage WHERE post_id = p.post_id) ORDER BY p.post_date DESC LIMIT 10 ) AS latest_posts JOIN PostImage pi ON latest_posts.post_id = pi.post_id WHERE pi.image_id = ( SELECT MIN(image_id) FROM PostImage WHERE post_id = latest_posts.post_id);",[university_id],function(err,rows){
+      
+                pool.query("SELECT pi.post_id, pi.image_id, pi.image_url FROM (SELECT p.university_id, p.post_id, p.category, p.post_date FROM Post p WHERE p.university_id = ? AND p.category = '총학생회 공지사항' AND p.post_id IN ( SELECT post_id FROM PostImage WHERE post_id = p.post_id) ORDER BY p.post_date DESC LIMIT 10 ) AS latest_posts JOIN PostImage pi ON latest_posts.post_id = pi.post_id WHERE pi.image_id = ( SELECT MIN(image_id) FROM PostImage WHERE post_id = latest_posts.post_id);",
+                    [university_id],function(err,rows){
                     connection.release();
                     if(err){
                         console.error('Query 함수 오류',err);
