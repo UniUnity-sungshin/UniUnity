@@ -20,5 +20,5 @@ exports.respondInternalEroor=(error,req,res,next)=>{
     let errorCode = httpStatus.INTERNAL_SERVER_ERROR;
     console.log(`ERROR occured:${error.stack}`);
     res.status(errorCode);
-    res.send(`${errorCode} | Sorry, our application is experiencing a problem!`);
+    res.send(`${errorCode} | 잘못된 경로로 접근하셨습니다.ÜniÜnity홈으로 재접속해주세요!`);
 };
