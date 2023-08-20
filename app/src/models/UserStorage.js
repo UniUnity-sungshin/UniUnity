@@ -79,7 +79,6 @@ class UserStorage {
     //비밀번호 변경
     static updatePsword(userInfo) {
         return new Promise(async (resolve, reject) => {
-            console.log(userInfo)
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);

@@ -55,10 +55,12 @@ const output = {
     postviewer: (req, res) => {
         res.render('post/postviewer.html');
     },
+    postformModify:(req,res)=>{
+        res.render('post/postform.html');
+    },
     myCommunityPost: (req, res) => {
         res.render('post/communityPost.html')
     },
-
     partner: (req, res) => {
         res.render("store/partner.html");
     },
@@ -84,7 +86,6 @@ const process = {
     //회원가입
     register: async (req, res) => {
         try {
-            console.log(req.body);
             const hashedPassword = await bcrypt.hash(req.body.psword, 10)
             const user = new User({
                 user_email: req.body.user_email,
@@ -107,7 +108,6 @@ const process = {
     loginStatus: async (req, res) => {
         const user = new User();
         let userInfo = await user.getUserInfo(req.user);
-        console.log(userInfo);
         if (req.user) {
             return res.json({
                 loginStatus: true,
@@ -201,7 +201,6 @@ const process = {
         const emailAdderess = req.body.email;
         sendEmailWithAuthorization(emailAdderess)
             .then((authentication_code) => {
-                console.log('Authentication code:', authentication_code);
                 return res.json({
                     "status": 201,
                     "authentication_code": authentication_code
@@ -340,12 +339,9 @@ const post = {
     },
 
     postAll: async (req, res) => {
-        console.log(req.params.university_url);
-
         let university_url = req.params.university_url;
         const post = new Post();
         const response = await post.showPostListAll(university_url);
-        console.log(response);
         return res.json(response);
     },
     showPost: async (req, res) => {
@@ -356,7 +352,6 @@ const post = {
 
     },
     modifyPost:async(req,res)=>{
-        console.log("modifyPost1");
         const post=new Post(req.body);
         const response = await post.modifyPost();
         return res.json(response);
@@ -496,7 +491,6 @@ const post = {
     // 게시글 작성자 반환
     postWriter: async (req, res) => {
         const post = new Post();
-        console.log("controller ")
         const response = await post.postWriter(req.params.post_id);
         return res.json(response);
     }
@@ -530,14 +524,9 @@ const comment = {
 
 
     showCommentListAll: async (req, res) => {
-        // let post_id = req.params.post_id;
         let comment_id = req.params.comment_id;
-        // console.log(req.params.post_id);
-        console.log(req.params.comment_id);
-
         const comment = new Comment();
         const response = await comment.showCommentListAll(comment_id); //post_id
-        console.log(response);
         return res.json(response);
     },
 
@@ -570,7 +559,6 @@ const comment = {
     },
     commentWriter: async (req, res) => {
         const comment = new Comment();
-        console.log("controller ")
         const response = await comment.commentWriter(req.params.comment_id);
         return res.json(response);
     }

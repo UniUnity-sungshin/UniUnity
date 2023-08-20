@@ -6,7 +6,6 @@ const loadloginData = () => {
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       userInfo = res;
       setLoginHeader(res)
     })
@@ -174,7 +173,6 @@ const fetchpostAllData = async () => {
 
 // 카테고리 선택시 게시글 불러오기 함수
 const fetchPosts = async (category, university_url) => {
-  console.log("currentCategory " + currentCategory);
   if (currentCategory === "") { // 카테고리 선택 안 했으면 모든 게시글 로드하도록
     fetchpostAllData();
     return;
@@ -197,7 +195,7 @@ const fetchPosts = async (category, university_url) => {
 
   try {
     const url = `${apiUrl}/showPostListbyCategory/${category}/${university_url}`;
-    console.log(url);
+
     const response = await fetch(url);
     const data = await response.json();
     dataLength = data.length;
@@ -445,7 +443,6 @@ function initializeBtns() {
 // 특정 페이지 이동
 function goToPage(pageNum) {
   currentPage = pageNum;
-  console.log("Navigating to page: " + currentPage);
   fetchPosts(currentCategory, university_url);
 }
 

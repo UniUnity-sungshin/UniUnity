@@ -45,7 +45,6 @@ class User {
     async register() {
         try {
             const client = this.body;
-            console.log(client);
             const response = await UserStorage.save(client);
             return response;
         } catch (err) {
@@ -76,7 +75,6 @@ class User {
     async modifyPsword1() {
         try {
             const client = this.body;
-            console.log(client)
             let userInfo = await UserStorage.getUserInfo(client.user_email);
 
             if (await bcrypt.compare(client.psword, userInfo.psword)) {
@@ -133,7 +131,6 @@ class User {
                 }
             }
         } catch (err) {
-            console.log(err);
             return {
                 result: false,
                 status: 400,
