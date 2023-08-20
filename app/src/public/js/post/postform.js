@@ -198,7 +198,7 @@ function modifyPost(postId,postCategory){
     .then(res => {
       if (res.status === 201) {
         console.log("게시글 수정 완료");
-        window.location.href = `/showPostListAll/${userInfo.university_url}`; // 리다이렉션 처리
+        window.location.href = `/postviewer/${postId}`; // 리다이렉션 처리
       } else {
         alert("서버의 문제로 게시글 수정이 실패했습니다. 다시 시도해주세요.");
       }
