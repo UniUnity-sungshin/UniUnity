@@ -113,13 +113,6 @@ const loadPostData = async () => {
     }
     if (postInfo.category === "총학생회 공지사항") {
       toggleCarouselButtons(true);
-      // // 게시글 내용에서 이미지 제거
-      // const textContent = postInfo.post_content.replace(/<img[^>]+>/gi, '');
-      // console.log("이미지 태그 제거된 본문");
-      // console.log(textContent);
-
-      // // text-only content
-      // postContent.textContent = textContent;
 
       // 게시글 정보 로드 후, 이미지 URL 추출 및 카루셀 추가
       const htmlContent = postInfo.post_content;
@@ -193,61 +186,6 @@ const loadPostData = async () => {
         displayCommentNum(post_id);
       });
 
-      //read more버튼 누르면 조회수 1 증가 -> db에 요청
-      // async function increaseViewCount(post_id, view_count) {
-      //   try {//increaseViewCount
-      //     const url = `${apiUrl}/postviewer/${post_id}`;
-      //     const response = await fetch(url, {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({ view_count }),
-      //     });
-      //     const data = await response.json();
-      //     return { success: true, view_count: data.view_count };
-      //   } catch (error) {
-      //     console.error('조회수 증가 요청 중 오류 발생', error);
-      //     return { success: false, msg: error };
-      //   }
-      // }
-
-      // // 이벤트리스너
-      // readMoreBtn.addEventListener('click', async () => {
-      //   try {
-      //     // 서버에 조회수 증가 요청을 보내고, 증가된 조회수를 받아옵니다.
-      //     const response = await increaseViewCount(post_id, postInfo.view_count);
-      //     if (response.success) {
-      //       // 조회수가 성공적으로 증가되었을 때의 동작을 작성합니다.
-      //       postInfo.view_count = response.view_count;
-      //       viewCount.textContent = `조회수 ${postInfo.view_count}`;
-      //       await updateViewCountInDatabase(post_id, postInfo.view_count);
-      //     } else {
-      //       console.error('조회수 증가 실패');
-      //     }
-      //   } catch (error) {
-      //     console.error('조회수 증가 요청 중 오류 발생', error);
-      //   }
-      // });
-
-      // //업데이트된 조회수 받아오기
-      // async function updateViewCountInDatabase(post_id, view_count) {
-      //   try {
-      //     const url = `${apiUrl}/postviewer/${post_id}`;
-      //     const response = await fetch(url, {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify({ view_count }),
-      //     });
-      //     const data = await response.json();
-      //     return { success: true, msg: data.msg };
-      //   } catch (error) {
-      //     console.error('데이터베이스 조회수 업데이트 중 오류 발생', error);
-      //     return { success: false, msg: error };
-      //   }
-      // }
       const viewer = toastui.Editor.factory({
         el: document.querySelector('.toast-custom-viewer'),
         viewer: true,
@@ -661,10 +599,7 @@ const fetchDeletePost = async (post_id, user_email) => {
       headers: {
         'Content-Type': 'application/json'
       }
-
     })
-
-
     if (!response.ok) {
       throw new Error('서버 응답이 올바르지 않습니다.');
     }
@@ -705,11 +640,14 @@ function handleModifyClick() {
 
   if (confirmed) {
     const post_id = postInfo.post_id;
-    const user_email = userInfo.user_email;
-
+    setModifyPostId(post_id)
+    
   }
 }
-
+function setModifyPostId(post_id){
+  localStorage.setItem('post_id',post_id);
+  window.location.href = '/postform/modify'; // 수정 페이지로 리다이렉션
+}
 
 
 // 게시글 삭제 아이콘 클릭 이벤트 리스너
