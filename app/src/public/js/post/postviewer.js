@@ -1,7 +1,5 @@
 var currentUrl = window.location.href;
 var post_id = currentUrl.split("/").pop();
-console.log(post_id);
-// console.log(comment_id);
 
 var userInfo; // 유저정보
 var university_url;
@@ -17,11 +15,8 @@ const loadloginData = async () => {
   await fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      console.log("유저정보");
-      console.log(res);
       userInfo = res;
       const previousPageURL = document.referrer;
-      console.log(previousPageURL); // 이전 페이지의 URL을 콘솔에 출력
 
       navBar.addEventListener("click", function() {
         window.location.href = previousPageURL;
@@ -38,27 +33,27 @@ const postWriter = async (post_id) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     postWriterInfo = data;
     domain = extractDomainFromEmail(postWriterInfo.user_email);
-    //console.log(domain); // 게시글에서 학교 이름 추출
     university_url = domain;
   } catch (error) {
     console.error('게시글 작성자 정보 불러오기 오류', error);
   }
 };
 
-// 게시글 삭제 버튼 보이는 조건
+// 게시글 수정, 삭제 버튼 보이는 조건
 async function showDeleteButtonIfNeeded() {
   await postWriter(post_id);
-  console.log("postWriterInfo ", postWriterInfo.user_email);
-  console.log("userInfo ", userInfo.user_email);
   if (userInfo.user_email === postWriterInfo.user_email) {
-    deletePost.style.display = 'block'; // 해당 요소를 보이게 설정
+    deletePost.style.display = 'block'; 
+    modifyPost.style.display = 'block';
   } else {
     deletePost.style.display = 'none'; // 해당 요소를 숨기게 설정
+    modifyPost.style.display = 'none';
   }
 }
+
+
 
 function extractDomainFromEmail(email) {
   const parts = email.split("@");
@@ -78,7 +73,6 @@ const loadPostData = async () => {
     const url = `${apiUrl}/showPost/${post_id}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
     postInfo = data;
 
     const postTitle = document.getElementById('post_title');
@@ -90,6 +84,7 @@ const loadPostData = async () => {
     const scrapCount = document.getElementById('scrap_count');
     const commentCount = document.getElementById('comment_count');
     const deletePost = document.getElementById('delete');
+    const modifyPost = document.getElementById('modify');
     const userNickname = document.getElementById('user_nickname');
     // const readMoreBtn = document.getElementById('read_more_btn');
 
@@ -102,6 +97,7 @@ const loadPostData = async () => {
     scrapCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/fluency/48/filled-star.png" id="scrap_img" style="margin-right: 0.3rem; " alt="filled-star"/> ${postInfo.scrap_count}`
     commentCount.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/color/48/speech-bubble-with-dots.png" style="margin-right: 0.3rem;" alt="speech-bubble-with-dots"/> ${postInfo.comment_count}`;
     userNickname.textContent = postInfo.user_nickname;
+    modifyPost.innerHTML=`<img width="24" height="24" src="https://img.icons8.com/external-others-amoghdesign/24/external-modify-multimedia-flat-30px-others-amoghdesign.png"  style="margin-right: 0.3rem;"/>`
     deletePost.innerHTML = `<img width="24" height="24" src="https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png" style="margin-right: 0.3rem;" />`;
 
     // 화살표 버튼을 숨기거나 표시하는 함수
@@ -115,7 +111,6 @@ const loadPostData = async () => {
         }
       });
     }
-    console.log(postContent.textContent);
     if (postInfo.category === "총학생회 공지사항") {
       toggleCarouselButtons(true);
       // // 게시글 내용에서 이미지 제거
@@ -146,7 +141,6 @@ const loadPostData = async () => {
 
         for (let i = 0; i < imageUrls.length; i++) {
           const imageUrl = imageUrls[i];
-          console.log(imageUrls[i]);
           const carouselItem = document.createElement('div');
           carouselItem.classList.add('carousel-item');
 
@@ -310,7 +304,6 @@ const loadPostData = async () => {
           return res.json();
         })
         .then(res => {
-          console.log(res);
           // 사용자가 해당게시글에 하트를 누르지 않았을 경우 -> 하트 추가
           if (res.result == false) {
             fetch(`${apiUrl}/addHeart`, {
@@ -389,7 +382,6 @@ const loadPostData = async () => {
           return res.json();
         })
         .then(res => {
-          console.log(res);
           // 사용자가 해당게시글에 스크랩를 누르지 않았을 경우 -> 스크랩 추가
           if (res.result == false) {
             fetch(`${apiUrl}/addScrap`, {
@@ -451,7 +443,6 @@ window.addEventListener('DOMContentLoaded', async function () {
 
 var currentUrl = window.location.href;
 var post_id = currentUrl.split("/").pop();
-console.log(post_id);
 
 var commentInfo; // 댓글정보
 
@@ -468,7 +459,6 @@ const fetchComments = async () => {
     const data = await response.json();
     const deleteIconImageUrl = 'https://img.icons8.com/?size=512&id=heybTkWFZ8KQ&format=png';
 
-    console.log(data); // 댓글 데이터 확인용 (콘솔 출력)
 
     // 댓글 컨테이너 초기화
     commentViewerContainer.innerHTML = "";
@@ -476,7 +466,7 @@ const fetchComments = async () => {
     data.forEach((comment) => {
       // 댓글 카드 생성
       const commentCardElement = document.createElement('div');
-      commentCardElement.classList.add('card', 'p-4');
+      commentCardElement.classList.add('card', 'p-4', 'mt-2');
 
       // 댓글 정보를 담는 div 요소 생성
       const commentInfoElement = document.createElement('div');
@@ -484,37 +474,25 @@ const fetchComments = async () => {
 
       // 유저 닉네임 표시
       const userNickNameElement = document.createElement('div');
-      userNickNameElement.classList.add('col-6');
+      userNickNameElement.classList.add('col-11','fw-bold');
       const userNickNameParagraph = document.createElement('p');
       userNickNameParagraph.classList.add('fs-4');
       userNickNameParagraph.textContent = comment.user_nickname;
       userNickNameElement.appendChild(userNickNameParagraph);
 
-      // 댓글 날짜와 좋아요 수를 담는 div 요소 생성
-      const subdateLikeCountElement = document.createElement('div');
-      subdateLikeCountElement.classList.add('row');
-      subdateLikeCountElement.classList.add('col-6', 'text-end');
-
-      // 댓글 날짜 담는 div 요소 생성
-      const dateElement = document.createElement('div');
-      dateElement.classList.add('col-6', 'text-end');
 
       // 좋아요 수를 담는 div 요소 생성
       // const LikeCountElement = document.createElement('div');
       // LikeCountElement.classList.add('col-6', 'text-end');
 
-      // 댓글 날짜 표시
-      const commentDateElement = document.createElement('p');
-      commentDateElement.classList.add('fs-4');
-      commentDateElement.textContent = comment.comment_date;
-
+      
       // 좋아요 수 표시
       // const likeCountElement = document.createElement('p');
       // likeCountElement.classList.add('fs-4');
       // likeCountElement.textContent = comment.like_count_comment;
       //댓글 삭제
       const deleteCommentElement = document.createElement('div');
-      deleteCommentElement.classList.add('col', 'text-end');
+      deleteCommentElement.classList.add('col-1', 'text-end');
       // 댓글 삭제 아이콘 이미지 생성 및 설정
       const deleteIconElement = document.createElement('img');
       deleteIconElement.width = 24;
@@ -531,24 +509,15 @@ const fetchComments = async () => {
         deleteCommentElement.appendChild(deleteIconElement);
 
         deleteCommentElement.appendChild(deleteIconElement);
-        const deleteCommentContainer = document.getElementById("delete_comment");
-
+   
 
       }
-      // 생성한 요소들을 date/LikeCountElement에 추가
-      dateElement.appendChild(commentDateElement);
-      // LikeCountElement.appendChild(likeCountElement);
-
-      subdateLikeCountElement.appendChild(dateElement);
-      //subdateLikeCountElement.appendChild(LikeCountElement);
-
 
       // 생성한 요소들을 commentInfoElement에 추가
       commentInfoElement.appendChild(userNickNameElement);
-      commentInfoElement.appendChild(subdateLikeCountElement);
       commentInfoElement.appendChild(deleteCommentElement);
       commentInfoElement.appendChild(userNickNameElement);
-      commentInfoElement.appendChild(subdateLikeCountElement);
+      // commentInfoElement.appendChild(subdateLikeCountElement);
       commentInfoElement.appendChild(deleteCommentElement);
 
       // 댓글 내용 표시
@@ -556,9 +525,18 @@ const fetchComments = async () => {
       commentContentElement.classList.add('fs-4');
       commentContentElement.textContent = comment.comment_content;
 
+      // // 댓글 날짜 표시
+      const commentDateElement = document.createElement('p');
+      commentDateElement.classList.add('fs-5','text-secondary');
+      commentDateElement.textContent = comment.comment_date;
+
+
+
+
       // 생성한 요소들을 commentCardElement에 추가
       commentCardElement.appendChild(commentInfoElement);
       commentCardElement.appendChild(commentContentElement);
+      commentCardElement.appendChild(commentDateElement);
 
       // 댓글 컨테이너에 생성한 댓글 카드를 추가
       commentViewerContainer.appendChild(commentCardElement);
@@ -601,7 +579,6 @@ writeCommentBtn.addEventListener('click', function () {
         .then(response => response.json())
         .then(data => { //data.status === 201
           if (data.status === 201) {
-            console.log(data);
             // 등록 성공한 경우, 등록한 댓글을 프론트엔드에 표시
             // const commentViewer = document.getElementById('comment_content');
             // const commentElement = document.createElement('p');
@@ -695,7 +672,6 @@ const fetchDeletePost = async (post_id, user_email) => {
     const data = await response.json();
 
     if (data.result === true) {
-      console.log(data);
       alert("게시글이 성공적으로 삭제되었습니다.");
       // 삭제 성공 후 추가 작업이 필요하면 이곳에 추가
       window.location.href = `${apiUrl}/showPostListALL/${userInfo.university_url}`;
@@ -711,7 +687,7 @@ const fetchDeletePost = async (post_id, user_email) => {
 
 
 function handleDeleteClick() {
-  const confirmed = window.confirm("삭제하시겠습니까?");
+  const confirmed = window.confirm("게시글을 삭제하시겠습니까?");
 
   if (confirmed) {
     const post_id = postInfo.post_id;
@@ -724,11 +700,23 @@ function handleDeleteClick() {
   }
 }
 
+function handleModifyClick() {
+  const confirmed = window.confirm("게시글을 수정하시겠습니까?");
+
+  if (confirmed) {
+    const post_id = postInfo.post_id;
+    const user_email = userInfo.user_email;
+
+  }
+}
+
 
 
 // 게시글 삭제 아이콘 클릭 이벤트 리스너
 const deletePost = document.getElementById("delete");
+const modifyPost = document.getElementById("modify");
 deletePost.addEventListener("click", handleDeleteClick);
+modifyPost.addEventListener("click",handleModifyClick);
 
 
 
@@ -751,7 +739,6 @@ const fetchDeleteComment = async (user_email, comment_id) => {
     const data = await response.json();
 
     if (data.result === true) {
-      console.log(data);
       alert("댓글이 성공적으로 삭제되었습니다.");
       window.location.href = `${apiUrl}/postviewer/${post_id}`;
     } else {
@@ -770,7 +757,6 @@ function handleDeleteCommentClick(comment_id) {
 
   if (confirmed) {
     const user_email = userInfo.user_email;
-    console.log(user_email)
 
     // // 서버로 댓글 삭제 요청
     fetchDeleteComment(user_email, comment_id);
