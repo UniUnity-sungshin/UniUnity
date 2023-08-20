@@ -98,12 +98,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function (user, done) {
-  console.log('serializeUser', user);
   done(null, user.user_email);
 });
 
 passport.deserializeUser(function (id, done) {
-  console.log('deserializeUser', id);
   done(null, id);
 });
 
@@ -114,7 +112,6 @@ passport.use(new LocalStrategy(
     passwordField: 'pwd'
   },
   async function (username, password, done) {
-    console.log('LocalStrategy', username, password);
 
     let user = new User();
     userInfo = await user.getUserInfo(username);
@@ -150,7 +147,6 @@ app.post('/login', (req, res, next) => {
     }
 
     return req.login(user, loginErr => { // 이 부분 callback 실행
-      //console.log('req.login callback');
       if (loginErr) {
         return res.send(`<script>alert("Authentication failed"); window.location.href = "/login";</script>`);
       }
