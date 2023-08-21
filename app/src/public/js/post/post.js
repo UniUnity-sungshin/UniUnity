@@ -387,19 +387,42 @@ function updatePagination(currentPage) {
   //   lastpage.classList.toggle('disabled');
   // }
   if (dataLength <= 10) { // 총 게시글 10개 이하면 첫 페이지만 있도록
-    currentpage.classList.toggle('disabled');
-    nextpage.classList.toggle('disabled');
+    // currentpage.classList.toggle('disabled');
+    // nextpage.classList.toggle('disabled');
+    newer.style.display = 'none';
+    previouspage.style.display = 'block';
+    currentpage.style.display = 'none';
+    nextpage.style.display = 'none';
+    dots.style.display = 'none';
+    lastpage.style.display = 'none';
+    older.style.display = 'none';
     // console.log("10개 이하");
   }
   else if (dataLength <= 20) { // 20개 이하면 
-      // 세 번째 페이지로 이동하지 못하도록
-      nextpage.classList.toggle('disabled');
+    // 세 번째 페이지로 이동하지 못하도록
+    // nextpage.classList.toggle('disabled');
+    // 세 번째 페이지로 이동하지 못하도록
+    newer.style.display = 'block';
+    previouspage.style.display = 'block';
+    currentpage.style.display = 'block';
+    nextpage.style.display = 'none';
+    lastpage.style.display = 'none';
+    dots.style.display = 'none';
+    older.style.display = 'block';
       // console.log("20개 이하");
+  }
+  else {
+    newer.style.display = 'block';
+    previouspage.style.display = 'block';
+    currentpage.style.display = 'block';
+    nextpage.style.display = 'block';
+    lastpage.style.display = 'block';
+    dots.style.display = 'block';
+    older.style.display = 'block';
   }
   if (currentPage * postsPerPage >= dataLength) { // 게시글 수보다 더 많은 페이지로는 이동하지 못하도록  nextpage.classList.toggle('disabled');
     older.classList.toggle('disabled');
   }
-
   if (currentPage === 1) { // 현재 페이지가 1일 때
     currentpage.classList.remove('active');
     previouspage.classList.add('active');
