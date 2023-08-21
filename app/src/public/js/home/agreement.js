@@ -1,3 +1,6 @@
+const navBar=document.getElementById("navbar");
+navBar.setAttribute("href", `${apiUrl}`);
+
 const agreeToAllCheckbox = document.getElementById("flexCheckDefault");
 const allCheckboxes = document.querySelectorAll(".form-check-input");
 const marketingCheckbox = document.getElementById("flexCheckDefault4");

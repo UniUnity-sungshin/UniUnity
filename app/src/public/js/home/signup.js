@@ -15,6 +15,9 @@ var confirmEmailBtn=document.getElementById("confirmEmailBtn")
 
 var backBtn = document.getElementById("backBtn");
 
+const navBar=document.getElementById("navbar");
+navBar.setAttribute("href", `${apiUrl}`);
+
 //처음으로 버튼
 backBtn.addEventListener('click', () => {
   window.location.href = '/';
