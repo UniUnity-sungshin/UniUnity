@@ -4,6 +4,7 @@
 
 소상공인 상가 정보와 제휴혜택 정보를 제공하고, 대학교와 학생, 인근상권 상인에게 커뮤니티를 제공해요!
 
+![uniunity포스터](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/3c4085bd-bbaa-4a72-bf69-4daf582fc1c8)
 
 
 ## 🎥 UniUnity Demo Video
@@ -20,7 +21,7 @@
 
 
 ## 🛠 Skills 
-
+![33](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/bf900a03-9cbe-42c7-875d-5883516c808c)
 * 사용한 언어/툴 
 
   * front-end : HTML,CSS, Javascript
@@ -29,8 +30,7 @@
 
 
 ## 🔮 Team 
-
-서버시스템구축실습 5팀
+![UniUnity 최종발표](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/eb0171b5-e310-424d-b5aa-9d369e3d96b2)
 
 - Lead: 최애림
 
@@ -116,44 +116,53 @@
 | 소상공인  가게정보  제공    | X                                                            | X                                                            | X                                                            | O                                                            |
 
 ## 🎤 Presentation
+![1](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/75c05df6-80c2-4d3d-a3db-3919aa3ff35c)
+![2](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/371c6816-57e5-46f7-9f73-59a4d55c6185)
+![3](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/8b476d80-eacb-4c86-9a44-5699552d0f64)
+![4](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/cbe7ef09-9ee2-44c4-87ce-c63497941d32)
+![5](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/40a554b9-1d1e-4844-a328-676bf9d83bc9)
+![6](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/113553e1-dfb2-4f73-93d5-65c58d307c87)
+![7](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2535654e-4c3c-4db1-8d01-b5527c6c8c6d)
+![8](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/452ec179-c3b5-417a-b9a3-6e6922ceea5e)
+![9](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/ab453753-f25b-45b5-a8e0-308ba70a3f51)
+![10](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/d9e6a329-b200-48b7-a538-ba17e3865d5b)
+![11](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/4484c61c-45ff-414f-87a3-bf53bfaf1c7c)
+![12](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/65874e95-745d-4075-a3a1-f0fc2b3739b2)
+![13](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/553b7edd-f774-4453-94b3-85a6495c2332)
+![14](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/8b0f577e-32d2-44e3-9582-a7ee594f0611)
+![15](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/5585949a-af4c-403d-8505-ac43e23c88e4)
+![16](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/861b0800-05ce-4c73-99d1-76eb1da3742d)
+![17](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/6c4c4839-547a-466d-bf88-362f780de205)
+![18](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/80377601-ec31-44b6-b3a0-1c896e965a7d)
+![19](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/d12fe05e-56f8-458e-8ffb-fe579be08040)
+![20](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/a31fa74a-12ec-4b15-9b2a-d99a81f281d9)
+![21](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/c6bd22a5-33aa-40af-b245-383e28c1d45c)
+![22](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/233246c8-3e04-4397-91c8-917d9b93d39f)
+![23](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/f33d885e-7f40-4620-9b01-cb389eeea4cf)
+![24](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/d0137805-5927-4944-9b11-5d4ebdbcce70)
+![25](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/f4c40ea0-b670-4c91-8fe5-9c10720cfbbf)
+![26](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/24f973a8-7195-4ad7-af66-553885329720)
+![27](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/11b184ff-de61-487e-a486-e02a0a9942bb)
+![28](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/86ab50c0-afed-4e18-bb42-5aaede872ad4)
+![29](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/5a335197-6a5a-4125-b01a-ecdd06eae5fa)
+![30](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/4fddffcc-93c3-4543-b53c-d94a76ac9bd4)
+![31](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/1359cf90-a817-4f64-97cc-403cdbdbc14f)
+![32](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/8dd8c6c2-7a9e-40c2-b68f-6d1e48ba81e1)
+![33](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/bf900a03-9cbe-42c7-875d-5883516c808c)
+![34](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/d692ea6b-0774-4cf6-b3bc-1c437a879074)
+![35](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/5a4c9823-96f9-468e-bb70-19950f0f8e75)
+![36](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/8e13fe06-17bd-4364-b43b-95c0232615cc)
+![37](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2e07643e-e0b2-40df-ab6c-8a11893c79bd)
+![38](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/807643ae-557b-4731-99f3-208957e8b64c)
+![39](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2f4cb6c9-ae8b-4ade-bf9e-acb0f22ef74d)
+![40](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/adc32dd0-c892-4722-b308-5d01f1cbe3fc)
+![41](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/dd657dfb-1f08-466c-ac7d-b01689eb816f)
+![42](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/6d99d1a3-9e7a-4f6f-93cf-362ec71fa7bb)
+![43](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/6a58623d-cb7c-4c40-8f99-d89292fef1aa)
+![44](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/96e9142d-032e-4ca1-8389-b380b9a3f422)
 
-발표자료 보러가기 : https://www.canva.com/design/DAFkxUfQBFA/DZe_NN65SR_vMIDLbEnM_A/view?utm_content=DAFkxUfQBFA&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel
 
 
 
-![Upload_20230616-0141111024_1](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2aad5aab-5df5-4629-b03c-29ca50cb1fc2)
-![Upload_20230616-0141111024_2](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/15db5125-6373-4806-af48-2e1793dfc638)
-![Upload_20230616-0141111024_3](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/926305fa-8653-4148-a69b-9de32e2ab205)
-![Upload_20230616-0141111024_4](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/1457eee6-d223-449e-a21e-c6623816b440)
-
-![Upload_20230616-0141111024_5](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/7b0ff072-fdec-46e0-bf5c-d58615ab02d5)
-![Upload_20230616-0141111024_6](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/c3c6eb2c-8677-4f3d-96f3-62ed13d0ec41)
-![Upload_20230616-0141111024_7](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/61a45cd4-31b6-4b15-89a2-b7676ba2e9d7)
-![Upload_20230616-0141111024_8](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/b5e19a15-3f41-4cbb-af9b-00e3160049f1)
-![Upload_20230616-0141111024_9](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/d21f2bce-7f15-442a-8cb8-7080faf0df35)
-
-![Upload_20230616-0141111024_10](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/1ad31b7a-e32b-4fac-b839-d07bed95592c)
-![Upload_20230616-0141111024_11](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/83d7efaa-c3b0-427f-b9c4-ac2b330950df)
-![Upload_20230616-0141111024_12](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2d5b0c28-1616-4fba-a7d4-b7a7cad5b4a8)
-![Upload_20230616-0141111024_13](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/cd41edc8-97ab-4edc-90b5-05efc2d56428)
-![Upload_20230616-0141111024_14](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/5b3b7e10-9a99-419c-bc7f-38ce50ce3e13)
-
-![Upload_20230616-0141111024_15](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/bbb5c678-30fd-4bf9-9fd8-f7010a0f9536)
-
-![Upload_20230616-0141111024_16](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/a6ad6305-8df1-4ddb-bbf5-14bd934ae3c0)
-![Upload_20230616-0141111024_17](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/3fa964d1-a463-4b75-ba0b-c65b75ab9fdc)
-![Upload_20230616-0141111024_18](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/342751b2-c0ad-4bd0-826c-b3f586188330)
-![Upload_20230616-0141111024_19](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/2264d8d4-d4a8-4d4c-83f3-6e2b9564d899)
 
 
-
-![Upload_20230616-0141111024_20](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/c6ae590a-7c26-447d-8007-5dd59bd1b80d)
-![Upload_20230616-0141111024_21](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/afc7a6f0-6710-46bc-b3ed-014404acf604)
-![Upload_20230616-0141111024_22](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/17e8db75-83c2-4a42-8ad9-cb55840d99d3)
-![Upload_20230616-0141111024_23](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/06368605-a8d2-4728-90aa-6e41b47ed6f0)
-![Upload_20230616-0141111024_24](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/ef7bb9cf-1711-4dac-ba15-950b7dea2a7b)
-
-![Upload_20230616-0141111024_25](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/cdd653c4-ace3-4295-81dc-e206aeccc9fa)
-![Upload_20230616-0141111024_26](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/4fc8a951-fe28-484e-918a-18d367814797)
-![Upload_20230616-0141111024_27](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/239faaa9-2d6c-4932-a73f-c1c56338b5a6)
-![Upload_20230616-0141111024_28](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/ff6fd88f-ce92-4d71-9ced-607f9cc1609a)
