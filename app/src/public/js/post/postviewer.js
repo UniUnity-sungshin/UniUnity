@@ -374,6 +374,7 @@ const loadPostData = async () => {
 window.addEventListener('DOMContentLoaded', async function () {
   await loadloginData();
   await loadPostData();
+
   fetchComments();//댓글 보기
   await showDeleteButtonIfNeeded();
 });
@@ -493,14 +494,19 @@ const fetchComments = async () => {
 
 
 writeCommentBtn.addEventListener('click', function () {
-
+  var commentContent = document.querySelector('.comment-form textarea').value;
   if (userInfo.loginStatus === false) {
     alert("로그인 후에 게시글을 작성할 수 있습니다.");
   }
+  else if(userInfo.university_id!=postInfo.university_id){
+    alert("해당 대학교 재학생과 대학교 인근 상인만 댓글을 작성할 수 있습니다. ");
+  }
+  
   else {
-    var commentContent = document.querySelector('.comment-form textarea').value;
-
-    if (commentContent.trim().length > 0) {
+    if(commentContent.trim().length ==0){
+      alert("댓글을 입력해주세요");
+    }
+    else if (commentContent.trim().length > 0) {
       // 댓글 등록 API 호출
       fetch(`${apiUrl}/uploadComment/postviewer`, {
         method: 'POST',
@@ -527,7 +533,7 @@ writeCommentBtn.addEventListener('click', function () {
             fetchComments();
             document.querySelector('.comment-form textarea').value = "";
             
-
+          
 
           } else {
             // 등록 실패한 경우, 오류 메시지를 표시하거나 다른 처리를 수행

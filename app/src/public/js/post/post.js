@@ -13,7 +13,7 @@ const loadloginData = () => {
 //로그인(로그아웃), 회원가입(마이페이지)버튼
 const loginStatusBtn = document.getElementById("loginStatusBtn");
 const signUpBtn = document.getElementById("signUpBtn");
-const backBtn =document.getElementById("backBtn");
+const backBtn = document.getElementById("backBtn");
 const navBar = document.getElementById("navbar-brand");
 
 const setLoginHeader = (res) => {
@@ -39,11 +39,18 @@ const brandNav = document.getElementById('navbar-brand');
 
 writePostBtn.addEventListener('click', function () {
   if (userInfo.loginStatus) {
-    // 경로를 변경하고자 하는 URL로 설정합니다.
-    var newLocation = `${apiUrl}/postform/${userInfo.university_url}`;
 
-    // 현재 창의 경로를 변경합니다.
-    window.location.href = newLocation;
+    if (userInfo.university_url != university_url) {
+      alert("해당 대학교 재학생과 인근 상권 상인만 게시글 작성이 가능합니다.");
+    }
+    else {
+      // 경로를 변경하고자 하는 URL로 설정합니다.
+      var newLocation = `${apiUrl}/postform/${userInfo.university_url}`;
+
+      // 현재 창의 경로를 변경합니다.
+      window.location.href = newLocation;
+    }
+
   } else {
     alert("로그인 후에 게시글을 작성할 수 있습니다.");
   }
@@ -151,7 +158,7 @@ const fetchpostAllData = async () => {
     }
   }
   const postsToShow = data.slice(startIndex, endIndex);
-  postsToShowLength = postsToShow.length; 
+  postsToShowLength = postsToShow.length;
   const cardContainer = document.getElementById("card_container");
 
   if (!cardContainer) {
@@ -409,7 +416,7 @@ function updatePagination(currentPage) {
     lastpage.style.display = 'none';
     dots.style.display = 'none';
     older.style.display = 'block';
-      // console.log("20개 이하");
+    // console.log("20개 이하");
   }
   else {
     newer.style.display = 'block';
@@ -435,8 +442,8 @@ function updatePagination(currentPage) {
     currentpage.classList.remove('active');
     nextpage.classList.add('active');
     previouspage.classList.remove('active');
-    previouspage.firstChild.innerText = quotient-2;
-    currentpage.firstChild.innerText = quotient-1;
+    previouspage.firstChild.innerText = quotient - 2;
+    currentpage.firstChild.innerText = quotient - 1;
     nextpage.firstChild.innerText = quotient;
   }
   else { // 그 외
@@ -552,21 +559,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //조회수증가코드!!
 // read more버튼 누르면 조회수 1 증가 -> db에 요청
-const increaseViewCount= async(post_id)=>{
+const increaseViewCount = async (post_id) => {
   try {
     const url = `${apiUrl}/increaseViewCount/${post_id}`;
     await fetch(url)
-        .then((res) => res.json())
-        .then(res => {
-            if(res.result==true){
-                //조회수 증가 성공
-            }else{
-              //조회수 증가 실패
-            }
-        })
-      } catch (error) {
-        console.error('조회수 증가 요청 중 오류 발생', error);
-       
-    }
+      .then((res) => res.json())
+      .then(res => {
+        if (res.result == true) {
+          //조회수 증가 성공
+        } else {
+          //조회수 증가 실패
+        }
+      })
+  } catch (error) {
+    console.error('조회수 증가 요청 중 오류 발생', error);
+
+  }
 }
-   
+
