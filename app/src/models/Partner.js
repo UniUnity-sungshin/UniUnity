@@ -68,6 +68,5 @@ class Partner{
         }
     }
 };
-// TEST
 
 module.exports = Partner;
