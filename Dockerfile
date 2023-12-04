@@ -17,4 +17,4 @@ COPY ./app /app
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "./app/bin/www.js"]
+CMD ["node", "./bin/www.js"]
