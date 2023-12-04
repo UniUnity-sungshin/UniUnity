@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uniunity
+  labels:
+    app: uniunity
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: uniunity
+  template:
+    metadata:
+      labels:
+        app: uniunity
+        tier: uniunity
+    spec:
+      containers:
+      - name: uniunity
+        image: choiaerim/uniunity-image:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: uniunity
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uniunity
+  labels:
+    app: uniunity
+spec:
+  ports:
+  - port: 3000
+    targetPort: 5000
+  selector:
+    app: uniunity
+    tier: uniunity
+  type: LoadBalancer
