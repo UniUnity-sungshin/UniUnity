@@ -68,5 +68,6 @@ class Partner{
         }
     }
 };
+/.
 
 module.exports = Partner;
