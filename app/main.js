@@ -4,7 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 // const Multer=require('multer');
-const FirebaseStorage = require('multer-firebase-storage');
+// const FirebaseStorage = require('multer-firebase-storage');
 
 const app = express();
 
@@ -46,47 +46,47 @@ app.use(session({
   store: new FileStore()
 }))
 
-const Multer = require('multer');
-const { initializeApp } = require('firebase/app');
-const { getStorage, ref, getDownloadURL } = require('firebase/storage');
+// const Multer = require('multer');
+// const { initializeApp } = require('firebase/app');
+// const { getStorage, ref, getDownloadURL } = require('firebase/storage');
 
-const { firebaseConfig ,credentials } = require("../app/config/firebase_config")
-// Firebase 초기화
-initializeApp(firebaseConfig);
+// const { firebaseConfig ,credentials } = require("../app/config/firebase_config")
+// // Firebase 초기화
+// initializeApp(firebaseConfig);
 
-// Firebase Storage 초기화
-const storage = getStorage();
+// // Firebase Storage 초기화
+// const storage = getStorage();
 
-//사진 업로드 
-const multer = Multer({
-  storage: FirebaseStorage({
-    bucketName: firebaseConfig.storageBucket,
-    credentials: {
-      clientEmail: credentials.clientEmail,
-      privateKey: credentials.privateKey,
-      projectId: firebaseConfig.projectId
-    }
-  })
-})
+// //사진 업로드 
+// const multer = Multer({
+//   storage: FirebaseStorage({
+//     bucketName: firebaseConfig.storageBucket,
+//     credentials: {
+//       clientEmail: credentials.clientEmail,
+//       privateKey: credentials.privateKey,
+//       projectId: firebaseConfig.projectId
+//     }
+//   })
+// })
 
-app.post('/file', multer.single('file'), async (req, res) => {
-  try {
-    // 업로드할 파일 정보
-    const file = req.file;
+// app.post('/file', multer.single('file'), async (req, res) => {
+//   try {
+//     // 업로드할 파일 정보
+//     const file = req.file;
 
-    // Firebase Storage에 파일 업로드
-    const storageRef = ref(storage, file.originalname);
+//     // Firebase Storage에 파일 업로드
+//     const storageRef = ref(storage, file.originalname);
 
-    // 파일의 공개적인 액세스 URL 생성
-    const fileUrl = await getDownloadURL(storageRef);
+//     // 파일의 공개적인 액세스 URL 생성
+//     const fileUrl = await getDownloadURL(storageRef);
 
-    // 업로드 완료 메시지와 업로드한 파일의 URL 반환
-    res.status(200).json({ success: true, fileUrl });
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    res.status(500).json({ error: 'Failed to upload file' });
-  }
-})
+//     // 업로드 완료 메시지와 업로드한 파일의 URL 반환
+//     res.status(200).json({ success: true, fileUrl });
+//   } catch (error) {
+//     console.error('Error uploading file:', error);
+//     res.status(500).json({ error: 'Failed to upload file' });
+//   }
+// })
 
 //passport는 세션을 내부적으로 사용하기 때문에 express-session을 활성화 시키는 코드 다음에 등장해야한다.!!
 
