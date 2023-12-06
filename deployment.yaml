@@ -24,32 +24,6 @@ spec:
         ports:
         - containerPort: 5000
           name: uniunity
-        env:
-        - name: DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_HOST
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_USER
-        - name: DB_PW
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_PW
-        - name: DB_PORT
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_PORT
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: db-secret
-              key: DB_NAME
 ---
 apiVersion: v1
 kind: Service
