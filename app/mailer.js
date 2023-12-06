@@ -96,19 +96,17 @@ function getNewToken(oAuth2Client, callback, emailAddress) {
     });
   });
 }
+const fs = require('fs');
+const mailCredentials = require('../app/config/mail_credentials');
 
 async function sendEmailWithAuthorization(emailAddress) {
   return new Promise((resolve, reject) => {
-    fs.readFile('../app/config/mail_credentials.json', (err, content) => {
-      if (err) {
-        console.log('Error loading client secret file:', err);
-        reject(err);
-      }
-      authorize(JSON.parse(content), sendMail, emailAddress)
-        .then((authentication_code) => resolve(authentication_code))
-        .catch((err) => reject(err));
-    });
+    // Assuming mail_credentials.js exports an object
+    authorize(mailCredentials, sendMail, emailAddress)
+      .then((authentication_code) => resolve(authentication_code))
+      .catch((err) => reject(err));
   });
 }
+
 
 module.exports=sendEmailWithAuthorization;
