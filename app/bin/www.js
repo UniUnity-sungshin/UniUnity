@@ -1,9 +1,10 @@
 "use strict"
 
 const app = require("../main");
-const PORT = 80;
+// Constants
+const PORT = process.env.PORT || 80;
 
-app.get('/test', (req,res)=>{
+app.get('/', (req,res)=>{
     console.log('request test');
     res.send("TEST");
 });
