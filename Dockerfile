@@ -5,10 +5,16 @@ FROM node:14
 WORKDIR /UniUnity
 
 # Copy package.json and package-lock.json to the working directory
-COPY /app/package*.json /app/
+COPY app/package*.json /UniUnity/app/
+
+# Change the working directory to /UniUnity/app
+WORKDIR /UniUnity/app
 
 # Install dependencies
 RUN npm install
+
+# Change the working directory back to /UniUnity
+WORKDIR /UniUnity
 
 # Copy the application code to the working directory
 COPY / /UniUnity
@@ -18,4 +24,3 @@ EXPOSE 5000
 
 # Command to run the application
 CMD ["node", "./app/bin/www.js"]
-
