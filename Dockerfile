@@ -2,20 +2,20 @@
 FROM node:14
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /UniUnity
 
 # Copy package.json and package-lock.json to the working directory
-COPY app/package*.json /app/
+COPY UniUnity/app/package*.json UniUnity/app/
 
 # Install dependencies
 RUN npm install
 
 # Copy the application code to the working directory
-COPY app /app
+COPY / /UniUnity
 
 # Expose the port that the application will run on
 EXPOSE 5000
 
 # Command to run the application
-CMD ["node", "./bin/www.js"]
+CMD ["node", "./app/bin/www.js"]
 
