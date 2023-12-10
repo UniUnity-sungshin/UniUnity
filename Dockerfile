@@ -19,10 +19,11 @@ WORKDIR /UniUnity
 # Copy the application code to the working directory
 COPY / /UniUnity
 
+WORKDIR /UniUnity/app
 
 ENV PORT 5000
 # Expose the port that the application will run on
 EXPOSE 5000
 
 # Command to run the application
-CMD ["node", "./app/bin/www.js"]
+CMD ["node", "./bin/www.js"]
