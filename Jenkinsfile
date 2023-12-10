@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("choiaerim/uniunity:${env.BUILD_ID}")
+                    myapp = docker.build("choiaerim/uniunity-image:${env.BUILD_ID}")
                 }
             }
         }
