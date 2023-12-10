@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: uniunity
-        image: choiaerim/uniunity:latest
+        image: choiaerim/uniunity-image:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
