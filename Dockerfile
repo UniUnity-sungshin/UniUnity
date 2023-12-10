@@ -5,7 +5,7 @@ FROM node:14
 WORKDIR /UniUnity
 
 # Copy package.json and package-lock.json to the working directory
-COPY UniUnity/app/package*.json UniUnity/app/
+COPY /app/package*.json /app/
 
 # Install dependencies
 RUN npm install
