@@ -18,7 +18,7 @@ WORKDIR /UniUnity
 
 # Copy the application code to the working directory
 COPY / /UniUnity
-
+ENV PORT 5000
 # Expose the port that the application will run on
 EXPOSE 5000
 
