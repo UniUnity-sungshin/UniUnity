@@ -9,5 +9,5 @@ app.get('/test', (req,res)=>{
 });
 
 app.listen(PORT, () =>{
-    console.log("서버 가동")
+    console.log("서버 가동중입니다.")
 });
