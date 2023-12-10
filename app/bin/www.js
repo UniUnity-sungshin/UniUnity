@@ -1,13 +1,13 @@
-"use strict"
+const express = require('express');
 
-const app = require("../main");
+// Constants
 const PORT = 80;
 
-app.get('/test', (req,res)=>{
-    console.log('request test');
-    res.send("TEST");
+// App
+const app = express();
+app.get('/', function (req, res) {
+  res.send('Hello world ~aerim~~~!!!!!!!\n');
 });
 
-app.listen(PORT, () =>{
-    console.log("서버 가동중입니다.")
-});
+app.listen(PORT);
+console.log('Running on http://localhost:' + PORT);
