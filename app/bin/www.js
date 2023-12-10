@@ -1,7 +1,7 @@
 "use strict"
 
 const app = require("../main");
-const PORT = 80;
+const PORT = 3000;
 
 app.get('/test', (req,res)=>{
     console.log('request test');
