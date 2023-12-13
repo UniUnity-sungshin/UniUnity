@@ -44,7 +44,5 @@ async function getDatabasePool() {
     throw err; // 호출자에게 에러 전파
   }
 }
-
-module.exports = {
-  getDatabasePool,
-};
+const pool=getDatabasePool()
+module.exports = pool;
