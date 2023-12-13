@@ -9,6 +9,7 @@ const namespace = 'default';  // 네임스페이스에 주의
 
 // 시크릿 가져오기
 k8sApi.readNamespacedSecret(secretName, namespace).then((response) => {
+  console.log('Secret:', response.body);
   // 환경 변수 설정
   const dbHost = Buffer.from(response.body.data.DB_HOST, 'base64').toString('utf-8');
   const dbPort = Buffer.from(response.body.data.DB_PORT, 'base64').toString('utf-8');
@@ -32,7 +33,8 @@ k8sApi.readNamespacedSecret(secretName, namespace).then((response) => {
     waitForConnections: false
   });
 
-  console.log(dbHost,dbName,dbUser);  // 이제는 변수를 직접 사용
+  console.log(dbHost,dbName,dbUser,dbPassword,dbPort);  // 이제는 변수를 직접 사용
+  console.log('MySQL Pool:', pool);
   module.exports = pool;
 }).catch((err) => {
   console.error('Error reading secret:', err);
