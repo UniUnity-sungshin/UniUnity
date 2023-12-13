@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@kubernetes/client-node": "^0.20.0",
     "auth": "^0.0.9",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
