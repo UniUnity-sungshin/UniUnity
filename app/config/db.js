@@ -5,7 +5,7 @@ kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const secretName = 'db-secret';
-const namespace = 'gke';  // 네임스페이스에 주의
+const namespace = 'default';  // 네임스페이스에 주의
 
 // 시크릿 가져오기
 k8sApi.readNamespacedSecret(secretName, namespace).then((response) => {

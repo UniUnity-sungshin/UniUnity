@@ -25,10 +25,6 @@ spec:
         - containerPort: 5000
           name: uniunity
         env:
-        - name: NODE_ENV
-          value: production
-        - name: NPM_CONFIG_LOGLEVEL
-          value: warn
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
@@ -70,3 +66,28 @@ spec:
     app: uniunity
     tier: uniunity
   type: LoadBalancer
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "watch"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: read-secrets-binding
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default  # 여기에 해당 서비스 계정이 속한 네임스페이스를 지정하세요.
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
