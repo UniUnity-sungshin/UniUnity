@@ -25,6 +25,10 @@ spec:
         - containerPort: 5000
           name: uniunity
         env:
+        - name: NODE_ENV
+          value: production
+        - name: NPM_CONFIG_LOGLEVEL
+          value: warn
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
@@ -50,6 +54,7 @@ spec:
             secretKeyRef:
               name: db-secret
               key: DB_NAME
+
 ---
 apiVersion: v1
 kind: Service
