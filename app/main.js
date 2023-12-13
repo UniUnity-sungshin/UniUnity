@@ -45,6 +45,13 @@ app.use(session({
   saveUninitialized: sessionConfig.saveUninitialized,
   store: new FileStore()
 }))
+const { pool } = require("./config/db");
+
+app.get('/test', (req,res)=>{
+    console.log(`${pool}`);
+    res.send(`${pool}`);
+});
+
 
 // const Multer = require('multer');
 // const { initializeApp } = require('firebase/app');
