@@ -11,4 +11,5 @@ app.get('/', (req,res)=>{
 
 app.listen(PORT, () =>{
     console.log("서버 가동test")
+    console.log(`포트번호:${PORT}`)
 });
