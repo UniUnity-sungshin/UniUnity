@@ -40,7 +40,7 @@ async function initializeDatabasePool(){
   
  
     // MySQL 연결 풀 생성
-    const pool = await mysql.createPool({
+    const initPool = mysql.createPool({
       host: dbInfo.dbHost,
       user: dbInfo.dbUser,
       port: dbInfo.dbPort,
@@ -53,13 +53,17 @@ async function initializeDatabasePool(){
       waitForConnections: false
     });
 
-  console.log('db.js파일 Pool:', pool);
-  module.exports=pool;
+    console.log('initializeDatabasePool:', initPool);
+    return initPool;
   }catch(err){
   console.error('Error initializing database pool:', error);
   }
 }
-initializeDatabasePool();
+async function setDatabasePool(){
+  const pool= await initializeDatabasePool();
+  console.log('setDatabase Pool:', pool);
+  return pool;
+}
 
 
-
+module.exports=setDatabasePool();
