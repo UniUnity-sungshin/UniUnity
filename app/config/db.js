@@ -38,19 +38,21 @@ async function initializeDatabasePool(){
     const mysql = require('mysql2/promise');  
     // MySQL 연결 풀 생성
   
-    const pool = mysql.createPool({
-      host:dbInfo.dbHost,
-          user:dbInfo.user,
-          port:dbInfo.port,
-          database:dbInfo.database,
-          password:dbInfo.password,
-          waitForConnections:true,
-          insecureAuth:true,
-          dateStrings : "date",
-          connectionLimit: 1000,
-          waitForConnections: false
-          
-  });
+ 
+    // MySQL 연결 풀 생성
+    const pool = await mysql.createPool({
+      host: dbInfo.dbHost,
+      user: dbInfo.dbUser,
+      port: dbInfo.dbPort,
+      database: dbInfo.dbName,
+      password: dbInfo.dbPw,
+      waitForConnections: true,
+      insecureAuth: true,
+      dateStrings: "date",
+      connectionLimit: 1000,
+      waitForConnections: false
+    });
+
   console.log('db.js파일 Pool:', pool);
   module.exports=pool;
   }catch(err){
