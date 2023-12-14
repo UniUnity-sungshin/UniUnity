@@ -1,5 +1,5 @@
 "use strict"
-const { setDatabasePool } = require("../../config/db");
+const { pool } = require("../../config/db");
 class UniversityStorage {
 
     // university_id받아 university_name반환하기
@@ -46,7 +46,6 @@ class UniversityStorage {
 
     static getUniversityNameList() {
         return new Promise(async (resolve, reject) => {
-            const pool= await setDatabasePool();
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
