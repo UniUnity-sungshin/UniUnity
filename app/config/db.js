@@ -1,4 +1,4 @@
-// dbConnector.js
+// db.js
 const k8s = require('@kubernetes/client-node');
 
 async function getDatabasePool() {
@@ -71,4 +71,4 @@ async function setDatabasePool(){
 }
 
 
-module.exports=setDatabasePool();
+module.exports=setDatabasePool;
