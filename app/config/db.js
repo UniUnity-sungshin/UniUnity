@@ -56,13 +56,18 @@ async function initializeDatabasePool(){
     console.log('initializeDatabasePool:', initPool);
     return initPool;
   }catch(err){
-  console.error('Error initializing database pool:', error);
+  console.error('Error initializing database pool:', err);
   }
 }
 async function setDatabasePool(){
-  const pool= await initializeDatabasePool();
-  console.log('setDatabase Pool:', pool);
-  return pool;
+  try{
+    const pool= await initializeDatabasePool();
+    console.log('setDatabase Pool:', pool);
+    return pool;
+  }catch(err){
+    console.error('Error set database pool:', err);
+  }
+  
 }
 
 
