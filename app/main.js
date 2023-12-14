@@ -45,7 +45,7 @@ app.use(session({
   saveUninitialized: sessionConfig.saveUninitialized,
   store: new FileStore()
 }))
-const { pool } = require("./config/db");
+const pool= require("./config/db");
 
 app.get('/test', (req,res)=>{
     console.log(`${pool}`);

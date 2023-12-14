@@ -37,12 +37,15 @@ async function getDatabasePool() {
     });
 
     console.log(dbHost, dbName, dbUser, dbPassword, dbPort);  // 이제는 변수를 직접 사용
-    console.log('MySQL Pool:', pool);
+    console.log('db.js파일 Pool:', pool);
     return pool;
   } catch (err) {
     console.error('Error reading secret:', err);
     throw err; // 호출자에게 에러 전파
   }
 }
-const pool=getDatabasePool()
+const pool= await getDatabasePool()
+
+console.log('db.js파일: getDatabasePool:', pool);
+
 module.exports = pool;
