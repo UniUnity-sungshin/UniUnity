@@ -30,9 +30,9 @@ pipeline {
             }
         }        
         stage('Deploy to GKE') {
-			 expression {
-            			currentBuild.branch == 'main' || currentBuild.branch == 'test'
-        		}
+			  expression { 
+				  return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop' 
+			  }
             steps{   
                 sh "sed -i 's/uniunity:latest/uniunity:${env.BUILD_ID}/g' deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
