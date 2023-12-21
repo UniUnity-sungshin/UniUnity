@@ -31,7 +31,7 @@ pipeline {
         }        
         stage('Deploy to GKE') {
 			  expression { 
-				  return env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop' 
+				branch 'test' 
 			  }
             steps{   
                 sh "sed -i 's/uniunity:latest/uniunity:${env.BUILD_ID}/g' deployment.yaml"
