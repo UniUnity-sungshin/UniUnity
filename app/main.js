@@ -47,11 +47,6 @@ app.use(session({
 }))
 const pool= require("./config/db");
 
-app.get('/test', (req,res)=>{
-    console.log(`${pool}`);
-    res.send(`${pool}`);
-});
-
 
 // const Multer = require('multer');
 // const { initializeApp } = require('firebase/app');
@@ -59,6 +54,7 @@ app.get('/test', (req,res)=>{
 
 // const { firebaseConfig ,credentials } = require("../app/config/firebase_config")
 // // Firebase 초기화
+
 // initializeApp(firebaseConfig);
 
 // // Firebase Storage 초기화
