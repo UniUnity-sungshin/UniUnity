@@ -5,6 +5,7 @@ class UniversityStorage {
     // university_id받아 university_name반환하기
     static getUnversityName(university_id) {
         return new Promise(async (resolve, reject) => {
+            
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
@@ -45,7 +46,6 @@ class UniversityStorage {
 
     static getUniversityNameList() {
         return new Promise(async (resolve, reject) => {
-
             pool.getConnection((err, connection) => {
                 if (err) {
                     console.error('MySQL 연결 오류: ', err);
