@@ -4,7 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 // const Multer=require('multer');
-const FirebaseStorage = require('multer-firebase-storage');
+// const FirebaseStorage = require('multer-firebase-storage');
 
 const app = express();
 
@@ -45,13 +45,16 @@ app.use(session({
   saveUninitialized: sessionConfig.saveUninitialized,
   store: new FileStore()
 }))
+const pool= require("./config/db");
 
-const Multer = require('multer');
-const { initializeApp } = require('firebase/app');
-const { getStorage, ref, getDownloadURL } = require('firebase/storage');
 
-const { firebaseConfig ,credentials } = require("../app/config/firebase_config")
-// Firebase 초기화
+// const Multer = require('multer');
+// const { initializeApp } = require('firebase/app');
+// const { getStorage, ref, getDownloadURL } = require('firebase/storage');
+
+// const { firebaseConfig ,credentials } = require("../app/config/firebase_config")
+// // Firebase 초기화
+
 // initializeApp(firebaseConfig);
 
 // // Firebase Storage 초기화

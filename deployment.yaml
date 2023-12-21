@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uniunity
+  labels:
+    app: uniunity
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: uniunity
+  template:
+    metadata:
+      labels:
+        app: uniunity
+        tier: uniunity
+    spec:
+      containers:
+      - name: uniunity
+        image: choiaerim/uniunity:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: uniunity
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_USER
+        - name: DB_PW
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PW
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_PORT
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: DB_NAME
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uniunity
+  labels:
+    app: uniunity
+spec:
+  ports:
+  - port: 80
+    targetPort: 5000
+  selector:
+    app: uniunity
+    tier: uniunity
+  type: LoadBalancer
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "watch"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: read-secrets-binding
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default  # 여기에 해당 서비스 계정이 속한 네임스페이스를 지정하세요.
+roleRef:
+  kind: ClusterRole
+  name: secret-reader
+  apiGroup: rbac.authorization.k8s.io
