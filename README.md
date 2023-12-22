@@ -22,12 +22,14 @@
 
 ## 🛠 Skills 
 ![33](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/bf900a03-9cbe-42c7-875d-5883516c808c)
+![48](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/10cffb66-397e-47bf-9af8-68324f51bef3)
 * 사용한 언어/툴 
 
   * front-end : HTML,CSS, Javascript
   * back-end :  node-js/visual studio code, mysql, firebase-storage, Google Cloud Platform
-
-
+  * CI/CD : Jenkins, Docker, Kubernetes
+  
+* CI/CD구축 발표자료 보러가기 : https://github.com/UniUnity-sungshin/UniUnity-CI-CD
 
 ## 🔮 Team 
 ![UniUnity 최종발표](https://github.com/UniUnity-sungshin/UniUnity/assets/80438964/eb0171b5-e310-424d-b5aa-9d369e3d96b2)
