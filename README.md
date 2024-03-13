@@ -16,7 +16,7 @@
 ## 📑 UniUnity Manual
 
 서비스 매뉴얼 보러가기 : https://drive.google.com/file/d/1VwAK1Bhoa43EM2uQWBX-gt_fz0IsjMLf/view?usp=sharing <br>
-서비스 사용해보기 : http://uniunity.store
+서비스 사용해보기 : http://uniunity.store(🛑서버 비용 문제로 중단)
 
 
 
